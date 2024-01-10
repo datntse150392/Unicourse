@@ -2,8 +2,8 @@
 name: Bug report
 about: "[BUG] - ..."
 title: "[BUG]"
-labels: bug
-assignees: ''
+labels: bug, enhancement
+assignees: datntse150392
 
 ---
 
