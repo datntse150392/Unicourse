@@ -1,2 +1,3 @@
-// Setting environment deploy web
-export const environment = {};
+export const environment = {
+  // Chứ biến môi trường ở local
+};

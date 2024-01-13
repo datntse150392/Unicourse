@@ -1,18 +1,51 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DetailComponent } from '../client/pages';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
+import { BadgeModule } from 'primeng/badge';
+import { PaginatorModule } from 'primeng/paginator';
+import { CarouselModule } from 'primeng/carousel';
+import { RatingModule } from 'primeng/rating';
+import { AvatarModule } from 'primeng/avatar';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-  declarations: [
-    // HeaderComponent, FooterComponent, SidebarComponent
-  ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     RouterModule,
-    HttpClientModule
+    ButtonModule,
+    BadgeModule,
+    PaginatorModule,
+    CarouselModule,
+    RatingModule,
+    AvatarModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    InputTextModule,
   ],
-  exports: [CommonModule, RouterModule, HttpClientModule]
+  declarations: [],
+  exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule,
+    ButtonModule,
+    BadgeModule,
+    PaginatorModule,
+    CarouselModule,
+    RatingModule,
+    AvatarModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    InputTextModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

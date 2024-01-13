@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-
+import { DefaultComponent } from './shared/layout/default/default.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 export const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./client/client.module').then((m) => m.ClientModule),
+    component: DefaultComponent,
+    children: [{ path: '', component: LandingPageComponent }],
   },
 ];
