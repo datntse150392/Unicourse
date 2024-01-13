@@ -2,17 +2,25 @@
   margin: 0% 15%;
 
   .container {
+    height: 5rem;
     .nav-left {
       .logo {
         width: 15rem;
         margin-right: 5%;
       }
       .nav-items {
+        width: 100%;
         .nav-item {
           width: 100%;
           color: #1d1d1d;
           font-weight: bold;
           cursor: pointer;
+          &:hover {
+            color: #fff;
+            border-radius: 5px;
+            padding: 3% 0%;
+            background-color: #94a3b8;
+          }
         }
       }
     }
