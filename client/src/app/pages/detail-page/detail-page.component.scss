@@ -1,0 +1,20 @@
+.container {
+    background-color: #f9f9f9;
+    .header-background {
+        background-color: #FFFFFF;
+        margin-bottom: 2rem;
+    }
+    .body-container {
+        width: 80%;
+        margin: auto;
+        .p-card-content {
+            padding: 0;
+        }
+        .card-container {
+            padding: 0;
+            .card {
+                margin: 0;
+            }
+        }
+    }
+}

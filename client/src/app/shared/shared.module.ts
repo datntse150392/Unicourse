@@ -12,6 +12,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
+    CardModule,
   ],
   declarations: [],
   exports: [
@@ -46,6 +48,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputGroupAddonModule,
     InputGroupModule,
     InputTextModule,
+    CardModule,
   ],
 })
 export class SharedModule {}
