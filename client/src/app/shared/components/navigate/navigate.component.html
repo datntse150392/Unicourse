@@ -18,8 +18,10 @@
         value="2"
       ></i>
       <p-avatar
+        (click)="openDialogSignIn()"
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
         styleClass="mr-2"
+        [ngStyle]="{ cursor: 'pointer' }"
         size="normal"
         shape="circle"
       ></p-avatar>
