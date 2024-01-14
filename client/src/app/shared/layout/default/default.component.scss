@@ -9,7 +9,8 @@
       cursor: pointer;
     }
     img {
-      width: 90px;
+      margin-top: 2rem;
+      width: 10rem;
     }
     p {
       font-size: 25px;
@@ -18,14 +19,14 @@
       margin: 0;
     }
     span {
-      width: 80%;
+      width: 70%;
       font-size: 14px;
       color: #ff0001;
       font-weight: 200;
       margin: 4% 0%;
     }
     .list-buttons-icon {
-      width: 85%;
+      width: 75%;
       .button-icon {
         width: 100%;
         p {
@@ -64,7 +65,8 @@
       cursor: pointer;
     }
     img {
-      width: 90px;
+      margin-top: 2rem;
+      width: 10rem;
     }
     p {
       font-size: 25px;
@@ -73,14 +75,14 @@
       margin: 0;
     }
     span {
-      width: 80%;
+      width: 70%;
       font-size: 14px;
       color: #ff0001;
       font-weight: 200;
       margin: 4% 0%;
     }
     .list-buttons-icon {
-      width: 85%;
+      width: 75%;
       .button-icon {
         width: 100%;
         p {
@@ -91,6 +93,21 @@
         border-radius: 50px;
         border: var(--1, 2px) solid #dce0e3;
         background: var(--Base-White, #fff);
+      }
+      .button-icon-sign-up {
+        width: 100%;
+        p {
+          font-size: 20px;
+          font-weight: 500;
+          width: 100%;
+        }
+        border-radius: 50px;
+        border: var(--1, 2px) solid #dce0e3;
+        background: var(--Base-White, #94e7f9);
+      }
+      .fullName {
+        width: 100%;
+        margin-bottom: 1.5rem;
       }
     }
     .sign-in-footer {
