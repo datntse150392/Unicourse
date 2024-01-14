@@ -1,0 +1,129 @@
+.card {
+  .sign-in {
+    .close-btn {
+      position: absolute;
+      top: 1%;
+      right: 1%;
+      background: var(--Grey-Medium, #e5e5e5);
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    img {
+      margin-top: 2rem;
+      width: 10rem;
+    }
+    p {
+      font-size: 25px;
+      font-weight: bold;
+      color: #000;
+      margin: 0;
+    }
+    span {
+      width: 70%;
+      font-size: 14px;
+      color: #ff0001;
+      font-weight: 200;
+      margin: 4% 0%;
+    }
+    .list-buttons-icon {
+      width: 75%;
+      .button-icon {
+        width: 100%;
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          width: 100%;
+        }
+        border-radius: 50px;
+        border: var(--1, 2px) solid #dce0e3;
+        background: var(--Base-White, #fff);
+      }
+    }
+    .sign-in-footer {
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        strong {
+          color: #ff0001;
+        }
+        margin-bottom: 1rem;
+      }
+      span {
+        font-size: 12px;
+        font-weight: 400;
+        color: #000;
+      }
+    }
+  }
+  .sign-up {
+    .close-btn {
+      position: absolute;
+      top: 1%;
+      right: 1%;
+      background: var(--Grey-Medium, #e5e5e5);
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    img {
+      margin-top: 2rem;
+      width: 10rem;
+    }
+    p {
+      font-size: 25px;
+      font-weight: bold;
+      color: #000;
+      margin: 0;
+    }
+    span {
+      width: 70%;
+      font-size: 14px;
+      color: #ff0001;
+      font-weight: 200;
+      margin: 4% 0%;
+    }
+    .list-buttons-icon {
+      width: 75%;
+      .button-icon {
+        width: 100%;
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          width: 100%;
+        }
+        border-radius: 50px;
+        border: var(--1, 2px) solid #dce0e3;
+        background: var(--Base-White, #fff);
+      }
+      .button-icon-sign-up {
+        width: 100%;
+        p {
+          font-size: 20px;
+          font-weight: 500;
+          width: 100%;
+        }
+        border-radius: 50px;
+        border: var(--1, 2px) solid #dce0e3;
+        background: var(--Base-White, #94e7f9);
+      }
+      .fullName {
+        width: 100%;
+        margin-bottom: 1.5rem;
+      }
+    }
+    .sign-in-footer {
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        strong {
+          color: #ff0001;
+        }
+        margin-bottom: 1rem;
+      }
+      span {
+        font-size: 12px;
+        font-weight: 400;
+        color: #000;
+      }
+    }
+  }
+}

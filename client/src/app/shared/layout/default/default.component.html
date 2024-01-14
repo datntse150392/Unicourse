@@ -1,2 +1,147 @@
 <router-outlet class="absolute"></router-outlet>
 <app-footer></app-footer>
+
+<!-- Dialog đăng nhập tài khoản -->
+<div class="card flex justify-content-center">
+  <p-dialog [(visible)]="visibleSignIn">
+    <ng-template pTemplate="headless">
+      <div
+        class="sign-in relative flex flex-column align-items-center gap-4"
+        style="
+          border-radius: 12px;
+          background-image: radial-gradient(circle at left top, white, white);
+        "
+      >
+        <i class="pi pi-times p-2 close-btn" (click)="closeDialogSignIn()"></i>
+        <img src="../../../../assets/images/footer-logo.svg" />
+
+        <div class="flex flex-column align-items-center text-center">
+          <p>Chào mừng đến với Unicourse</p>
+          <span
+            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+            dụng chung có thể sẽ bị khóa.</span
+          >
+          <div class="list-buttons-icon pl-4 pr-4">
+            <div
+              class="button-icon p-3 flex flex-row text-center align-items-center"
+            >
+              <i class="pi pi-user" style="color: #708090"></i>
+              <p>Sử dụng email / số điện thoại</p>
+            </div>
+          </div>
+          <div class="list-buttons-icon p-4 pb-0">
+            <div
+              class="button-icon p-3 flex flex-row text-center align-items-center"
+            >
+              <i class="pi pi-google" style="color: #708090"></i>
+              <p>Đăng nhập với Google</p>
+            </div>
+          </div>
+          <div class="list-buttons-icon p-4 pb-0">
+            <div
+              class="button-icon p-3 flex flex-row text-center align-items-center"
+            >
+              <i class="pi pi-facebook" style="color: #708090"></i>
+              <p>Đăng nhập với Facebook</p>
+            </div>
+          </div>
+          <div class="list-buttons-icon p-4">
+            <div
+              class="button-icon p-3 flex flex-row text-center align-items-center"
+            >
+              <i class="pi pi-github" style="color: #708090"></i>
+              <p>Đăng nhập với GibHub</p>
+            </div>
+          </div>
+        </div>
+        <div class="sign-in-footer text-center pb-6 pr-4 pl-4">
+          <p>
+            Bạn chưa có tài khoản?
+            <strong
+              [ngStyle]="{ cursor: 'pointer' }"
+              (click)="openDialogSignUp()"
+              >Đăng ký</strong
+            >
+          </p>
+          <span>
+            Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý
+            <strong [ngStyle]="{ cursor: 'pointer' }"
+              >điều khoản sử dụng của chúng tôi</strong
+            >
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+<!-- Dialog Đăng ký tài khoản -->
+<div class="card flex justify-content-center">
+  <p-dialog [(visible)]="visibleSignUp">
+    <ng-template pTemplate="headless">
+      <div
+        class="sign-up relative flex flex-column align-items-center gap-4"
+        style="
+          border-radius: 12px;
+          background-image: radial-gradient(circle at left top, white, white);
+        "
+      >
+        <i class="pi pi-times p-2 close-btn" (click)="closeDialogSignUp()"></i>
+        <img src="../../../../assets/images/footer-logo.svg" />
+
+        <div class="flex flex-column align-items-center text-center">
+          <p>Chào mừng đến với Unicourse</p>
+          <span
+            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+            dụng chung có thể sẽ bị khóa.</span
+          >
+          <div class="list-buttons-icon pl-4 pr-4">
+            <input
+              pInputText
+              class="fullName"
+              aria-describedby="username-help"
+              placeholder="Nhập họ tên của bạn"
+            />
+          </div>
+          <div class="list-buttons-icon pl-4 pr-4">
+            <p-inputGroup>
+              <p-inputGroupAddon>VN 84+</p-inputGroupAddon>
+              <input
+                type="text"
+                pInputText
+                placeholder="Nhập số điện thoại của bạn"
+              />
+            </p-inputGroup>
+          </div>
+          <div class="list-buttons-icon p-4 pb-0">
+            <p-inputGroup>
+              <input type="text" pInputText placeholder="Nhập mã xác thực" />
+              <button
+                type="button"
+                pButton
+                icon="pi pi-lock-open"
+                class="p-button-warning"
+              ></button>
+            </p-inputGroup>
+          </div>
+          <div class="list-buttons-icon p-4">
+            <div
+              class="button-icon-sign-up p-3 flex flex-row text-center align-items-center"
+            >
+              <p>Đăng ký</p>
+            </div>
+          </div>
+        </div>
+        <div class="sign-in-footer text-center pb-6 pr-4 pl-4">
+          <p>Bạn chưa có tài khoản? <strong>Đăng ký</strong></p>
+          <span>
+            Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý
+            <strong [ngStyle]="{ cursor: 'pointer' }"
+              >điều khoản sử dụng của chúng tôi</strong
+            >
+          </span>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
