@@ -1,5 +1,6 @@
 .container {
   background-color: #f9f9f9;
+  max-width: 100% !important;
   .card {
     padding-top: 2%;
     height: 100vh;
@@ -7,8 +8,8 @@
     background-size: cover;
     .logan {
       width: 100%;
-      padding: 0% 15%;
-      margin-top: 15%;
+      // padding: 0% 15%;
+      margin-top: 5%;
       text-align: center;
       color: black;
       font-weight: bold;
