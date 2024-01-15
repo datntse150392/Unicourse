@@ -10,5 +10,5 @@ import { SharedModule } from '../../shared';
   styleUrl: './detail-page.component.scss'
 })
 export class DetailPageComponent {
-
+  value: number = 19;
 }

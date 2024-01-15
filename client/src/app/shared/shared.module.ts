@@ -13,6 +13,8 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { ImageModule } from 'primeng/image';
 
 @NgModule({
   imports: [
@@ -31,6 +33,8 @@ import { CardModule } from 'primeng/card';
     InputGroupAddonModule,
     InputTextModule,
     CardModule,
+    DialogModule,
+    ImageModule,
   ],
   declarations: [],
   exports: [
@@ -49,6 +53,8 @@ import { CardModule } from 'primeng/card';
     InputGroupModule,
     InputTextModule,
     CardModule,
+    DialogModule,
+    ImageModule,
   ],
 })
 export class SharedModule {}

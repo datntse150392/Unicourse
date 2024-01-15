@@ -1,5 +1,12 @@
+
 .container {
-    background-color: #f9f9f9;
+    .text-lg {
+        font-family: 'system-ui' !important;
+    }
+    .text-base {
+        font-family: 'system-ui' !important;
+    }
+    background-color: #F9F9F9;
     .header-background {
         background-color: #FFFFFF;
         margin-bottom: 2rem;
@@ -12,9 +19,15 @@
         }
         .card-container {
             padding: 0;
+            .content {
+                padding: 0;
+                margin: 0;
+                background-color: #FFFFFF;
+            }
             .card {
                 margin: 0;
             }
         }
     }
+    // 
 }

@@ -4,8 +4,23 @@
     </div>
     <div class="body-container">
         <p-card class="card-container">
-            <div [style]="{ padding: '0' }">
-                HELLO FROM DETAIL
+            <div class="grid content">
+                <div class="col-12 md:col-5 p-0 border-round-left pr-5">
+                    <img class="logo border-round" src="../../../../assets/images/course-banner.jpg"
+                        [style]="{height:'100%', width:'100%'}" />
+                    <!-- <div class="bg-cover md:bg-contain bg-center bg-no-repeat bg-primary border-round h-30rem w-full" style="background-image: url('../../../../assets/images/course-banner.jpg')"></div> -->
+                </div>
+                <!-- course-banner.jpg -->
+                <div class="col-12 md:col-7 surface-500 border-round-right">
+                    <p class="text-lg font-bold">Lập trình JavaScript nâng cao</p>
+                    <p class="text-base">Số bài học:&nbsp;
+                        <span class="font-bold">{{value}}</span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="font-bold" [style]="{'color': '#9B51E0'}">Xem chi tiết </span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <i class="pi pi-angle-down font-bold"></i>
+                    </p>
+                </div>
             </div>
         </p-card>
     </div>
