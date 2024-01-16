@@ -5,9 +5,23 @@
 ### Màn Hình Landing | Landing Page
 
 <div class="screenshot-container">
-  <img src="https://firebasestorage.googleapis.com/v0/b/dreamy-fb67c.appspot.com/o/GD-Figma%2FLanding%20Page.png?alt=media&token=ba6bdb69-d601-43ca-bdaf-73cfed6259d6" alt="Landing Page">
+  <img src="/assets/images/Landing Page.png" alt="Landing Page">
 </div>
 Mô tả chi tiết về Màn Hình Landing.
+
+### Màn Hình đăng nhập | Sign-In Page
+
+<div class="screenshot-container">
+  <img src="/assets/images/SignIn Page.png" alt="Sign-In Page">
+</div>
+Mô tả chi tiết về Màn Hình đăng nhập.
+
+### Màn Hình đăng ký | Sign-Up Page
+
+<div class="screenshot-container">
+  <img src="/assets/images/SignUp Page.png" alt="Sign-Up Page">
+</div>
+Mô tả chi tiết về Màn Hình đăng ký.
 
 ### Màn Hình Chi Tiết Khóa Học | Detail Course Page
 

@@ -12,8 +12,8 @@ import { AvatarModule } from 'primeng/avatar';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
-import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { TreeModule } from 'primeng/tree';
 
@@ -33,6 +33,7 @@ import { TreeModule } from 'primeng/tree';
     InputGroupModule,
     InputGroupAddonModule,
     InputTextModule,
+    DialogModule,
     CardModule,
     DialogModule,
     ImageModule,
@@ -54,10 +55,7 @@ import { TreeModule } from 'primeng/tree';
     InputGroupAddonModule,
     InputGroupModule,
     InputTextModule,
-    CardModule,
     DialogModule,
-    ImageModule,
-    TreeModule,
   ],
 })
 export class SharedModule {}
