@@ -3,9 +3,15 @@
 $gutter: 1rem; //for primeflex grid system
 /* PrimeNG */
 @import "primeicons/primeicons.css";
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-body {
+// @import "primeng/resources/themes/lara-light-blue/theme.css";
+// @import "primeng/resources/primeng.css";
+
+/* Tailwind */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body, html {
   margin: 0px !important;
   overflow-x: hidden;
   font-family: "system-ui", Roboto, Helvetica, Arial, sans-serif !important;

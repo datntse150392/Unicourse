@@ -1,0 +1,23 @@
+.container {
+    background-color: #F9F9F9;
+    max-width: 100%;
+    .header-background {
+        background-color: #FFFFFF;
+        margin-bottom: 2rem;
+    }
+    .body-container {
+        width: 80%;
+        margin: auto;
+        .p-card-content {
+            padding: 0;
+        }
+        .card-container {
+            padding: 0;
+            .content {
+                padding: 0;
+                margin: 0;
+                background-color: #FFFFFF;
+            }
+        }
+    }
+}

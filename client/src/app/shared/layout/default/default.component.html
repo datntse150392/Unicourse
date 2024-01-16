@@ -17,11 +17,10 @@
 
         <div class="flex flex-column align-items-center text-center">
           <p>Chào mừng đến với Unicourse</p>
-          <span
-            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+          <span class="m-3">Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
-          <div class="list-buttons-icon pl-4 pr-4">
+          <div class="list-buttons-icon px-2 pb-2">
             <div
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
@@ -29,7 +28,7 @@
               <p>Sử dụng email / số điện thoại</p>
             </div>
           </div>
-          <div class="list-buttons-icon p-4 pb-0">
+          <div class="list-buttons-icon px-2 pb-2">
             <div
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
@@ -37,7 +36,7 @@
               <p>Đăng nhập với Google</p>
             </div>
           </div>
-          <div class="list-buttons-icon p-4 pb-0">
+          <div class="list-buttons-icon px-2 pb-2">
             <div
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
@@ -45,12 +44,12 @@
               <p>Đăng nhập với Facebook</p>
             </div>
           </div>
-          <div class="list-buttons-icon p-4">
+          <div class="list-buttons-icon px-2">
             <div
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
               <i class="pi pi-github" style="color: #708090"></i>
-              <p>Đăng nhập với GibHub</p>
+              <p>Đăng nhập với GitHub</p>
             </div>
           </div>
         </div>
@@ -91,8 +90,7 @@
 
         <div class="flex flex-column align-items-center text-center">
           <p>Chào mừng đến với Unicourse</p>
-          <span
-            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+          <span class="m-3">Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
           <div class="list-buttons-icon pl-4 pr-4">
@@ -101,6 +99,7 @@
               class="fullName"
               aria-describedby="username-help"
               placeholder="Nhập họ tên của bạn"
+              [style]="{ height: '3rem' }"
             />
           </div>
           <div class="list-buttons-icon pl-4 pr-4">
@@ -120,13 +119,15 @@
                 type="button"
                 pButton
                 icon="pi pi-lock-open"
-                class="p-button-warning"
+                class="bg-[#F1B300]"
+                [style]="{'padding': '1rem'}"
               ></button>
             </p-inputGroup>
           </div>
-          <div class="list-buttons-icon p-4">
+          <div class="list-buttons-icon pt-4">
             <div
-              class="button-icon-sign-up p-2 flex flex-row text-center align-items-center"
+              class="button-icon-sign-up py-2 flex flex-row text-center align-items-center"
+              [style]="{ width: '95%', margin: 'auto' }"
             >
               <p>Đăng ký</p>
             </div>

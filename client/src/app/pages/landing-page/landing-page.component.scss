@@ -1,5 +1,6 @@
 .container {
   background-color: #f9f9f9;
+  max-width: 100% !important;
   .card {
     padding-top: 2%;
     height: 100vh;
@@ -7,12 +8,11 @@
     background-size: cover;
     .logan {
       width: 100%;
-      padding: 0% 15%;
-      margin-top: 15%;
       text-align: center;
       color: black;
       font-weight: bold;
       font-size: 70px;
+      transform: translate(0%, 35%);
       .title-1 {
         color: #ff7b29;
       }
@@ -33,7 +33,7 @@
     }
   }
   .edu-program {
-    height: 85vh;
+    height: 100%;
     background-color: #fcf9f4;
     .title {
       padding-top: 3%;
@@ -106,10 +106,13 @@
         font-weight: bold;
       }
     }
-    .bagde {
-      position: absolute;
-      left: 23%;
-      bottom: 45%;
+    .bagde-container{
+      margin-left: 5px;
+      .bagde {
+        position: absolute;
+        // left: 25%;
+        bottom: 45%;
+      }
     }
     .course {
       position: relative;

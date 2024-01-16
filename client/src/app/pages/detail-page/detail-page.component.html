@@ -1,0 +1,229 @@
+<div class="container">
+    <div class="header-background">
+        <app-header></app-header>
+    </div>
+    <div class="body-container">
+        <!-- Course card -->
+        <p-card class="card-container">
+            <div class="flex flex-row content">
+                <!-- course-banner -->
+                <div class="basis-1 md:basis-1/3 p-0 border-round-left pr-5">
+                    <img class="h-auto max-w-lg rounded-lg" src="../../../../assets/images/course-banner.jpg"
+                        alt="image description">
+
+                </div>
+                <!-- course-content-->
+                <div class="basis-1 md:basis-2/3 border-round-right">
+                    <ul class="list-none space-y-3">
+                        <li>
+                            <p class="text-lg text-gray-900 font-semibold font-customFont">Lập trình JavaScript nâng cao
+                            </p>
+                        </li>
+                        <li>
+                            <p class="font-normal text-base text-gray-900 font-customFont">Số bài học:
+                                <span class="font-bold text-gray-900 font-customFont">{{value}} bài học</span>
+                                &nbsp;
+                                <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Xem chi tiết
+                                </span>
+                                <i class="pi pi-angle-down" [style]="{'color': '#9B51E0', 'font-weight': '600'}"></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="font-normal text-base text-gray-900 font-customFont">Giảng viên:
+                                <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Sơn Đặng </span>
+                            </p>
+                        </li>
+                        <li>
+                            <p class="font-normal text-base text-gray-900 font-customFont">Học viên đã học:
+                                <span class="font-bold text-gray-900 font-customFont">100+</span>
+                            </p>
+                        </li>
+                        <li class="flex">
+                            <p class="font-normal text-base text-gray-900 font-customFont">Đánh giá:</p>&nbsp;
+                            <p-rating [(ngModel)]="starValue" [cancel]="false"></p-rating>
+                        </li>
+                        <li>
+                            <p class="font-normal text-base text-gray-900 font-customFont">Giá:
+                                <span class="font-bold text-gray-900 font-customFont">đ350,000</span>
+                            </p>
+                        </li>
+                        <li>
+                            <button type="button"
+                                class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Thêm
+                                vào giỏ hàng</button>
+                            <button type="button"
+                                class="font-customFont text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Học
+                                thử miễn phí</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </p-card>
+
+        <!-- Description course -->
+        <div class="mt-10">
+            <h3
+                class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                Chi tiết khóa học
+            </h3>
+            <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">Hiểu sâu
+                hơn về cách Javascript
+                hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword, bind, call, apply, prototype,...
+            </p>
+            <h3
+                class="mb-2 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">
+                Bạn sẽ học được gì?
+            </h3>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 m-0">
+                <!-- Left column -->
+                <ul class="max-w-full space-y-4 text-gray-900 list-inside dark:text-gray-900">
+                    <li class="flex items-baseline">
+                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
+                        <p class="text-justify font-customFont">Được học kiến thức miễn phí với nội dung chất lượng hơn
+                            mất phí</p>
+                    </li>
+                    <li class="flex items-baseline">
+                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
+                        <p class="text-justify font-customFont">Hiểu được cách tư duy nâng cao của các lập trình viên có
+                            kinh nghiệm</p>
+                    </li>
+                    <li class="flex items-baseline">
+                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
+                        <p class="text-justify font-customFont">Có nền tảng Javascript vững chắc để làm việc với mọi thư
+                            viện, framework
+                            viết bởi Javascript</p>
+                    </li>
+                </ul>
+                <!-- Right column -->
+                <ul class="max-w-full space-y-4 text-gray-900 list-inside dark:text-gray-900">
+                    <li class="flex items-baseline">
+                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
+                        <p class="text-justify font-customFont">Các kiến thức nâng cao của Javascript giúp code trở nên
+                            tối ưu hơn</p>
+                    </li>
+                    <li class="flex items-baseline">
+                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
+                        <p class="text-justify font-customFont">Hiểu được các khái niệm khó như từ khóa this, phương
+                            thức bind, call,
+                            apply & xử lý bất đồng bộ</p>
+                    </li>
+                    <li class="flex items-baseline">
+                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
+                        <p class="text-justify font-customFont">Nâng cao cơ hội thành công khi phỏng vấn xin việc nhờ
+                            kiến thức chuyên
+                            môn vững chắc</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Source video course -->
+        <div class="mt-10">
+            <h3
+                class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                Nội dung khóa học
+            </h3>
+            <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">
+                <span class="text-gray-900 font-bold">3</span> chương<span class="text-gray-900 font-extrabold"> .
+                </span><span class="text-gray-900 font-bold">19</span> bài học
+            </p>
+            <div class="card flex justify-content-center">
+                <p-tree class="w-full md:w-full border-solid border-2 rounded md:rounded-lg" [value]="files"></p-tree>
+            </div>
+        </div>
+
+        <!--Recomment course -->
+        <div class="mt-10">
+            <h3
+                class="mb-4 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                Khóa học phổ biến
+            </h3>
+            <div class="grid grid-cols-3 gap-2 m-0 w-full place-items-center"
+                [style]="{ 'max-height': '8rem', 'height': '8rem'}">
+                <!-- Course-1 -->
+                <div class=" flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
+                    [style]="{ 'height': '8rem'}">
+                    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
+                        <img class="h-full max-auto rounded-lg" src="../../../../assets/images/course-1.png" alt="" />
+                    </a>
+                    <div class="p-2 basis-1 md:basis-2/3 h-full ">
+                        <div class="flex flex-col h-full">
+                            <div class="basis-1 md:basis-2/3">
+                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">
+                                        Khóa học JPD123</h5>
+                                </a>
+                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">Kiến thức các bài
+                                    giảng của khóa JPD123 - CN4</p>
+                            </div>
+                            <div class="basis-1 md:basis-1/3 justify-self-start">
+                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                    <span class="text-base font-bold text-[#F15911] font-customFont">Miễn phí</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course-2 -->
+                <div class=" flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
+                    [style]="{ 'height': '8rem'}">
+                    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
+                        <img class="h-full max-auto rounded-lg" src="../../../../assets/images/course-2.png" alt="" />
+                    </a>
+                    <div class="p-2 basis-1 md:basis-2/3 h-full ">
+                        <div class="flex flex-col h-full">
+                            <div class="basis-1 md:basis-2/3">
+                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">
+                                        Ôn ENW492c Cấp Tốc</h5>
+                                </a>
+                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">Giúp pass môn trong
+                                    vài buổi ôn</p>
+                            </div>
+                            <div class="basis-1 md:basis-1/3 justify-self-start">
+                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                    <span class="text-base font-bold text-[#F15911] font-customFont">đ350,000</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Course-3 -->
+                <div class="flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
+                    [style]="{ 'height': '8rem'}">
+                    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
+                        <img class="h-full max-auto rounded-lg" src="../../../../assets/images/course-2.png" alt="" />
+                    </a>
+                    <div class="p-2 basis-1 md:basis-2/3 h-full ">
+                        <div class="flex flex-col h-full">
+                            <div class="basis-1 md:basis-2/3">
+                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">
+                                        Khóa học
+                                        SDN302m</h5>
+                                </a>
+                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">Viết Rest API chuẩn
+                                    men với
+                                    NodeJS</p>
+                            </div>
+                            <div class="basis-1 md:basis-1/3 justify-self-start">
+                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                                    <span class="text-base font-bold text-[#F15911] font-customFont">đ350,000</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Lecturers group-->
+        <div class="mt-10">
+            <div class="grid grid-cols-3 gap-4" [style]="{ 'width':'80%', 'margin':'auto' }">
+                <app-lecturer-card></app-lecturer-card>
+                <app-lecturer-card></app-lecturer-card>
+                <app-lecturer-card></app-lecturer-card>
+            </div>
+        </div>
+    </div>
+</div>

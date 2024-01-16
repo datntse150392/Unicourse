@@ -13,6 +13,9 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { DialogModule } from 'primeng/dialog';
+import { CardModule } from 'primeng/card';
+import { ImageModule } from 'primeng/image';
+import { TreeModule } from 'primeng/tree';
 
 @NgModule({
   imports: [
@@ -31,6 +34,10 @@ import { DialogModule } from 'primeng/dialog';
     InputGroupAddonModule,
     InputTextModule,
     DialogModule,
+    CardModule,
+    DialogModule,
+    ImageModule,
+    TreeModule,
   ],
   declarations: [],
   exports: [
