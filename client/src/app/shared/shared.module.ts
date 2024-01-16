@@ -56,6 +56,8 @@ import { TreeModule } from 'primeng/tree';
     InputGroupModule,
     InputTextModule,
     DialogModule,
+    CardModule,
+    TreeModule,
   ],
 })
 export class SharedModule {}
