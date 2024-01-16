@@ -2,10 +2,11 @@
   <div class="container flex flex-row justify-content-between">
     <div class="nav-left w-full flex">
       <img class="logo" src="assets/images/unico-logo.svg" alt="Logo" />
-      <div class="nav-items w-20rem flex flex-row justify-content-center align-items-center text-center">
-        <p class="nav-item" href="#">Trang chủ</p>
+      <div class="nav-items max-w-lg flex flex-row justify-content-center align-items-center text-center">
+        <p class="nav-item" href="#"><a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Trang chủ</a></p>
         <p class="nav-item" href="#">Bài viết</p>
         <p class="nav-item" href="#">Cộng đồng IT</p>
+        <p class="nav-item"><a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">Chi tiết Course</a></p>
       </div>
     </div>
     <div class="flex flex-row align-items-center justify-content-between gap-4">
@@ -14,5 +15,6 @@
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" styleClass="mr-2"
         [ngStyle]="{ cursor: 'pointer' }" size="normal" shape="circle"></p-avatar>
     </div>
+    
   </div>
 </div>

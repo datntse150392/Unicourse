@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { ImageModule } from 'primeng/image';
+import { TreeModule } from 'primeng/tree';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { ImageModule } from 'primeng/image';
     CardModule,
     DialogModule,
     ImageModule,
+    TreeModule,
   ],
   declarations: [],
   exports: [
@@ -55,6 +57,7 @@ import { ImageModule } from 'primeng/image';
     CardModule,
     DialogModule,
     ImageModule,
+    TreeModule,
   ],
 })
 export class SharedModule {}
