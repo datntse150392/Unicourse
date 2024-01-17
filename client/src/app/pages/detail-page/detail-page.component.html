@@ -74,44 +74,60 @@
                 class="mb-2 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">
                 Bạn sẽ học được gì?
             </h3>
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 m-0">
-                <!-- Left column -->
-                <ul class="max-w-full space-y-4 text-gray-900 list-inside dark:text-gray-900">
-                    <li class="flex items-baseline">
-                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
-                        <p class="text-justify font-customFont">Được học kiến thức miễn phí với nội dung chất lượng hơn
-                            mất phí</p>
+            <div class="m-0">
+                <!-- List content -->
+                <ul class="max-w-full space-y-5 text-gray-900 list-inside dark:text-gray-900">
+                    <li class="grid grid-cols-1 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
+                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                            <i class="pi pi-code mr-2"
+                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                            <span class="text-justify font-customFont">Được học kiến thức miễn phí với nội dung chất
+                                lượng
+                                hơn
+                                mất phí</span>
+                        </div>
+                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                            <i class="pi pi-code mr-2"
+                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                            <span class="text-justify font-customFont">Hiểu được cách tư duy nâng cao của các lập trình
+                                viên có
+                                kinh nghiệm</span>
+                        </div>
                     </li>
-                    <li class="flex items-baseline">
-                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
-                        <p class="text-justify font-customFont">Hiểu được cách tư duy nâng cao của các lập trình viên có
-                            kinh nghiệm</p>
+                    <li class="grid grid-cols-1 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
+                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                            <i class="pi pi-code mr-2"
+                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                            <span class="text-justify font-customFont">Có nền tảng Javascript vững chắc để làm việc với
+                                mọi thư
+                                viện, framework
+                                viết bởi Javascript</span>
+                        </div>
+                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                            <i class="pi pi-code mr-2"
+                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                            <p class="text-justify font-customFont">Các kiến thức nâng cao của Javascript giúp code
+                                trở nên
+                                tối ưu hơn</p>
+                        </div>
                     </li>
-                    <li class="flex items-baseline">
-                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
-                        <p class="text-justify font-customFont">Có nền tảng Javascript vững chắc để làm việc với mọi thư
-                            viện, framework
-                            viết bởi Javascript</p>
-                    </li>
-                </ul>
-                <!-- Right column -->
-                <ul class="max-w-full space-y-4 text-gray-900 list-inside dark:text-gray-900">
-                    <li class="flex items-baseline">
-                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
-                        <p class="text-justify font-customFont">Các kiến thức nâng cao của Javascript giúp code trở nên
-                            tối ưu hơn</p>
-                    </li>
-                    <li class="flex items-baseline">
-                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
-                        <p class="text-justify font-customFont">Hiểu được các khái niệm khó như từ khóa this, phương
-                            thức bind, call,
-                            apply & xử lý bất đồng bộ</p>
-                    </li>
-                    <li class="flex items-baseline">
-                        <i class="pi pi-code me-2" [style]="{'color': '#FF0000', 'font-weight': '600'}"></i>
-                        <p class="text-justify font-customFont">Nâng cao cơ hội thành công khi phỏng vấn xin việc nhờ
-                            kiến thức chuyên
-                            môn vững chắc</p>
+                    <li class="grid grid-cols-1 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
+                        <div class="flex flex-row items-start">
+                            <span><i class="pi pi-code mr-2"
+                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i></span>
+                            <p class="text-justify font-customFont">Hiểu được các khái niệm khó như từ khóa this,
+                                phương
+                                thức bind, call,
+                                apply & xử lý bất đồng bộ</p>
+                        </div>
+                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                            <i class="pi pi-code mr-2"
+                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                            <p class="text-justify font-customFont">Nâng cao cơ hội thành công khi phỏng vấn xin việc
+                                nhờ
+                                kiến thức chuyên
+                                môn vững chắc</p>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -140,80 +156,7 @@
             </h3>
             <div class="grid grid-cols-3 gap-2 m-0 w-full place-items-center"
                 [style]="{ 'max-height': '8rem', 'height': '8rem'}">
-                <!-- Course-1 -->
-                <div class=" flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
-                    [style]="{ 'height': '8rem'}">
-                    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
-                        <img class="h-full max-auto rounded-lg" src="../../../../assets/images/course-1.png" alt="" />
-                    </a>
-                    <div class="p-2 basis-1 md:basis-2/3 h-full ">
-                        <div class="flex flex-col h-full">
-                            <div class="basis-1 md:basis-2/3">
-                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
-                                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">
-                                        Khóa học JPD123</h5>
-                                </a>
-                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">Kiến thức các bài
-                                    giảng của khóa JPD123 - CN4</p>
-                            </div>
-                            <div class="basis-1 md:basis-1/3 justify-self-start">
-                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
-                                    <span class="text-base font-bold text-[#F15911] font-customFont">Miễn phí</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course-2 -->
-                <div class=" flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
-                    [style]="{ 'height': '8rem'}">
-                    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
-                        <img class="h-full max-auto rounded-lg" src="../../../../assets/images/course-2.png" alt="" />
-                    </a>
-                    <div class="p-2 basis-1 md:basis-2/3 h-full ">
-                        <div class="flex flex-col h-full">
-                            <div class="basis-1 md:basis-2/3">
-                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
-                                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">
-                                        Ôn ENW492c Cấp Tốc</h5>
-                                </a>
-                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">Giúp pass môn trong
-                                    vài buổi ôn</p>
-                            </div>
-                            <div class="basis-1 md:basis-1/3 justify-self-start">
-                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
-                                    <span class="text-base font-bold text-[#F15911] font-customFont">đ350,000</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course-3 -->
-                <div class="flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
-                    [style]="{ 'height': '8rem'}">
-                    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
-                        <img class="h-full max-auto rounded-lg" src="../../../../assets/images/course-2.png" alt="" />
-                    </a>
-                    <div class="p-2 basis-1 md:basis-2/3 h-full ">
-                        <div class="flex flex-col h-full">
-                            <div class="basis-1 md:basis-2/3">
-                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
-                                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">
-                                        Khóa học
-                                        SDN302m</h5>
-                                </a>
-                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">Viết Rest API chuẩn
-                                    men với
-                                    NodeJS</p>
-                            </div>
-                            <div class="basis-1 md:basis-1/3 justify-self-start">
-                                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
-                                    <span class="text-base font-bold text-[#F15911] font-customFont">đ350,000</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <app-course-list *ngFor="let course of courses" [course]="course"></app-course-list>
             </div>
         </div>
 

@@ -1,0 +1,21 @@
+<div class=" flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
+    [style]="{ 'height': '8rem'}">
+    <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page" class="basis-1 md:basis-1/3">
+        <img class="h-full max-auto rounded-3xl p-2" [src]="course?.image" alt="" />
+    </a>
+    <div class="p-2 basis-1 md:basis-2/3 h-full ">
+        <div class="flex flex-col h-full">
+            <div class="basis-1 md:basis-2/3">
+                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                    <h5 class="mb-2 text-base font-black tracking-tight text-gray-900 dark:text-white">{{course?.title}}</h5>
+                </a>
+                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">{{course?.description}}</p>
+            </div>
+            <div class="basis-1 md:basis-1/3 justify-self-start">
+                <a routerLink="/detail" routerLinkActive="active" ariaCurrentWhenActive="page">
+                    <span class="text-base font-bold text-[#F15911] font-customFont">{{course?.price == 0 ? 'Miễn phí' : course?.price}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
