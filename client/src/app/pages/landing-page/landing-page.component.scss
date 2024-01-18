@@ -11,7 +11,7 @@
       color: black;
       font-weight: bold;
       font-size: 70px;
-      transform: translate(0%, 35%);
+      transform: translate(0%, 50%);
       .title-1 {
         color: #ff7b29;
       }
@@ -99,6 +99,9 @@
     padding: 0% 15%;
     .title {
       position: relative;
+      h1 {
+        font-size: 1.5rem;
+      }
       h2 {
         color: black;
         font-size: 16px;
@@ -120,7 +123,8 @@
         border-radius: 10px;
       }
       h3 {
-        font-size: 16px;
+        font-size: 12px;
+        font-weight: 400;
       }
       p {
         font-size: 16px;
@@ -134,7 +138,7 @@
         margin-right: auto;
         left: 0;
         right: 0;
-        top: 25%;
+        top: 28%;
         text-align: center;
       }
     }
@@ -143,7 +147,7 @@
         display: block;
       }
       img {
-        opacity: 0.4; /* Điều chỉnh độ trong suốt của hình ảnh */
+        opacity: 0.2; /* Điều chỉnh độ trong suốt của hình ảnh */
       }
     }
   }
