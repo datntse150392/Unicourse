@@ -96,7 +96,7 @@
   }
   .semester {
     margin-top: 2%;
-    padding: 0% 15%;
+    padding: 0% 10%;
     .title {
       position: relative;
       h1 {
@@ -112,24 +112,26 @@
       margin-left: 5px;
       .bagde {
         position: absolute;
-        // left: 25%;
         bottom: 45%;
       }
     }
     .course {
       position: relative;
+      padding: 1%;
       img {
         width: 100%;
-        border-radius: 10px;
+        height: 10rem;
+        border-radius: 1rem;
       }
       h3 {
-        font-size: 12px;
-        font-weight: 400;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0.5rem 0 !important;
       }
       p {
         font-size: 16px;
-        color: #ff0000;
-        font-weight: bold;
+        color: #f05123;
+        font-weight: 600;
       }
       .register-button {
         display: none;
@@ -138,7 +140,7 @@
         margin-right: auto;
         left: 0;
         right: 0;
-        top: 28%;
+        top: 30%;
         text-align: center;
       }
     }

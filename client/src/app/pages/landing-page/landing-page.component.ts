@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { SharedModule } from '../../shared';
-import { SharedService } from '../../cores/services/shared.service';
 import { Subscription } from 'rxjs';
+import { CourseService } from '../../cores/services';
+import { Course } from '../../cores/models';
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -11,11 +12,28 @@ import { Subscription } from 'rxjs';
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  value = 5;
+  public coursesFree: Course[] = [];
+  public value = 5;
 
-  constructor() {}
+  private subscription = new Subscription();
+  constructor(private courseService: CourseService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initForm();
+  }
+  initForm(): void {
+    const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
+      next: (res: any) => {
+        this.coursesFree = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+    this.subscription.add(coursesFreeSub$);
+  }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }

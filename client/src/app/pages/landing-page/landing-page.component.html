@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <!-- CN! -->
+
   <div class="semester">
     <div class="title flex flex-row relative">
       <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
@@ -160,170 +160,35 @@
       </div>
     </div>
   </div>
-  <div class="semester">
-    <div class="title flex flex-row relative">
-      <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-        Chuyên Ngành 2
-      </h1>
-      <div class="bagde-container">
-        <p-badge class="bagde" value="Hot" severity="danger">Hot</p-badge>
-      </div>
-    </div>
-    <div class="flex flex-wrap align-items-center justify-content-center">
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-    </div>
-  </div>
 
   <!-- Course Free -->
-  <div class="semester">
-    <div class="title flex flex-row relative">
-      <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-        Khóa học miễn phí
-      </h1>
-    </div>
-    <div class="flex flex-wrap align-items-center justify-content-center">
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <div class="flex flex-row gap-2 align-items-center">
-          <i class="pi pi-users" style="color: #708090"></i>
-          <span>21 người khác đã học</span>
-        </div>
+  <ng-container *ngIf="coursesFree && coursesFree.length > 0">
+    <div class="semester">
+      <div class="title flex flex-row relative">
+        <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
+          Khóa học miễn phí
+        </h1>
       </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <div class="flex flex-row gap-2 align-items-center">
-          <i class="pi pi-users" style="color: #708090"></i>
-          <span>21 người khác đã học</span>
-        </div>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <div class="flex flex-row gap-2 align-items-center">
-          <i class="pi pi-users" style="color: #708090"></i>
-          <span>21 người khác đã học</span>
-        </div>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <div class="flex flex-row gap-2 align-items-center">
-          <i class="pi pi-users" style="color: #708090"></i>
-          <span>21 người khác đã học</span>
+      <div class="flex flex-wrap align-items-center justify-content-center">
+        <div *ngFor="let course of coursesFree" class="course col-3">
+          <img src="{{ course.thumbnail }}" />
+          <p-button
+            class="register-button flipup animation-duration-500"
+            [style]="{ background: '#fff', border: '10px solid #fff' }"
+          >
+            <span class="font-bold" [style]="{ color: '#000' }"
+              >Xem khóa học</span
+            ></p-button
+          >
+          <h3 class="mb-1 mt-1">{{ course.title }}</h3>
+          <div class="flex flex-row gap-2 align-items-center">
+            <i class="pi pi-users" style="color: #708090"></i>
+            <span>{{ course.enrollmentCount }} người khác đã học</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 
   <!-- Videos -->
   <div class="semester">
@@ -345,10 +210,10 @@
             >Xem video</span
           ></p-button
         >
-        <h4>
+        <h3>
           Music that make you feel positive and calm 🍃 lofi / relax / stress
           relief
-        </h4>
+        </h3>
       </div>
       <div class="course col-3">
         <img
@@ -362,10 +227,10 @@
             >Xem video</span
           ></p-button
         >
-        <h4>
+        <h3>
           Music that make you feel positive and calm 🍃 lofi / relax / stress
           relief
-        </h4>
+        </h3>
       </div>
       <div class="course col-3">
         <img
@@ -379,10 +244,10 @@
             >Xem video</span
           ></p-button
         >
-        <h4>
+        <h3>
           Music that make you feel positive and calm 🍃 lofi / relax / stress
           relief
-        </h4>
+        </h3>
       </div>
       <div class="course col-3">
         <img
@@ -396,10 +261,10 @@
             >Xem video</span
           ></p-button
         >
-        <h4>
+        <h3>
           Music that make you feel positive and calm 🍃 lofi / relax / stress
           relief
-        </h4>
+        </h3>
       </div>
     </div>
     <p-paginator
