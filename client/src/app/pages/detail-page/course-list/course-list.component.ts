@@ -7,10 +7,10 @@ import { Course } from '../../../cores/models';
   standalone: true,
   imports: [SharedModule],
   templateUrl: './course-list.component.html',
-  styleUrl: './course-list.component.scss'
+  styleUrl: './course-list.component.scss',
 })
 export class CourseListComponent {
   @Input() course: Course | undefined;
 
-  ngOnInit() { }
+  ngOnInit() {}
 }

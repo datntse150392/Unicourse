@@ -8,9 +8,24 @@ import { catchError } from 'rxjs/operators';
 export class CourseService {
   constructor(private httpClient: HttpClient) {}
 
+  // Lấy danh sách tất cả các khóa học
   getCourseFree(): Observable<Course[]> {
     return this.httpClient
       .get<Course[]>(`${environment.baseUrl}/api/course/free-course`)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Lấy danh sách khóa học theo chuyên ngành
+  getCoursebySemester(semester: string): Observable<Course[]> {
+    return this.httpClient
+      .get<Course[]>(`${environment.baseUrl}/api/course/semester/${semester}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Lấy danh sách khóa học PRO
+  getCoursePro(): Observable<Course[]> {
+    return this.httpClient
+      .get<Course[]>(`${environment.baseUrl}/api/course/pro-course`)
       .pipe(catchError(this.handleError));
   }
 

@@ -13,6 +13,8 @@ import { Course } from '../../cores/models';
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
   public coursesFree: Course[] = [];
+  public courseSemester1: Course[] = [];
+  public coursePro: Course[] = [];
   public value = 5;
 
   private subscription = new Subscription();
@@ -21,6 +23,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initForm();
   }
+
+  // Config on init
   initForm(): void {
     const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
       next: (res: any) => {
@@ -30,7 +34,31 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         console.log(err);
       },
     });
+
+    const courseSemester1Sub$ = this.courseService
+      .getCoursebySemester('1')
+      .subscribe({
+        next: (res: any) => {
+          this.courseSemester1 = res.data;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+
+    // Lấy danh sách khóa học PRO
+    const courseProSub$ = this.courseService.getCoursePro().subscribe({
+      next: (res: any) => {
+        this.coursePro = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
     this.subscription.add(coursesFreeSub$);
+    this.subscription.add(courseSemester1Sub$);
+    this.subscription.add(courseProSub$);
   }
 
   ngOnDestroy(): void {

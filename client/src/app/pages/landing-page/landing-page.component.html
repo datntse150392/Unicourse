@@ -16,7 +16,7 @@
   <!-- Educational Programs -->
   <div class="edu-program">
     <!-- Title -->
-    <div class="title flex flex-column align-items-center">
+    <div class="title flex flex-column align-items-center justify-center">
       <h3 class="mt-0 font-bold">Educational Programs</h3>
       <p class="mb-6">
         Sứ mệnh của chúng tôi là đảm bảo rằng tất cả sinh viên đều được cung cấp
@@ -26,7 +26,7 @@
     </div>
     <div class="detail gird flex flex-row justify-content-center gap-4">
       <div
-        class="col-4 pt-6 detail-item-1 flex flex-column justify-content-center align-items-center"
+        class="col-4 detail-item-1 flex flex-column justify-content-center align-items-center"
       >
         <img
           width="100"
@@ -36,14 +36,14 @@
         />
         <div class="text-center">
           <h3>Giáo Dục</h3>
-          <p>
+          <p class="p-2">
             Cung cấp các khóa học chất lượng cao, với độ ngũ mentor có nhiều năm
             kinh nghiệm giảng dạy
           </p>
         </div>
       </div>
       <div
-        class="col-4 pt-6 detail-item-2 flex flex-column justify-content-center align-items-center"
+        class="col-4 detail-item-2 flex flex-column justify-content-center align-items-center"
       >
         <img
           width="100"
@@ -53,14 +53,14 @@
         />
         <div class="text-center">
           <h3>Mục Tiêu</h3>
-          <p>
+          <p class="p-2">
             Mong muốn sẽ giúp hơn 1000 sinh viên IT trường ĐH FPT sẽ có nhiều
             kiến thức, kinh nghiệm
           </p>
         </div>
       </div>
       <div
-        class="col-4 pt-6 detail-item-3 flex flex-column justify-content-center align-items-center"
+        class="col-4 detail-item-3 flex flex-column justify-content-center align-items-center"
       >
         <img
           width="100"
@@ -70,7 +70,7 @@
         />
         <div class="text-center">
           <h3>Bảo Mật</h3>
-          <p>
+          <p class="p-2">
             Chúng tôi cam kết rằng hệ thống sẽ bảo mật thông tin người dùng một
             cách an toàn nhất
           </p>
@@ -79,87 +79,39 @@
     </div>
   </div>
 
-  <div class="semester">
-    <div class="title flex flex-row relative">
-      <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-        Chuyên Ngành 1
-      </h1>
-      <div class="bagde-container">
-        <p-badge class="bagde" value="Hot" severity="danger">Hot</p-badge>
+  <!-- Các khóa học tại chuyên ngành 1 -->
+  <ng-container *ngIf="courseSemester1 && courseSemester1.length > 0">
+    <div class="semester">
+      <div class="title flex flex-row gap-1 relative">
+        <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
+          Chuyên Ngành 1
+        </h1>
+        <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
+      </div>
+      <div class="flex flex-wrap align-items-center justify-content-start">
+        <div *ngFor="let course of courseSemester1" class="course col-3">
+          <img src="{{ course.thumbnail }}" />
+          <p-button
+            class="register-button flipup animation-duration-1000"
+            [style]="{
+              background: '#fff',
+              border: '10px solid #fff',
+              'border-radius': '2rem'
+            }"
+          >
+            <span class="font-bold" [style]="{ color: '#000' }"
+              >Xem khóa học</span
+            ></p-button
+          >
+          <h3 class="mb-1 mt-1">{{ course.title }}</h3>
+          <div class="flex flex-row gap-2 align-items-center">
+            <i class="pi pi-users" style="color: #708090"></i>
+            <span>{{ course.enrollmentCount }} người khác đã học</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="flex flex-wrap align-items-center justify-content-center">
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem khóa học</span
-          ></p-button
-        >
-        <h3 class="mb-1 mt-1">Lập trình JavaScript nâng cao</h3>
-        <p class="m-0">đ 350,000</p>
-      </div>
-    </div>
-  </div>
+  </ng-container>
 
   <!-- Course Free -->
   <ng-container *ngIf="coursesFree && coursesFree.length > 0">
@@ -169,7 +121,7 @@
           Khóa học miễn phí
         </h1>
       </div>
-      <div class="flex flex-wrap align-items-center justify-content-center">
+      <div class="flex flex-wrap align-items-center justify-content-start">
         <div *ngFor="let course of coursesFree" class="course col-3">
           <img src="{{ course.thumbnail }}" />
           <p-button
@@ -190,89 +142,6 @@
     </div>
   </ng-container>
 
-  <!-- Videos -->
-  <div class="semester">
-    <div class="title flex flex-row relative">
-      <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-        Videos nổi bật
-      </h1>
-    </div>
-    <div class="flex flex-wrap align-items-center justify-content-center">
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem video</span
-          ></p-button
-        >
-        <h3>
-          Music that make you feel positive and calm 🍃 lofi / relax / stress
-          relief
-        </h3>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem video</span
-          ></p-button
-        >
-        <h3>
-          Music that make you feel positive and calm 🍃 lofi / relax / stress
-          relief
-        </h3>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem video</span
-          ></p-button
-        >
-        <h3>
-          Music that make you feel positive and calm 🍃 lofi / relax / stress
-          relief
-        </h3>
-      </div>
-      <div class="course col-3">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/Course%2FIMAGE%20FOR%20COURSE%20(1).png?alt=media&token=d887afa7-7c4e-47d2-aba4-f27ed6156e8b"
-        />
-        <p-button
-          class="register-button flipup animation-duration-500"
-          [style]="{ background: '#fff', border: '10px solid #fff' }"
-        >
-          <span class="font-bold" [style]="{ color: '#000' }"
-            >Xem video</span
-          ></p-button
-        >
-        <h3>
-          Music that make you feel positive and calm 🍃 lofi / relax / stress
-          relief
-        </h3>
-      </div>
-    </div>
-    <p-paginator
-      [totalRecords]="120"
-      [rowsPerPageOptions]="[10, 20, 30]"
-    ></p-paginator>
-  </div>
-
   <!-- Feedback -->
   <div
     class="feedback flex flex-column justify-content-center align-items-center"
@@ -282,7 +151,7 @@
       <div class="col-4 text-center">
         <div class="fb-user p-4">
           <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
+            image="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/405170083_1422279521971375_6165574818069694783_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeESZAmvMhJkLqPfK8bXI3fGyibCUwe7eAnKJsJTB7t4CRAK76gITXCPrqDho0uqeBm_ONvcAjR2CVtLSKOKZ95T&_nc_ohc=DXmajP3in9MAX-uL51m&_nc_ht=scontent.fsgn2-9.fna&oh=00_AfBHIME3JAsZ4z4Saa8JJrf5NXmiFYBpSYMF_MW39w8S2g&oe=65AFD2F4"
             styleClass="mr-2"
             size="large"
             shape="circle"
@@ -302,7 +171,7 @@
       <div class="col-4 text-center">
         <div class="fb-user-2 p-4">
           <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
+            image="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-1/344363561_1269430363660340_8170588377395495271_n.jpg?stp=dst-jpg_p480x480&_nc_cat=106&ccb=1-7&_nc_sid=5740b7&_nc_eui2=AeHaq2DYET9CIBB7UDybgb7ToyBAlZE_O5GjIECVkT87kcVBjUGLd9-eI5XNExGhEzgdNXTHXNQTzfsS7Q0R4Nqm&_nc_ohc=hZx1E12zFl8AX85iOOe&_nc_ht=scontent.fsgn2-9.fna&oh=00_AfCJkBWYbXzV1KKXSGaT0n7Zpqfv1eWZOePab8Cu54Dffg&oe=65B000FA"
             styleClass="mr-2"
             size="large"
             shape="circle"
@@ -315,14 +184,14 @@
           ></p-rating>
           <p>
             Nhờ có khóa học React của Unicourse mà mình đã làm được project cá
-            nhân khá chỉnh chu. Cảm ơn Dreamy rất nhiều.
+            nhân khá chỉnh chu. Cảm ơn Unicourse rất nhiều.
           </p>
         </div>
       </div>
       <div class="col-4 text-center">
         <div class="fb-user p-4">
           <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png"
+            image="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/273280810_3317577035194696_6778832758339916691_n.jpg?stp=dst-jpg_p480x480&_nc_cat=102&ccb=1-7&_nc_sid=5740b7&_nc_eui2=AeGOAcpf7t6yTeRT2wiG3AdxTXzBYCKd98VNfMFgIp33xehKMmWH8UuwWGuBVhYG9dGmPMfCRinWpVEKNoCNW13M&_nc_ohc=wiOAJLjSstAAX8D8w6K&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfAhS5eVXeEiymkDZJ6QItz2ekIZ6li30ind_A9r52YJXQ&oe=65AEFF95"
             styleClass="mr-2"
             size="large"
             shape="circle"

@@ -100,7 +100,7 @@
     .title {
       position: relative;
       h1 {
-        font-size: 1.5rem;
+        font-size: 2rem;
       }
       h2 {
         color: black;
@@ -116,11 +116,12 @@
       }
     }
     .course {
+      height: 100%;
       position: relative;
       padding: 1%;
       img {
+        height: 12rem;
         width: 100%;
-        height: 10rem;
         border-radius: 1rem;
       }
       h3 {
@@ -149,7 +150,7 @@
         display: block;
       }
       img {
-        opacity: 0.2; /* Điều chỉnh độ trong suốt của hình ảnh */
+        opacity: 0.5; /* Điều chỉnh độ trong suốt của hình ảnh */
       }
     }
   }

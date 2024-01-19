@@ -1,20 +1,3 @@
-interface TrackStep {
-  title: string;
-  src: string;
-  position: number;
-  duration: number;
-  image_url: string;
-  video_url: string;
-}
-
-interface Track {
-  _id: string;
-  courseId: string;
-  position: number;
-  chapterTitle: string;
-  track_steps: TrackStep[];
-}
-
 export interface Course {
   _id: string;
   title: string;
@@ -29,6 +12,6 @@ export interface Course {
   quiz: null;
   createAt: Date;
   userId: string;
-  tracks: Track[];
+  tracks: [];
   semester_number: number;
 }
