@@ -8,7 +8,11 @@
     ariaCurrentWhenActive="page"
     class="basis-1 md:basis-1/3"
   >
-    <img class="h-full max-auto rounded-3xl p-3" [src]="course?.image" alt="" />
+    <img
+      class="h-full max-auto rounded-3xl p-3"
+      [src]="course?.thumbnail"
+      alt=""
+    />
   </a>
   <div class="p-3 pl-0 basis-1 md:basis-2/3 h-full">
     <div class="flex flex-col h-full">
@@ -25,7 +29,7 @@
           </h5>
         </a>
         <p class="mb-0 text-sm font-normal text-gray-700 dark:text-gray-400">
-          {{ course?.description }}
+          {{ course?.subTitle }}
         </p>
       </div>
       <div class="basis-1 md:basis-1/3 justify-self-start">
@@ -35,7 +39,7 @@
           ariaCurrentWhenActive="page"
         >
           <span class="text-base font-bold text-[#F15911] font-customFont">{{
-            course?.price == 0 ? "Miễn phí" : course?.price
+            course?.amount
           }}</span>
         </a>
       </div>

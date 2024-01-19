@@ -9,7 +9,13 @@ import { Course } from '../../cores/models';
 @Component({
   selector: 'app-detail-page',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, SharedModule, LecturerCardComponent, CourseListComponent],
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    SharedModule,
+    LecturerCardComponent,
+    CourseListComponent,
+  ],
   templateUrl: './detail-page.component.html',
   styleUrl: './detail-page.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -17,33 +23,11 @@ import { Course } from '../../cores/models';
 export class DetailPageComponent implements OnInit {
   value: number = 19;
   starValue: number = 5;
-  courses: Course[] = [
-    {
-      id: 1,
-      image: './assets/images/course-1.png',
-      title: 'Khóa học JPD123',
-      description: 'Kiến thức các bài giảng của khóa JPD123 - CN4',
-      price: 0,
-    },
-    {
-      id: 2,
-      image: './assets/images/course-2.png',
-      title: 'Ôn ENW492c Cấp Tốc',
-      description: 'Giúp pass môn trong vài buổi ôn',
-      price: 350000,
-    },
-    {
-      id: 3,
-      image: './assets/images/course-2.png',
-      title: 'Khóa học SDN302m',
-      description: 'Viết Rest API chuẩn men với NodeJS',
-      price: 350000,
-    }
-  ];
+  courses: Course[] = [];
 
   files!: TreeNode[];
 
-  constructor() { }
+  constructor() {}
 
   /* Fake data */
   ngOnInit() {
@@ -57,9 +41,9 @@ export class DetailPageComponent implements OnInit {
             key: '0-0',
             label: '1. Video buổi 1-2',
             data: 'Work Folder',
-            icon: 'pi pi-video'
-          }
-        ]
+            icon: 'pi pi-video',
+          },
+        ],
       },
       {
         key: '0',
@@ -70,10 +54,10 @@ export class DetailPageComponent implements OnInit {
             key: '0-0',
             label: '2. Video buổi 3-4',
             data: 'Work Folder',
-            icon: 'pi pi-video'
-          }
-        ]
-      }
-    ]
+            icon: 'pi pi-video',
+          },
+        ],
+      },
+    ];
   }
 }
