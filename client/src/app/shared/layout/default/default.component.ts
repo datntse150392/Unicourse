@@ -5,6 +5,13 @@ import { FooterComponent, HeaderComponent } from '../../components';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
 import { Subscription } from 'rxjs';
+
+import {
+  AngularFireAuthModule,
+  AngularFireAuth,
+} from '@angular/fire/compat/auth';
+import { AuthService } from '../../../cores/services';
+
 @Component({
   selector: 'app-default',
   standalone: true,
@@ -14,7 +21,9 @@ import { Subscription } from 'rxjs';
     FooterComponent,
     HeaderComponent,
     SharedModule,
+    AngularFireAuthModule,
   ],
+  providers: [AuthService],
   templateUrl: './default.component.html',
   styleUrl: './default.component.scss',
 })
@@ -23,7 +32,11 @@ export class DefaultComponent implements OnInit, OnDestroy {
   visibleSignUp: boolean = false;
 
   private subScriptions: Subscription[] = [];
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    public authService: AuthService,
+    public afAuth: AngularFireAuth
+  ) {}
   ngOnInit(): void {
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
     const turnOnSignInSub = this.sharedService.turnOnSignIn$.subscribe({
@@ -65,5 +78,41 @@ export class DefaultComponent implements OnInit, OnDestroy {
   openDialogSignUp() {
     this.closeDialogSignIn();
     this.visibleSignUp = true;
+  }
+
+  tryGoogleLogin() {
+    this.authService.doGoogleLogin().then((res: any) => {
+      if (res) {
+        this.getCurrentUser();
+      }
+    });
+  }
+
+  tryGibHubLogin() {
+    this.authService.doGitHubLogin().then(() => {
+      const userInfo = this.getCurrentUser();
+      if (userInfo) {
+        userInfo.then((res) => {
+          console.log(res);
+        });
+      }
+    });
+  }
+
+  getCurrentUser(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.onAuthStateChanged(function (user) {
+        if (user) {
+          const userInfo = {
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+          };
+          resolve(userInfo);
+        } else {
+          reject('No user logged in');
+        }
+      });
+    });
   }
 }

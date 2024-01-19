@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "unicourse-f4020": {
+      "hosting": {
+        "client": [
+          "unicourse-f4020"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "unicourse-f4020"
+  }
+}

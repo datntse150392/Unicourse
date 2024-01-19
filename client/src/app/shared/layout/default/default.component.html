@@ -17,7 +17,8 @@
 
         <div class="flex flex-column align-items-center text-center">
           <p>Chào mừng đến với Unicourse</p>
-          <span class="m-3">Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+          <span class="m-3"
+            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
           <div class="list-buttons-icon px-2 pb-2">
@@ -30,6 +31,7 @@
           </div>
           <div class="list-buttons-icon px-2 pb-2">
             <div
+              (click)="tryGoogleLogin()"
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
               <i class="pi pi-google" style="color: #708090"></i>
@@ -46,6 +48,7 @@
           </div>
           <div class="list-buttons-icon px-2">
             <div
+              (click)="tryGibHubLogin()"
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
               <i class="pi pi-github" style="color: #708090"></i>
@@ -90,7 +93,8 @@
 
         <div class="flex flex-column align-items-center text-center">
           <p>Chào mừng đến với Unicourse</p>
-          <span class="m-3">Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+          <span class="m-3"
+            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
           <div class="list-buttons-icon pl-4 pr-4">
@@ -120,7 +124,7 @@
                 pButton
                 icon="pi pi-lock-open"
                 class="bg-[#F1B300]"
-                [style]="{'padding': '1rem'}"
+                [style]="{ padding: '1rem' }"
               ></button>
             </p-inputGroup>
           </div>
