@@ -69,10 +69,15 @@ export class NavigateComponent implements OnInit, OnDestroy {
     this.user = undefined;
   }
   settingUserInfo() {
-    const userLocal = localStorage.getItem('UserInfo');
-    if (userLocal) {
-      this.user = JSON.parse(localStorage.getItem('UserInfo') || '');
+    if (typeof localStorage !== 'undefined') {
+      // Use localStorage here
+      // Example: localStorage.setItem('key', 'value');
+      const userLocal = localStorage.getItem('UserInfo');
+      if (userLocal) {
+        this.user = JSON.parse(localStorage.getItem('UserInfo') || '');
+      }
     }
+
     const settingLocalSub = this.sharedService.settingLocal$.subscribe({
       next: (res: boolean) => {
         if (res === true) {
