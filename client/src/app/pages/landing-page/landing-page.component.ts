@@ -29,6 +29,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
       next: (res: any) => {
         this.coursesFree = res.data;
+        this.courseService.listcoursesPro = res.data;
+
       },
       error: (err: any) => {
         console.log(err);
@@ -50,6 +52,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     const courseProSub$ = this.courseService.getCoursePro().subscribe({
       next: (res: any) => {
         this.coursePro = res.data;
+        this.courseService.listcoursesPro = res.data;
       },
       error: (err: any) => {
         console.log(err);

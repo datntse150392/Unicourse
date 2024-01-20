@@ -1,3 +1,5 @@
+import { Tracks } from "./tracks.model";
+
 export interface Course {
   _id: string;
   title: string;
@@ -12,6 +14,6 @@ export interface Course {
   quiz: null;
   createAt: Date;
   userId: string;
-  tracks: [];
+  tracks: Tracks[];
   semester_number: number;
 }

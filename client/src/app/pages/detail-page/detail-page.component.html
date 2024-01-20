@@ -21,7 +21,7 @@
                         </li>
                         <li>
                             <p class="font-normal text-base text-gray-900 font-customFont">Số bài học:
-                                <span class="font-bold text-gray-900 font-customFont">{{value}} bài học</span>
+                                <span class="font-bold text-gray-900 font-customFont">{{numberLesson}} bài học</span>
                                 &nbsp;
                                 <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Xem chi tiết
                                 </span>
@@ -140,8 +140,8 @@
                 Nội dung khóa học
             </h3>
             <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">
-                <span class="text-gray-900 font-bold">3</span> chương<span class="text-gray-900 font-extrabold"> .
-                </span><span class="text-gray-900 font-bold">19</span> bài học
+                <span class="text-gray-900 font-bold">{{numberChapter}}</span> chương<span class="text-gray-900 font-extrabold"> .
+                </span><span class="text-gray-900 font-bold">{{numberLesson}}</span> bài học
             </p>
             <div class="card flex justify-content-center">
                 <p-tree class="w-full md:w-full border-solid border-2 rounded md:rounded-lg" [value]="files"></p-tree>
@@ -156,7 +156,7 @@
             </h3>
             <div class="grid grid-cols-3 gap-2 m-0 w-full place-items-center"
                 [style]="{ 'max-height': '8rem', 'height': '8rem'}">
-                <app-course-list *ngFor="let course of courses" [course]="course"></app-course-list>
+                <app-course-list *ngFor="let course of listcoursesPro | slice:0:3" [course]="course"></app-course-list>
             </div>
         </div>
 
