@@ -17,7 +17,8 @@
 
         <div class="flex flex-column align-items-center text-center">
           <p>Chào mừng đến với Unicourse</p>
-          <span class="m-3">Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+          <span class="m-3"
+            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
           <div class="list-buttons-icon px-2 pb-2">
@@ -30,6 +31,7 @@
           </div>
           <div class="list-buttons-icon px-2 pb-2">
             <div
+              (click)="tryGoogleLogin()"
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
               <i class="pi pi-google" style="color: #708090"></i>
@@ -46,6 +48,7 @@
           </div>
           <div class="list-buttons-icon px-2">
             <div
+              (click)="tryGibHubLogin()"
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
               <i class="pi pi-github" style="color: #708090"></i>
@@ -90,13 +93,14 @@
 
         <div class="flex flex-column align-items-center text-center">
           <p>Chào mừng đến với Unicourse</p>
-          <span class="m-3">Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
+          <span class="m-3"
+            >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
           <div class="list-buttons-icon pl-4 pr-4">
             <input
               pInputText
-              class="fullName"
+              class="fullName p-2"
               aria-describedby="username-help"
               placeholder="Nhập họ tên của bạn"
               [style]="{ height: '3rem' }"
@@ -106,6 +110,7 @@
             <p-inputGroup>
               <p-inputGroupAddon>VN 84+</p-inputGroupAddon>
               <input
+                class="p-2"
                 type="text"
                 pInputText
                 placeholder="Nhập số điện thoại của bạn"
@@ -114,13 +119,18 @@
           </div>
           <div class="list-buttons-icon p-4 pb-0">
             <p-inputGroup>
-              <input type="text" pInputText placeholder="Nhập mã xác thực" />
+              <input
+                class="p-2"
+                type="text"
+                pInputText
+                placeholder="Nhập mã xác thực"
+              />
               <button
                 type="button"
                 pButton
                 icon="pi pi-lock-open"
                 class="bg-[#F1B300]"
-                [style]="{'padding': '1rem'}"
+                [style]="{ padding: '1rem' }"
               ></button>
             </p-inputGroup>
           </div>

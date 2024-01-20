@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { PaginatorModule } from 'primeng/paginator';
 import { CarouselModule } from 'primeng/carousel';
@@ -16,6 +15,9 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { ImageModule } from 'primeng/image';
 import { TreeModule } from 'primeng/tree';
+import { ButtonModule } from 'primeng/button';
+import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   imports: [
@@ -38,6 +40,8 @@ import { TreeModule } from 'primeng/tree';
     DialogModule,
     ImageModule,
     TreeModule,
+    MenuModule,
+    ToastModule,
   ],
   declarations: [],
   exports: [
@@ -58,6 +62,8 @@ import { TreeModule } from 'primeng/tree';
     DialogModule,
     CardModule,
     TreeModule,
+    MenuModule,
+    ToastModule,
   ],
 })
 export class SharedModule {}

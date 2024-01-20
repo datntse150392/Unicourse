@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "client",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "asia-east1"
+      }
+    }
+  ]
+}

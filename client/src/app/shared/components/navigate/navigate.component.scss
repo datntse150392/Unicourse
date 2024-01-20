@@ -7,15 +7,16 @@
       .logo {
         width: 15rem;
         padding-bottom: 1.3rem;
+        margin-right: 2rem;
       }
       .nav-items {
-        width: 30%;
+        gap: 1rem;
         display: flex;
-        flex-direction: row;
         justify-content: center;
+        flex-direction: row;
         align-items: center;
         .nav-item {
-          width: 100%;
+          width: 5.5rem;
           color: #1d1d1d;
           font-weight: bold;
           cursor: pointer;
@@ -26,6 +27,27 @@
             background-color: #94a3b8;
           }
         }
+      }
+    }
+    .btn-sign-up {
+      padding: 0.5rem 1rem;
+      width: 7.5rem;
+      border-radius: 1rem;
+      background: linear-gradient(to right bottom, #ff8f26, #ff5117);
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+      }
+    }
+    .btn-sign-in {
+      padding: 0.5rem 1rem;
+      width: 7.5rem;
+      border-radius: 1rem;
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000;
       }
     }
   }
