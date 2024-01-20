@@ -7,6 +7,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { FirebaseOptions } from 'firebase/app';
 import { AngularFireModule } from '@angular/fire/compat';
+import { MessageService } from 'primeng/api';
 
 export const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyCrH3nRPoIYgBtcCMdFwtu4IgayGz5EXps',
@@ -22,6 +23,9 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideAnimations(),
     provideHttpClient(withFetch()),
-    importProvidersFrom(AngularFireModule.initializeApp(firebaseConfig)),
+    importProvidersFrom(
+      AngularFireModule.initializeApp(firebaseConfig),
+      MessageService
+    ),
   ],
 };

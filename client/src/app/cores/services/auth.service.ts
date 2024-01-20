@@ -7,10 +7,12 @@ import {
   GithubAuthProvider,
   User,
 } from '@angular/fire/auth';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.development';
+import { Observable } from 'rxjs';
 @Injectable()
 export class AuthService {
-  constructor(public afAuth: AngularFireAuth) {}
+  constructor(public afAuth: AngularFireAuth, private httpClient: HttpClient) {}
 
   // Đăng nhập bằng tài khoản facebook
   doFacebookLogin() {
@@ -27,27 +29,15 @@ export class AuthService {
     return this.authLogin(new GithubAuthProvider());
   }
 
-  // doRegister(email: string, password: string) {
-  //   return this.afAuth.createUserWithEmailAndPassword(email, password);
-  // }
-
-  // doLogin(email: string, password: string) {
-  //   return this.afAuth.signInWithEmailAndPassword(email, password);
-  // }
-
   doLogout() {
-    // Đăng xuất thì xóa hết dữ liệu trong localStorage
-    localStorage.clear();
-
     // Đăng xuất khỏi firebase
     return this.afAuth.signOut();
   }
 
-  //
-  authLogin(provider: any) {
+  private authLogin(provider: any): any {
     return this.afAuth
       .signInWithPopup(provider)
-      .then((result) => {
+      .then(() => {
         console.log('You have been successfully logged in!');
       })
       .catch((error) => {
@@ -65,5 +55,15 @@ export class AuthService {
         }
       });
     });
+  }
+
+  // Call API Login
+  signIn(
+    email: string,
+    fullName: string,
+    profileImage: string
+  ): Observable<any> {
+    const body = { email, fullName, profileImage };
+    return this.httpClient.post(`${environment.baseUrl}/api/auth/signUp`, body);
   }
 }

@@ -5,6 +5,8 @@ import { FooterComponent, HeaderComponent } from '../../components';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
 import { Subscription } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from '../../../cores/models/index';
 
 import {
   AngularFireAuthModule,
@@ -30,6 +32,8 @@ import { AuthService } from '../../../cores/services';
 export class DefaultComponent implements OnInit, OnDestroy {
   visibleSignIn: boolean = false;
   visibleSignUp: boolean = false;
+  helper = new JwtHelperService();
+  user!: User;
 
   private subScriptions: Subscription[] = [];
   constructor(
@@ -81,9 +85,28 @@ export class DefaultComponent implements OnInit, OnDestroy {
   }
 
   tryGoogleLogin() {
-    this.authService.doGoogleLogin().then((res: any) => {
-      if (res) {
-        this.getCurrentUser();
+    this.authService.doGoogleLogin().then(() => {
+      const userInfo = this.getCurrentUser();
+      if (userInfo) {
+        userInfo.then((res) => {
+          const userSub$ = this.authService
+            .signIn(res.email, res.displayName, res.photoURL)
+            .subscribe((res) => {
+              if (res.status === 200 || res.status === 201) {
+                const token = res && res.data.access_token.split(' ')[1];
+                // Decode the token
+                const decoded = this.helper.decodeToken(token);
+                this.user = decoded;
+                localStorage.setItem('access_token', token);
+                localStorage.setItem('isLogin', 'true');
+                localStorage.setItem('UserInfo', JSON.stringify(this.user));
+                this.sharedService.settingLocalStorage();
+                this.closeDialogSignIn();
+                this.closeDialogSignUp();
+              }
+            });
+          this.subScriptions.push(userSub$);
+        });
       }
     });
   }
@@ -93,7 +116,23 @@ export class DefaultComponent implements OnInit, OnDestroy {
       const userInfo = this.getCurrentUser();
       if (userInfo) {
         userInfo.then((res) => {
-          console.log(res);
+          const userSub$ = this.authService
+            .signIn(res.email, res.displayName, res.photoURL)
+            .subscribe((res) => {
+              if (res.status === 200 || res.status === 201) {
+                const token = res && res.data.access_token.split(' ')[1];
+                // Decode the token
+                const decoded = this.helper.decodeToken(token);
+                this.user = decoded;
+                localStorage.setItem('access_token', token);
+                localStorage.setItem('isLogin', 'true');
+                localStorage.setItem('UserInfo', JSON.stringify(this.user));
+                this.sharedService.settingLocalStorage();
+                this.closeDialogSignIn();
+                this.closeDialogSignUp();
+              }
+            });
+          this.subScriptions.push(userSub$);
         });
       }
     });
@@ -104,7 +143,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
       this.afAuth.onAuthStateChanged(function (user) {
         if (user) {
           const userInfo = {
-            email: user.email,
+            email: user.uid + '@gmail.com',
             displayName: user.displayName,
             photoURL: user.photoURL,
           };

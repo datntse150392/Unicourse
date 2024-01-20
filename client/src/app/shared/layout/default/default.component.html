@@ -100,7 +100,7 @@
           <div class="list-buttons-icon pl-4 pr-4">
             <input
               pInputText
-              class="fullName"
+              class="fullName p-2"
               aria-describedby="username-help"
               placeholder="Nhập họ tên của bạn"
               [style]="{ height: '3rem' }"
@@ -110,6 +110,7 @@
             <p-inputGroup>
               <p-inputGroupAddon>VN 84+</p-inputGroupAddon>
               <input
+                class="p-2"
                 type="text"
                 pInputText
                 placeholder="Nhập số điện thoại của bạn"
@@ -118,7 +119,12 @@
           </div>
           <div class="list-buttons-icon p-4 pb-0">
             <p-inputGroup>
-              <input type="text" pInputText placeholder="Nhập mã xác thực" />
+              <input
+                class="p-2"
+                type="text"
+                pInputText
+                placeholder="Nhập mã xác thực"
+              />
               <button
                 type="button"
                 pButton
