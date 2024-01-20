@@ -4,10 +4,16 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { FirebaseOptions } from 'firebase/app';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MessageService } from 'primeng/api';
+import { authInterceptor } from './cores/interceptors/auth.interceptor';
+import { errorInterceptor } from './cores/interceptors/error.interceptor';
 
 export const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyCrH3nRPoIYgBtcCMdFwtu4IgayGz5EXps',
@@ -22,7 +28,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimations(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor, errorInterceptor])
+    ),
     importProvidersFrom(
       AngularFireModule.initializeApp(firebaseConfig),
       MessageService
