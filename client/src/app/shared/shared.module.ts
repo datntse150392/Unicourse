@@ -18,6 +18,7 @@ import { TreeModule } from 'primeng/tree';
 import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { ToastModule } from 'primeng/toast';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { ToastModule } from 'primeng/toast';
     TreeModule,
     MenuModule,
     ToastModule,
+    ToggleButtonModule,
   ],
   declarations: [],
   exports: [
@@ -64,6 +66,7 @@ import { ToastModule } from 'primeng/toast';
     TreeModule,
     MenuModule,
     ToastModule,
+    ToggleButtonModule,
   ],
 })
 export class SharedModule {}
