@@ -36,15 +36,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   files!: TreeNode[];
 
   public courseDetail!: Course;
-  public listcoursesPro: Course[] = this.courseService.listcoursesPro;
-  public listcoursesFree: Course[] = this.courseService.listcoursesFree;
+  public coursesFree: Course[] = [];
+  public courseSemester1: Course[] = [];
+  public coursePro: Course[] = [];
   private subscription = new Subscription();
-
-  
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
   ngOnInit(): void {
     //Sử dụng switchMap để lấy giá trị của tham số 'id' từ paramMap
@@ -58,8 +53,45 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   // Config on init
   initForm(_id: string): void {
+    const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
+      next: (res: any) => {
+        this.coursesFree = res.data;
+        this.courseService.listcoursesPro = res.data;
+
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
+    const courseSemester1Sub$ = this.courseService
+      .getCoursebySemester('1')
+      .subscribe({
+        next: (res: any) => {
+          this.courseSemester1 = res.data;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+
+    // Lấy danh sách khóa học PRO
+    const courseProSub$ = this.courseService.getCoursePro().subscribe({
+      next: (res: any) => {
+        this.coursePro = res.data;
+        this.courseService.listcoursesPro = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
     // Xử lý call API lấy course detail
     const courseDetailSub$ = this.courseService.getCourseById(_id).subscribe({
       next: async (res: any) => {
@@ -73,6 +105,9 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       },
     });
 
+    this.subscription.add(coursesFreeSub$);
+    this.subscription.add(courseSemester1Sub$);
+    this.subscription.add(courseProSub$);
     this.subscription.add(courseDetailSub$);
   }
 

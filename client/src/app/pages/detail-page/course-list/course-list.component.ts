@@ -12,7 +12,5 @@ import { Course } from '../../../cores/models';
 export class CourseListComponent {
   @Input() course: Course | undefined;
 
-  ngOnInit() {
-    console.log(this.course);
-  }
+  ngOnInit() { }
 }

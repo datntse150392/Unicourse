@@ -23,7 +23,7 @@
           ariaCurrentWhenActive="page"
         >
           <h5
-            class="mb-0 text-base font-black tracking-tight text-gray-900 dark:text-white"
+            class="mb-2 text-sm font-black tracking-tight text-gray-900 dark:text-white"
           >
             {{ course?.titleDescription }}
           </h5>
@@ -38,9 +38,9 @@
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
         >
-          <span class="text-base font-bold text-[#F15911] font-customFont">{{
-            course?.amount
-          }}</span>
+          <span class="text-sm font-bold text-[#F15911] font-customFont">
+            {{ course?.amount === 0 ? 'Miễn phí' : (course?.amount| currency:'VND')}}
+          </span>
         </a>
       </div>
     </div>
