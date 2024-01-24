@@ -13,5 +13,8 @@ export const routes: Routes = [
       { path: 'detail', component: DetailPageComponent },
     ],
   },
-  { path: 'learning-course/:id', component: LearningCourseComponent },
+  {
+    path: 'learning-course/:id/:contennt_url',
+    component: LearningCourseComponent,
+  },
 ];

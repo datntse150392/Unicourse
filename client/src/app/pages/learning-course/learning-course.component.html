@@ -2,6 +2,7 @@
   <header>
     <div class="nav-left">
       <i
+        [routerLink]="['/']"
         class="pi pi-angle-left"
         style="
           font-size: 2rem;
@@ -11,23 +12,10 @@
         "
       ></i>
       <div class="logo-title">
-        <img src="../../../assets/images/Logo UniCourse.svg" />
-        <p>Kiến thức nhập môn IT</p>
+        <p *ngIf="course">{{ course.title }}</p>
       </div>
     </div>
     <div class="nav-right">
-      <div class="container">
-        <i
-          class="pi pi-circle"
-          style="
-            font-size: 1rem;
-            color: #fff;
-            margin-right: 0.5rem;
-            cursor: pointer;
-          "
-        ></i>
-        <p>0/12 bài học</p>
-      </div>
       <div class="container">
         <i
           class="pi pi-file"
@@ -50,21 +38,33 @@
             cursor: pointer;
           "
         ></i>
-        <p>0/12 bài học</p>
+        <p>Hỗ trợ</p>
+      </div>
+      <div class="container">
+        <i
+          class="pi pi-chart-pie"
+          style="
+            font-size: 1.2rem;
+            color: #fff;
+            margin-right: 0.5rem;
+            cursor: pointer;
+          "
+        ></i>
+        <p>0/{{ course && course.tracks.length }} chương</p>
       </div>
     </div>
   </header>
-  <div class="learning-video grid grid-cols-4 gap-2">
-    <div class="video col-span-3">
+  <div class="learning-video grid grid-cols-6 gap-2">
+    <div class="video col-span-6">
       <div class="container">
-        <img
-          src="https://www.imgacademy.com/sites/default/files/legacyhotel6.jpg"
-        />
+        <iframe
+          width="100%"
+          [ngStyle]="{ height: '40rem' }"
+          [src]="videoUrl"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
       </div>
-    </div>
-    <div class="sidebar">
-      <p class="font-bold">Nội dung khóa học</p>
-      <p-tree [value]="files" class="w-full md:w-30rem"></p-tree>
     </div>
   </div>
   <div class="detail-info">
@@ -75,7 +75,7 @@
       </p>
     </div>
     <div class="title">
-      <h2>Template engine (handlebars)</h2>
+      <h2>{{ course && course.title }}</h2>
       <span>Cập nhật tháng 1 năm 2024</span>
     </div>
     <div class="community">
@@ -102,25 +102,88 @@
       <i
         class="pi pi-angle-left"
         style="
-          font-size: 2.5rem;
-          color: #fff;
+          font-size: 1.5rem;
+          color: #404040;
           margin-right: 0.5rem;
           cursor: pointer;
         "
       ></i>
-      <p>BÀI SAU</p>
+      <p>BÀI TRƯỚC</p>
     </div>
     <div class="btn-right">
       <p>BÀI TIẾP THEO</p>
       <i
         class="pi pi-angle-right"
         style="
-          font-size: 2.5rem;
+          font-size: 1.5rem;
           color: #f0a089;
           margin-right: 0.5rem;
           cursor: pointer;
         "
       ></i>
     </div>
+    <div class="btn-sidebar">
+      <p>1. Giới thiệu</p>
+      <i
+        (click)="sidebar = true"
+        class="pi pi-align-justify"
+        style="font-size: 1.5rem"
+      ></i>
+    </div>
   </footer>
+</div>
+
+<!-- Sidebar Learning -->
+<div class="card flex flex-wrap justify-content-center gap-2">
+  <p-sidebar [(visible)]="sidebar" styleClass="set-width" position="right">
+    <div class="card flex flex-col justify-content-center">
+      <h2>Nội dung khóa học</h2>
+      <p-accordion class="w-full accordion-tab">
+        <ng-container *ngIf="this.course">
+          <p-accordionTab *ngFor="let track of this.course.tracks">
+            <ng-template pTemplate="header">
+              <span class="flex align-items-center gap-2 w-full">
+                <div>
+                  <p class="font-bold white-space-nowrap">
+                    {{ track.position }}. {{ track.chapterTitle }}
+                  </p>
+                  <span>0/{{ track.track_steps.length }} | 11:21</span>
+                </div>
+              </span>
+            </ng-template>
+            <div *ngFor="let step of track.track_steps">
+              <div
+                [ngStyle]="
+                  this.conntent_url == step.content_url
+                    ? { 'background-color': 'rgb(252, 220, 211)' }
+                    : { 'background-color': '#e7e7e7' }
+                "
+                class="step-track w-full"
+              >
+                <p
+                  [routerLink]="[
+                    '/learning-course/',
+                    this.course._id,
+                    step.content_url
+                  ]"
+                  [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }"
+                >
+                  {{ step.position }}. {{ step.title }}
+                </p>
+                <div class="duration">
+                  <img
+                    width="20"
+                    height="20"
+                    src="https://img.icons8.com/nolan/64/circled-play.png"
+                    alt="circled-play"
+                  />
+                  <span>11:21</span>
+                </div>
+              </div>
+            </div>
+          </p-accordionTab>
+        </ng-container>
+      </p-accordion>
+    </div>
+  </p-sidebar>
 </div>

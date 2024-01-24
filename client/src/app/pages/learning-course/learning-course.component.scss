@@ -1,8 +1,6 @@
 .card {
   header {
-    padding: 0.5rem 1rem;
-    background: #29303b;
-    opacity: 0.8;
+    background: rgb(41, 48, 59);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -11,15 +9,19 @@
       flex-direction: row;
       justify-content: start;
       align-items: center;
+      i {
+        padding: 0.5rem 1rem;
+        &:hover {
+          cursor: pointer;
+          background: #404040;
+          padding: -0.5rem -1rem;
+        }
+      }
       .logo-title {
         display: flex;
         flex-direction: row;
         justify-content: start;
         align-items: center;
-        gap: 1rem;
-        img {
-          width: 6rem;
-        }
         p {
           color: var(--Base-White, #fff);
           font-size: 1rem;
@@ -29,17 +31,18 @@
       }
     }
     .nav-right {
+      margin-right: 1rem;
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
-      width: 25%;
+      gap: 2rem;
       .container {
+        width: auto;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
-
         p {
           color: var(--Base-White, #fff);
           font-size: 14px;
@@ -51,15 +54,17 @@
     }
   }
   .learning-video {
+    height: 40rem;
     overflow-y: hidden;
-    height: 45rem;
     padding: 0;
     margin: 0;
     .video {
-      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12rem;
+      background-color: #000;
       .container {
-        padding: 0 3rem;
-        background-color: #000;
         img {
           width: 100%;
           background-color: #000;
@@ -67,6 +72,8 @@
       }
     }
     .sidebar {
+      overflow-y: scroll;
+      height: 100%;
       p {
         padding: 1.5rem 1rem;
         padding-bottom: 0;
@@ -75,7 +82,8 @@
     }
   }
   .detail-info {
-    padding: 1rem 3rem;
+    padding: 1rem 12rem;
+    padding-bottom: 5rem;
     .title {
       padding: 1rem 0rem;
       h2 {
@@ -97,9 +105,9 @@
     .community {
       p {
         color: #404040;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 400;
         line-height: normal;
         margin-bottom: 0.5rem;
       }
@@ -113,20 +121,23 @@
     }
   }
   footer {
-    padding: 1rem 1rem;
-    background: #29303b;
-    opacity: 0.8;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: rgb(240, 240, 240);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -2px 3px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 5rem;
+    gap: 2rem;
     .btn-left {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       p {
-        color: var(--Base-White, #fff);
+        color: var(--Base-White, #404040);
         font-size: 1rem;
         font-style: normal;
         font-weight: 500;
@@ -134,6 +145,7 @@
       }
     }
     .btn-right {
+      padding: 0.5rem;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -145,6 +157,69 @@
         font-style: normal;
         font-weight: 700;
         line-height: normal;
+      }
+    }
+
+    .btn-sidebar {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      position: absolute;
+      right: 0%;
+      transform: translate(-50%, 50%);
+      p {
+        color: #000;
+        font-weight: 600;
+      }
+    }
+  }
+}
+.set-width {
+  width: 25rem;
+  .tree-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .card {
+    h2 {
+      color: #000;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 1rem;
+      padding-top: 0rem !important;
+    }
+    .accordion-tab {
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      span {
+        color: #29303b;
+        font-size: 12px;
+        font-weight: 300;
+      }
+      .step-track {
+        margin: -14px;
+        padding: 1rem 2.5rem;
+        width: 22rem !important;
+        display: flex;
+        flex-direction: column;
+        .duration {
+          display: flex;
+          flex-direction: row;
+          gap: 0.5rem;
+          padding: 0.2rem 0.5rem;
+          align-items: center;
+          span {
+            font-size: 0.8rem;
+            color: #000;
+          }
+        }
       }
     }
   }
