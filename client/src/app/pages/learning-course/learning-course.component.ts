@@ -18,13 +18,13 @@ export class LearningCourseComponent implements OnDestroy {
   courseId!: string;
   course!: Course;
   conntent_url!: string;
-  sidebar: boolean = false;
-
   files!: TreeNode[];
+  sidebar: boolean = false;
   sizes!: any[];
   selectedSize: any = '';
-
+  track: Track | undefined
   videoUrl!: any;
+
   private subScriptions: Subscription[] = [];
   constructor(
     private courseService: CourseService,
@@ -32,10 +32,9 @@ export class LearningCourseComponent implements OnDestroy {
     private sanitizer: DomSanitizer
   ) {
     this.route.paramMap.subscribe((res: any) => {
-      console.log(res);
       this.courseId = res.params.id;
       this.conntent_url = res.params.contennt_url;
-      console.log(this.videoUrl);
+      this.track = this.course?.tracks.find((track: any) => track.track_steps.find((step: any) => step.content_url == this.conntent_url));
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         `https://www.youtube.com/embed/${this.conntent_url}`
       );
@@ -59,6 +58,7 @@ export class LearningCourseComponent implements OnDestroy {
           this.course = res.data;
           this.course.tracks.sort((a: any, b: any) => a.position - b.position);
           this.getFilesystem(this.course).then((files) => (this.files = files));
+          this.track = this.course?.tracks.find((track: any) => track.track_steps.find((step: any) => step.content_url == this.conntent_url));
         },
         error: (err) => console.log(err),
       });

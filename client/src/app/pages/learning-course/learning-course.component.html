@@ -123,7 +123,7 @@
       ></i>
     </div>
     <div class="btn-sidebar">
-      <p>1. Giới thiệu</p>
+      <p *ngIf="track">{{track.chapterTitle}}</p>
       <i
         (click)="sidebar = true"
         class="pi pi-align-justify"
