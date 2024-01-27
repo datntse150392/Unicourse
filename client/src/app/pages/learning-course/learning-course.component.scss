@@ -132,6 +132,7 @@
     justify-content: center;
     gap: 2rem;
     .btn-left {
+      padding: 0.5rem;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -145,13 +146,14 @@
       }
     }
     .btn-right {
+      cursor: pointer;
       padding: 0.5rem;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       p {
-        color: var(--F0A089, #f0a089);
+        color: var(--F0A089, #f05123);
         text-align: right;
         font-size: 1rem;
         font-style: normal;

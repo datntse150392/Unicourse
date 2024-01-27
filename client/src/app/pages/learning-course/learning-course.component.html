@@ -98,7 +98,11 @@
     </div>
   </div>
   <footer>
-    <div class="btn-left">
+    <div
+      *ngIf="this.indexLesson > 0"
+      [routerLink]="['/learning-course/', this.courseId, this.previousLesson]"
+      class="btn-left"
+    >
       <i
         class="pi pi-angle-left"
         style="
@@ -110,20 +114,25 @@
       ></i>
       <p>BÀI TRƯỚC</p>
     </div>
-    <div class="btn-right">
+    <!-- Btn Next Lesson -->
+    <div
+      *ngIf="this.trackSteps.length - 1 > this.indexLesson"
+      [routerLink]="['/learning-course/', this.courseId, this.nextLesson]"
+      class="btn-right"
+    >
       <p>BÀI TIẾP THEO</p>
       <i
         class="pi pi-angle-right"
         style="
           font-size: 1.5rem;
-          color: #f0a089;
+          color: #f05123;
           margin-right: 0.5rem;
           cursor: pointer;
         "
       ></i>
     </div>
     <div class="btn-sidebar">
-      <p *ngIf="track">{{track.chapterTitle}}</p>
+      <p *ngIf="track">{{ track.chapterTitle }}</p>
       <i
         (click)="sidebar = true"
         class="pi pi-align-justify"
@@ -138,7 +147,11 @@
   <p-sidebar [(visible)]="sidebar" styleClass="set-width" position="right">
     <div class="card flex flex-col justify-content-center">
       <h2>Nội dung khóa học</h2>
-      <p-accordion class="w-full accordion-tab">
+      <p-accordion
+        [multiple]="true"
+        [activeIndex]="[0]"
+        class="w-full accordion-tab"
+      >
         <ng-container *ngIf="this.course">
           <p-accordionTab *ngFor="let track of this.course.tracks">
             <ng-template pTemplate="header">

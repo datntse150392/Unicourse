@@ -22,22 +22,32 @@ export class LearningCourseComponent implements OnDestroy {
   sidebar: boolean = false;
   sizes!: any[];
   selectedSize: any = '';
-  track: Track | undefined
+  track: Track | undefined;
+  trackSteps: TrackStep[] = [];
+  nextLesson: string = '';
+  previousLesson: string = '';
+  indexLesson!: number;
   videoUrl!: any;
 
   private subScriptions: Subscription[] = [];
   constructor(
     private courseService: CourseService,
-    private route: ActivatedRoute,
+    private routeActive: ActivatedRoute,
     private sanitizer: DomSanitizer
   ) {
-    this.route.paramMap.subscribe((res: any) => {
+    this.routeActive.paramMap.subscribe((res: any) => {
       this.courseId = res.params.id;
       this.conntent_url = res.params.contennt_url;
-      this.track = this.course?.tracks.find((track: any) => track.track_steps.find((step: any) => step.content_url == this.conntent_url));
+      this.track = this.course?.tracks.find((track: any) =>
+        track.track_steps.find(
+          (step: any) => step.content_url == this.conntent_url
+        )
+      );
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         `https://www.youtube.com/embed/${this.conntent_url}`
       );
+      this.getNextLesson();
+      this.getPrevLesson();
     });
   }
 
@@ -58,7 +68,14 @@ export class LearningCourseComponent implements OnDestroy {
           this.course = res.data;
           this.course.tracks.sort((a: any, b: any) => a.position - b.position);
           this.getFilesystem(this.course).then((files) => (this.files = files));
-          this.track = this.course?.tracks.find((track: any) => track.track_steps.find((step: any) => step.content_url == this.conntent_url));
+          this.track = this.course?.tracks.find((track: any) =>
+            track.track_steps.find(
+              (step: any) => step.content_url == this.conntent_url
+            )
+          );
+          this.trackSteps = this.getTrackSteps(this.course);
+          this.getNextLesson();
+          this.getPrevLesson();
         },
         error: (err) => console.log(err),
       });
@@ -81,5 +98,36 @@ export class LearningCourseComponent implements OnDestroy {
         },
       })),
     }));
+  }
+
+  // Hàm gộp các bài học thành 1 mảng
+  getTrackSteps(course: Course) {
+    let trackSteps: TrackStep[] = [];
+    course?.tracks.forEach((track: Track) => {
+      trackSteps = [...trackSteps, ...track.track_steps];
+    });
+    return trackSteps;
+  }
+
+  // Hàm thực hiện việc ấn kế tiếp bài học tiếp theo
+  getNextLesson() {
+    const index = this.trackSteps.findIndex(
+      (step: TrackStep) => step.content_url == this.conntent_url
+    );
+    this.indexLesson = index;
+    if (index < this.trackSteps.length - 1) {
+      this.nextLesson = this.trackSteps[index + 1].content_url;
+    }
+  }
+
+  // Hàm thực hiện việc ấn bài học trước đó
+  getPrevLesson() {
+    const index = this.trackSteps.findIndex(
+      (step: TrackStep) => step.content_url == this.conntent_url
+    );
+    this.indexLesson = index;
+    if (index > 0) {
+      this.previousLesson = this.trackSteps[index - 1].content_url;
+    }
   }
 }
