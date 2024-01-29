@@ -4,11 +4,10 @@ import { SharedModule } from '../../shared';
 import { TreeNode } from 'primeng/api';
 import { LecturerCardComponent } from './lecturer-card/lecturer-card.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { Course, Track_Step } from '../../cores/models';
+import { Course, Track, TrackStep } from '../../cores/models';
 import { CourseService } from '../../cores/services';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, filter, switchMap } from 'rxjs';
-import { Tracks } from '../../cores/models'; // Import the 'Track' type from the appropriate module
 
 @Component({
   selector: 'app-detail-page',
@@ -93,7 +92,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     });
 
     // Xử lý call API lấy course detail
-    const courseDetailSub$ = this.courseService.getCourseById(_id).subscribe({
+    const courseDetailSub$ = this.courseService.getCourseDetail(_id).subscribe({
       next: async (res: any) => {
         this.courseDetail = res.data;
         if (this.courseDetail?.tracks?.length > 0) {
@@ -115,8 +114,8 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   // SERVICE XỬ LÝ DỮ LIỆU CHO COMPONENT
 
   // Xử lý mapping data Component TreeNode[]
-  mapToTreeNode = async (tracks: Tracks[]): Promise<TreeNode<any>[]> => {
-    const treeNodePromises = tracks.map(async (track: Tracks) => {
+  mapToTreeNode = async (tracks: Track[]): Promise<TreeNode<any>[]> => {
+    const treeNodePromises = tracks.map(async (track: Track) => {
       const children: TreeNode[] = await this.mapTrackStepsToTreeNode(track.track_steps);
       return {
         key: track._id,
@@ -137,10 +136,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   };
 
   // Xử lý mapping node children của Component TreeNode
-  mapTrackStepsToTreeNode = (track_steps: Track_Step[]): Promise<any[]> => {
+  mapTrackStepsToTreeNode = (track_steps: TrackStep[]): Promise<any[]> => {
     const array: any[] = [];
-    const handlePush = (track_steps: Track_Step[]) => {
-      track_steps.map((trackStep: Track_Step) => {
+    const handlePush = (track_steps: TrackStep[]) => {
+      track_steps.map((trackStep: TrackStep) => {
         array.push({
           key: trackStep.title,
           label: trackStep.title,

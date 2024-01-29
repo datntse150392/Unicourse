@@ -1,0 +1,229 @@
+.card {
+  header {
+    background: rgb(41, 48, 59);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .nav-left {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      align-items: center;
+      i {
+        padding: 0.5rem 1rem;
+        &:hover {
+          cursor: pointer;
+          background: #404040;
+          padding: -0.5rem -1rem;
+        }
+      }
+      .logo-title {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        p {
+          color: var(--Base-White, #fff);
+          font-size: 1rem;
+          font-style: normal;
+          font-weight: 700;
+        }
+      }
+    }
+    .nav-right {
+      margin-right: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      .container {
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        p {
+          color: var(--Base-White, #fff);
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+        }
+      }
+    }
+  }
+  .learning-video {
+    height: 40rem;
+    overflow-y: hidden;
+    padding: 0;
+    margin: 0;
+    .video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12rem;
+      background-color: #000;
+      .container {
+        img {
+          width: 100%;
+          background-color: #000;
+        }
+      }
+    }
+    .sidebar {
+      overflow-y: scroll;
+      height: 100%;
+      p {
+        padding: 1.5rem 1rem;
+        padding-bottom: 0;
+        font-size: 1.2rem;
+      }
+    }
+  }
+  .detail-info {
+    padding: 1rem 12rem;
+    padding-bottom: 5rem;
+    .title {
+      padding: 1rem 0rem;
+      h2 {
+        color: var(--Base-Black, #000);
+        font-size: 2.5rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-bottom: 0;
+      }
+      span {
+        color: #404040;
+        font-size: 0.7rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+    .community {
+      p {
+        color: #404040;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-bottom: 0.5rem;
+      }
+      li {
+        padding: 0rem 1rem;
+        text-decoration: none;
+        a {
+          color: red;
+        }
+      }
+    }
+  }
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: rgb(240, 240, 240);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px -2px 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    .btn-left {
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      p {
+        color: var(--Base-White, #404040);
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+    .btn-right {
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      p {
+        color: var(--F0A089, #f05123);
+        text-align: right;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+
+    .btn-sidebar {
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      position: absolute;
+      right: -6%;
+      transform: translate(-50%, 50%);
+      p {
+        color: #000;
+        font-weight: 600;
+      }
+    }
+  }
+}
+.set-width {
+  width: 25rem;
+  .tree-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .card {
+    h2 {
+      color: #000;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 1rem;
+      padding-top: 0rem !important;
+    }
+    .accordion-tab {
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      span {
+        color: #29303b;
+        font-size: 12px;
+        font-weight: 300;
+      }
+      .step-track {
+        margin: -14px;
+        padding: 1rem 2.5rem;
+        width: 22rem !important;
+        display: flex;
+        flex-direction: column;
+        .duration {
+          display: flex;
+          flex-direction: row;
+          gap: 0.5rem;
+          padding: 0.2rem 0.5rem;
+          align-items: center;
+          span {
+            font-size: 0.8rem;
+            color: #000;
+          }
+        }
+      }
+    }
+  }
+}

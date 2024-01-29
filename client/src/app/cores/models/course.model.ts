@@ -1,4 +1,19 @@
-import { Tracks } from "./tracks.model";
+export interface TrackStep {
+  _id: string;
+  title: string;
+  position: number;
+  duration: number;
+  content_url: string;
+  type: string;
+}
+
+export interface Track {
+  _id: string;
+  courseId: string;
+  position: number;
+  chapterTitle: string;
+  track_steps: TrackStep[];
+}
 
 export interface Course {
   _id: string;
@@ -11,9 +26,8 @@ export interface Course {
   type: string;
   amount: number;
   thumbnail: string;
-  quiz: null;
   createAt: Date;
   userId: string;
-  tracks: Tracks[];
+  tracks: Track[];
   semester_number: number;
 }

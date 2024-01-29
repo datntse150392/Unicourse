@@ -29,10 +29,10 @@ export class CourseService {
       .pipe(catchError(this.handleError));
   }
 
-  // Lấy danh sách khóa học by id
-  getCourseById(courseId: string): Observable<Course> {
+  // Lấy chi tiết khóa học theo courseId
+  getCourseDetail(courseId: string): Observable<Course> {
     return this.httpClient
-      .get<Course>(`${environment.baseUrl}/api/course/get-course/${courseId}`)
+      .get<Course>(`${environment.baseUrl}/api/course/${courseId}`)
       .pipe(catchError(this.handleError));
   }
 

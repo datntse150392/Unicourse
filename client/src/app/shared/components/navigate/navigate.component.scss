@@ -16,14 +16,14 @@
         flex-direction: row;
         align-items: center;
         .nav-item {
-          width: 5.5rem;
+          width: 6.5rem;
           color: #1d1d1d;
           font-weight: bold;
           cursor: pointer;
           &:hover {
             color: #fff;
             border-radius: 5px;
-            padding: 3% 0%;
+            padding: 5% 2%;
             background-color: #94a3b8;
           }
         }
