@@ -32,7 +32,7 @@ export class CourseService {
   // Lấy chi tiết khóa học theo courseId
   getCourseDetail(courseId: string): Observable<Course> {
     return this.httpClient
-      .get<Course>(`${environment.baseUrl}/api/course/get-course/${courseId}`)
+      .get<Course>(`${environment.baseUrl}/api/course/${courseId}`)
       .pipe(catchError(this.handleError));
   }
 
@@ -40,4 +40,9 @@ export class CourseService {
     // Handle the error appropriately here
     return throwError(() => new Error(error));
   }
+
+  // Share common value between components
+  public courseDetail!: Course;
+  public listcoursesFree!: Course[];
+  public listcoursesPro!: Course[];
 }

@@ -102,9 +102,16 @@
               'border-radius': '2rem'
             }"
           >
-            <span class="font-bold" [style]="{ color: '#000' }"
+          <a
+            routerLink="/detail/{{ course._id }}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+          >
+          <span class="font-bold" [style]="{ color: '#000' }"
               >Xem khóa học</span
-            ></p-button
+            >
+          </a>
+            </p-button
           >
           <h3 class="mb-1 mt-1">{{ course.title }}</h3>
           <div class="flex flex-row gap-2 align-items-center">
@@ -131,10 +138,14 @@
             class="register-button flipup animation-duration-500"
             [style]="{ background: '#fff', border: '10px solid #fff' }"
           >
-            <span class="font-bold" [style]="{ color: '#000' }"
-              >Xem khóa học</span
-            ></p-button
+          <a
+            routerLink="/detail/{{ course._id }}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
           >
+          <span class="font-bold" [style]="{ color: '#000' }">Xem khóa học</span>
+          </a>
+          </p-button>
           <h3 class="mb-1 mt-1">{{ course.title }}</h3>
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>

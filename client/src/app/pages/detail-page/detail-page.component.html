@@ -14,14 +14,14 @@
                 </div>
                 <!-- course-content-->
                 <div class="basis-1 md:basis-2/3 border-round-right">
-                    <ul class="list-none space-y-3">
+                    <ul class="list-none space-y-4">
                         <li>
-                            <p class="text-lg text-gray-900 font-semibold font-customFont">Lập trình JavaScript nâng cao
+                            <p class="text-lg text-gray-900 font-semibold font-customFont">{{courseDetail?.title}}
                             </p>
                         </li>
                         <li>
                             <p class="font-normal text-base text-gray-900 font-customFont">Số bài học:
-                                <span class="font-bold text-gray-900 font-customFont">{{value}} bài học</span>
+                                <span class="font-bold text-gray-900 font-customFont">{{numberLesson}} bài học</span>
                                 &nbsp;
                                 <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Xem chi tiết
                                 </span>
@@ -44,16 +44,25 @@
                         </li>
                         <li>
                             <p class="font-normal text-base text-gray-900 font-customFont">Giá:
-                                <span class="font-bold text-gray-900 font-customFont">đ350,000</span>
+                                <span class="font-bold text-gray-900 font-customFont">
+                                    {{ courseDetail?.amount === 0 ? 'Miễn phí' : (courseDetail?.amount| currency:'VND')}}
+                                  </span>                                  
                             </p>
                         </li>
                         <li>
-                            <button type="button"
-                                class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Thêm
-                                vào giỏ hàng</button>
-                            <button type="button"
-                                class="font-customFont text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Học
-                                thử miễn phí</button>
+                            <ng-template [ngIf]="courseDetail?.type !== 'free'">
+                                <button type="button"
+                                    class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Thêm
+                                    vào giỏ hàng</button>
+                                <button type="button"
+                                    class="font-customFont text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Học
+                                    thử miễn phí</button>
+                            </ng-template>
+                            <ng-template [ngIf]="courseDetail?.type === 'free'">
+                                <button type="button"
+                                    class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Đăng
+                                    ký ngay</button>
+                            </ng-template>
                         </li>
                     </ul>
                 </div>
@@ -140,11 +149,11 @@
                 Nội dung khóa học
             </h3>
             <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">
-                <span class="text-gray-900 font-bold">3</span> chương<span class="text-gray-900 font-extrabold"> .
-                </span><span class="text-gray-900 font-bold">19</span> bài học
+                <span class="text-gray-900 font-bold">{{numberChapter}}</span> chương<span class="text-gray-900 font-extrabold"> .
+                </span><span class="text-gray-900 font-bold">{{numberLesson}}</span> bài học
             </p>
             <div class="card flex justify-content-center">
-                <p-tree class="w-full md:w-full border-solid border-2 rounded md:rounded-lg" [value]="files"></p-tree>
+                <p-tree class="w-full md:w-full border-solid border-2 rounded md:rounded-lg" [value]="files" [styleClass]="'my-tree'"></p-tree>
             </div>
         </div>
 
@@ -156,7 +165,7 @@
             </h3>
             <div class="grid grid-cols-3 gap-2 m-0 w-full place-items-center"
                 [style]="{ 'max-height': '8rem', 'height': '8rem'}">
-                <app-course-list *ngFor="let course of courses" [course]="course"></app-course-list>
+                <app-course-list *ngFor="let course of coursesFree | slice:0:3" [course]="course"></app-course-list>
             </div>
         </div>
 

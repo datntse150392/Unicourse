@@ -10,7 +10,7 @@ export const routes: Routes = [
     component: DefaultComponent,
     children: [
       { path: '', component: LandingPageComponent },
-      { path: 'detail', component: DetailPageComponent },
+      { path: 'detail/:id', component: DetailPageComponent },
     ],
   },
   {
