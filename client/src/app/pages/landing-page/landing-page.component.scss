@@ -39,10 +39,11 @@
         border: none;
         border-radius: 10px;
         background: linear-gradient(to right bottom, #ff8f26, #ff5117);
+        transition: 1.5s;
         p {
           font-size: 25px;
           color: #fcf9f4;
-          opacity: 0.7;
+          opacity: 0.8;
           font-weight: bold;
         }
       }
