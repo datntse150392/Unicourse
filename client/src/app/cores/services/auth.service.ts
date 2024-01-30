@@ -9,8 +9,8 @@ import {
 } from '@angular/fire/auth';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { Observable } from 'rxjs';
-@Injectable()
+import { Observable, catchError, throwError } from 'rxjs';
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(public afAuth: AngularFireAuth, private httpClient: HttpClient) {}
 
@@ -65,5 +65,18 @@ export class AuthService {
   ): Observable<any> {
     const body = { email, fullName, profileImage };
     return this.httpClient.post(`${environment.baseUrl}/api/auth/signUp`, body);
+  }
+
+  // Call API kiểm tra xem user đã đăng ký khóa học chưa
+  checkUserRegisterCourse(userId: string, courseId: string): Observable<any> {
+    const body = { userId, courseId };
+    return this.httpClient
+      .post(`${environment.baseUrl}/api/user/checkUserRegisterCourse`, body)
+      .pipe(catchError(this.handleError));
+  }
+
+  private handleError(error: any) {
+    // Handle the error appropriately here
+    return throwError(() => new Error(error));
   }
 }
