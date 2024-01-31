@@ -34,7 +34,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   starValue: number = 5;
   files!: TreeNode[];
 
-  public courseDetail!: Course;
+  public courseDetail: Course | undefined;
   public coursesFree: Course[] = [];
   public courseSemester1: Course[] = [];
   public coursePro: Course[] = [];
@@ -95,7 +95,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     const courseDetailSub$ = this.courseService.getCourseDetail(_id).subscribe({
       next: async (res: any) => {
         this.courseDetail = res.data;
-        if (this.courseDetail?.tracks?.length > 0) {
+        if (this.courseDetail && this.courseDetail?.tracks?.length > 0) {
           this.files = await this.mapToTreeNode(this.courseDetail.tracks);
         }
       },

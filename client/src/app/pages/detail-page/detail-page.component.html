@@ -14,7 +14,7 @@
                 </div>
                 <!-- course-content-->
                 <div class="basis-1 md:basis-2/3 border-round-right">
-                    <ul class="list-none space-y-4">
+                    <ul [ngIf]="courseDetail" class="list-none space-y-4">
                         <li>
                             <p class="text-lg text-gray-900 font-semibold font-customFont">{{courseDetail?.title}}
                             </p>
