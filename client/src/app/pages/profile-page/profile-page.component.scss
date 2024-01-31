@@ -1,0 +1,82 @@
+.container {
+  background-color: #f9f9f9;
+  max-width: 100%;
+  .back-step {
+    &:hover {
+      i {
+        color: #212121 !important;
+      }
+      h4 {
+        color: #212121 !important;
+      }
+    }
+  }
+  .body-container {
+    width: 80%;
+    margin: auto;
+  }
+}
+
+@media only screen and (max-width: 1286px) {
+  .header-background {
+    height: 70vh;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    .avatar {
+      position: absolute;
+      left: 5rem;
+      bottom: 5rem;
+    }
+  }
+}
+@media only screen and (min-width: 1287px) and (max-width: 1399px) {
+  .header-background {
+    height: 60vh;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    .group-info {
+      width: 85%;
+      position: absolute;
+      left: 5rem;
+      bottom: 4rem;
+    }
+  }
+}
+@media only screen and (min-width: 1400px) and (max-width: 1499px) {
+  .header-background {
+    height: 55vh;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    .group-info {
+      width: 85%;
+      position: absolute;
+      left: 5rem;
+      bottom: 5rem;
+    }
+  }
+}
+@media only screen and (min-width: 1500px) {
+  .header-background {
+    height: 50vh;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    .group-info {
+      width: 85%;
+      position: absolute;
+      left: 5rem;
+      bottom: 7rem;
+    }
+  }
+}
