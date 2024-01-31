@@ -2,19 +2,19 @@
   class="flex flex-row content-between bg-white border border-gray-200 rounded-lg shadow"
   [style]="{ height: '8rem' }"
 >
-  <a
+  <div
     routerLink="/detail"
     routerLinkActive="active"
     ariaCurrentWhenActive="page"
-    class="basis-1 md:basis-1/3"
+    class="basis-1/3 md:basis-1/3"
   >
     <img
-      class="h-full max-auto rounded-3xl p-3"
-      [src]="course?.thumbnail"
-      alt=""
+    class="h-full max-auto rounded-3xl p-3"
+    [src]="course?.thumbnail"
+    alt="Thumbnail for {{ course?.title }}"
     />
-  </a>
-  <div class="p-3 pl-0 basis-1 md:basis-2/3 h-full">
+  </div>
+  <div class="p-3 pl-0 basis-2/3 md:basis-2/3 h-full">
     <div class="flex flex-col h-full">
       <div class="basis-1 md:basis-2/3">
         <a

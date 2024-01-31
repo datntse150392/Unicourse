@@ -8,6 +8,7 @@ import { Course, Track, TrackStep } from '../../cores/models';
 import { CourseService } from '../../cores/services';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, filter, switchMap } from 'rxjs';
+import { ListTrackComponent } from './list-track/list-track.component';
 
 @Component({
   selector: 'app-detail-page',
@@ -18,6 +19,7 @@ import { Subscription, filter, switchMap } from 'rxjs';
     SharedModule,
     LecturerCardComponent,
     CourseListComponent,
+    ListTrackComponent
   ],
   templateUrl: './detail-page.component.html',
   styleUrl: './detail-page.component.scss',
@@ -34,7 +36,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   starValue: number = 5;
   files!: TreeNode[];
 
-  public courseDetail: Course | undefined;
+  public courseDetail!: Course;
   public coursesFree: Course[] = [];
   public courseSemester1: Course[] = [];
   public coursePro: Course[] = [];
@@ -43,13 +45,13 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     //Sử dụng switchMap để lấy giá trị của tham số 'id' từ paramMap
     this.route.paramMap
-    .pipe(
-      filter(params => params.has('id')),
-      switchMap(async (params) => params.get('id' as string))
-    ).subscribe(id => {
-      this.courseId = id!;
-      this.initForm(id!);
-    });
+      .pipe(
+        filter(params => params.has('id')),
+        switchMap(async (params) => params.get('id' as string))
+      ).subscribe(id => {
+        this.courseId = id!;
+        this.initForm(id!);
+      });
   }
 
   ngOnDestroy(): void {
@@ -130,7 +132,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     // Xử lý tính toán số lượng bài học và số lượng chương
     this.numberChapter = treeNodes.length;
     this.numberLesson = treeNodes.reduce((acc, cur) => acc + cur.children!.length, 0);
-    
+
     // Xử lý sort track theo thuộc tính 'position'
     return treeNodes.sort((a, b) => a.position - b.position);
   };
@@ -156,5 +158,4 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
     return Promise.resolve(array);
   }
-
 }

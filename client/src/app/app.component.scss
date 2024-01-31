@@ -1,13 +1,4 @@
-:host ::ng-deep 
-	.p-rating-icon:not(.p-rating-cancel), 
-:host ::ng-deep 
-	.p-rating-icon:not(.p-rating-cancel):hover { 
-	color: #FFC107 !important;
+:host ::ng-deep .p-rating-icon:not(.p-rating-cancel),
+:host ::ng-deep .p-rating-icon:not(.p-rating-cancel):hover {
+  color: #ffc107 !important;
 }
-:host ::ng-deep
-	.p-tree {
-		max-height: 20rem;
-		overflow: auto;
-	}
-
-  
