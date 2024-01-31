@@ -5,6 +5,7 @@ import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { LearningCourseComponent } from './pages/learning-course/learning-course.component';
 import { canLearningCourseGuard } from './cores/guards/can-learning-course.guard';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: LandingPageComponent },
       { path: 'detail/:id', component: DetailPageComponent },
-      { path: 'profile/:id', component: ProfilePageComponent}
+      { path: 'profile/:id', component: ProfilePageComponent },
     ],
   },
   {
@@ -21,4 +22,5 @@ export const routes: Routes = [
     component: LearningCourseComponent,
     canActivate: [canLearningCourseGuard],
   },
+  { path: '**', component: PageNotFoundComponent },
 ];
