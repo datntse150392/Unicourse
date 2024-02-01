@@ -3,179 +3,252 @@
         <app-header></app-header>
     </div>
     <div class="body-container">
-        <!-- Course card -->
-        <p-card class="card-container">
-            <div class="flex flex-row content">
-                <!-- course-banner -->
-                <div class="basis-1 md:basis-1/3 p-0 border-round-left pr-5">
-                    <img class="h-auto max-w-lg rounded-lg" src="../../../../assets/images/course-banner.jpg"
-                        alt="image description">
 
+        <!-- CSS Loading component -->
+        <ng-template [ngIf]="courseDetail === undefined">
+            <div role="status"
+                class="space-y-8 animate-pulse space-y-0 space-x-8 rtl:space-x-reverse flex items-center mb-4">
+                <div class="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+                    <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                        <path
+                            d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z" />
+                    </svg>
                 </div>
-                <!-- course-content-->
-                <div class="basis-1 md:basis-2/3 border-round-right">
-                    <ul [ngIf]="courseDetail" class="list-none space-y-4">
-                        <li>
-                            <p class="text-lg text-gray-900 font-semibold font-customFont">{{courseDetail?.title}}
-                            </p>
+                <div class="w-full ml-4">
+                    <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[440px] mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[460px] mb-2.5"></div>
+                    <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+                </div>
+                <span class="sr-only">Loading...</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 mb-4 max-w-full m-auto">
+                <div *ngFor="let _ of [].constructor(6); let i = index" role="status" class="space-y-2.5 animate-pulse max-w-lg mb-4">
+                    <div class="flex items-center w-full">
+                        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                    </div>
+                    <div class="flex items-center w-full max-w-[480px]">
+                        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+                                <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+                    </div>
+                    <div class="flex items-center w-full max-w-[400px]">
+                        <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                        <div class="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-80"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                    </div>
+                    <div class="flex items-center w-full max-w-[480px]">
+                        <div class="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+                                <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+                    </div>
+                    <div class="flex items-center w-full max-w-[440px]">
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-32"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+                        <div class="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+                    </div>
+                    <div class="flex items-center w-full max-w-[360px]">
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                        <div class="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-80"></div>
+                        <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+                    </div>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </ng-template>
+
+        <!-- Course card -->
+        <ng-template [ngIf]="courseDetail !== undefined">
+            <p-card class="card-container">
+                <div class="flex flex-row content">
+                    <!-- course-banner -->
+                    <div class="basis-1 md:basis-1/3 p-0 border-round-left pr-5">
+                        <img class="h-auto max-w-lg rounded-lg" src="../../../../assets/images/course-banner.jpg"
+                            alt="image description">
+
+                    </div>
+                    <!-- course-content-->
+                    <div class="basis-1 md:basis-2/3 border-round-right">
+                        <ul class="list-none space-y-4">
+                            <li>
+                                <p class="text-lg text-gray-900 font-semibold font-customFont">{{courseDetail?.title}}
+                                </p>
+                            </li>
+                            <li>
+                                <p class="font-normal text-base text-gray-900 font-customFont">Số bài học:
+                                    <span class="font-bold text-gray-900 font-customFont">{{numberLesson}} bài
+                                        học</span>
+                                    &nbsp;
+                                    <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Xem chi tiết
+                                    </span>
+                                    <i class="pi pi-angle-down"
+                                        [style]="{'color': '#9B51E0', 'font-weight': '600'}"></i>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="font-normal text-base text-gray-900 font-customFont">Giảng viên:
+                                    <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Sơn Đặng
+                                    </span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="font-normal text-base text-gray-900 font-customFont">Học viên đã học:
+                                    <span class="font-bold text-gray-900 font-customFont">100+</span>
+                                </p>
+                            </li>
+                            <li class="flex">
+                                <p class="font-normal text-base text-gray-900 font-customFont">Đánh giá:</p>&nbsp;
+                                <p-rating [(ngModel)]="starValue" [cancel]="false"></p-rating>
+                            </li>
+                            <li>
+                                <p class="font-normal text-base text-gray-900 font-customFont">Giá:
+                                    <span class="font-bold text-gray-900 font-customFont">
+                                        {{ courseDetail?.amount === 0 ? 'Miễn phí' : (courseDetail?.amount|
+                                        currency:'VND')}}
+                                    </span>
+                                </p>
+                            </li>
+                            <li>
+                                <ng-template [ngIf]="courseDetail !== undefined && courseDetail?.type !== 'free'">
+                                    <button type="button"
+                                        class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Thêm
+                                        vào giỏ hàng</button>
+                                    <button type="button"
+                                        class="font-customFont text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Học
+                                        thử miễn phí</button>
+                                </ng-template>
+                                <ng-template [ngIf]="courseDetail !== undefined && courseDetail?.type === 'free'">
+                                    <button type="button"
+                                        class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Đăng
+                                        ký ngay</button>
+                                </ng-template>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </p-card>
+
+            <!-- Description course -->
+            <div class="mt-10">
+                <h3
+                    class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                    Chi tiết khóa học
+                </h3>
+                <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">Hiểu
+                    sâu
+                    hơn về cách Javascript
+                    hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword, bind, call, apply,
+                    prototype,...
+                </p>
+                <h3
+                    class="mb-2 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">
+                    Bạn sẽ học được gì?
+                </h3>
+                <div class="m-0">
+                    <!-- List content -->
+                    <ul class="max-w-full space-y-5 text-gray-900 list-inside dark:text-gray-900">
+                        <li class="grid grid-cols-2 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
+                            <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                                <i class="pi pi-code mr-2"
+                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                                <span class="text-justify font-customFont">Được học kiến thức miễn phí với nội dung chất
+                                    lượng
+                                    hơn
+                                    mất phí</span>
+                            </div>
+                            <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                                <i class="pi pi-code mr-2"
+                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                                <span class="text-justify font-customFont">Hiểu được cách tư duy nâng cao của các lập
+                                    trình
+                                    viên có
+                                    kinh nghiệm</span>
+                            </div>
                         </li>
-                        <li>
-                            <p class="font-normal text-base text-gray-900 font-customFont">Số bài học:
-                                <span class="font-bold text-gray-900 font-customFont">{{numberLesson}} bài học</span>
-                                &nbsp;
-                                <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Xem chi tiết
-                                </span>
-                                <i class="pi pi-angle-down" [style]="{'color': '#9B51E0', 'font-weight': '600'}"></i>
-                            </p>
+                        <li class="grid grid-cols-2 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
+                            <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                                <i class="pi pi-code mr-2"
+                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                                <span class="text-justify font-customFont">Có nền tảng Javascript vững chắc để làm việc
+                                    với
+                                    mọi thư
+                                    viện, framework
+                                    viết bởi Javascript</span>
+                            </div>
+                            <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                                <i class="pi pi-code mr-2"
+                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                                <p class="text-justify font-customFont">Các kiến thức nâng cao của Javascript giúp code
+                                    trở nên
+                                    tối ưu hơn</p>
+                            </div>
                         </li>
-                        <li>
-                            <p class="font-normal text-base text-gray-900 font-customFont">Giảng viên:
-                                <span class="font-bold font-customFont" [style]="{'color': '#9B51E0'}">Sơn Đặng </span>
-                            </p>
-                        </li>
-                        <li>
-                            <p class="font-normal text-base text-gray-900 font-customFont">Học viên đã học:
-                                <span class="font-bold text-gray-900 font-customFont">100+</span>
-                            </p>
-                        </li>
-                        <li class="flex">
-                            <p class="font-normal text-base text-gray-900 font-customFont">Đánh giá:</p>&nbsp;
-                            <p-rating [(ngModel)]="starValue" [cancel]="false"></p-rating>
-                        </li>
-                        <li>
-                            <p class="font-normal text-base text-gray-900 font-customFont">Giá:
-                                <span class="font-bold text-gray-900 font-customFont">
-                                    {{ courseDetail?.amount === 0 ? 'Miễn phí' : (courseDetail?.amount| currency:'VND')}}
-                                  </span>                                  
-                            </p>
-                        </li>
-                        <li>
-                            <ng-template [ngIf]="courseDetail !== null && courseDetail?.type !== 'free'">
-                                <button type="button"
-                                    class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Thêm
-                                    vào giỏ hàng</button>
-                                <button type="button"
-                                    class="font-customFont text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Học
-                                    thử miễn phí</button>
-                            </ng-template>
-                            <ng-template [ngIf]="courseDetail !== null && courseDetail?.type === 'free'">
-                                <button type="button"
-                                    class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Đăng
-                                    ký ngay</button>
-                            </ng-template>
+                        <li class="grid grid-cols-2 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
+                            <div class="flex flex-row items-start">
+                                <span><i class="pi pi-code mr-2"
+                                        [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i></span>
+                                <p class="text-justify font-customFont">Hiểu được các khái niệm khó như từ khóa this,
+                                    phương
+                                    thức bind, call,
+                                    apply & xử lý bất đồng bộ</p>
+                            </div>
+                            <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
+                                <i class="pi pi-code mr-2"
+                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
+                                <p class="text-justify font-customFont">Nâng cao cơ hội thành công khi phỏng vấn xin
+                                    việc
+                                    nhờ
+                                    kiến thức chuyên
+                                    môn vững chắc</p>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
-        </p-card>
 
-        <!-- Description course -->
-        <div class="mt-10">
-            <h3
-                class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
-                Chi tiết khóa học
-            </h3>
-            <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">Hiểu sâu
-                hơn về cách Javascript
-                hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword, bind, call, apply, prototype,...
-            </p>
-            <h3
-                class="mb-2 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white">
-                Bạn sẽ học được gì?
-            </h3>
-            <div class="m-0">
-                <!-- List content -->
-                <ul class="max-w-full space-y-5 text-gray-900 list-inside dark:text-gray-900">
-                    <li class="grid grid-cols-1 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
-                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
-                            <i class="pi pi-code mr-2"
-                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
-                            <span class="text-justify font-customFont">Được học kiến thức miễn phí với nội dung chất
-                                lượng
-                                hơn
-                                mất phí</span>
-                        </div>
-                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
-                            <i class="pi pi-code mr-2"
-                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
-                            <span class="text-justify font-customFont">Hiểu được cách tư duy nâng cao của các lập trình
-                                viên có
-                                kinh nghiệm</span>
-                        </div>
-                    </li>
-                    <li class="grid grid-cols-1 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
-                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
-                            <i class="pi pi-code mr-2"
-                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
-                            <span class="text-justify font-customFont">Có nền tảng Javascript vững chắc để làm việc với
-                                mọi thư
-                                viện, framework
-                                viết bởi Javascript</span>
-                        </div>
-                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
-                            <i class="pi pi-code mr-2"
-                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
-                            <p class="text-justify font-customFont">Các kiến thức nâng cao của Javascript giúp code
-                                trở nên
-                                tối ưu hơn</p>
-                        </div>
-                    </li>
-                    <li class="grid grid-cols-1 gap-x-5 m-0 mb-2 sm:grid-cols-2 items-baseline">
-                        <div class="flex flex-row items-start">
-                            <span><i class="pi pi-code mr-2"
-                                    [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i></span>
-                            <p class="text-justify font-customFont">Hiểu được các khái niệm khó như từ khóa this,
-                                phương
-                                thức bind, call,
-                                apply & xử lý bất đồng bộ</p>
-                        </div>
-                        <div class="flex flex-row" [style]="{ 'alight-items':'start' }">
-                            <i class="pi pi-code mr-2"
-                                [style]="{'color': '#FF0000', 'font-weight': '600', 'padding-top':'5px'}"></i>
-                            <p class="text-justify font-customFont">Nâng cao cơ hội thành công khi phỏng vấn xin việc
-                                nhờ
-                                kiến thức chuyên
-                                môn vững chắc</p>
-                        </div>
-                    </li>
-                </ul>
+            <!-- Source video course -->
+            <div class="mt-10">
+                <h3
+                    class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                    Nội dung khóa học
+                </h3>
+                <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">
+                    <span class="text-gray-900 font-bold">{{numberChapter}}</span> chương<span
+                        class="text-gray-900 font-extrabold"> .
+                    </span><span class="text-gray-900 font-bold">{{numberLesson}}</span> bài học
+                </p>
+                <div class="card flex justify-content-center">
+                    <!-- <p-tree class="w-full md:w-full border-solid border-2 rounded md:rounded-lg" [value]="files" [styleClass]="'my-tree'"></p-tree> -->
+                    <app-list-track class="w-full" [tracks]="courseDetail.tracks ?? []"></app-list-track>
+                </div>
             </div>
-        </div>
 
-        <!-- Source video course -->
-        <div class="mt-10">
-            <h3
-                class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
-                Nội dung khóa học
-            </h3>
-            <p class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900">
-                <span class="text-gray-900 font-bold">{{numberChapter}}</span> chương<span class="text-gray-900 font-extrabold"> .
-                </span><span class="text-gray-900 font-bold">{{numberLesson}}</span> bài học
-            </p>
-            <div class="card flex justify-content-center">
-                <p-tree class="w-full md:w-full border-solid border-2 rounded md:rounded-lg" [value]="files" [styleClass]="'my-tree'"></p-tree>
+            <!--Recomment course -->
+            <div class="mt-10">
+                <h3
+                    class="mb-4 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
+                    Khóa học phổ biến
+                </h3>
+                <div class="grid grid-cols-3 gap-2 m-0 w-full place-items-center"
+                    [style]="{ 'max-height': '8rem', 'height': '8rem'}">
+                    <app-course-list *ngFor="let course of coursesFree | slice:0:3" [course]="course"></app-course-list>
+                </div>
             </div>
-        </div>
 
-        <!--Recomment course -->
-        <div class="mt-10">
-            <h3
-                class="mb-4 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white">
-                Khóa học phổ biến
-            </h3>
-            <div class="grid grid-cols-3 gap-2 m-0 w-full place-items-center"
-                [style]="{ 'max-height': '8rem', 'height': '8rem'}">
-                <app-course-list *ngFor="let course of coursesFree | slice:0:3" [course]="course"></app-course-list>
+            <!--Lecturers group-->
+            <div class="mt-10">
+                <div class="grid grid-cols-3 gap-4" [style]="{ 'width':'80%', 'margin':'auto' }">
+                    <app-lecturer-card></app-lecturer-card>
+                    <app-lecturer-card></app-lecturer-card>
+                    <app-lecturer-card></app-lecturer-card>
+                </div>
             </div>
-        </div>
-
-        <!--Lecturers group-->
-        <div class="mt-10">
-            <div class="grid grid-cols-3 gap-4" [style]="{ 'width':'80%', 'margin':'auto' }">
-                <app-lecturer-card></app-lecturer-card>
-                <app-lecturer-card></app-lecturer-card>
-                <app-lecturer-card></app-lecturer-card>
-            </div>
-        </div>
+        </ng-template>
     </div>
 </div>
