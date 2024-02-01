@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.development';
+import { User } from '../models';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+@Injectable({ providedIn: 'root' })
+export class UserService {
+    constructor(private httpClient: HttpClient) { }
+
+    // Lấy thông tin người dùng theo userId
+    getUser(userId: string): Observable<User> {
+        return this.httpClient
+            .get<User>(`${environment.baseUrl}/api/user/${userId}`,
+            { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } })
+            .pipe(catchError(this.handleError));
+    }
+
+    private handleError(error: any) {
+        // Handle the error appropriately here
+        return throwError(() => new Error(error));
+    }
+}

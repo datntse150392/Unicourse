@@ -10,4 +10,7 @@ export interface User {
   is_blocked: boolean;
   is_chat_blocked: boolean;
   profile_image: string;
+  create_at: string;
+  update_at: string;
+  published_at: string;
 }
