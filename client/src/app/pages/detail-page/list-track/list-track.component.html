@@ -1,11 +1,32 @@
 <div class="card flex justify-content-center w-full bg-white rounded-xl shadow">
-    <p-accordion [multiple]="true" [activeIndex]="[0]" class="tracks">
-        <p-accordionTab *ngFor="let track of tracks" header={{track.chapterTitle}} class="track">
-            <div *ngFor="let item of track.track_steps" class="px-4">
-                <div class="py-2">
-                    <p-button label={{item.title}} icon="pi pi-video" severity="secondary" size="small"></p-button>
+    <p-accordion [multiple]="true" [activeIndex]="[0]" class="w-full accordion-tab">
+        <ng-container *ngIf="tracks">
+            <p-accordionTab *ngFor="let track of tracks">
+                <ng-template pTemplate="header">
+                    <span class="flex align-items-center gap-2 w-full">
+                        <div>
+                            <p class="font-bold white-space-nowrap">
+                                {{ track.position }}. {{ track.chapterTitle }}
+                            </p>
+                            <span>0/{{ track.track_steps.length }} | 11:21</span>
+                        </div>
+                    </span>
+                </ng-template>
+                <div *ngFor="let step of track.track_steps">
+                    <div class="step-track w-full">
+                        <div class="duration">
+                            <img width="20" height="20" src="https://img.icons8.com/nolan/64/circled-play.png"
+                                alt="circled-play" />
+                            <p [ngStyle]="{
+                              'font-size': '1rem',
+                              cursor: 'pointer'
+                            }">
+                                {{ step.position }}. {{ step.title }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </p-accordionTab>
+            </p-accordionTab>
+        </ng-container>
     </p-accordion>
 </div>

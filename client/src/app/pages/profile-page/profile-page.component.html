@@ -8,8 +8,7 @@
     <div class="header-background shadow">
         <img class="w-full h-80 object-cover" src="../../../assets/images/fillBgProfile.png" alt="image description">
         <div class="group-info flex">
-            <img src="https://tecdn.b-cdn.net/img/new/avatars/2.webp" class="w-32 p-1 bg-white rounded-full flex-none"
-                alt="Avatar" />
+            <img [src]="userDetail?.profile_image" class="w-32 h-32 p-1 bg-white rounded-full flex-none" alt="Avatar" />
             <div class="grow grid grid-rows-2 justify-items-end">
                 <button type="button"
                     class="h-12 customize1:h-10 customize2:h-12 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
@@ -22,8 +21,19 @@
             <div class="basis-6/12 flex flex-row">
                 <div class="customize1:basis-5/12 customize2:basis-5/12 customize3:basis-4/12 "></div>
                 <div class="customize1:basis-8/12 customize2:basis-9/12 customize3:basis-9/12 pt-2">
-                    <h4 class="text-2xl font-bold font-customFont text-gray-900">Nguyễn Thành Đạt</h4>
-                    <p class="text-md font-semibold font-customFont leading-loose text-gray-900">Học viên</p>
+                    <h4 class="text-2xl font-bold font-customFont text-gray-900">{{userDetail.fullName}}</h4>
+                    <ng-container *ngIf="userDetail.role === 'student'">
+                        <h5 class="text-base font-normal font-customFont text-gray-900">Học viên</h5>
+                    </ng-container>
+                    <ng-container *ngIf="userDetail.role === 'mentor'">
+                        <h5 class="text-base font-normal font-customFont text-gray-900">Giảng viên</h5>
+                    </ng-container>
+                    <ng-container *ngIf="userDetail.role === 'admin'">
+                        <h5 class="text-base font-normal font-customFont text-gray-900">Quản trị viên</h5>
+                    </ng-container>
+                    <ng-container *ngIf="userDetail.role === 'collaborator'">
+                        <h5 class="text-base font-normal font-customFont text-gray-900">Quản trị viên cấp cao</h5>
+                    </ng-container>
                 </div>
             </div>
             <div class="basis-6/12 text-end customize1:mr-24 customize2:mr-28 customize3:mr-36">
@@ -45,7 +55,7 @@
                     <p class="font-normal text-gray-900 font-customFont">
                         <i class="pi pi-users font-normal"></i>
                         Thành viên của <span
-                            class="font-bold font-customFont text-gray-900">Unicourse</span> từ một năm trước.</p>
+                            class="font-bold font-customFont text-gray-900">Unicourse</span> từ {{this.userCreatedTime}}.</p>
                 </a>
                 <!-- Hoạt động gần đây Card -->
                 <a class="block max-w-full p-3 bg-white border border-gray-200 rounded-lg shadow mb-4 mr-4">

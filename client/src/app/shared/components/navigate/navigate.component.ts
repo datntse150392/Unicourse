@@ -6,6 +6,7 @@ import { User } from '../../../cores/models';
 import { Subscription } from 'rxjs';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../../../cores/services';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navigate',
   standalone: true,
@@ -22,7 +23,8 @@ export class NavigateComponent implements OnInit, OnDestroy {
   constructor(
     private sharedService: SharedService,
     private messageService: MessageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -41,6 +43,9 @@ export class NavigateComponent implements OnInit, OnDestroy {
         items: [
           {
             label: 'Trang cá nhân',
+            command: () => {
+              this.redirectToProfile();
+            },
           },
         ],
       },
@@ -92,7 +97,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(settingLocalSub);
   }
-
+  
   openDialogSignUp() {
     this.sharedService.turnOnSignUpDialog();
     this.sharedService.turnOffSignInDialog();
@@ -100,5 +105,10 @@ export class NavigateComponent implements OnInit, OnDestroy {
   openDialogSignIn() {
     this.sharedService.turnOnSignInDialog();
     this.sharedService.turnOffSignUpDialog();
+  }
+
+  redirectToProfile() {
+    // Navigate without updating the URL
+    this.router.navigate([`/profile/${this.user?._id}`], { skipLocationChange: true });
   }
 }

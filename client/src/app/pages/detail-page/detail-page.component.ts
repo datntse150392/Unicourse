@@ -9,6 +9,7 @@ import { CourseService } from '../../cores/services';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, filter, switchMap } from 'rxjs';
 import { ListTrackComponent } from './list-track/list-track.component';
+import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 @Component({
   selector: 'app-detail-page',
@@ -19,7 +20,8 @@ import { ListTrackComponent } from './list-track/list-track.component';
     SharedModule,
     LecturerCardComponent,
     CourseListComponent,
-    ListTrackComponent
+    ListTrackComponent,
+    CourseDetailComponent
   ],
   templateUrl: './detail-page.component.html',
   styleUrl: './detail-page.component.scss',
