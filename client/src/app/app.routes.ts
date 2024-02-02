@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: DefaultComponent,
     children: [
       { path: '', component: LandingPageComponent },
-      { path: 'detail/:id', component: DetailPageComponent },
+      { path: 'course/:id', component: DetailPageComponent },
       { path: 'profile/:id', component: ProfilePageComponent },
     ],
   },

@@ -32,7 +32,7 @@
                         <h5 class="text-base font-normal font-customFont text-gray-900">Quản trị viên</h5>
                     </ng-container>
                     <ng-container *ngIf="userDetail.role === 'collaborator'">
-                        <h5 class="text-base font-normal font-customFont text-gray-900">Quản trị viên cấp cao</h5>
+                        <h5 class="text-base font-normal font-customFont text-gray-900">Cộng tác viên</h5>
                     </ng-container>
                 </div>
             </div>
@@ -66,119 +66,24 @@
             </div>
             <div class="basis-8/12 md:basis-7/12">
                 <!-- Course header title -->
-                <a href="#" class="block max-w-full py-3 px-5 bg-white border border-gray-200 rounded-lg shadow mb-4">
+                <a class="block max-w-full py-3 px-5 bg-white border border-gray-200 rounded-lg shadow mb-4">
                     <h5 class="mb-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white font-customFont">Các
                         khóa học đã tham gia</h5>
-                    <!-- OSG Course -->
-                    <a href="#" class="block max-w-full bg-white mt-3 pb-4 flex flex-row border-b-2 border-gray-200">
+                    <!-- List Course -->
+                    <a *ngFor="let course of userDetail.enrollCourses" routerLink="/course/{{course.courseId._id}}" routerLinkActive="active" ariaCurrentWhenActive="page" class="block max-w-full bg-white mt-3 pb-4 flex flex-row border-b-2 border-gray-200">
                         <div class="basis-4/12 max-w-full">
                             <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" src="../../../assets/images/5_1_OSGBg.png"
-                                    alt="image description">
+                                <img class="h-auto max-w-full rounded-lg" [src]="course.courseId.thumbnail"
+                                    [alt]="course.courseId.title">
                             </figure>
                         </div>
                         <div class="basis-8/12 max-w-full max-h-full">
                             <div class="ml-4 flex flex-col max-h-full">
                                 <h5 class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    Kiến thức nhập môn IT
+                                    {{course.courseId.title}}
                                 </h5>
                                 <h5  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    Để có cái nhìn tổng quản về ngành IT - Lập trình web các bạn nên xem các videos tại khóa này trước nhé.
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- JavaScript PRO Course -->
-                    <a href="#" class="block max-w-full bg-white mt-4 pb-4 flex flex-row border-b-2 border-gray-200">
-                        <div class="basis-4/12 max-w-full">
-                            <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" src="../../../assets/images/5_2_javascriptProBg.png"
-                                    alt="image description">
-                            </figure>
-                        </div>
-                        <div class="basis-8/12 max-w-full max-h-full">
-                            <div class="ml-4 flex flex-col max-h-full">
-                                <h5 class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    Lập trình JavaScript nâng cao
-                                </h5>
-                                <h5  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE, closure, reference types, this keyword, bind, call, apply, prototype,...
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- JavaScript Course -->
-                    <a href="#" class="block max-w-full bg-white mt-4 pb-4 flex flex-row border-b-2 border-gray-200">
-                        <div class="basis-4/12 max-w-full">
-                            <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" src="../../../assets/images/5_3_javascriptBg.png"
-                                    alt="image description">
-                            </figure>
-                        </div>
-                        <div class="basis-8/12 max-w-full max-h-full">
-                            <div class="ml-4 flex flex-col max-h-full">
-                                <h5 class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    Lập trình JavaScript cơ bản
-                                </h5>
-                                <h5  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn 100 bài học và có bài tập thực hành sau mỗi bài học.
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- Node & ExpressJS Course -->
-                    <a href="#" class="block max-w-full bg-white mt-4 pb-4 flex flex-row border-b-2 border-gray-200">
-                        <div class="basis-4/12 max-w-full">
-                            <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" src="../../../assets/images/5_4_NodeJSBg.png"
-                                    alt="image description">
-                            </figure>
-                        </div>
-                        <div class="basis-8/12 max-w-full max-h-full">
-                            <div class="ml-4 flex flex-col max-h-full">
-                                <h5 class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    Node & ExpressJS
-                                </h5>
-                                <h5  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    Học Back-end với Node & ExpressJS framework, hiểu các khái niệm khi làm Back-end và xây dựng RESTful API cho trang web.
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- ReactJS Course -->
-                    <a href="#" class="block max-w-full bg-white mt-4 pb-4 flex flex-row border-b-2 border-gray-200">
-                        <div class="basis-4/12 max-w-full">
-                            <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" src="../../../assets/images/5_5_ReactBg.png"
-                                    alt="image description">
-                            </figure>
-                        </div>
-                        <div class="basis-8/12 max-w-full max-h-full">
-                            <div class="ml-4 flex flex-col max-h-full">
-                                <h5 class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    Xây dựng Website với ReactJS
-                                </h5>
-                                <h5  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    Khóa học ReactJS từ cơ bản tới nâng cao, kết quả của khóa học này là bạn có thể làm hầu hết các dự án thường gặp với ReactJS. Cuối khóa học này bạn sẽ sở hữu một dự án Tiktok.com; bạn có thể tự tin đi xin việc khi nắm chắc các kiến thức được...
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                    <!-- HTML CSS Course -->
-                    <a href="#" class="block max-w-full bg-white mt-4 flex flex-row">
-                        <div class="basis-4/12 max-w-full">
-                            <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" src="../../../assets/images/5_6_HTMLBg.png"
-                                    alt="image description">
-                            </figure>
-                        </div>
-                        <div class="basis-8/12 max-w-full max-h-full">
-                            <div class="ml-4 flex flex-col max-h-full">
-                                <h5 class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    HTML CSS từ Zero đến Hero
-                                </h5>
-                                <h5  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    Trong khóa này chúng ta sẽ cùng nhau xây dựng giao diện 2 trang web là The Band & Shopee.
+                                    {{course.courseId.titleDescription}}
                                 </h5>
                             </div>
                         </div>

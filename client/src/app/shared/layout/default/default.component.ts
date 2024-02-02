@@ -7,12 +7,14 @@ import { SharedService } from '../../../cores/services/shared.service';
 import { Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../cores/models/index';
+import { DialogComponent } from './dialog/dialog.component';
 
 import {
   AngularFireAuthModule,
   AngularFireAuth,
 } from '@angular/fire/compat/auth';
 import { AuthService } from '../../../cores/services';
+import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 
 @Component({
   selector: 'app-default',
@@ -24,6 +26,7 @@ import { AuthService } from '../../../cores/services';
     HeaderComponent,
     SharedModule,
     AngularFireAuthModule,
+    DialogComponent
   ],
   providers: [AuthService],
   templateUrl: './default.component.html',
@@ -39,7 +42,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
   constructor(
     private sharedService: SharedService,
     public authService: AuthService,
-    public afAuth: AngularFireAuth
+    public afAuth: AngularFireAuth,
+    private dialogBroadcastService: DialogBroadcastService
   ) {}
   ngOnInit(): void {
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
@@ -103,7 +107,14 @@ export class DefaultComponent implements OnInit, OnDestroy {
                 this.sharedService.settingLocalStorage();
                 this.closeDialogSignIn();
                 this.closeDialogSignUp();
+                // Phát thông tin dialog đăng nhập thành công
+                this.dialogBroadcastService.broadcastDialog({header: 'Đăng nhập', message: 'Đăng nhập thành công', type: 'success', display: true});
               }
+            }, (error) => {
+               // Phát thông tin dialog đăng nhập không thành công
+              this.closeDialogSignIn();
+              this.closeDialogSignUp();
+              this.dialogBroadcastService.broadcastDialog({header: 'Lỗi đăng nhập', message: 'Đăng nhập không thành công', type: 'error', display: true});
             });
           this.subScriptions.push(userSub$);
         });
@@ -143,7 +154,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
       this.afAuth.onAuthStateChanged(function (user) {
         if (user) {
           const userInfo = {
-            email: user.uid + '@gmail.com',
+            email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
           };
