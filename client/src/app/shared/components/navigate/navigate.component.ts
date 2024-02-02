@@ -97,7 +97,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(settingLocalSub);
   }
-  
+
   openDialogSignUp() {
     this.sharedService.turnOnSignUpDialog();
     this.sharedService.turnOffSignInDialog();
@@ -109,6 +109,8 @@ export class NavigateComponent implements OnInit, OnDestroy {
 
   redirectToProfile() {
     // Navigate without updating the URL
-    this.router.navigate([`/profile/${this.user?._id}`], { skipLocationChange: true });
+    this.router.navigate([`/profile/${this.user?._id}`], {
+      skipLocationChange: true,
+    });
   }
 }

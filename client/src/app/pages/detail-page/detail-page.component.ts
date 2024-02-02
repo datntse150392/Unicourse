@@ -21,7 +21,7 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
     LecturerCardComponent,
     CourseListComponent,
     ListTrackComponent,
-    CourseDetailComponent
+    CourseDetailComponent,
   ],
   templateUrl: './detail-page.component.html',
   styleUrl: './detail-page.component.scss',
@@ -31,7 +31,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   constructor(
     private courseService: CourseService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    // Scroll smooth lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
   courseId!: string;
   numberLesson: number = 0;
   numberChapter: number = 0;
@@ -48,9 +51,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     //Sử dụng switchMap để lấy giá trị của tham số 'id' từ paramMap
     this.route.paramMap
       .pipe(
-        filter(params => params.has('id')),
+        filter((params) => params.has('id')),
         switchMap(async (params) => params.get('id' as string))
-      ).subscribe(id => {
+      )
+      .subscribe((id) => {
         this.courseId = id!;
         this.initForm(id!);
       });
@@ -66,7 +70,6 @@ export class DetailPageComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         this.coursesFree = res.data;
         this.courseService.listcoursesPro = res.data;
-
       },
       error: (err: any) => {
         console.log(err);
@@ -114,13 +117,14 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     this.subscription.add(courseDetailSub$);
   }
 
-
   // SERVICE XỬ LÝ DỮ LIỆU CHO COMPONENT
 
   // Xử lý mapping data Component TreeNode[]
   mapToTreeNode = async (tracks: Track[]): Promise<TreeNode<any>[]> => {
     const treeNodePromises = tracks.map(async (track: Track) => {
-      const children: TreeNode[] = await this.mapTrackStepsToTreeNode(track.track_steps);
+      const children: TreeNode[] = await this.mapTrackStepsToTreeNode(
+        track.track_steps
+      );
       return {
         key: track._id,
         label: track.chapterTitle,
@@ -133,7 +137,10 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
     // Xử lý tính toán số lượng bài học và số lượng chương
     this.numberChapter = treeNodes.length;
-    this.numberLesson = treeNodes.reduce((acc, cur) => acc + cur.children!.length, 0);
+    this.numberLesson = treeNodes.reduce(
+      (acc, cur) => acc + cur.children!.length,
+      0
+    );
 
     // Xử lý sort track theo thuộc tính 'position'
     return treeNodes.sort((a, b) => a.position - b.position);
@@ -152,12 +159,12 @@ export class DetailPageComponent implements OnInit, OnDestroy {
           icon: 'pi pi-video',
         });
       });
-    }
+    };
     handlePush(track_steps);
 
     // Xử lý sort track theo thuộc tính 'position'
     array.sort((a, b) => a.position - b.position);
 
     return Promise.resolve(array);
-  }
+  };
 }

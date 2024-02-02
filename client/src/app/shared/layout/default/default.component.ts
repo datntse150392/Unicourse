@@ -143,7 +143,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
       this.afAuth.onAuthStateChanged(function (user) {
         if (user) {
           const userInfo = {
-            email: user.uid + '@gmail.com',
+            email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
           };

@@ -95,61 +95,31 @@
         <div *ngFor="let course of courseSemester1" class="course col-3">
           <img src="{{ course.thumbnail }}" />
           <p-button
-            class="register-button flipup animation-duration-1000"
+            class="register-button flipup animation-duration-300"
             [style]="{
               background: '#fff',
               border: '10px solid #fff',
               'border-radius': '2rem'
             }"
           >
-          <a
-            routerLink="/detail/{{ course._id }}"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-          <span class="font-bold" [style]="{ color: '#000' }"
+            <span
+              (click)="hanleGetCourseDetail(course._id)"
+              class="font-bold"
+              [style]="{ color: '#000' }"
               >Xem khóa học</span
             >
-          </a>
-            </p-button
-          >
-          <h3 class="mb-1 mt-1">{{ course.title }}</h3>
-          <div class="flex flex-row gap-2 align-items-center">
-            <i class="pi pi-users" style="color: #708090"></i>
-            <span>{{ course.enrollmentCount }} người khác đã học</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-
-  <!-- Course Free -->
-  <ng-container *ngIf="coursesFree && coursesFree.length > 0">
-    <div class="semester">
-      <div class="title flex flex-row relative">
-        <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-          Khóa học miễn phí
-        </h1>
-      </div>
-      <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of coursesFree" class="course col-3">
-          <img src="{{ course.thumbnail }}" />
-          <p-button
-            class="register-button flipup animation-duration-500"
-            [style]="{ background: '#fff', border: '10px solid #fff' }"
-          >
-          <a
-            routerLink="/detail/{{ course._id }}"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-          <span class="font-bold" [style]="{ color: '#000' }">Xem khóa học</span>
-          </a>
           </p-button>
-          <h3 class="mb-1 mt-1">{{ course.title }}</h3>
+          <h3
+            class="mb-1 mt-1 text-lg"
+            [ngStyle]="{
+              color: '#292929'
+            }"
+          >
+            {{ course.title }}
+          </h3>
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>
-            <span>{{ course.enrollmentCount }} người khác đã học</span>
+            <span>{{ course.enrollmentCount }} </span>
           </div>
         </div>
       </div>
