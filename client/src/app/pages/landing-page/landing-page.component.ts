@@ -96,7 +96,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   hanleGetCourseDetail(courseId: string): void {
     if (this.myCourses) {
       var course = this.myCourses.find(
-        (item: any) => item.courseId._id === courseId
+        (item: any) => item.course._id === courseId
       );
       if (course) {
         this.router.navigate([
