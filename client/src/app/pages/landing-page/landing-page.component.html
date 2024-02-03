@@ -28,15 +28,8 @@
       </p>
     </div>
     <div class="detail gird flex flex-row justify-content-center gap-4">
-      <div
-        class="col-4 detail-item-1 flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          width="100"
-          height="100"
-          src="https://img.icons8.com/bubbles/100/education.png"
-          alt="education"
-        />
+      <div class="col-4 detail-item-1 flex flex-column justify-content-center align-items-center">
+        <img width="100" height="100" src="https://img.icons8.com/bubbles/100/education.png" alt="education" />
         <div class="text-center">
           <h3>Giáo Dục</h3>
           <p class="p-2">
@@ -45,15 +38,9 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-4 detail-item-2 flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          width="100"
-          height="100"
-          src="https://img.icons8.com/bubbles/100/define-location.png"
-          alt="define-location"
-        />
+      <div class="col-4 detail-item-2 flex flex-column justify-content-center align-items-center">
+        <img width="100" height="100" src="https://img.icons8.com/bubbles/100/define-location.png"
+          alt="define-location" />
         <div class="text-center">
           <h3>Mục Tiêu</h3>
           <p class="p-2">
@@ -62,15 +49,9 @@
           </p>
         </div>
       </div>
-      <div
-        class="col-4 detail-item-3 flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          width="100"
-          height="100"
-          src="https://img.icons8.com/bubbles/100/cyber-security.png"
-          alt="cyber-security"
-        />
+      <div class="col-4 detail-item-3 flex flex-column justify-content-center align-items-center">
+        <img width="100" height="100" src="https://img.icons8.com/bubbles/100/cyber-security.png"
+          alt="cyber-security" />
         <div class="text-center">
           <h3>Bảo Mật</h3>
           <p class="p-2">
@@ -94,26 +75,19 @@
       <div class="flex flex-wrap align-items-center justify-content-start">
         <div *ngFor="let course of courseSemester1" class="course col-3">
           <img src="{{ course.thumbnail }}" />
-          <p-button
-            class="register-button flipup animation-duration-300"
-            [style]="{
+          <p-button class="register-button flipup animation-duration-300" [style]="{
               background: '#fff',
               border: '10px solid #fff',
               'border-radius': '2rem'
-            }"
-          >
-          <a
-            routerLink="/detail/{{ course._id }}"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-          <span class="font-bold" [style]="{ color: '#000' }"
-              >Xem khóa học</span
-            >
-          </a>
-            </p-button
-          >
-          <h3 class="mb-1 mt-1">{{ course.title }}</h3>
+            }">
+            <span (click)="hanleGetCourseDetail(course._id)" class="font-bold" [style]="{ color: '#000' }">Xem khóa
+              học</span>
+          </p-button>
+          <h3 class="mb-1 mt-1 text-lg" [ngStyle]="{
+              color: '#292929'
+            }">
+            {{ course.title }}
+          </h3>
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>
             <span>{{ course.enrollmentCount }} người khác đã học</span>
@@ -123,66 +97,17 @@
     </div>
   </ng-container>
 
-  <!-- Course Free -->
-  <ng-container *ngIf="coursesFree && coursesFree.length > 0">
-    <div class="semester">
-      <div class="title flex flex-row relative">
-        <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-          Khóa học miễn phí
-        </h1>
-      </div>
-      <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of coursesFree" class="course col-3">
-          <img src="{{ course.thumbnail }}" />
-          <p-button
-            class="register-button flipup animation-duration-500"
-            [style]="{ background: '#fff', border: '10px solid #fff' }"
-          >
-          <a
-            routerLink="/detail/{{ course._id }}"
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-          <span class="font-bold" [style]="{ color: '#000' }">Xem khóa học</span>
-          </a>
-          </p-button>
-          <h3
-            class="mb-1 mt-1 text-lg"
-            [ngStyle]="{
-              color: '#292929'
-            }"
-          >
-            {{ course.title }}
-          </h3>
-          <div class="flex flex-row gap-2 align-items-center">
-            <i class="pi pi-users" style="color: #708090"></i>
-            <span>{{ course.enrollmentCount }} </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-container>
-
   <!-- Feedback -->
-  <div
-    class="feedback flex flex-column justify-content-center align-items-center"
-  >
+  <div class="feedback flex flex-column justify-content-center align-items-center">
     <h2>Cảm nhận của học viên về Unicourse?</h2>
     <div class="user grid flex flex-row">
       <div class="col-4 text-center">
         <div class="fb-user p-4">
           <p-avatar
             image="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-6/405170083_1422279521971375_6165574818069694783_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=efb6e6&_nc_eui2=AeESZAmvMhJkLqPfK8bXI3fGyibCUwe7eAnKJsJTB7t4CRAK76gITXCPrqDho0uqeBm_ONvcAjR2CVtLSKOKZ95T&_nc_ohc=DXmajP3in9MAX-uL51m&_nc_ht=scontent.fsgn2-9.fna&oh=00_AfBHIME3JAsZ4z4Saa8JJrf5NXmiFYBpSYMF_MW39w8S2g&oe=65AFD2F4"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
+            styleClass="mr-2" size="large" shape="circle"></p-avatar>
           <h4>Bùi Đức Trí</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
+          <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>
           <p>
             Các khóa học của Unicourse rất bổ ích với mình. Nhờ các khóa học mà
             minh đạt được thành tích tốt trong kỳ vừa rồi.
@@ -193,16 +118,9 @@
         <div class="fb-user-2 p-4">
           <p-avatar
             image="https://scontent.fsgn2-9.fna.fbcdn.net/v/t39.30808-1/344363561_1269430363660340_8170588377395495271_n.jpg?stp=dst-jpg_p480x480&_nc_cat=106&ccb=1-7&_nc_sid=5740b7&_nc_eui2=AeHaq2DYET9CIBB7UDybgb7ToyBAlZE_O5GjIECVkT87kcVBjUGLd9-eI5XNExGhEzgdNXTHXNQTzfsS7Q0R4Nqm&_nc_ohc=hZx1E12zFl8AX85iOOe&_nc_ht=scontent.fsgn2-9.fna&oh=00_AfCJkBWYbXzV1KKXSGaT0n7Zpqfv1eWZOePab8Cu54Dffg&oe=65B000FA"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
+            styleClass="mr-2" size="large" shape="circle"></p-avatar>
           <h4>Đinh Gia Bảo</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
+          <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>
           <p>
             Nhờ có khóa học React của Unicourse mà mình đã làm được project cá
             nhân khá chỉnh chu. Cảm ơn Unicourse rất nhiều.
@@ -213,16 +131,9 @@
         <div class="fb-user p-4">
           <p-avatar
             image="https://scontent.fsgn2-8.fna.fbcdn.net/v/t39.30808-1/273280810_3317577035194696_6778832758339916691_n.jpg?stp=dst-jpg_p480x480&_nc_cat=102&ccb=1-7&_nc_sid=5740b7&_nc_eui2=AeGOAcpf7t6yTeRT2wiG3AdxTXzBYCKd98VNfMFgIp33xehKMmWH8UuwWGuBVhYG9dGmPMfCRinWpVEKNoCNW13M&_nc_ohc=wiOAJLjSstAAX8D8w6K&_nc_ht=scontent.fsgn2-8.fna&oh=00_AfAhS5eVXeEiymkDZJ6QItz2ekIZ6li30ind_A9r52YJXQ&oe=65AEFF95"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
+            styleClass="mr-2" size="large" shape="circle"></p-avatar>
           <h4>Nguyễn Trung Kiên</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
+          <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false"></p-rating>
           <p>
             Các giảng viên của Unicourse rất nhiệt huyết và giảng dạy rất có
             tâm.
@@ -234,26 +145,15 @@
 
   <!-- Contact -->
   <div class="contact pb-5">
-    <div
-      class="content flex flex-column align-items-center justify-content-center relative"
-    >
+    <div class="content flex flex-column align-items-center justify-content-center relative">
       <h3>Làm thế nào liên lạc với Unicourse?</h3>
       <p>
         Đừng ngần ngại để lại cho chúng tôi số điện thoại của bạn. Chúng tôi sẽ
         liên hệ với bạn để thảo luận về bất kỳ câu hỏi nào bạn có thể có
       </p>
       <p-inputGroup class="w-25rem h-3rem m-4">
-        <input
-          type="text"
-          [style]="{ 'padding-left': '1rem' }"
-          pInputText
-          placeholder="Nhập số điện thoại"
-        />
-        <button
-          pButton
-          class="bg-[#F1B300] w-4"
-          [style]="{ 'padding-left': '1rem', 'padding-right': '1rem' }"
-        >
+        <input type="text" [style]="{ 'padding-left': '1rem' }" pInputText placeholder="Nhập số điện thoại" />
+        <button pButton class="bg-[#F1B300] w-4" [style]="{ 'padding-left': '1rem', 'padding-right': '1rem' }">
           <p class="font-bold w-full" [ngStyle]="{ color: '#000' }">Đăng ký</p>
         </button>
       </p-inputGroup>

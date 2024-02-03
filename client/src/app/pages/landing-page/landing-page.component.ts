@@ -105,7 +105,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           course.trackProgress[0].subTrackProgress[0].subTrackId.content_url,
         ]);
       } else {
-        this.router.navigate([`/detail`, courseId]);
+        this.router.navigate([`/course`, courseId]);
       }
     }
   }

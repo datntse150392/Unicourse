@@ -107,8 +107,6 @@ export class DefaultComponent implements OnInit, OnDestroy {
                 this.sharedService.settingLocalStorage();
                 this.closeDialogSignIn();
                 this.closeDialogSignUp();
-                // Phát thông tin dialog đăng nhập thành công
-                this.dialogBroadcastService.broadcastDialog({header: 'Đăng nhập', message: 'Đăng nhập thành công', type: 'success', display: true});
               }
             }, (error) => {
                // Phát thông tin dialog đăng nhập không thành công

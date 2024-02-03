@@ -31,7 +31,6 @@ export class DialogComponent {
       this.display = true;
       this.confirm1(this.message, this.header);
     });
-    this.confirm1(this.message, this.header);
   }
 
   ngDestroy(): void {
