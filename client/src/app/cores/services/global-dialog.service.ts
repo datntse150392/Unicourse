@@ -3,8 +3,8 @@ import { DialogBroadcastService } from './dialog-broadcast.service';
 
 @Injectable()
 export class GlobalDialogHandlerService implements ErrorHandler {
-  
-  constructor(private dialogBroadcastService: DialogBroadcastService) {}
+
+  constructor(private dialogBroadcastService: DialogBroadcastService) { }
 
   // Impletement function của Angular core để hiển thị dialog
   handleError(error: any): void {

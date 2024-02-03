@@ -25,7 +25,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();

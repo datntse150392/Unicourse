@@ -44,7 +44,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public afAuth: AngularFireAuth,
     private dialogBroadcastService: DialogBroadcastService
-  ) {}
+  ) { }
   ngOnInit(): void {
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
     const turnOnSignInSub = this.sharedService.turnOnSignIn$.subscribe({
@@ -109,10 +109,10 @@ export class DefaultComponent implements OnInit, OnDestroy {
                 this.closeDialogSignUp();
               }
             }, (error) => {
-               // Phát thông tin dialog đăng nhập không thành công
+              // Phát thông tin dialog đăng nhập không thành công
               this.closeDialogSignIn();
               this.closeDialogSignUp();
-              this.dialogBroadcastService.broadcastDialog({header: 'Lỗi đăng nhập', message: 'Đăng nhập không thành công', type: 'error', display: true});
+              this.dialogBroadcastService.broadcastDialog({ header: 'Lỗi đăng nhập', message: 'Đăng nhập không thành công', type: 'error', display: true });
             });
           this.subScriptions.push(userSub$);
         });
