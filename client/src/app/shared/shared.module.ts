@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +22,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { TreeTableModule } from 'primeng/treetable';
 import { AccordionModule } from 'primeng/accordion';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { GlobalDialogHandlerService } from '../cores/services/global-dialog.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -49,6 +52,7 @@ import { AccordionModule } from 'primeng/accordion';
     SidebarModule,
     TreeTableModule,
     AccordionModule,
+    ConfirmDialogModule
   ],
   declarations: [],
   exports: [
@@ -75,6 +79,9 @@ import { AccordionModule } from 'primeng/accordion';
     SidebarModule,
     TreeTableModule,
     AccordionModule,
+    ConfirmDialogModule
   ],
+  providers: [GlobalDialogHandlerService]
 })
-export class SharedModule {}
+export class SharedModule { }
+

@@ -4,7 +4,7 @@ export interface User {
   fullName: string;
   profileImage: string;
   dateOfBirth: string;
-  enrollCourses: [];
+  enrollCourses: EnrollCourses[];
   role: string;
   is_comment_blocked: boolean;
   is_blocked: boolean;
@@ -13,4 +13,16 @@ export interface User {
   create_at: string;
   update_at: string;
   published_at: string;
+}
+
+export interface EnrollCourses {
+  _id: string,
+  courseId: {
+    _id: string,
+    title: string,
+    titleDescription: string,
+    thumbnail: string
+  },
+  completed: boolean,
+  enrollDate: Date
 }

@@ -64,7 +64,7 @@ export class AuthService {
     profileImage: string
   ): Observable<any> {
     const body = { email, fullName, profileImage };
-    return this.httpClient.post(`${environment.baseUrl}/api/auth/signUp`, body);
+    return this.httpClient.post(`${environment.baseUrl}/api/auth/signUp`, body)
   }
 
   // Call API kiểm tra xem user đã đăng ký khóa học chưa

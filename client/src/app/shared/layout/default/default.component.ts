@@ -7,12 +7,14 @@ import { SharedService } from '../../../cores/services/shared.service';
 import { Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../cores/models/index';
+import { DialogComponent } from './dialog/dialog.component';
 
 import {
   AngularFireAuthModule,
   AngularFireAuth,
 } from '@angular/fire/compat/auth';
 import { AuthService } from '../../../cores/services';
+import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 
 @Component({
   selector: 'app-default',
@@ -24,6 +26,7 @@ import { AuthService } from '../../../cores/services';
     HeaderComponent,
     SharedModule,
     AngularFireAuthModule,
+    DialogComponent
   ],
   providers: [AuthService],
   templateUrl: './default.component.html',
@@ -39,8 +42,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
   constructor(
     private sharedService: SharedService,
     public authService: AuthService,
-    public afAuth: AngularFireAuth
-  ) {}
+    public afAuth: AngularFireAuth,
+    private dialogBroadcastService: DialogBroadcastService
+  ) { }
   ngOnInit(): void {
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
     const turnOnSignInSub = this.sharedService.turnOnSignIn$.subscribe({
@@ -104,6 +108,11 @@ export class DefaultComponent implements OnInit, OnDestroy {
                 this.closeDialogSignIn();
                 this.closeDialogSignUp();
               }
+            }, (error) => {
+              // Phát thông tin dialog đăng nhập không thành công
+              this.closeDialogSignIn();
+              this.closeDialogSignUp();
+              this.dialogBroadcastService.broadcastDialog({ header: 'Lỗi đăng nhập', message: 'Đăng nhập không thành công', type: 'error', display: true });
             });
           this.subScriptions.push(userSub$);
         });
