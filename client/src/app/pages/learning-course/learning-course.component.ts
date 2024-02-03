@@ -2,7 +2,7 @@ import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { TreeNode } from 'primeng/api';
 import { CourseService } from '../../cores/services';
-import { Subscription, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Course, Track, TrackStep } from '../../cores/models';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -35,6 +35,9 @@ export class LearningCourseComponent implements OnDestroy {
     private routeActive: ActivatedRoute,
     private sanitizer: DomSanitizer
   ) {
+    // Scroll smooth lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     this.routeActive.paramMap.subscribe((res: any) => {
       this.courseId = res.params.id;
       this.conntent_url = res.params.contennt_url;

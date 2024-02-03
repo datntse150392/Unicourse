@@ -95,7 +95,7 @@
         <div *ngFor="let course of courseSemester1" class="course col-3">
           <img src="{{ course.thumbnail }}" />
           <p-button
-            class="register-button flipup animation-duration-1000"
+            class="register-button flipup animation-duration-300"
             [style]="{
               background: '#fff',
               border: '10px solid #fff',
@@ -103,7 +103,7 @@
             }"
           >
           <a
-            routerLink="/course/{{ course._id }}"
+            routerLink="/detail/{{ course._id }}"
             routerLinkActive="active"
             ariaCurrentWhenActive="page"
           >
@@ -139,17 +139,24 @@
             [style]="{ background: '#fff', border: '10px solid #fff' }"
           >
           <a
-            routerLink="/course/{{ course._id }}"
+            routerLink="/detail/{{ course._id }}"
             routerLinkActive="active"
             ariaCurrentWhenActive="page"
           >
           <span class="font-bold" [style]="{ color: '#000' }">Xem khóa học</span>
           </a>
           </p-button>
-          <h3 class="mb-1 mt-1">{{ course.title }}</h3>
+          <h3
+            class="mb-1 mt-1 text-lg"
+            [ngStyle]="{
+              color: '#292929'
+            }"
+          >
+            {{ course.title }}
+          </h3>
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>
-            <span>{{ course.enrollmentCount }} người khác đã học</span>
+            <span>{{ course.enrollmentCount }} </span>
           </div>
         </div>
       </div>

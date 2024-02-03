@@ -36,6 +36,25 @@ export class CourseService {
       .pipe(catchError(this.handleError));
   }
 
+  // Tham gia khóa học mới
+  enrollNewCourse(courseId: string): Observable<any> {
+    return this.httpClient
+      .post<any>(
+        `${environment.baseUrl}/api/course/${courseId}/enroll-course`,
+        {}
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  // Lấy tất cả khóa học đã đăng ký
+  getMyCourses(userId: string): Observable<any> {
+    return this.httpClient
+      .get<Course[]>(
+        `${environment.baseUrl}/api/user/${userId}/get-enrolled-course`
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));
