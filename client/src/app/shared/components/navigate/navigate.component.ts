@@ -72,6 +72,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
     // Đăng xuất thì xóa hết dữ liệu trong localStorage
     localStorage.clear();
     this.user = undefined;
+    window.location.reload();
   }
   settingUserInfo() {
     if (typeof localStorage !== 'undefined') {

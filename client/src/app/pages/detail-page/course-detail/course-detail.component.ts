@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { SharedModule } from '../../../shared';
 import { Course } from '../../../cores/models';
-import { CourseService } from '../../../cores/services';
+import { CourseService, SharedService } from '../../../cores/services';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 @Component({
@@ -18,7 +18,11 @@ export class CourseDetailComponent implements OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private courseService: CourseService, private router: Router) {}
+  constructor(
+    private courseService: CourseService,
+    private router: Router,
+    private sharedService: SharedService
+  ) {}
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
@@ -27,22 +31,28 @@ export class CourseDetailComponent implements OnDestroy {
 
   // Hàm xử lí click enroll khóa học
   handleEnrollCoures(courseId: string) {
-    if (courseId) {
-      const enrollCourseSub$ = this.courseService
-        .enrollNewCourse(courseId)
-        .subscribe({
-          next: (res: any) => {
-            if (res.status === 201) {
-              this.router.navigate([
-                `/learning-course`,
-                courseId,
-                res.data.trackProgress[0].subTrackProgress[0].subTrackId
-                  .content_url,
-              ]);
-            }
-          },
-        });
-      this.subscriptions.push(enrollCourseSub$);
+    if (localStorage !== undefined) {
+      if (!localStorage.getItem('isLogin')) {
+        this.sharedService.turnOnSignInDialog();
+      } else {
+        if (courseId) {
+          const enrollCourseSub$ = this.courseService
+            .enrollNewCourse(courseId)
+            .subscribe({
+              next: (res: any) => {
+                if (res.status === 201) {
+                  this.router.navigate([
+                    `/learning-course`,
+                    courseId,
+                    res.data.trackProgress[0].subTrackProgress[0].subTrackId
+                      .content_url,
+                  ]);
+                }
+              },
+            });
+          this.subscriptions.push(enrollCourseSub$);
+        }
+      }
     }
   }
 }

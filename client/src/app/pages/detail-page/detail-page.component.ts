@@ -102,6 +102,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     const courseDetailSub$ = this.courseService.getCourseDetail(_id).subscribe({
       next: async (res: any) => {
         this.courseDetail = res.data;
+        window.document.title = this.courseDetail.title;
         if (this.courseDetail && this.courseDetail?.tracks?.length > 0) {
           this.files = await this.mapToTreeNode(this.courseDetail.tracks);
         }

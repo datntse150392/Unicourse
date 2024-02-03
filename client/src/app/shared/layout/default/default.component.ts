@@ -26,7 +26,7 @@ import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast
     HeaderComponent,
     SharedModule,
     AngularFireAuthModule,
-    DialogComponent
+    DialogComponent,
   ],
   providers: [AuthService],
   templateUrl: './default.component.html',
@@ -44,7 +44,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     public afAuth: AngularFireAuth,
     private dialogBroadcastService: DialogBroadcastService
-  ) { }
+  ) {}
   ngOnInit(): void {
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
     const turnOnSignInSub = this.sharedService.turnOnSignIn$.subscribe({
@@ -95,25 +95,34 @@ export class DefaultComponent implements OnInit, OnDestroy {
         userInfo.then((res) => {
           const userSub$ = this.authService
             .signIn(res.email, res.displayName, res.photoURL)
-            .subscribe((res) => {
-              if (res.status === 200 || res.status === 201) {
-                const token = res && res.data.access_token.split(' ')[1];
-                // Decode the token
-                const decoded = this.helper.decodeToken(token);
-                this.user = decoded;
-                localStorage.setItem('access_token', token);
-                localStorage.setItem('isLogin', 'true');
-                localStorage.setItem('UserInfo', JSON.stringify(this.user));
-                this.sharedService.settingLocalStorage();
+            .subscribe(
+              (res) => {
+                if (res.status === 200 || res.status === 201) {
+                  const token = res && res.data.access_token.split(' ')[1];
+                  // Decode the token
+                  const decoded = this.helper.decodeToken(token);
+                  this.user = decoded;
+                  localStorage.setItem('access_token', token);
+                  localStorage.setItem('isLogin', 'true');
+                  localStorage.setItem('UserInfo', JSON.stringify(this.user));
+                  window.location.reload();
+                  this.sharedService.settingLocalStorage();
+                  this.closeDialogSignIn();
+                  this.closeDialogSignUp();
+                }
+              },
+              (error) => {
+                // Phát thông tin dialog đăng nhập không thành công
                 this.closeDialogSignIn();
                 this.closeDialogSignUp();
+                this.dialogBroadcastService.broadcastDialog({
+                  header: 'Lỗi đăng nhập',
+                  message: 'Yêu cầu đăng nhập với mail @fpt.edu.vn',
+                  type: 'error',
+                  display: true,
+                });
               }
-            }, (error) => {
-              // Phát thông tin dialog đăng nhập không thành công
-              this.closeDialogSignIn();
-              this.closeDialogSignUp();
-              this.dialogBroadcastService.broadcastDialog({ header: 'Lỗi đăng nhập', message: 'Đăng nhập không thành công', type: 'error', display: true });
-            });
+            );
           this.subScriptions.push(userSub$);
         });
       }

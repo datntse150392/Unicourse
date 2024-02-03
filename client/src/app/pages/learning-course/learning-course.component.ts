@@ -42,9 +42,9 @@ export class LearningCourseComponent implements OnDestroy {
       this.courseId = res.params.id;
       this.conntent_url = res.params.contennt_url;
       this.track = this.course?.tracks.find((track: any) =>
-        track.track_steps.find(
-          (step: any) => step.content_url == this.conntent_url
-        )
+        track.track_steps.find((step: any) => {
+          step.content_url == this.conntent_url;
+        })
       );
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         `https://www.youtube.com/embed/${this.conntent_url}`
@@ -69,6 +69,8 @@ export class LearningCourseComponent implements OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.course = res.data;
+          // Thiết lập title cho trang
+          window.document.title = this.course.title;
           this.course.tracks.sort((a: any, b: any) => a.position - b.position);
           this.getFilesystem(this.course).then((files) => (this.files = files));
           this.track = this.course?.tracks.find((track: any) =>

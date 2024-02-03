@@ -25,7 +25,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {
+    // Thiết lặp title cho trang
+    window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
+    // Scroll smooth lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -37,9 +42,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   // Config on init
   initForm(): void {
-    // Lấy thông tin user
-    this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
-    this.getMyCourses();
+    // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
+    if (localStorage !== undefined) {
+      if (localStorage.getItem('isLogin')) {
+        this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
+        this.getMyCourses();
+      }
+    }
+
     const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
       next: (res: any) => {
         this.coursesFree = res.data;
@@ -107,6 +117,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       } else {
         this.router.navigate([`/course`, courseId]);
       }
+    } else {
+      this.router.navigate([`/course`, courseId]);
     }
   }
 }
