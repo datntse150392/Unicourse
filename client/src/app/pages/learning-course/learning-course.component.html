@@ -134,7 +134,7 @@
     <div class="btn-sidebar">
       <p *ngIf="track">{{ track.chapterTitle }}</p>
       <i
-        (click)="sidebar = true"
+        (click)="toggleSidebar()"
         class="pi pi-align-justify"
         style="font-size: 1.5rem"
       ></i>
@@ -147,9 +147,10 @@
   <p-sidebar [(visible)]="sidebar" styleClass="set-width" position="right">
     <div class="card flex flex-col justify-content-center">
       <h2>Nội dung khóa học</h2>
+
       <p-accordion
         [multiple]="true"
-        [activeIndex]="[0]"
+        [activeIndex]="activeIndex"
         class="w-full accordion-tab"
       >
         <ng-container *ngIf="this.course">
@@ -164,36 +165,38 @@
                 </div>
               </span>
             </ng-template>
-            <div *ngFor="let step of track.track_steps">
-              <div
-                [ngStyle]="
-                  this.conntent_url == step.content_url
-                    ? { 'background-color': 'rgb(252, 220, 211)' }
-                    : { 'background-color': '#e7e7e7' }
-                "
-                class="step-track w-full"
-              >
-                <p
-                  [routerLink]="[
-                    '/learning-course/',
-                    this.course._id,
-                    step.content_url
-                  ]"
-                  [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }"
+            <ng-container>
+              <div *ngFor="let step of track.track_steps">
+                <div
+                  [ngStyle]="
+                    this.conntent_url == step.content_url
+                      ? { 'background-color': 'rgb(252, 220, 211)' }
+                      : { 'background-color': '#e7e7e7' }
+                  "
+                  class="step-track w-full"
                 >
-                  {{ step.position }}. {{ step.title }}
-                </p>
-                <div class="duration">
-                  <img
-                    width="20"
-                    height="20"
-                    src="https://img.icons8.com/nolan/64/circled-play.png"
-                    alt="circled-play"
-                  />
-                  <span>11:21</span>
+                  <p
+                    [routerLink]="[
+                      '/learning-course/',
+                      this.course._id,
+                      step.content_url
+                    ]"
+                    [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }"
+                  >
+                    {{ step.position }}. {{ step.title }}
+                  </p>
+                  <div class="duration">
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://img.icons8.com/nolan/64/circled-play.png"
+                      alt="circled-play"
+                    />
+                    <span>11:21</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ng-container>
           </p-accordionTab>
         </ng-container>
       </p-accordion>

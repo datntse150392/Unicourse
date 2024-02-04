@@ -15,6 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   encapsulation: ViewEncapsulation.None,
 })
 export class LearningCourseComponent implements OnDestroy {
+  activeIndex: any[] = [];
   courseId!: string;
   course!: Course;
   conntent_url!: string;
@@ -43,7 +44,9 @@ export class LearningCourseComponent implements OnDestroy {
       this.conntent_url = res.params.contennt_url;
       this.track = this.course?.tracks.find((track: any) =>
         track.track_steps.find((step: any) => {
-          step.content_url == this.conntent_url;
+          if (step.content_url === this.conntent_url) {
+            return track;
+          }
         })
       );
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
@@ -134,5 +137,13 @@ export class LearningCourseComponent implements OnDestroy {
     if (index > 0) {
       this.previousLesson = this.trackSteps[index - 1].content_url;
     }
+  }
+
+  // Bật tắt sidebar
+  toggleSidebar() {
+    this.sidebar = !this.sidebar;
+    this.activeIndex = this.course.tracks.map(
+      (track: Track) => track.position - 1
+    );
   }
 }
