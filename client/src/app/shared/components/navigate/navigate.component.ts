@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService } from '../../../cores/services';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment.development';
 @Component({
   selector: 'app-navigate',
   standalone: true,
@@ -16,6 +17,7 @@ import { Router } from '@angular/router';
   providers: [MessageService],
 })
 export class NavigateComponent implements OnInit, OnDestroy {
+  Logo: string = environment.LOGO;
   items: MenuItem[] | undefined;
   user: User | undefined;
   subscriptions: Subscription[] = [];

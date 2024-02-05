@@ -8,13 +8,13 @@ import { Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../cores/models/index';
 import { DialogComponent } from './dialog/dialog.component';
-
 import {
   AngularFireAuthModule,
   AngularFireAuth,
 } from '@angular/fire/compat/auth';
 import { AuthService } from '../../../cores/services';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-default',
@@ -33,6 +33,7 @@ import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast
   styleUrl: './default.component.scss',
 })
 export class DefaultComponent implements OnInit, OnDestroy {
+  Logo: string = environment.LOGO;
   visibleSignIn: boolean = false;
   visibleSignUp: boolean = false;
   helper = new JwtHelperService();
