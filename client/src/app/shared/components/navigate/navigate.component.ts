@@ -49,6 +49,12 @@ export class NavigateComponent implements OnInit, OnDestroy {
               this.redirectToProfile();
             },
           },
+          {
+            label: 'Giỏ hàng',
+            command: () => {
+              this.redirectToCart();
+            },
+          },
         ],
       },
       {
@@ -113,6 +119,13 @@ export class NavigateComponent implements OnInit, OnDestroy {
   redirectToProfile() {
     // Navigate without updating the URL
     this.router.navigate([`/profile/${this.user?._id}`], {
+      skipLocationChange: true,
+    });
+  }
+
+  redirectToCart() {
+    // Navigate without updating the URL
+    this.router.navigate([`/cart`], {
       skipLocationChange: true,
     });
   }
