@@ -7,6 +7,7 @@ import { canLearningCourseGuard } from './cores/guards/can-learning-course.guard
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { viewCouruseDetailGuard } from './cores/guards/view-couruse-detail.guard';
+import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
         canActivate: [viewCouruseDetailGuard],
       },
       { path: 'profile/:id', component: ProfilePageComponent },
+      { path: 'blog', component: BlogPageComponent },
     ],
   },
   {

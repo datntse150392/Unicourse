@@ -1,0 +1,130 @@
+.container {
+  padding: 2% 10%;
+  .intro-services {
+    padding: 3% 0%;
+    .title {
+      padding: 0% 0%;
+      text-align: center;
+      p {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      h2 {
+        font-size: 32px;
+        font-weight: bold;
+        color: #000;
+      }
+      .btn-subscribe {
+        padding-top: 2%;
+        input {
+          position: relative;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 3%;
+          width: 25rem;
+        }
+        p {
+          position: absolute;
+          font-size: 12px;
+        }
+        button {
+          background-color: #ea580c;
+          border-color: #ea580c;
+          border-radius: 5px;
+          width: 10rem;
+          color: #fff;
+        }
+      }
+      p {
+      }
+    }
+  }
+  .blog-current {
+    h2 {
+      padding: 1% 0%;
+      font-size: 24px;
+      font-weight: 600;
+      color: #000;
+    }
+    .container-left {
+      padding: 0 !important;
+      padding-right: 1% !important;
+      p {
+        font-size: 12px;
+        font-weight: 600;
+        color: #000;
+        padding: 2% 0%;
+      }
+      h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #000;
+      }
+      .tags {
+        padding-top: 2%;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+      }
+    }
+    .container-right {
+      padding: 0 !important;
+      padding-left: 1% !important;
+      .blog {
+        padding: 0 !important;
+        .blog-detail {
+          p {
+            font-size: 11px;
+            font-weight: 600;
+            color: #000;
+            margin: 0 !important;
+            margin-top: -2% !important;
+            padding-bottom: 2%;
+          }
+          h1 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
+          }
+          h3 {
+            font-size: 0.8rem;
+            color: #000;
+          }
+          .tags {
+            padding-top: 2%;
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .list-blog {
+    padding-top: 3%;
+    h2 {
+      padding: 1% 0%;
+      font-size: 24px;
+      font-weight: 600;
+      color: #000;
+    }
+    p {
+      font-size: 12px;
+      font-weight: 600;
+      color: #000;
+      padding: 2% 0%;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #000;
+    }
+    .tags {
+      padding-top: 2%;
+      display: flex;
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+  }
+}

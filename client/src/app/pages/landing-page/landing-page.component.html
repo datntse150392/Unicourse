@@ -85,12 +85,27 @@
   <!-- Các khóa học tại chuyên ngành 1 -->
   <ng-container *ngIf="courseSemester1 && courseSemester1.length > 0">
     <div class="semester">
-      <div class="title flex flex-row gap-1 relative">
-        <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-          Chuyên Ngành 1
-        </h1>
-        <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
+      <span
+        [ngStyle]="{
+          color: '#82919b',
+          'font-size': '14px',
+          'font-weight': '600'
+        }"
+        >20+ người đã học</span
+      >
+      <div class="title flex flex-row relative">
+        <div class="flex flex-row gap-1">
+          <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
+            Chuyên Ngành 1
+          </h1>
+          <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
+        </div>
+        <div class="road-map">
+          <p>Xem lộ trình</p>
+          <i class="icon pi pi-angle-right" style="font-size: 1.2rem"></i>
+        </div>
       </div>
+
       <div class="flex flex-wrap align-items-center justify-content-start">
         <div *ngFor="let course of courseSemester1" class="course col-3">
           <img src="{{ course.thumbnail }}" />
@@ -119,7 +134,7 @@
           </h3>
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>
-            <span>{{ course.enrollmentCount }} người khác đã học</span>
+            <span>{{ course.enrollmentCount }} người đã tham gia</span>
           </div>
         </div>
       </div>

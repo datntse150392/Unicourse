@@ -24,6 +24,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { AccordionModule } from 'primeng/accordion';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GlobalDialogHandlerService } from '../cores/services/global-dialog.service';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { GlobalDialogHandlerService } from '../cores/services/global-dialog.serv
     SidebarModule,
     TreeTableModule,
     AccordionModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TagModule,
   ],
   declarations: [],
   exports: [
@@ -79,9 +81,9 @@ import { GlobalDialogHandlerService } from '../cores/services/global-dialog.serv
     SidebarModule,
     TreeTableModule,
     AccordionModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TagModule,
   ],
-  providers: [GlobalDialogHandlerService]
+  providers: [GlobalDialogHandlerService],
 })
-export class SharedModule { }
-
+export class SharedModule {}

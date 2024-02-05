@@ -1,5 +1,5 @@
 .container {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9 !important;
   max-width: 100% !important;
   .card {
     height: 100vh;
@@ -116,14 +116,42 @@
     margin-top: 2%;
     padding: 0% 10%;
     .title {
+      align-items: center;
+      justify-content: space-between;
       position: relative;
+      margin-bottom: 1%;
       h1 {
-        font-size: 2rem;
+        font-size: 1.6rem;
       }
       h2 {
         color: black;
         font-size: 16px;
         font-weight: bold;
+      }
+      .road-map {
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        align-items: center;
+        font-size: 16px;
+        cursor: pointer;
+        &:hover {
+          .icon {
+            color: red !important;
+            margin-right: 10px;
+            transition: opacity 0.9s, margin-left 0.5s, margin-right 0.5s;
+            -webkit-transition: opacity 0.9s, margin-left 0.5s,
+              margin-right 0.5s;
+          }
+        }
+        p {
+          color: #f05123;
+          font-weight: 600;
+        }
+        .icon {
+          color: #f05123;
+          padding-top: 0.2rem;
+        }
       }
     }
     .bagde-container {
