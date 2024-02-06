@@ -1,0 +1,19 @@
+.container {
+    background-color: #f9f9f9;
+    max-width: 100%;
+    .header-background {
+      background-color: #ffffff;
+    }
+    .body-container {
+      width: 80%;
+      margin: auto;
+      height: 100rem;
+      padding-bottom: 2.7rem;
+      .cart-item {
+        width: 100%;
+      }
+      .transaction {
+        width: 100%;
+      }
+    }
+}

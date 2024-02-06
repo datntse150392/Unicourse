@@ -25,6 +25,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GlobalDialogHandlerService } from '../cores/services/global-dialog.service';
 import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { TagModule } from 'primeng/tag';
     AccordionModule,
     ConfirmDialogModule,
     TagModule,
+    TooltipModule
   ],
   declarations: [],
   exports: [
@@ -83,6 +85,7 @@ import { TagModule } from 'primeng/tag';
     AccordionModule,
     ConfirmDialogModule,
     TagModule,
+    TooltipModule
   ],
   providers: [GlobalDialogHandlerService],
 })

@@ -23,7 +23,7 @@ export const routes: Routes = [
       },
       { path: 'profile/:id', component: ProfilePageComponent },
       { path: 'blog', component: BlogPageComponent },
-      { path: 'cart', component: CartPageComponent },
+      { path: 'profile/:id/cart', component: CartPageComponent },
     ],
   },
   {

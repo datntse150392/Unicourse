@@ -1,0 +1,6 @@
+.truncated-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Hiệu ứng ... nối đuôi */
+  max-width: 30ch; /* Giới hạn số lượng text tối đa 30 ký tự */
+}

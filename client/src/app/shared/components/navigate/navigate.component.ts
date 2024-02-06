@@ -117,16 +117,10 @@ export class NavigateComponent implements OnInit, OnDestroy {
   }
 
   redirectToProfile() {
-    // Navigate without updating the URL
-    this.router.navigate([`/profile/${this.user?._id}`], {
-      skipLocationChange: true,
-    });
+    this.router.navigate([`/profile/${this.user?._id}`]);
   }
 
   redirectToCart() {
-    // Navigate without updating the URL
-    this.router.navigate([`/cart`], {
-      skipLocationChange: true,
-    });
+    this.router.navigate([`profile/${this.user?._id}/cart`]);
   }
 }
