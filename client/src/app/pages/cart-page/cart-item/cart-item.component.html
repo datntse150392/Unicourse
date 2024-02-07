@@ -1,0 +1,42 @@
+<div class="w-full max-w-full bg-white border border-gray-200 rounded-lg shadow flex flex-row">
+    <div class="basis-5/12 my-4 ml-4">
+        <img class="w-full h-auto rounded shadow-lg" [src]="cartItem?.thumbnail" alt="Bonnie image" />
+    </div>
+    <div class="basis-7/12 flex flex-col items-start mt-3 pl-4">
+        <h5 class="mb-4 text-xl font-medium text-gray-900">{{cartItem?.title}}</h5>
+        <span class="flex flex-row mb-2"><img class="w-2 h-auto pr-1"
+                src="../../../../assets/images/icons8-training-50.png" /><span class="text-sm text-gray-500">Good
+                Mentor</span></span>
+        <span class="flex flex-row mb-2"><img class="w-2 h-auto pr-1"
+                src="../../../../assets/images/icons8-price-50.png" /><span class="text-sm text-gray-500">Good
+                Price</span></span>
+
+        <div class="flex flex-row justify-between w-full mt-4">
+            <ng-container *ngIf="cartItem !== undefined && cartItem.amount !== 0">
+                <span>
+                    <span class="text-lg font-semibold text-gray-900 line-through mr-2 mt-2">{{(cartItem.amount | currency : "VND")}}</span><span
+                        class="text-lg font-bold font-customFont text-red-600 mr-2 mt-2">{{(cartItem.amount | currency : "VND")}}</span>
+                </span>
+            </ng-container>
+            <ng-container *ngIf="cartItem !== undefined && cartItem.amount === 0">
+                <span class="text-lg font-bold font-customFont text-red-600 mr-2 mt-2">Miễn phí</span>
+            </ng-container>
+            <button type="button" pButton pTooltip="Xóa khóa học này" class="text-white focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-full text-sm p-3 text-center inline-flex items-center me-2">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256"
+                    style="fill:#000000;">
+                    <g fill="#f63b3b" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+                        stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+                        font-family="none" font-weight="none" font-size="none" text-anchor="none"
+                        style="mix-blend-mode: normal">
+                        <g transform="scale(10.66667,10.66667)">
+                            <path
+                                d="M10.80664,2c-0.517,0 -1.01095,0.20431 -1.37695,0.57031l-0.42969,0.42969h-5c-0.36064,-0.0051 -0.69608,0.18438 -0.87789,0.49587c-0.18181,0.3115 -0.18181,0.69676 0,1.00825c0.18181,0.3115 0.51725,0.50097 0.87789,0.49587h16c0.36064,0.0051 0.69608,-0.18438 0.87789,-0.49587c0.18181,-0.3115 0.18181,-0.69676 0,-1.00825c-0.18181,-0.3115 -0.51725,-0.50097 -0.87789,-0.49587h-5l-0.42969,-0.42969c-0.365,-0.366 -0.85995,-0.57031 -1.37695,-0.57031zM4.36523,7l1.52734,13.26367c0.132,0.99 0.98442,1.73633 1.98242,1.73633h8.24805c0.998,0 1.85138,-0.74514 1.98438,-1.74414l1.52734,-13.25586z">
+                            </path>
+                        </g>
+                    </g>
+                </svg>
+                <span class="sr-only">Icon description</span>
+            </button>
+        </div>
+    </div>
+</div>

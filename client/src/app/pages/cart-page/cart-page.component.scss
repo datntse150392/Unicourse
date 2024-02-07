@@ -1,0 +1,37 @@
+.container {
+    background-color: #f9f9f9;
+    max-width: 100%;
+    .header-background {
+      background-color: #ffffff;
+    }
+    .body-container {
+      width: 80%;
+      margin: auto;
+      height: 90rem;
+      padding-bottom: 2.7rem;
+      .left-side {
+        max-height: 700px;
+        overflow: auto;
+      }
+      .cart-item {
+        width: 100%;
+      }
+      .transaction {
+        width: 100%;
+      }
+      .button-radio {
+        width: 90%;
+        margin: auto;
+        max-height: 50px;
+        background-color: #F9F9F9;
+        .visa {
+          width: 35px;
+        }
+      }
+      .button-radio-2 {
+        width: 90%;
+        margin: auto;
+        max-height: 50px;
+      }
+    }
+}

@@ -8,6 +8,7 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { viewCouruseDetailGuard } from './cores/guards/view-couruse-detail.guard';
 import { BlogPageComponent } from './pages/blog-page/blog-page.component';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,7 @@ export const routes: Routes = [
       },
       { path: 'profile/:id', component: ProfilePageComponent },
       { path: 'blog', component: BlogPageComponent },
+      { path: 'profile/:id/cart', component: CartPageComponent },
     ],
   },
   {
