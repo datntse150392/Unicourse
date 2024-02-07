@@ -2,33 +2,48 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { HeaderComponent } from '../../shared/components';
 import { CartItemComponent } from './cart-item/cart-item.component';
-import { User } from '../../cores/models';
-import { Cart, UserInfo, CartItem } from '../../cores/models/cart.model';
+import { Course, User } from '../../cores/models';
+import { Cart, UserInfo, CartItem } from '../../cores/models';
 import { Router } from '@angular/router';
+import { ListRelatedCourseComponent } from './list-related-course/list-related-course.component';
+import { Subscription } from 'rxjs';
+import { CourseService, CartService } from '../../cores/services';
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [SharedModule, HeaderComponent, CartItemComponent],
+  imports: [SharedModule, HeaderComponent, CartItemComponent, ListRelatedCourseComponent],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss'
 })
 export class CartPageComponent implements OnInit, OnDestroy {
-  user: User | undefined;
-  cart: Cart | undefined;
+  public user: User | undefined;
+  public cart: Cart | undefined;
+  public coursesFree: Course[] = [];
+  public totalAmount: number = 0;
+  private subscriptions: Subscription[] = [];
 
   constructor(
+    private courseService: CourseService,
+    private cartService: CartService,
     private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.settingUserInfo();
-
-    // Fake data to display
-    this.fakeData();
+  ) {
+    // Thiết lặp title cho trang
+    window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
+    // Scroll smooth lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  ngOnDestroy(): void { }
+  ngOnInit(): void {
+    this.initForm();
+    // Fake data to display
+    // this.fakeData();
+    
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
   settingUserInfo() {
     if (typeof localStorage !== 'undefined') {
@@ -42,6 +57,47 @@ export class CartPageComponent implements OnInit, OnDestroy {
         this.router.navigate(['/']);
       }
     }
+  }
+
+  // Config on init
+  initForm(): void {
+    // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
+    this.settingUserInfo();
+
+    const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
+      next: (res: any) => {
+        this.coursesFree = res.data;
+        this.courseService.listcoursesPro = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
+    const cartSub$ = this.cartService.getCart().subscribe({
+      next: (res: any) => {
+        this.cart = res.data;
+        this.getTotalAmount();
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
+    this.subscriptions.push(coursesFreeSub$);
+    this.subscriptions.push(cartSub$);
+  }
+
+  // Xử lý tính tổng tiền dựa trên amount của cart.items
+  getTotalAmount(): void {
+    let total = 0;
+    if (this.cart) {
+      this.cart.items.forEach((item: CartItem) => {
+        total += item.amount;
+      });
+    }
+    console.log('Total amount: ', total);
+    this.totalAmount = total;
   }
 
   fakeData() {

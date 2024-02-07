@@ -17,7 +17,12 @@ export class ProfilePageComponent implements OnInit, OnDestroy{
   constructor(
     private route: ActivatedRoute,
     private userService: UserService
-    ) {}
+    ) {
+      // Thiết lặp title cho trang
+    window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
+    // Scroll smooth lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   
   public userDetail!: User;
   public userId!: string;

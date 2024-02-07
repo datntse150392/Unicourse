@@ -1,0 +1,30 @@
+<div class="w-full max-w-full bg-white border border-gray-200 rounded-lg shadow mb-4">
+    <img class="thumbnail rounded shadow-lg" [src]="course?.thumbnail" alt="Thumbnail for {{ course?.title }}" />
+    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+    <h5 class="m-3 text-xl text-left font-medium text-gray-900 font-customFont">{{ course?.title }}</h5>
+    <ng-container *ngIf="course !== undefined && course.amount !== 0">
+        <span class="block text-left mx-3 mb-3">
+            <span class="text-lg font-semibold text-gray-900 line-through mr-2 mt-2">{{(course.amount + 50000 | currency :
+                "VND")}}</span><span class="text-lg font-bold font-customFont text-gray-900 mr-2 mt-2">{{(course.amount
+                | currency : "VND")}}</span>
+        </span>
+        <div class="mx-3 mb-3">
+            <button type="button"
+                class="w-full place-content-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold font-customFont rounded-lg text-md px-3 py-2.5 text-center inline-flex items-center">
+                <i class="pi pi-shopping-cart mr-4" style="font-size: 1.5rem"></i>
+                Thêm vào giỏ hàng
+            </button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="course !== undefined && course.amount === 0">
+        <span class="block text-left mx-3 mb-3">
+            <span class="text-lg font-bold font-customFont text-gray-900 mr-2 mt-2">Miễn phí</span>
+        </span>
+        <div class="mx-3 mb-3">
+            <button type="button"
+                class="w-full place-content-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold font-customFont rounded-lg text-md px-3 py-2.5 text-center inline-flex items-center">
+                Đăng ký ngay
+            </button>
+        </div>
+    </ng-container>
+</div>
