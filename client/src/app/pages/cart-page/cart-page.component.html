@@ -48,9 +48,22 @@
         <div class="flex flex-row h-auto w-full place-content-center">
             <!-- Left side: Chứa danh sách item giỏ hàng -->
             <div class="left-side basis-7/12 mr-4">
-                <div class="cart-item mb-4" *ngFor="let cartItem of cart?.items">
-                    <app-cart-item [cartItem]="cartItem"></app-cart-item>
-                </div>
+                <ng-container *ngIf="cart !== undefined; else emptyCart">
+                    <div class="cart-item mb-4" *ngFor="let cartItem of cart?.items">
+                        <app-cart-item [cartItem]="cartItem"></app-cart-item>
+                    </div>
+                </ng-container>
+                <ng-template #emptyCart>
+                    <div class="cart-null-item mt-20 mb-4">
+                        <img class="w-4 mb-3 h-auto rounded-full" src="../../../assets/images/cart.webp" />
+                        <h5 class="mx-3 mt-5 mb-4 text-3xl font-bold text-gray-600 font-customFont">Giỏ hàng của bạn còn
+                            trống</h5>
+                        <button type="button" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"
+                            class="button-cart-null text-white uppercase bg-[#EE4D2D] hover:bg-[#FF2A00] focus:ring-4 focus:outline-none focus:ring-[#FF2A00] font-medium rounded-lg text-sm px-5 py-3 text-center inline-flex items-center me-2 mt-5 mb-2">
+                            Mua ngay
+                        </button>
+                    </div>
+                </ng-template>
             </div>
             <!-- Right side: Thông tin thanh toán -->
             <div class="transaction basis-5/12">
@@ -76,17 +89,19 @@
                     <div class="mx-3 mb-6">
                         <span class="flex flex-row justify-between mb-2">
                             <span class="text-sm text-gray-500">Tổng tiền</span>
-                            <span class="text-sm text-gray-500">{{(totalAmount | currency : "VND")}}</span>
+                            <span class="text-sm text-gray-500">{{totalAmount ? (totalAmount | currency : "VND") :
+                                0}}</span>
                         </span>
                         <span class="flex flex-row justify-between">
                             <span class="text-sm text-gray-500">Khuyến mãi</span>
-                            <span class="text-sm text-gray-500">{{(50000 | currency : "VND")}}</span>
+                            <span class="text-sm text-gray-500">{{totalAmount ? (50000 | currency : "VND") : 0}}</span>
                         </span>
                         <hr class="w-full h-px my-3 bg-gray-200 border-0">
                         <span class="flex flex-row justify-between">
                             <span class="text-lg font-semibold text-gray-900 font-customFont">Tổng cộng</span>
-                            <span class="text-lg font-bold font-customFont text-gray-900">{{(totalAmount - 50000 | currency :
-                                "VND")}}</span>
+                            <span class="text-lg font-bold font-customFont text-gray-900">{{totalAmount ? (totalAmount -
+                                50000 | currency :
+                                "VND") : 0}}</span>
                         </span>
                     </div>
                     <!-- Group select hình thức thanh toán -->
@@ -95,14 +110,16 @@
                     <div class="button-radio shadow flex items-center ps-4 rounded mb-3 h-full">
                         <input id="bordered-radio-1" type="radio" value="" name="bordered-radio"
                             class="w-1 h-4 text-blue-600 bg-gray-100 border-gray-300">
-                        <label for="bordered-radio-1" class="w-full py-4 ms-2 text-sm font-bold font-customFont text-gray-900">Credit
+                        <label for="bordered-radio-1"
+                            class="w-full py-4 ms-2 text-sm font-bold font-customFont text-gray-900">Credit
                             Cards</label>
                     </div>
                     <!-- PayPal button -->
                     <div class="button-radio shadow flex items-center ps-4 rounded mb-3">
                         <input id="bordered-radio-1" type="radio" value="" name="bordered-radio"
                             class="w-1 h-4 text-blue-600 bg-gray-100 border-gray-300">
-                        <label for="bordered-radio-1" class="flex flex-row items-center w-full py-3 ms-2 text-sm font-medium text-gray-900">
+                        <label for="bordered-radio-1"
+                            class="flex flex-row items-center w-full py-3 ms-2 text-sm font-medium text-gray-900">
                             <svg class="mr-4" width="70px" height="70px" viewBox="-11.153 -123.214 326.05 326.05"
                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <g transform="matrix(2.07675 0 0 -2.07675 -11.153 92.77)">
@@ -152,22 +169,29 @@
                     <div class="button-radio shadow flex items-center ps-4 rounded mb-3">
                         <input id="bordered-radio-1" type="radio" value="" name="bordered-radio"
                             class="w-1 h-4 text-blue-600 bg-gray-100 border-gray-300">
-                        <label for="bordered-radio-1" class="flex flex-row items-center w-full py-3 ms-2 text-sm font-medium text-gray-900">
-                            <svg class="visa mr-4" width="̃35px" height="35px" viewBox="0 -86.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+                        <label for="bordered-radio-1"
+                            class="flex flex-row items-center w-full py-3 ms-2 text-sm font-medium text-gray-900">
+                            <svg class="visa mr-4" width="̃35px" height="35px" viewBox="0 -86.5 256 256" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                preserveAspectRatio="xMidYMid">
                                 <defs>
-                                    <linearGradient x1="45.9741966%" y1="-2.00617467%" x2="54.8768726%" y2="100%" id="linearGradient-1">
+                                    <linearGradient x1="45.9741966%" y1="-2.00617467%" x2="54.8768726%" y2="100%"
+                                        id="linearGradient-1">
                                         <stop stop-color="#222357" offset="0%">
-                            
-                            </stop>
+
+                                        </stop>
                                         <stop stop-color="#254AA5" offset="100%">
-                            
-                            </stop>
+
+                                        </stop>
                                     </linearGradient>
                                 </defs>
                                 <g>
-                                    <path d="M132.397094,56.2397455 C132.251036,44.7242808 142.65954,38.2977599 150.500511,34.4772086 C158.556724,30.5567233 161.262627,28.0430004 161.231878,24.5376253 C161.17038,19.1719416 154.805357,16.804276 148.847757,16.7120293 C138.454628,16.5505975 132.412467,19.5178668 127.607952,21.7625368 L123.864273,4.24334875 C128.684163,2.02174043 137.609033,0.084559486 146.864453,-7.10542736e-15 C168.588553,-7.10542736e-15 182.802234,10.7236802 182.879107,27.3511501 C182.963666,48.4525854 153.69071,49.6210438 153.890577,59.05327 C153.959762,61.912918 156.688728,64.964747 162.669389,65.7411565 C165.628971,66.133205 173.800493,66.433007 183.0636,62.1665965 L186.699658,79.11693 C181.718335,80.931115 175.314876,82.6684285 167.343223,82.6684285 C146.895202,82.6684285 132.512402,71.798691 132.397094,56.2397455 M221.6381,81.2078555 C217.671491,81.2078555 214.327548,78.8940005 212.836226,75.342502 L181.802894,1.24533061 L203.511621,1.24533061 L207.831842,13.1835926 L234.360459,13.1835926 L236.866494,1.24533061 L256,1.24533061 L239.303345,81.2078555 L221.6381,81.2078555 M224.674554,59.6067505 L230.939643,29.5804456 L213.781755,29.5804456 L224.674554,59.6067505 M106.076031,81.2078555 L88.9642665,1.24533061 L109.650591,1.24533061 L126.754669,81.2078555 L106.076031,81.2078555 M75.473185,81.2078555 L53.941265,26.7822953 L45.2316377,73.059396 C44.2092367,78.2252115 40.1734431,81.2078555 35.6917903,81.2078555 L0.491982464,81.2078555 L0,78.886313 C7.22599245,77.318119 15.4359498,74.7890215 20.409585,72.083118 C23.4537265,70.4303645 24.322383,68.985166 25.3217224,65.0569935 L41.8185094,1.24533061 L63.68098,1.24533061 L97.1972855,81.2078555 L75.473185,81.2078555" fill="url(#linearGradient-1)" transform="translate(128.000000, 41.334214) scale(1, -1) translate(-128.000000, -41.334214) ">
-                            
-                            </path>
+                                    <path
+                                        d="M132.397094,56.2397455 C132.251036,44.7242808 142.65954,38.2977599 150.500511,34.4772086 C158.556724,30.5567233 161.262627,28.0430004 161.231878,24.5376253 C161.17038,19.1719416 154.805357,16.804276 148.847757,16.7120293 C138.454628,16.5505975 132.412467,19.5178668 127.607952,21.7625368 L123.864273,4.24334875 C128.684163,2.02174043 137.609033,0.084559486 146.864453,-7.10542736e-15 C168.588553,-7.10542736e-15 182.802234,10.7236802 182.879107,27.3511501 C182.963666,48.4525854 153.69071,49.6210438 153.890577,59.05327 C153.959762,61.912918 156.688728,64.964747 162.669389,65.7411565 C165.628971,66.133205 173.800493,66.433007 183.0636,62.1665965 L186.699658,79.11693 C181.718335,80.931115 175.314876,82.6684285 167.343223,82.6684285 C146.895202,82.6684285 132.512402,71.798691 132.397094,56.2397455 M221.6381,81.2078555 C217.671491,81.2078555 214.327548,78.8940005 212.836226,75.342502 L181.802894,1.24533061 L203.511621,1.24533061 L207.831842,13.1835926 L234.360459,13.1835926 L236.866494,1.24533061 L256,1.24533061 L239.303345,81.2078555 L221.6381,81.2078555 M224.674554,59.6067505 L230.939643,29.5804456 L213.781755,29.5804456 L224.674554,59.6067505 M106.076031,81.2078555 L88.9642665,1.24533061 L109.650591,1.24533061 L126.754669,81.2078555 L106.076031,81.2078555 M75.473185,81.2078555 L53.941265,26.7822953 L45.2316377,73.059396 C44.2092367,78.2252115 40.1734431,81.2078555 35.6917903,81.2078555 L0.491982464,81.2078555 L0,78.886313 C7.22599245,77.318119 15.4359498,74.7890215 20.409585,72.083118 C23.4537265,70.4303645 24.322383,68.985166 25.3217224,65.0569935 L41.8185094,1.24533061 L63.68098,1.24533061 L97.1972855,81.2078555 L75.473185,81.2078555"
+                                        fill="url(#linearGradient-1)"
+                                        transform="translate(128.000000, 41.334214) scale(1, -1) translate(-128.000000, -41.334214) ">
+
+                                    </path>
                                 </g>
                             </svg>
                         </label>
@@ -176,11 +200,31 @@
                     <div class="button-radio shadow flex items-center ps-4 rounded mb-3">
                         <input id="bordered-radio-1" type="radio" value="" name="bordered-radio"
                             class="w-1 h-4 text-blue-600 bg-gray-100 border-gray-300">
-                        <label for="bordered-radio-1" class="w-20 flex flex-row items-center py-3 ms-2 text-sm font-medium text-gray-900">
-                            <svg class="w-full h-auto" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.32 42">
+                        <label for="bordered-radio-1"
+                            class="w-20 flex flex-row items-center py-3 ms-2 text-sm font-medium text-gray-900">
+                            <svg class="w-full h-auto" id="Layer_1" data-name="Layer 1"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 138.32 42">
                                 <defs>
                                     <style>
-                                        .cls-1,.cls-4{fill:#005baa;}.cls-2,.cls-5{fill:#ed1c24;}.cls-3{fill:#009edb;}.cls-4,.cls-5{fill-rule:evenodd;}</style>
+                                        .cls-1,
+                                        .cls-4 {
+                                            fill: #005baa;
+                                        }
+
+                                        .cls-2,
+                                        .cls-5 {
+                                            fill: #ed1c24;
+                                        }
+
+                                        .cls-3 {
+                                            fill: #009edb;
+                                        }
+
+                                        .cls-4,
+                                        .cls-5 {
+                                            fill-rule: evenodd;
+                                        }
+                                    </style>
                                 </defs>
                                 <path class="cls-1"
                                     d="M30.18,13.68l-4,4-.2.2-1.27,1.27-.94.95-1.27,1.27-.2.19-.55.56-.2.19h0l-1.87,1.87h0l-.2.19a8.4,8.4,0,0,1-1.84,1.39,7.83,7.83,0,0,1-1,.47,8.07,8.07,0,0,1-2.42.53,8.47,8.47,0,0,1-1.51,0,8.17,8.17,0,0,1-3.12-1,5.52,5.52,0,0,1-1.2-.84h0l-.23-.23L.87,17.33l-.15-.15a2.61,2.61,0,0,1-.34-.46A2.74,2.74,0,0,1,0,15.32a1.69,1.69,0,0,1,0-.23c0-.12,0-.24,0-.35l0-.13,0,0a2.8,2.8,0,0,1,.5-1,2.09,2.09,0,0,1,.2-.22l.13-.13L8.68,5.51h0L13.38.82A2.79,2.79,0,0,1,17.19.69Z" />
@@ -190,14 +234,16 @@
                                     d="M53.08,21.17l-.2.2-8.71,8.84L35,39.5a7.54,7.54,0,0,1-.92.79l0,0-.13.09h0a8.43,8.43,0,0,1-10.71-.75h0L23,39.49l-1.57-1.57L17,33.49,15.52,32l-.2-.21a4.37,4.37,0,0,0,.72.06h.21a4.83,4.83,0,0,0,.84-.11,5.39,5.39,0,0,0,1.35-.46,7.86,7.86,0,0,0,2-1.42l.27-.29,3.4-3.34h0l11.69-11.5.06-.08L41.6,9.09a2.27,2.27,0,0,1,2.83-.25l1.34,1.35h0l7.3,7.31a1.71,1.71,0,0,1,.18.2A2.59,2.59,0,0,1,53.08,21.17Z" />
                                 <path class="cls-3"
                                     d="M24.86,11.49a.56.56,0,0,1-.76,0A8.87,8.87,0,1,0,11.51,24l2.7,2.72a.21.21,0,0,1,0,.06h0a8,8,0,0,1-1.47,0l-2-2a9.93,9.93,0,0,1,14.1-14h0A.53.53,0,0,1,24.86,11.49Z" />
-                                <path class="cls-3" d="M29,14.89l-.75.74-1.31-1.32a.53.53,0,0,1,0-.75.53.53,0,0,1,.75,0Z" />
+                                <path class="cls-3"
+                                    d="M29,14.89l-.75.74-1.31-1.32a.53.53,0,0,1,0-.75.53.53,0,0,1,.75,0Z" />
                                 <path class="cls-3"
                                     d="M17.68,25.74l0,0a7.4,7.4,0,0,1-1,.46L13,22.52a6.8,6.8,0,0,1-.78-8.64.54.54,0,0,1,.74-.14.53.53,0,0,1,.13.74,5.74,5.74,0,0,0,.66,7.29Z" />
                                 <path class="cls-3"
                                     d="M26.76,17.1l0,0-.55.55-.18.18-4.13-4.17A5.74,5.74,0,0,0,16,12.27a.53.53,0,1,1-.33-1,6.77,6.77,0,0,1,6.93,1.68Z" />
                                 <path class="cls-3"
                                     d="M24.55,19.32l-.75.75-4.15-4.18A2.6,2.6,0,0,0,16,19.56l2.67,2.69a.53.53,0,0,1-.75.75L15.2,20.31a3.67,3.67,0,0,1,5.21-5.16Z" />
-                                <path class="cls-3" d="M22.33,21.53l0,0-.55.56-.18.17L17.43,18.1a.53.53,0,0,1,.75-.75Z" />
+                                <path class="cls-3"
+                                    d="M22.33,21.53l0,0-.55.56-.18.17L17.43,18.1a.53.53,0,0,1,.75-.75Z" />
                                 <path class="cls-4"
                                     d="M126.68,21.3l-6.18-8.86-.62-.57H126l4.13,6.69.33-.27,2.49-3.71a1.94,1.94,0,0,0-.34-2.71h5.75l-6.65,9.42v6.84l1.17,1.4H125.7l1-1.38c0-2.27-.08-4.58,0-6.85Zm-16.77-9.43a2.54,2.54,0,0,1,.7,1.51,2.08,2.08,0,0,1-.13,1l-4.59,13.32a5,5,0,0,1-1.31,1.74h5a2,2,0,0,1-.7-1.19,1.88,1.88,0,0,1,0-1l1-3.16h5.83l.91,2.44a2.8,2.8,0,0,1,.17.76,2.3,2.3,0,0,1-.93,2.19h7.85a7.2,7.2,0,0,1-1.87-2.28l-5.74-15.38Zm5,10h-4.17l2-5.76,2.15,5.76ZM94,11.88h8.75a4.8,4.8,0,0,1,4.79,4.79v.59A4.8,4.8,0,0,1,102.77,22l-2.19.07a4.48,4.48,0,0,0,2.27-4.69c-.17-1.48-.93-2.9-2.2-2.93h-.8V27.56a1,1,0,0,0,.18.59,9,9,0,0,0,.8,1.07l.23.28h-6.8l.29-.39a4.33,4.33,0,0,0,.53-.91,1.38,1.38,0,0,0,.13-.6V13.49C95.18,12.75,94.45,12.33,94,11.88Z" />
                                 <path class="cls-5"
@@ -291,7 +337,16 @@
                     </div>
                     <!-- Submit button -->
                     <div class="button-radio-2 mb-3">
-                        <button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium font-customFont rounded-lg text-lg px-5 py-3">Thanh toán</button>
+                        <ng-container *ngIf="cart !== undefined; else empty">
+                            <button type="button"
+                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium font-customFont rounded-lg text-lg px-5 py-3">Thanh
+                                toán</button>
+                        </ng-container>
+                        <ng-template #empty>
+                            <button type="button" disabled
+                                class="w-full text-white bg-blue-400 cursor-not-allowed font-medium font-customFont rounded-lg text-lg px-5 py-3">Thanh
+                                toán</button>
+                        </ng-template>
                     </div>
                 </div>
             </div>
@@ -299,10 +354,39 @@
         <!-- Bottom side: Các khóa học liên quan -->
         <div class="place-content-center mt-8">
             <div class="w-full max-w-full text-center">
-                <h5 class="m-3 text-2xl font-semibold text-gray-900 font-customFont uppercase">Các khóa học liên quan</h5>
-                <div class="grid grid-cols-4 gap-4 mt-6">
-                    <app-list-related-course *ngFor="let course of coursesFree | slice : 0 : 4" [course]="course"></app-list-related-course>
-                </div>
+                <h5 class="m-3 text-2xl font-semibold text-gray-900 font-customFont uppercase">Các khóa học liên quan
+                </h5>
+                <ng-container *ngIf="coursesFree.length > 0; else loading">
+                    <div class="grid grid-cols-4 gap-4 mt-6">
+                        <app-list-related-course *ngFor="let course of coursesFree | slice : 0 : 4"
+                            [course]="course"></app-list-related-course>
+                    </div>
+                </ng-container>
+                <ng-template #loading>
+                    <div role="status" class="max-w-full mt-5 animate-pulse">
+                        <div class="h-2.5 bg-gray-200 rounded-full w-full mb-4"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full"></div>
+                        <hr>
+                        <div class="h-2.5 bg-gray-200 rounded-full w-full mb-4"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full"></div>
+                        <hr>
+                        <div class="h-2.5 bg-gray-200 rounded-full w-full mb-4"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full mb-2.5"></div>
+                        <div class="h-2 bg-gray-200 rounded-full max-w-full"></div>
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>

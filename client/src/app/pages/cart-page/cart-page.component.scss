@@ -16,6 +16,13 @@
       .cart-item {
         width: 100%;
       }
+      .cart-null-item {
+        text-align: -webkit-center;
+        .button-cart-null {
+          width: 20rem;
+          place-content: center;
+        }
+      }
       .transaction {
         width: 100%;
       }

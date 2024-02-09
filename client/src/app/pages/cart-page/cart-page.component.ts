@@ -36,9 +36,6 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    // Fake data to display
-    // this.fakeData();
-    
   }
 
   ngOnDestroy(): void {
@@ -98,38 +95,5 @@ export class CartPageComponent implements OnInit, OnDestroy {
     }
     console.log('Total amount: ', total);
     this.totalAmount = total;
-  }
-
-  fakeData() {
-    this.cart = {
-      _id: "65c2132877474f8ebdfd2b9a",
-      user_id: {
-        _id: "65b646dade16088a25a41d68",
-        email: "khainhse161766@fpt.edu.vn"
-      },
-      amount: 0,
-      items: [
-        {
-          _id: "65a8790ba30979a347d026c9",
-          title: "Khóa học CSI104",
-          amount: 0,
-          thumbnail: "https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Course%2FCSI.jpg?alt=media&token=205ce9a1-47b3-4a72-b186-3318851262ec"
-        },
-        {
-          _id: "65a878bfa30979a347d026c6",
-          title: "Khóa học JPD123",
-          amount: 0,
-          thumbnail: "https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Course%2FJPD123.jpg?alt=media&token=d212132b-28f3-4b7b-821b-d199420265d2"
-        },
-        {
-          _id: "65a8791ea30979a347d026ca",
-          title: "Khóa học PRF192",
-          amount: 0,
-          thumbnail: "https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Course%2FPRF192.jpg?alt=media&token=884d2ceb-8c73-4cee-ba9b-c8cc113cd7be"
-        }
-      ],
-      created_at: new Date("2024-01-25T07:21:01.746Z"),
-      updated_at: new Date("2024-01-25T07:21:01.746Z")
-    }
   }
 }
