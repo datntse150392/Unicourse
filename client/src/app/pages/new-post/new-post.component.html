@@ -1,0 +1,65 @@
+<header>
+  <div routerLink="/" class="header-left">
+    <img src="{{ Logo }}" />
+    <div class="back-home">
+      <i class="pi pi-angle-left" style="font-size: 1rem"></i>
+      <p>QUAY LẠI</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <button
+      pButton
+      pRipple
+      label="Xuất bản"
+      class="btn-view-demo p-button-success"
+    ></button>
+    <p>Khóa học của tôi</p>
+    <p-avatar image="{{ user.profileImage }}" shape="circle" />
+  </div>
+</header>
+
+<!-- Editor -->
+<div class="editor">
+  <!-- Editor Text -->
+  <div>
+    <ng-container *ngIf="preview; else preViewBlog">
+      <input
+        class="title w-full"
+        [(ngModel)]="title"
+        type="text"
+        placeholder="Tiêu đề"
+      />
+
+      <editor
+        [(ngModel)]="editorContent"
+        apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+        [init]="{ plugins: 'lists link image table code help wordcount' }"
+      ></editor>
+
+      <button
+        *ngIf="editorContent"
+        (click)="togglePreview()"
+        pButton
+        pRipple
+        label="Xem trước"
+        class="btn-view-demo p-button-success"
+      ></button>
+    </ng-container>
+    <ng-template #preViewBlog>
+      <h1 class="mb-0" *ngIf="title">{{ title }}</h1>
+      <div
+        class="w-full h-full"
+        *ngIf="editorContent"
+        [innerHTML]="sanitizeContent(editorContent)"
+      ></div>
+
+      <button
+        (click)="togglePreview()"
+        pButton
+        pRipple
+        label="Trở về"
+        class="btn-view-demo p-button-success"
+      ></button>
+    </ng-template>
+  </div>
+</div>

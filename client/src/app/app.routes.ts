@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { viewCouruseDetailGuard } from './cores/guards/view-couruse-detail.guard';
 import { BlogPageComponent } from './pages/blog-page/blog-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { NewPostComponent } from './pages/new-post/new-post.component';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,10 @@ export const routes: Routes = [
     path: 'learning-course/:id/:contennt_url',
     component: LearningCourseComponent,
     canActivate: [canLearningCourseGuard],
+  },
+  {
+    path: 'new-post',
+    component: NewPostComponent,
   },
   { path: '**', component: PageNotFoundComponent },
 ];

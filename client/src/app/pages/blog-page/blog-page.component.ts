@@ -4,7 +4,6 @@ import { SharedModule } from '../../shared';
 import { BlogService } from '../../cores/services';
 import { Blog } from '../../cores/models';
 import { Subscription } from 'rxjs';
-
 @Component({
   selector: 'app-blog-page',
   standalone: true,
