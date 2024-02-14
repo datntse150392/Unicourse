@@ -13,7 +13,7 @@ import { User } from '../../cores/models';
 })
 export class NewPostComponent {
   Logo: string = environment.LOGO;
-  editorContent: string = ''; // Khai báo biến editorContent
+  editorContent!: string; // Khai báo biến editorContent
   preview: boolean = true;
   title!: string;
   user!: User;
