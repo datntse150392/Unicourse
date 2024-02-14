@@ -62,7 +62,9 @@ export class NavigateComponent implements OnInit, OnDestroy {
         items: [
           {
             label: 'Cài đặt',
-            url: 'http://angular.io',
+            command: () => {
+              this.redirectToSettingPersonal();
+            },
           },
           {
             label: 'Đăng xuất',
@@ -122,5 +124,9 @@ export class NavigateComponent implements OnInit, OnDestroy {
 
   redirectToCart() {
     this.router.navigate([`profile/${this.user?._id}/cart`]);
+  }
+
+  redirectToSettingPersonal() {
+    this.router.navigate([`/setting/personal`]);
   }
 }

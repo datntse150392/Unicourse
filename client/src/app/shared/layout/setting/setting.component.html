@@ -1,0 +1,39 @@
+<!-- Header -->
+<header>
+  <div routerLink="/" class="header-left">
+    <img src="{{ Logo }}" />
+    <div class="back-home">
+      <i class="pi pi-angle-left" style="font-size: 1rem"></i>
+      <p>QUAY LẠI</p>
+    </div>
+  </div>
+  <div class="card flex flex-wrap justify-content-center gap-3 header-mid">
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input
+        placeholder="Tìm kiếm khóa học, các bài blog ..."
+        type="text"
+        pInputText
+      />
+    </span>
+  </div>
+  <div class="header-right">
+    <p>Khóa học của tôi</p>
+    <p-avatar image="{{ user.profileImage }}" shape="circle" />
+  </div>
+</header>
+<div class="grid flex flex-row" [ngStyle]="{ height: '100vh' }">
+  <div class="col-4 side-bar flex flex-column mt-6">
+    <h1>Cài đặt</h1>
+    <div class="setting-menu mt-2">
+      <div class="flex flex-row gap-2 align-items-center container">
+        <i class="pi pi-user" style="font-size: 1rem"></i>
+        <p>Cài đặt tài khoản</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-footer></app-footer>

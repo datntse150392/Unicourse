@@ -27,6 +27,8 @@ import { GlobalDialogHandlerService } from '../cores/services/global-dialog.serv
 import { TagModule } from 'primeng/tag';
 import { TooltipModule } from 'primeng/tooltip';
 import { SpeedDialModule } from 'primeng/speeddial';
+import { DividerModule } from 'primeng/divider';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   imports: [
@@ -59,6 +61,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     TagModule,
     TooltipModule,
     SpeedDialModule,
+    DividerModule,
+    FileUploadModule,
   ],
   declarations: [],
   exports: [
@@ -89,6 +93,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     TagModule,
     TooltipModule,
     SpeedDialModule,
+    DividerModule,
+    FileUploadModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

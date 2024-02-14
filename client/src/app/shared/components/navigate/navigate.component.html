@@ -23,11 +23,12 @@
         >
           Bài viết
         </p>
-        <p class="nav-item">Cộng đồng</p>
+        <!-- <p class="nav-item">Cộng đồng</p> -->
       </div>
     </div>
     <div class="flex flex-row align-items-center justify-content-between gap-2">
       <ng-container *ngIf="user; else unLogin">
+        <p class="w-8rem font-semibold my-course">Khóa học của tôi</p>
         <p-avatar
           (click)="menu.toggle($event)"
           image="{{ user.profileImage }}"
