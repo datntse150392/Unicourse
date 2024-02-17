@@ -1,19 +1,43 @@
-<div class="container">
+<p-toast [life]="1000"></p-toast>
+<div *ngIf="user" class="container">
   <h1 class="mt-6">Thông tin cá nhân</h1>
   <!-- Name -->
   <div class="name mt-6">
     <div class="flex flex-row align-items-center">
       <div class="info">
         <h3>Họ Tên</h3>
-        <h4>Nguyễn Thành Đạt</h4>
+        <ng-container *ngIf="isUpdate; else isNotUpdate">
+          <div class="flex flex-col">
+            <input
+              id="new-nusername"
+              class="input-new-name ng-invalid ng-dirty"
+              type="text"
+              pInputText
+              placeholder="Nhập tên mới của bạn... "
+              [(ngModel)]="newFullName"
+              name="newFullName"
+            />
+            <small
+              [ngStyle]="{ color: 'red' }"
+              *ngIf="newFullName.length == 0"
+              id="new-nusername"
+              >Tên mới không được bỏ trống</small
+            >
+          </div>
+        </ng-container>
+        <ng-template #isNotUpdate>
+          <h4>{{ user.fullName }}</h4>
+        </ng-template>
       </div>
       <div class="card flex justify-content-center">
         <p-toggleButton
+          (onChange)="handleOnClickUpdate()"
           onLabel="Xác nhận"
           offLabel="Chỉnh sửa"
           onIcon="pi pi-check"
           offIcon="pi pi-user-edit"
           [style]="{ width: '10em' }"
+          [disabled]="newFullName.length === 0"
         ></p-toggleButton>
       </div>
     </div>
@@ -28,7 +52,7 @@
     <div class="flex flex-row align-items-center">
       <div class="info">
         <h3>Email</h3>
-        <h4>datntse150392&#64;fpt.edu.vn</h4>
+        <h4>{{ user.email }}</h4>
       </div>
     </div>
   </div>
@@ -43,7 +67,7 @@
             Nên là ảnh vuông, chấp nhận các tệp: JPG, PNG hoặc GIF.
           </p>
           <p-avatar
-            image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+            image="{{ user.profile_image }}"
             size="xlarge"
             shape="circle"
             class="ml-6"
@@ -57,6 +81,7 @@
           name="demo[]"
           url="https://www.primefaces.org/cdn/api/upload.php"
           accept="image/*"
+          (onUpload)="onUpload($event)"
         ></p-fileUpload>
       </div>
     </div>

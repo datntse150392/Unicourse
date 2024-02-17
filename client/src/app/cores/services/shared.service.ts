@@ -15,6 +15,10 @@ export class SharedService {
   private settingLocal = new BehaviorSubject<boolean>(false);
   settingLocal$ = this.settingLocal.asObservable();
 
+  // Dùng để gửi thông báo khi cập nhật thông tin user
+  private isUpdateUser = new BehaviorSubject<boolean>(false);
+  isUpdateUser$ = this.isUpdateUser.asObservable();
+
   constructor() {}
 
   turnOnSignInDialog() {
@@ -35,5 +39,9 @@ export class SharedService {
 
   settingLocalStorage() {
     this.settingLocal.next(true);
+  }
+
+  isUpdateUserInfo() {
+    this.isUpdateUser.next(true);
   }
 }

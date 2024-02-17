@@ -19,7 +19,13 @@
   </div>
   <div class="header-right">
     <p>Khóa học của tôi</p>
-    <p-avatar image="{{ user.profileImage }}" shape="circle" />
+    <p-avatar
+      image="{{ user.profile_image }}"
+      shape="circle"
+      [ngStyle]="{ cursor: 'pointer' }"
+      (click)="menu.toggle($event)"
+    />
+    <p-menu #menu [model]="items" [popup]="true"></p-menu>
   </div>
 </header>
 <div class="grid flex flex-row" [ngStyle]="{ height: '100vh' }">

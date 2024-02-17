@@ -2,7 +2,6 @@ export interface User {
   _id: string;
   email: string;
   fullName: string;
-  profileImage: string;
   dateOfBirth: string;
   enrollCourses: EnrollCourses[];
   role: string;
@@ -16,13 +15,13 @@ export interface User {
 }
 
 export interface EnrollCourses {
-  _id: string,
+  _id: string;
   courseId: {
-    _id: string,
-    title: string,
-    titleDescription: string,
-    thumbnail: string
-  },
-  completed: boolean,
-  enrollDate: Date
+    _id: string;
+    title: string;
+    titleDescription: string;
+    thumbnail: string;
+  };
+  completed: boolean;
+  enrollDate: Date;
 }

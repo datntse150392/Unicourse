@@ -1,99 +1,166 @@
 <div class="container relative">
-    <div routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"
-        class="back-step cursor-pointer absolute flex flex-row top-7 left-5 items-center h-fit">
-        <i class="pi pi-chevron-left font-normal text-gray-500 mr-2 "></i>
-        <h4 class="leading-5 text-base font-semibold font-customFont text-gray-500 ">Trang chủ</h4>
-    </div>
-    <div class="header-background shadow">
-        <img class="w-full h-80 object-cover" src="../../../assets/images/fillBgProfile.png" alt="image description">
-        <div class="group-info flex">
-            <img [src]="userDetail?.profile_image" class="w-32 h-32 p-1 bg-white rounded-full flex-none" alt="Avatar" />
-            <div class="grow grid grid-rows-2 justify-items-end">
-                <button type="button"
-                    class="h-12 customize1:h-10 customize2:h-12 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2">
-                    <i class="pi pi-camera mr-3 p-0" style="font-size: 1.5rem"></i>
-                    Chỉnh sửa ảnh
-                </button>
-            </div>
-        </div>
-        <div class="user-info bg-white w-full max-h-32 h-full rounded-b-lg flex flex-row">
-            <div class="basis-6/12 flex flex-row">
-                <div class="customize1:basis-5/12 customize2:basis-5/12 customize3:basis-4/12 "></div>
-                <div class="customize1:basis-8/12 customize2:basis-9/12 customize3:basis-9/12 pt-2">
-                    <h4 class="text-2xl font-bold font-customFont text-gray-900">{{userDetail.fullName}}</h4>
-                    <ng-container *ngIf="userDetail.role === 'student'">
-                        <h5 class="text-base font-normal font-customFont text-gray-900">Học viên</h5>
-                    </ng-container>
-                    <ng-container *ngIf="userDetail.role === 'mentor'">
-                        <h5 class="text-base font-normal font-customFont text-gray-900">Giảng viên</h5>
-                    </ng-container>
-                    <ng-container *ngIf="userDetail.role === 'admin'">
-                        <h5 class="text-base font-normal font-customFont text-gray-900">Quản trị viên</h5>
-                    </ng-container>
-                    <ng-container *ngIf="userDetail.role === 'collaborator'">
-                        <h5 class="text-base font-normal font-customFont text-gray-900">Cộng tác viên</h5>
-                    </ng-container>
-                </div>
-            </div>
-            <div class="basis-6/12 text-end customize1:mr-24 customize2:mr-28 customize3:mr-36">
-                <button type="button"
-                    class="h-10 border-gray-900 customize1:h-10 customize2:h-10 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-10 py-2.5 text-center inline-flex items-center me-2 mb-2 mt-4">
-                    Chỉnh sửa
-                </button>
-            </div>
-        </div>
-    </div>
+  <div
+    routerLink="/"
+    routerLinkActive="active"
+    ariaCurrentWhenActive="page"
+    class="back-step cursor-pointer absolute flex flex-row top-7 left-5 items-center h-fit"
+  >
+    <i class="pi pi-chevron-left font-normal text-gray-500 mr-2"></i>
+    <h4 class="leading-5 text-base font-semibold font-customFont text-gray-500">
+      Trang chủ
+    </h4>
+  </div>
 
-    <!-- Group Body -->
-    <div class="body-container py-6">
-        <div class="flex flex-row">
-            <div class="basis-4/12 md:basis-5/12">
-                <!-- Giới thiệu Card -->
-                <a class="block max-w-full p-3 bg-white border border-gray-200 rounded-lg shadow mb-4 mr-4">
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 font-customFont">Giới thiệu</h5>
-                    <p class="font-normal text-gray-900 font-customFont">
-                        <i class="pi pi-users font-normal"></i>
-                        Thành viên của <span class="font-bold font-customFont text-gray-900">Unicourse</span> từ
-                        {{this.userCreatedTime}}.
-                    </p>
-                </a>
-                <!-- Hoạt động gần đây Card -->
-                <a class="block max-w-full p-3 bg-white border border-gray-200 rounded-lg shadow mb-4 mr-4">
-                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white font-customFont">Hoạt
-                        động gần đây</h5>
-                    <p class="font-normal text-gray-900 font-customFont">Chưa có hoạt động gần đây.</p>
-                </a>
-            </div>
-            <div class="basis-8/12 md:basis-7/12">
-                <!-- Course header title -->
-                <a class="block max-w-full py-3 px-5 bg-white border border-gray-200 rounded-lg shadow mb-4">
-                    <h5 class="mb-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white font-customFont">Các
-                        khóa học đã tham gia</h5>
-                    <!-- List Course -->
-                    <a *ngFor="let course of userDetail.enrollCourses" routerLink="/course/{{course.courseId._id}}"
-                        routerLinkActive="active" ariaCurrentWhenActive="page"
-                        class="block max-w-full bg-white mt-3 pb-4 flex flex-row border-b-2 border-gray-200">
-                        <div class="basis-4/12 max-w-full">
-                            <figure class="max-w-lg">
-                                <img class="h-auto max-w-full rounded-lg" [src]="course.courseId.thumbnail"
-                                    [alt]="course.courseId.title">
-                            </figure>
-                        </div>
-                        <div class="basis-8/12 max-w-full max-h-full">
-                            <div class="ml-4 flex flex-col max-h-full">
-                                <h5
-                                    class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2">
-                                    {{course.courseId.title}}
-                                </h5>
-                                <h5
-                                    class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont">
-                                    {{course.courseId.titleDescription}}
-                                </h5>
-                            </div>
-                        </div>
-                    </a>
-                </a>
-            </div>
-        </div>
+  <div *ngIf="userDetail" class="header-background shadow">
+    <img
+      class="w-full h-80 object-cover"
+      src="../../../assets/images/fillBgProfile.png"
+      alt="image description"
+    />
+    <div class="group-info flex">
+      <img
+        [src]="userDetail.profile_image"
+        class="w-32 h-32 p-1 bg-white rounded-full flex-none"
+        alt="Avatar"
+      />
+      <div class="grow grid grid-rows-2 justify-items-end">
+        <button
+          type="button"
+          class="h-12 customize1:h-10 customize2:h-12 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
+        >
+          <i class="pi pi-camera mr-3 p-0" style="font-size: 1.5rem"></i>
+          Chỉnh sửa ảnh
+        </button>
+      </div>
     </div>
+    <div
+      class="user-info bg-white w-full max-h-32 h-full rounded-b-lg flex flex-row"
+    >
+      <div class="basis-6/12 flex flex-row">
+        <div
+          class="customize1:basis-5/12 customize2:basis-5/12 customize3:basis-4/12"
+        ></div>
+        <div
+          class="customize1:basis-8/12 customize2:basis-9/12 customize3:basis-9/12 pt-2"
+        >
+          <h4 class="text-2xl font-bold font-customFont text-gray-900">
+            {{ userDetail.fullName }}
+          </h4>
+          <ng-container *ngIf="userDetail.role === 'student'">
+            <h5 class="text-base font-normal font-customFont text-gray-900">
+              Học viên
+            </h5>
+          </ng-container>
+          <ng-container *ngIf="userDetail.role === 'mentor'">
+            <h5 class="text-base font-normal font-customFont text-gray-900">
+              Giảng viên
+            </h5>
+          </ng-container>
+          <ng-container *ngIf="userDetail.role === 'admin'">
+            <h5 class="text-base font-normal font-customFont text-gray-900">
+              Quản trị viên
+            </h5>
+          </ng-container>
+          <ng-container *ngIf="userDetail.role === 'collaborator'">
+            <h5 class="text-base font-normal font-customFont text-gray-900">
+              Cộng tác viên
+            </h5>
+          </ng-container>
+        </div>
+      </div>
+      <div
+        class="basis-6/12 text-end customize1:mr-24 customize2:mr-28 customize3:mr-36"
+      >
+        <button
+          type="button"
+          class="h-10 border-gray-900 customize1:h-10 customize2:h-10 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-10 py-2.5 text-center inline-flex items-center me-2 mb-2 mt-4"
+        >
+          Chỉnh sửa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Group Body -->
+  <div *ngIf="userDetail" class="body-container py-6">
+    <div class="flex flex-row">
+      <div class="basis-4/12 md:basis-5/12">
+        <!-- Giới thiệu Card -->
+        <a
+          class="block max-w-full p-3 bg-white border border-gray-200 rounded-lg shadow mb-4 mr-4"
+        >
+          <h5
+            class="mb-2 text-xl font-bold tracking-tight text-gray-900 font-customFont"
+          >
+            Giới thiệu
+          </h5>
+          <p class="font-normal text-gray-900 font-customFont">
+            <i class="pi pi-users font-normal"></i>
+            Thành viên của
+            <span class="font-bold font-customFont text-gray-900"
+              >Unicourse</span
+            >
+            từ {{ this.userCreatedTime }}.
+          </p>
+        </a>
+        <!-- Hoạt động gần đây Card -->
+        <a
+          class="block max-w-full p-3 bg-white border border-gray-200 rounded-lg shadow mb-4 mr-4"
+        >
+          <h5
+            class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white font-customFont"
+          >
+            Hoạt động gần đây
+          </h5>
+          <p class="font-normal text-gray-900 font-customFont">
+            Chưa có hoạt động gần đây.
+          </p>
+        </a>
+      </div>
+      <div class="basis-8/12 md:basis-7/12">
+        <!-- Course header title -->
+        <a
+          class="block max-w-full py-3 px-5 bg-white border border-gray-200 rounded-lg shadow mb-4"
+        >
+          <h5
+            class="mb-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white font-customFont"
+          >
+            Các khóa học đã tham gia
+          </h5>
+          <!-- List Course -->
+          <a
+            *ngFor="let course of userDetail.enrollCourses"
+            routerLink="/course/{{ course.courseId._id }}"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            class="block max-w-full bg-white mt-3 pb-4 flex flex-row border-b-2 border-gray-200"
+          >
+            <div class="basis-4/12 max-w-full">
+              <figure class="max-w-lg">
+                <img
+                  class="h-auto max-w-full rounded-lg"
+                  [src]="course.courseId.thumbnail"
+                  [alt]="course.courseId.title"
+                />
+              </figure>
+            </div>
+            <div class="basis-8/12 max-w-full max-h-full">
+              <div class="ml-4 flex flex-col max-h-full">
+                <h5
+                  class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2"
+                >
+                  {{ course.courseId.title }}
+                </h5>
+                <h5
+                  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont"
+                >
+                  {{ course.courseId.titleDescription }}
+                </h5>
+              </div>
+            </div>
+          </a>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

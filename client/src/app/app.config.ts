@@ -18,6 +18,10 @@ import { MessageService } from 'primeng/api';
 import { authInterceptor } from './cores/interceptors/auth.interceptor';
 import { errorInterceptor } from './cores/interceptors/error.interceptor';
 
+// Setting Firebase Storage
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+
 export const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyCrH3nRPoIYgBtcCMdFwtu4IgayGz5EXps',
   authDomain: 'unicourse-f4020.firebaseapp.com',
@@ -38,7 +42,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       AngularFireModule.initializeApp(firebaseConfig),
       MessageService,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
+      provideFirebaseApp(() => initializeApp(firebaseConfig)),
+      provideStorage(() => getStorage())
     ),
   ],
 };
