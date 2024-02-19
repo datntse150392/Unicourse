@@ -1,8 +1,10 @@
 .container {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9 !important;
+
   max-width: 100%;
   .header-background {
-    background-color: #ffffff;
+    background-color: white !important;
+    border-bottom: 1px solid #3333;
   }
   .body-container {
     width: 80%;

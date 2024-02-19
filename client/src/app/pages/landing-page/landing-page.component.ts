@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 export class LandingPageComponent implements OnInit, OnDestroy {
   public coursesFree: Course[] = [];
   public courseSemester1: Course[] = [];
+  public courseSemester2: Course[] = [];
   public coursePro: Course[] = [];
   public userInfo!: User;
   public myCourses!: any;
@@ -71,6 +72,17 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         },
       });
 
+    const courseSemester2Sub$ = this.courseService
+      .getCoursebySemester('2')
+      .subscribe({
+        next: (res: any) => {
+          this.courseSemester2 = res.data;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+
     // Lấy danh sách khóa học PRO
     const courseProSub$ = this.courseService.getCoursePro().subscribe({
       next: (res: any) => {
@@ -84,6 +96,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(courseSemester1Sub$);
+    this.subscriptions.push(courseSemester2Sub$);
     this.subscriptions.push(courseProSub$);
   }
 

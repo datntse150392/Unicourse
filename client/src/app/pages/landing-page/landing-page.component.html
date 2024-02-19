@@ -141,6 +141,65 @@
     </div>
   </ng-container>
 
+  <!-- Các khóa học tại chuyên ngành 2 -->
+  <ng-container *ngIf="courseSemester2 && courseSemester2.length > 0">
+    <div class="semester">
+      <span
+        [ngStyle]="{
+          color: '#82919b',
+          'font-size': '14px',
+          'font-weight': '600'
+        }"
+        >20+ người đã học</span
+      >
+      <div class="title flex flex-row relative">
+        <div class="flex flex-row gap-1">
+          <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
+            Chuyên Ngành 2
+          </h1>
+          <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
+        </div>
+        <div class="road-map">
+          <p>Xem lộ trình</p>
+          <i class="icon pi pi-angle-right" style="font-size: 1.2rem"></i>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap align-items-center justify-content-start">
+        <div *ngFor="let course of courseSemester2" class="course col-3">
+          <img src="{{ course.thumbnail }}" />
+          <p-button
+            class="register-button flipup animation-duration-300"
+            [style]="{
+              background: '#fff',
+              border: '10px solid #fff',
+              'border-radius': '2rem'
+            }"
+          >
+            <span
+              (click)="hanleGetCourseDetail(course._id)"
+              class="font-bold"
+              [style]="{ color: '#000' }"
+              >Xem khóa học</span
+            >
+          </p-button>
+          <h3
+            class="mb-1 mt-1 text-lg"
+            [ngStyle]="{
+              color: '#292929'
+            }"
+          >
+            {{ course.title }}
+          </h3>
+          <div class="flex flex-row gap-2 align-items-center">
+            <i class="pi pi-users" style="color: #708090"></i>
+            <span>{{ course.enrollmentCount }} người đã tham gia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
   <!-- Feedback -->
   <div
     class="feedback flex flex-column justify-content-center align-items-center"

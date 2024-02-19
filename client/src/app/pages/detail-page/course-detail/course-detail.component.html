@@ -1,7 +1,12 @@
 <div
-  class="course-detail *:bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-4">
+  class="course-detail border rounded-lg border-gray-200 shadow dark:border-gray-700 mx-4 p-3"
+>
   <a href="#">
-    <img class="w-full h-auto rounded-t-lg" [src]="course.thumbnail" [alt]="course.title" />
+    <img
+      class="w-full h-auto rounded-t-lg rounded-xl"
+      [src]="course.thumbnail"
+      [alt]="course.title"
+    />
   </a>
   <div class="px-5 py-5">
     <div class="flex items-center mt-2.5 mb-5">
@@ -10,13 +15,18 @@
           <li>
             <p class="font-normal text-base text-gray-900 font-customFont">
               Số bài học:
-              <span class="font-bold text-gray-900 font-customFont">{{ number }} bài học</span>
+              <span class="font-bold text-gray-900 font-customFont"
+                >{{ number }} bài học</span
+              >
             </p>
           </li>
           <li>
             <p class="font-normal text-base text-gray-900 font-customFont">
               Giảng viên:
-              <span class="font-bold font-customFont" [style]="{ color: '#9B51E0' }">Sơn Đặng
+              <span
+                class="font-bold font-customFont"
+                [style]="{ color: '#9B51E0' }"
+                >Sơn Đặng
               </span>
             </p>
           </li>
@@ -41,27 +51,28 @@
         <p class="font-semibold text-2xl text-gray-900 font-customFont">
           <span class="font-bold text-gray-900 font-customFont">
             {{
-            course.amount === 0
-            ? "Miễn phí"
-            : (course.amount | currency : "VND")
+              course.amount === 0
+                ? "Miễn phí"
+                : (course.amount | currency : "VND")
             }}
           </span>
         </p>
       </span>
       <span>
-        <ng-template [ngIf]="course !== undefined && course?.type !== 'free'">
-          <button type="button"
-            class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
+        <ng-template [ngIf]="course !== undefined && course.type !== 'free'">
+          <button
+            type="button"
+            class="font-customFont focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
+          >
             Thêm vào giỏ hàng
-          </button>
-          <button type="button"
-            class="font-customFont text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
-            Học thử miễn phí
           </button>
         </ng-template>
         <ng-template [ngIf]="course !== undefined && course?.type === 'free'">
-          <button (click)="handleEnrollCoures(course._id)" type="button"
-            class="font-customFont focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2">
+          <button
+            (click)="handleEnrollCoures(course._id)"
+            type="button"
+            class="font-customFont focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2"
+          >
             Đăng ký ngay
           </button>
         </ng-template>
