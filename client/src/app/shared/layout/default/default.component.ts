@@ -38,6 +38,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
   visibleSignUp: boolean = false;
   helper = new JwtHelperService();
   user!: User;
+  visibleDialogNewFeed: boolean = false;
 
   private subScriptions: Subscription[] = [];
   constructor(
@@ -172,5 +173,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  showDialog() {
+    this.visibleDialogNewFeed = true;
   }
 }
