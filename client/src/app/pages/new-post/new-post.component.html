@@ -1,3 +1,4 @@
+<p-toast [life]="3000"></p-toast>
 <header>
   <div routerLink="/" class="header-left">
     <img src="{{ Logo }}" />
@@ -6,15 +7,22 @@
       <p>QUAY LẠI</p>
     </div>
   </div>
-  <div class="header-right">
+  <div class="header-right flex flex-nowrap items-center">
     <button
+      *ngIf="editorContent && title"
       pButton
       pRipple
       label="Xuất bản"
       class="btn-view-demo p-button-success"
+      (click)="handleCreateBlog()"
     ></button>
-    <p>Khóa học của tôi</p>
-    <p-avatar image="{{ user.profile_image }}" shape="circle" />
+    <p-avatar
+      image="{{ user.profile_image }}"
+      shape="circle"
+      [ngStyle]="{ cursor: 'pointer' }"
+      (click)="menu.toggle($event)"
+    />
+    <p-menu #menu [model]="items" [popup]="true"></p-menu>
   </div>
 </header>
 

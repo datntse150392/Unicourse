@@ -48,6 +48,7 @@ export const routes: Routes = [
   {
     path: 'new-post',
     component: NewPostComponent,
+    canActivate: [loginSystemGuard],
   },
   {
     path: 'setting',

@@ -7,6 +7,7 @@ header {
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #33333317;
   .header-left {
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -29,9 +30,9 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     .btn-view-demo {
-      background-color: rgb(236, 161, 139);
+      background-color: rgb(244, 62, 6);
       padding: 0.5rem 1rem;
       color: #fff;
       border-radius: 10rem;
@@ -60,6 +61,8 @@ header {
     color: #222222;
   }
   .btn-view-demo {
+    display: flex;
+    justify-content: end;
     margin-top: 1rem;
     background-color: rgb(244, 62, 6);
     padding: 0.5rem 1rem;

@@ -35,6 +35,13 @@ export class BlogService {
       .pipe(catchError(this.handleError));
   }
 
+  // Tạo mới blog
+  createBlog(data: any) {
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/blog`, data)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));
