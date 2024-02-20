@@ -1,0 +1,28 @@
+.header {
+  border-bottom: 1px solid #3333;
+}
+.container {
+  padding: 0% 20%;
+  margin-top: 2rem;
+  position: relative;
+  .like_comment {
+    position: fixed;
+    top: 16.5%;
+    left: 6%;
+    .top {
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #757575;
+    }
+  }
+  .main-content-container {
+    h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #000;
+    }
+  }
+  footer {
+    padding-top: 1rem;
+    border-top: 2px solid #ff5c00;
+  }
+}

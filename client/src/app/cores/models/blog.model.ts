@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { User } from './user.model';
 
 export interface Blog {
@@ -13,7 +14,7 @@ export interface Blog {
   tags: Array<String>;
   status: String;
   flag: Boolean;
-  date_published: String;
+  date_published: Date;
   userId: User;
   created_at: Date;
   updated_at: Date;

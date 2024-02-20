@@ -12,6 +12,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { NewPostComponent } from './pages/new-post/new-post.component';
 import { SettingComponent } from './shared/layout/setting/setting.component';
 import { SettingPersonalComponent } from './pages/setting-personal/setting-personal.component';
+import { BlogDetailPageComponent } from './pages/blog-detail-page/blog-detail-page.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,7 @@ export const routes: Routes = [
       },
       { path: 'profile/:id', component: ProfilePageComponent },
       { path: 'blog', component: BlogPageComponent },
+      { path: 'blog/:id', component: BlogDetailPageComponent },
       { path: 'profile/:id/cart', component: CartPageComponent },
     ],
   },

@@ -1,0 +1,98 @@
+<div class="header">
+  <app-header></app-header>
+</div>
+<div class="container" *ngIf="blogDetail">
+  <div class="like_comment">
+    <div class="top">
+      <!-- FullName -->
+      <p class="full-name text-black font-bold text-lg">
+        {{ blogDetail.userId.fullName }}
+      </p>
+      <!-- Bio -->
+      <p class="bio font-extralight">
+        {{
+          blogDetail.userId.role === "student"
+            ? "Thành viên của Unicourse"
+            : "Ban quản trị"
+        }}
+      </p>
+    </div>
+    <div class="bottom flex flex-nowrap items-center justify-between mt-3">
+      <div class="like flex flex-nowrap items-center gap-1">
+        <img
+          width="30"
+          height="30"
+          src="https://img.icons8.com/material-outlined/30/like--v1.png"
+          alt="like--v1"
+        />
+        <span>{{ 0 }}</span>
+      </div>
+      <div class="comment flex flex-nowrap items-center gap-1">
+        <img
+          width="30"
+          height="30"
+          src="https://img.icons8.com/fluency-systems-regular/30/speech-bubble--v1.png"
+          alt="speech-bubble--v1"
+        />
+        <span>{{ blogDetail.comment_obj.length }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="main-content-container">
+    <!-- Title -->
+    <h2 class="mb-4">
+      {{ blogDetail.title }}
+    </h2>
+    <!-- Author & Button Save Blog -->
+    <div class="author flex flex-nowrap items-center justify-between mb-4">
+      <div class="flex flex-nowrap items-center gap-3">
+        <p-avatar
+          image="{{ blogDetail.userId.profile_image }}"
+          size="large"
+          shape="circle"
+        ></p-avatar>
+        <div>
+          <p class="author-name">{{ blogDetail.userId.fullName }}</p>
+          <p class="date">
+            {{ publishedAtString(blogDetail.date_published) }} •
+            {{ blogDetail.min_read }} phút đọc
+          </p>
+        </div>
+      </div>
+      <!-- Group btn -->
+      <div class="group-btn flex flex-nowrap items-center gap-3">
+        <i class="pi pi-bookmark" style="font-size: 1.2rem"></i>
+        <i class="pi pi-ellipsis-h" style="font-size: 1.2rem"></i>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="mb-4" [innerHTML]="sanitizeContent(blogDetail.content)"></div>
+  </div>
+  <!-- Footer -->
+  <footer class="mb-4">
+    <div class="group-btn-footer flex flex-nowrap gap-3 items-center mb-2">
+      <div class="like flex flex-nowrap items-center gap-2">
+        <img
+          width="24"
+          height="24"
+          src="https://img.icons8.com/material-outlined/24/like--v1.png"
+          alt="like--v1"
+        />
+        <span>0</span>
+      </div>
+      <div class="comment flex flex-nowrap items-center gap-2">
+        <img
+          width="24"
+          height="24"
+          src="https://img.icons8.com/fluency-systems-regular/24/speech-bubble--v1.png"
+          alt="speech-bubble--v1"
+        />
+        <span>{{ blogDetail.comment_obj.length || 0 }}</span>
+      </div>
+    </div>
+    <div class="badge flex flex-nowrap gap-2">
+      <p-tag value="IT"></p-tag>
+      <p-tag value="Hướng nghiệp"></p-tag>
+    </div>
+  </footer>
+</div>

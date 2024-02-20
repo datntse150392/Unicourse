@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { Cart } from '../models/cart.model';
-import { Observable, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class BlogService {
@@ -26,6 +25,13 @@ export class BlogService {
   getBlogByPage(page: number) {
     return this.httpClient
       .get<any>(`${environment.baseUrl}/api/blog?page=${page}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Lấy Blog theo id
+  getBlogById(id: string) {
+    return this.httpClient
+      .get<any>(`${environment.baseUrl}/api/blog/${id}`)
       .pipe(catchError(this.handleError));
   }
 

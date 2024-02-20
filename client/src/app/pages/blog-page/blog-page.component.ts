@@ -34,7 +34,12 @@ export class BlogPageComponent {
     private blogService: BlogService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    // Thiết lập title cho trang
+    window.document.title = 'Tổng hợp các bài viết tại Unicourse';
+    // Scroll smooth to top lên đầu trang
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   ngOnInit() {
     this.initForm();
@@ -63,7 +68,8 @@ export class BlogPageComponent {
       this.blogService.getBlogByPage(this.page).subscribe({
         next: (res) => {
           this.blogsByPage = res.data;
-          console.log(this.blogsByPage);
+          // Scroll smooth to top lên đầu trang
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         },
         error: (err: Error) => {
           console.log(err);
