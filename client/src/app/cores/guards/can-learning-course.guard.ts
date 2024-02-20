@@ -8,15 +8,13 @@ export const canLearningCourseGuard: CanActivateFn = (route, state) => {
   const { id } = route.params;
   const UserInfo: User = JSON.parse(localStorage.getItem('UserInfo') || '');
   const userId = UserInfo._id;
-  const isCheckRegisterCourseSub$ = authService
-    .checkUserRegisterCourse(userId, id)
-    .subscribe({
-      next: (res) => {
-        if (res && res.status !== 200) {
-          router.navigate(['/']);
-        }
-      },
-      error: () => router.navigate(['/']),
-    });
+  authService.checkUserRegisterCourse(userId, id).subscribe({
+    next: (res) => {
+      if (res && res.status !== 200) {
+        router.navigate(['/']);
+      }
+    },
+    error: () => router.navigate(['/']),
+  });
   return true;
 };

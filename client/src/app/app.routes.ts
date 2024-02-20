@@ -13,6 +13,7 @@ import { NewPostComponent } from './pages/new-post/new-post.component';
 import { SettingComponent } from './shared/layout/setting/setting.component';
 import { SettingPersonalComponent } from './pages/setting-personal/setting-personal.component';
 import { BlogDetailPageComponent } from './pages/blog-detail-page/blog-detail-page.component';
+import { loginSystemGuard } from './cores/guards/login-system.guard';
 
 export const routes: Routes = [
   {
@@ -25,10 +26,18 @@ export const routes: Routes = [
         component: DetailPageComponent,
         canActivate: [viewCouruseDetailGuard],
       },
-      { path: 'profile/:id', component: ProfilePageComponent },
+      {
+        path: 'profile/:id',
+        component: ProfilePageComponent,
+        canActivate: [loginSystemGuard],
+      },
       { path: 'blog', component: BlogPageComponent },
       { path: 'blog/:id', component: BlogDetailPageComponent },
-      { path: 'profile/:id/cart', component: CartPageComponent },
+      {
+        path: 'profile/:id/cart',
+        component: CartPageComponent,
+        canActivate: [loginSystemGuard],
+      },
     ],
   },
   {
@@ -43,6 +52,7 @@ export const routes: Routes = [
   {
     path: 'setting',
     component: SettingComponent,
+    canActivate: [loginSystemGuard],
     children: [{ path: 'personal', component: SettingPersonalComponent }],
   },
   { path: '**', component: PageNotFoundComponent },

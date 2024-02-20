@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
-import { User } from '../../../cores/models';
+import { Cart, User } from '../../../cores/models';
 import { Subscription } from 'rxjs';
 import { MenuItem, MessageService } from 'primeng/api';
-import { AuthService } from '../../../cores/services';
+import { AuthService, CartService } from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 @Component({
@@ -21,21 +21,38 @@ export class NavigateComponent implements OnInit, OnDestroy {
   items: MenuItem[] | undefined;
   user: User | undefined;
   subscriptions: Subscription[] = [];
+  public lengthOfCartItems = 0;
+  public cart!: Cart;
 
   constructor(
     private sharedService: SharedService,
     private messageService: MessageService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
     this.settingUserInfo();
     this.configItemMenu();
+    this.initForm();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  initForm() {
+    const cartSub$ = this.cartService.getCart().subscribe({
+      next: (res: any) => {
+        this.cart = res.data;
+        this.lengthOfCartItems = this.cart.items.length || 0;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+    this.subscriptions.push(cartSub$);
   }
 
   configItemMenu() {
@@ -84,6 +101,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
     this.user = undefined;
     window.location.reload();
   }
+
   settingUserInfo() {
     if (typeof localStorage !== 'undefined') {
       // Use localStorage here

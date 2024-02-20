@@ -28,7 +28,15 @@
     </div>
     <div class="flex flex-row align-items-center justify-content-between gap-2">
       <ng-container *ngIf="user; else unLogin">
-        <p class="w-8rem font-semibold my-course">Khóa học của tôi</p>
+        <i
+          (click)="redirectToCart()"
+          class="pi pi-shopping-cart mr-4 p-text-secondary"
+          pBadge
+          style="font-size: 2rem; cursor: pointer"
+          value="{{ lengthOfCartItems }}"
+          severity="danger"
+        ></i>
+
         <p-avatar
           (click)="menu.toggle($event)"
           image="{{ user.profile_image }}"
