@@ -16,6 +16,14 @@ export class CartService {
       .pipe(catchError(this.handleError));
   }
 
+  // Thêm course vào giỏ hàng của người dùng
+  addToCart(courseId: string): Observable<Cart> {
+    return this.httpClient
+      .post<Cart>(`${environment.baseUrl}/api/cart/add-to-cart/${courseId}`,
+      { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

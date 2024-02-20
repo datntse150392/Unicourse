@@ -4,7 +4,7 @@
   </div>
   <div class="body-container">
     <!-- CSS Loading component -->
-    <ng-template [ngIf]="courseDetail === undefined">
+    <ng-template [ngIf]="!courseDetail">
       <div
         role="status"
         class="space-y-8 animate-pulse space-y-0 space-x-8 rtl:space-x-reverse flex items-center mb-4"
@@ -132,7 +132,7 @@
           <h3
             class="mb-4 text-4xl font-customFont font-bold leading-none tracking-tight text-gray-900"
           >
-            {{ courseDetail?.title }}
+            {{ courseDetail.title }}
           </h3>
           <p class="mb-4 text-base font-customFont font-normal text-gray-900">
             Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE,
@@ -275,7 +275,7 @@
             <div class="card flex justify-content-center">
               <app-list-track
                 class="w-full"
-                [tracks]="courseDetail.tracks ?? []"
+                [tracks]="courseDetail.tracks"
               ></app-list-track>
             </div>
           </div>

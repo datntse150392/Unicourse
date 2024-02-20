@@ -12,7 +12,5 @@ import { SharedModule } from '../../../shared';
 export class CartItemComponent {
   @Input () cartItem: CartItem | undefined;
 
-  ngOnInit(): void {
-    console.log("AAA: ", typeof this.cartItem?.amount);
-  }
+  ngOnInit(): void {}
 }

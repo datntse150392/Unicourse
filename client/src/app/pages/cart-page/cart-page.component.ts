@@ -20,7 +20,6 @@ export class CartPageComponent implements OnInit, OnDestroy {
   public user: User | undefined;
   public cart: Cart | undefined;
   public coursesFree: Course[] = [];
-  public totalAmount: number = 0;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -74,7 +73,6 @@ export class CartPageComponent implements OnInit, OnDestroy {
     const cartSub$ = this.cartService.getCart().subscribe({
       next: (res: any) => {
         this.cart = res.data;
-        this.getTotalAmount();
       },
       error: (err: any) => {
         console.log(err);
@@ -83,17 +81,5 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
-  }
-
-  // Xử lý tính tổng tiền dựa trên amount của cart.items
-  getTotalAmount(): void {
-    let total = 0;
-    if (this.cart) {
-      this.cart.items.forEach((item: CartItem) => {
-        total += item.amount;
-      });
-    }
-    console.log('Total amount: ', total);
-    this.totalAmount = total;
   }
 }

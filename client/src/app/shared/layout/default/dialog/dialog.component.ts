@@ -45,7 +45,8 @@ export class DialogComponent {
       header: header || 'Thông báo',
       icon: 'pi pi-info-circle',
       acceptIcon:"none",
-      rejectIcon:"none",
+      acceptLabel: 'Đã hiểu',
+      rejectVisible: false,
       rejectButtonStyleClass:"p-button-text",
       // Xử lý nếu người dùng chọn OK hoặc Cancel
       accept: () => {
