@@ -23,6 +23,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   public lengthOfCartItems = 0;
   public cart!: Cart;
+  public updateCartSub$: Subscription | undefined;
 
   constructor(
     private sharedService: SharedService,
@@ -36,10 +37,21 @@ export class NavigateComponent implements OnInit, OnDestroy {
     this.settingUserInfo();
     this.configItemMenu();
     this.initForm();
+    // Lắng nghe sự kiện cập nhật giỏ hàng
+    this.updateCartSub$ = this.sharedService.isUpdateCart$.subscribe(
+      (res: boolean) => {
+        if (res === true) {
+          this.initForm();
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    if (this.updateCartSub$) {
+      this.updateCartSub$.unsubscribe();
+    }
   }
 
   initForm() {

@@ -33,9 +33,9 @@
         <div class="flex flex-row h-auto w-full place-content-center">
             <!-- Left side: Chứa danh sách item giỏ hàng -->
             <div class="left-side basis-7/12 mr-4">
-                <ng-container *ngIf="cart !== undefined; else emptyCart">
+                <ng-container *ngIf="cart !== undefined && cart.items.length > 0; else emptyCart">
                     <div class="cart-item mb-4" *ngFor="let cartItem of cart?.items">
-                        <app-cart-item [cartItem]="cartItem"></app-cart-item>
+                        <app-cart-item [cartItem]="cartItem" (isDeleteItem)="handleRemoveFromCart($event)"></app-cart-item>
                     </div>
                 </ng-container>
                 <ng-template #emptyCart>

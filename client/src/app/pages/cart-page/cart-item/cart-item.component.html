@@ -1,9 +1,9 @@
 <div class="w-full max-w-full bg-white border border-gray-200 rounded-lg shadow flex flex-row">
     <div class="basis-5/12 my-4 ml-4">
-        <img class="w-full h-auto rounded shadow-lg" [src]="cartItem?.thumbnail" alt="Bonnie image" />
+        <img class="w-full h-auto rounded-[24px] shadow-lg" [src]="cartItem.thumbnail" alt="Bonnie image" />
     </div>
     <div class="basis-7/12 flex flex-col items-start mt-3 pl-4">
-        <h5 class="mb-4 text-xl font-medium text-gray-900">{{cartItem?.title}}</h5>
+        <h5 class="mb-4 text-xl font-medium text-gray-900">{{cartItem.title}}</h5>
         <span class="flex flex-row mb-2"><img class="w-2 h-auto pr-1"
                 src="../../../../assets/images/icons8-training-50.png" /><span class="text-sm text-gray-500">Good
                 Mentor</span></span>
@@ -12,16 +12,16 @@
                 Price</span></span>
 
         <div class="flex flex-row justify-between w-full mt-4">
-            <ng-container *ngIf="cartItem !== undefined && cartItem.amount !== 0">
+            <ng-container *ngIf="cartItem.amount !== 0">
                 <span>
                     <span class="text-lg font-semibold text-gray-900 line-through mr-2 mt-2">{{(cartItem.amount | currency : "VND")}}</span><span
                         class="text-lg font-bold font-customFont text-red-600 mr-2 mt-2">{{(cartItem.amount | currency : "VND")}}</span>
                 </span>
             </ng-container>
-            <ng-container *ngIf="cartItem !== undefined && cartItem.amount === 0">
+            <ng-container *ngIf="cartItem.amount === 0">
                 <span class="text-lg font-bold font-customFont text-red-600 mr-2 mt-2">Miễn phí</span>
             </ng-container>
-            <button type="button" pButton pTooltip="Xóa khóa học này" class="text-white focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-full text-sm p-3 text-center inline-flex items-center me-2">
+            <button (click)="hadnleDeleteCourseFromCart(cartItem._id)" type="button" pButton pTooltip="Xóa khóa học này" class="text-white focus:ring-4 focus:outline-none focus:ring-red-400 font-medium rounded-full text-sm p-3 text-center inline-flex items-center me-2">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0,0,256,256"
                     style="fill:#000000;">
                     <g fill="#f63b3b" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"

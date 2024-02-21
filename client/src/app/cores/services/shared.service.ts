@@ -19,6 +19,10 @@ export class SharedService {
   private isUpdateUser = new BehaviorSubject<boolean>(false);
   isUpdateUser$ = this.isUpdateUser.asObservable();
 
+  // Dùng để gửi thông báo khi cập nhật giỏ hàng
+  private isUpdateCart = new BehaviorSubject<boolean>(false);
+  isUpdateCart$ = this.isUpdateCart.asObservable();
+
   constructor() {}
 
   turnOnSignInDialog() {
@@ -43,5 +47,9 @@ export class SharedService {
 
   isUpdateUserInfo() {
     this.isUpdateUser.next(true);
+  }
+
+  isUpdateCartItem() {
+    this.isUpdateCart.next(true);
   }
 }

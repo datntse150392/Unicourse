@@ -7,7 +7,8 @@ import { Cart, UserInfo, CartItem } from '../../cores/models';
 import { Router } from '@angular/router';
 import { ListRelatedCourseComponent } from './list-related-course/list-related-course.component';
 import { Subscription } from 'rxjs';
-import { CourseService, CartService } from '../../cores/services';
+import { CourseService, CartService, SharedService } from '../../cores/services';
+import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -25,7 +26,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
   constructor(
     private courseService: CourseService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService,
+    private dialogBroadcastService: DialogBroadcastService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -81,5 +84,40 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
+  }
+
+  // Hàm xử lý xóa course trong giỏ hàng
+  handleRemoveFromCart(courseId: string) {
+    if (localStorage !== undefined) {
+      if (!localStorage.getItem('isLogin')) {
+        this.sharedService.turnOnSignInDialog();
+      } else {
+        if (courseId && this.cart && this.cart._id) {
+          const deleteItemCartSub$ = this.cartService
+            .deleteItemCart(courseId, this.cart._id)
+            .subscribe({
+              next: (res: any) => {
+                if (res.status === 201) {
+                  this.dialogBroadcastService.broadcastDialog({
+                    header: 'Giỏ hàng',
+                    message: 'Xóa khóa học thành công',
+                    type: 'success',
+                    display: true,
+                  });
+                  this.sharedService.isUpdateCartItem();
+                  this.initForm();
+                }}, error: (err: any) => {
+                  this.dialogBroadcastService.broadcastDialog({
+                    header: 'Giỏ hàng',
+                    message: 'Xóa khóa học thất bại',
+                    type: 'error',
+                    display: true,
+                  });
+              }
+            });
+            this.subscriptions.push(deleteItemCartSub$);
+          }
+      }
+    }
   }
 }

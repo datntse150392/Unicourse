@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartItem } from '../../../cores/models/cart.model';
 import { SharedModule } from '../../../shared';
 
@@ -10,7 +10,13 @@ import { SharedModule } from '../../../shared';
   styleUrl: './cart-item.component.scss'
 })
 export class CartItemComponent {
-  @Input () cartItem: CartItem | undefined;
+  @Input () cartItem!: CartItem;
+  @Output() isDeleteItem = new EventEmitter<string>();
 
   ngOnInit(): void {}
+
+  // Hàm xử lý khi delete khóa học khỏi giỏ hàng
+  hadnleDeleteCourseFromCart(courseId: string) {
+      this.isDeleteItem.emit(courseId);
+  }
 }

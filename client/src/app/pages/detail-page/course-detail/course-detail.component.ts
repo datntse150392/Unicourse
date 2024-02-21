@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { SharedModule } from '../../../shared';
-import { Cart, Course } from '../../../cores/models';
+import { Cart, CartItem, Course } from '../../../cores/models';
 import { CourseService, SharedService, CartService } from '../../../cores/services';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 @Component({
   selector: 'app-course-detail',
@@ -16,19 +16,24 @@ export class CourseDetailComponent implements OnDestroy {
   @Input() course!: Course;
   @Input() number!: number;
   starValue: number = 5;
-  isExistedCourseInsideCart: boolean = false;
   cart: Cart | undefined;
+  public courseId!: string | null;
+  public isExistedCourseInsideCart: boolean = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
     private courseService: CourseService,
     private cartService: CartService,
     private router: Router,
+    private activeRouter: ActivatedRoute,
     private sharedService: SharedService,
     private dialogBroadcastService: DialogBroadcastService
   ) {}
   ngOnInit(): void {
     this.initForm();
+    this.activeRouter.paramMap.subscribe((params) => {
+      this.courseId = params.get('id');
+    });
   }
 
   ngOnDestroy(): void {
@@ -40,17 +45,19 @@ export class CourseDetailComponent implements OnDestroy {
     const cartSub$ = this.cartService.getCart().subscribe({
       next: (res: any) => {
         this.cart = res.data;
-        this.cart?.items.forEach((item) => {
-          if (item._id === this.course._id) {
-            this.isExistedCourseInsideCart = true;
-          }
-        });
+        if (this.cart) {
+          this.isExistedCourseInsideCart = false;
+          this.cart.items.map((item: CartItem) => {
+            if (item._id === this.courseId) {
+              this.isExistedCourseInsideCart = true;
+            }
+          })
+        }
       },
       error: (err: any) => {
         console.log(err);
       },
     });
-
     this.subscriptions.push(cartSub$);
   }
 
@@ -99,6 +106,8 @@ export class CourseDetailComponent implements OnDestroy {
                     type: 'success',
                     display: true,
                   });
+                  this.sharedService.isUpdateCartItem();
+                  this.initForm();
                 }}, error: (err: any) => {
                   this.dialogBroadcastService.broadcastDialog({
                     header: 'Giỏ hàng',
@@ -115,11 +124,36 @@ export class CourseDetailComponent implements OnDestroy {
   }
 
   handleRemoveFromCart(courseId: string) {
-    this.dialogBroadcastService.broadcastDialog({
-      header: 'Giỏ hàng',
-      message: 'Chức năng đang trong qua trình xây dựng',
-      type: 'success',
-      display: true,
-    });
+    if (localStorage !== undefined) {
+      if (!localStorage.getItem('isLogin')) {
+        this.sharedService.turnOnSignInDialog();
+      } else {
+        if (courseId && this.cart?._id) {
+          const deleteItemCartSub$ = this.cartService
+            .deleteItemCart(courseId, this.cart._id)
+            .subscribe({
+              next: (res: any) => {
+                if (res.status === 201) {
+                  this.dialogBroadcastService.broadcastDialog({
+                    header: 'Giỏ hàng',
+                    message: 'Xóa khóa học thành công',
+                    type: 'success',
+                    display: true,
+                  });
+                  this.sharedService.isUpdateCartItem();
+                  this.initForm();
+                }}, error: (err: any) => {
+                  this.dialogBroadcastService.broadcastDialog({
+                    header: 'Giỏ hàng',
+                    message: 'Xóa khóa học thất bại',
+                    type: 'error',
+                    display: true,
+                  });
+              }
+            });
+            this.subscriptions.push(deleteItemCartSub$);
+          }
+      }
+    }
   }
 }
