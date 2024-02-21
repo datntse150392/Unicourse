@@ -5,3 +5,4 @@ export * from './auth.service';
 export * from './user.service';
 export * from './cart.service';
 export * from './blog.service';
+export * from './voucher.service';

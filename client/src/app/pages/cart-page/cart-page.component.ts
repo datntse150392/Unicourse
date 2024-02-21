@@ -2,25 +2,41 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { HeaderComponent } from '../../shared/components';
 import { CartItemComponent } from './cart-item/cart-item.component';
-import { Course, User } from '../../cores/models';
+import { Course, User, Voucher } from '../../cores/models';
 import { Cart, UserInfo, CartItem } from '../../cores/models';
 import { Router } from '@angular/router';
 import { ListRelatedCourseComponent } from './list-related-course/list-related-course.component';
 import { Subscription } from 'rxjs';
-import { CourseService, CartService, SharedService } from '../../cores/services';
+import {
+  CourseService,
+  CartService,
+  SharedService,
+  VoucherService,
+} from '../../cores/services';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 
 @Component({
   selector: 'app-cart-page',
   standalone: true,
-  imports: [SharedModule, HeaderComponent, CartItemComponent, ListRelatedCourseComponent],
+  imports: [
+    SharedModule,
+    HeaderComponent,
+    CartItemComponent,
+    ListRelatedCourseComponent,
+  ],
   templateUrl: './cart-page.component.html',
-  styleUrl: './cart-page.component.scss'
+  styleUrl: './cart-page.component.scss',
 })
 export class CartPageComponent implements OnInit, OnDestroy {
   public user: User | undefined;
   public cart: Cart | undefined;
   public coursesFree: Course[] = [];
+  public vouchers: Voucher[] = [];
+  public voucherDetail: Voucher | undefined;
+  public voucherCode: string | undefined;
+  public isApplyVoucher: boolean = false;
+  public errorVoucher: boolean = false;
+  public totalAmountBeforeApplyVoucher = 0;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -28,7 +44,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private router: Router,
     private sharedService: SharedService,
-    private dialogBroadcastService: DialogBroadcastService
+    private dialogBroadcastService: DialogBroadcastService,
+    private voucherService: VoucherService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -76,14 +93,75 @@ export class CartPageComponent implements OnInit, OnDestroy {
     const cartSub$ = this.cartService.getCart().subscribe({
       next: (res: any) => {
         this.cart = res.data;
+        if (this.cart) {
+          this.totalAmountBeforeApplyVoucher = this.cart.amount;
+          if (this.cart.items.length === 0) {
+            this.removeVoucher();
+          }
+        }
       },
       error: (err: any) => {
         console.log(err);
       },
     });
 
+    const getAllVoucherSubs$ = this.voucherService.getAllVouchers().subscribe({
+      next: (res: any) => {
+        if (res && res.status === 200) {
+          this.vouchers = res.data;
+        }
+      },
+    });
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
+    this.subscriptions.push(getAllVoucherSubs$);
+  }
+
+  applyVoucher(code: string) {
+    if (this.cart && this.cart.items.length > 0) {
+      const applyVoucherSub$ = this.voucherService
+      .applyVoucherToCart(code)
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.status === 200) {
+            this.voucherDetail = res.data;
+            if (this.voucherDetail && this.cart) {
+              this.voucherCode = this.voucherDetail.code;
+              this.isApplyVoucher = true;
+              this.errorVoucher = false;
+              this.totalAmountBeforeApplyVoucher =
+                this.cart.amount - this.voucherDetail.discount_amount;
+            }
+          }
+        },
+        error: (err: Error) => {
+          console.log(err);
+          this.errorVoucher = true;
+          this.isApplyVoucher = false;
+          this.voucherDetail = undefined;
+          if (this.cart) {
+            this.totalAmountBeforeApplyVoucher = this.cart.amount;
+          }
+        },
+      });
+    this.subscriptions.push(applyVoucherSub$);
+    } else {
+      this.dialogBroadcastService.broadcastDialog({
+        header: 'Giỏ hàng',
+        message: 'Giỏ hàng của bạn đang trống',
+        type: 'info',
+        display: true,
+      });
+    }
+  }
+
+  removeVoucher() {
+    if (this.cart) {
+      this.isApplyVoucher = false;
+      this.voucherCode = '';
+      this.totalAmountBeforeApplyVoucher = this.cart.amount || 0;
+      this.voucherDetail = undefined;
+    }
   }
 
   // Hàm xử lý xóa course trong giỏ hàng
@@ -106,18 +184,21 @@ export class CartPageComponent implements OnInit, OnDestroy {
                   });
                   this.sharedService.isUpdateCartItem();
                   this.initForm();
-                }}, error: (err: any) => {
-                  this.dialogBroadcastService.broadcastDialog({
-                    header: 'Giỏ hàng',
-                    message: 'Xóa khóa học thất bại',
-                    type: 'error',
-                    display: true,
-                  });
+                 
+                }
+              }, error: (err: any) => {
+                this.dialogBroadcastService.broadcastDialog({
+                  header: 'Giỏ hàng',
+                  message: 'Xóa khóa học thất bại',
+                  type: 'error',
+                  display: true,
+                });
               }
             });
-            this.subscriptions.push(deleteItemCartSub$);
-          }
+          this.subscriptions.push(deleteItemCartSub$);
+        }
       }
     }
   }
+
 }

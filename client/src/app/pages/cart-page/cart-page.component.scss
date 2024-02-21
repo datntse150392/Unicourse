@@ -8,7 +8,7 @@
   .body-container {
     width: 80%;
     margin: auto;
-    height: 90rem;
+    height: 100%;
     padding-bottom: 2.7rem;
     .left-side {
       max-height: 700px;
@@ -26,6 +26,49 @@
     }
     .transaction {
       width: 100%;
+      .coupon {
+        display: flex;
+        border: 1px solid rgba(36, 36, 36, 0.3);
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.5s;
+        .coupon-left {
+          border-right: 2px dashed rgba(102, 102, 102, 0.7607843137);
+          min-width: 20px;
+          max-width: 20px;
+          position: relative;
+          &::before {
+            margin-left: -8px;
+            content: "";
+            display: block;
+            width: 1.3rem;
+            height: 1.3rem;
+            background: white;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            position: absolute;
+            border-top: 1px solid rgba(36, 36, 36, 0.3);
+            border-right: 1px solid rgba(36, 36, 36, 0.3);
+            border-bottom: 1px solid rgba(0, 0, 0, 0);
+            border-left: 1px solid rgba(0, 0, 0, 0);
+            border-radius: 100em;
+          }
+        }
+
+        .coupon-right {
+          padding: 0.5rem 1rem 0.5rem 1rem;
+          font-weight: bold;
+          span {
+            font-weight: normal;
+          }
+          .coupon-title {
+            font-size: 0.8rem;
+          }
+          .coupon-description {
+            font-size: 0.6rem;
+          }
+        }
+      }
     }
     .button-radio {
       width: 90%;
