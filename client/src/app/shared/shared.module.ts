@@ -29,6 +29,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
+import { ScrollTopModule } from 'primeng/scrolltop';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   imports: [
@@ -63,6 +65,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     SpeedDialModule,
     DividerModule,
     FileUploadModule,
+    ScrollTopModule,
+    ProgressSpinnerModule,
   ],
   declarations: [],
   exports: [
@@ -95,6 +99,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     SpeedDialModule,
     DividerModule,
     FileUploadModule,
+    ScrollTopModule,
+    ProgressSpinnerModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

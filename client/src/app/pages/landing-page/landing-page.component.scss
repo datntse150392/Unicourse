@@ -1,6 +1,16 @@
+:host ::ng-deep .custom-scroll-top button {
+  background: black;
+}
+
 .container {
   background-color: #f9f9f9 !important;
   max-width: 100% !important;
+  :host ::ng-deep .button {
+    background-color: none;
+  }
+  .custom-scrolltop {
+    background-color: #f05123;
+  }
   .card {
     height: 100vh;
     background-image: url("../../../assets/images/FillBg.png");
