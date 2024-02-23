@@ -9,39 +9,20 @@
         class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
       >
         <li>
-          <div class="flex items-center">
-            <img
-              class="h-4 w-auto mr-1"
-              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtUlEQVR4nO2SMQrCQBBFH1h4BQVT5xzeySvoXSKBIHba6QG08gbpVExSpFxZGJvVHZSM3T74sLCz/xWzkDAiA0qglVRAbll+A1yQu9wNpvxQ/sraQtAqgubfgoeFoFIEhYUgl4WG5VdghhGZLLSRFJbliSgjYA6sgD1wATqJP++Apcz42a8ZAwugVr5nmFre+LcqU+D8Q7ELcgImmmA7oNxJNpqgNxD0msAZJcrRoPwQr0/wzhMNG5sebeXT0AAAAABJRU5ErkJggg=="
-            />
+          <div class="flex flex-row items-center">
             <a
-              [routerLink]="['/profile/', this.user?._id]"
-              routerLinkActive="active"
+              [routerLink]="['/']"
               ariaCurrentWhenActive="page"
-              class="w-20 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-              >Tài khoản</a
+              class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+              >Trang chủ</a
             >
           </div>
         </li>
+        /
         <li aria-current="page">
           <div class="flex items-center">
-            <svg
-              class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1 mb-1"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 6 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 9 4-4-4-4"
-              />
-            </svg>
             <span
-              class="w-20 ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"
+              class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
               >Giỏ hàng</span
             >
           </div>

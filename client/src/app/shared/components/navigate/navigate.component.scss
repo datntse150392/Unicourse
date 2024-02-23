@@ -1,11 +1,19 @@
 .card {
-  margin: 0% 2%;
+  margin: 0% 5%;
   .container {
-    height: 5rem;
+    height: 7rem;
     .nav-left {
       .logo {
-        width: 6rem;
-        margin-right: 2rem;
+        cursor: pointer;
+        img {
+          width: 4rem;
+        }
+        h2 {
+          font-family: "system ui", sans-serif;
+          font-weight: bold;
+          color: rgba(0, 0, 0, 0.8);
+        }
+        padding-right: 2rem;
       }
       .nav-items {
         display: flex;
@@ -14,13 +22,13 @@
         align-items: center;
         .nav-item {
           width: 6.5rem;
-          color: #1d1d1d;
+          color: rgba(0, 0, 0, 0.8);
           font-weight: bold;
           cursor: pointer;
           &:hover {
             color: #fff;
             border-radius: 5px;
-            padding: 5% 2%;
+            padding: 5% 0%;
             background-color: #94a3b8;
           }
         }

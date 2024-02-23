@@ -2,7 +2,13 @@
 <div class="card">
   <div class="container flex flex-row justify-content-between">
     <div class="nav-left w-full flex">
-      <img class="logo" src="{{ Logo }}" alt="Logo" />
+      <div
+        [routerLink]="['/']"
+        class="logo flex flex-col items-center justify-center"
+      >
+        <img src="{{ Logo }}" alt="Logo" />
+        <h2 class="text-2xl">Unicourse</h2>
+      </div>
       <div
         class="nav-items flex flex-row justify-content-center align-items-center text-center"
       >
@@ -22,6 +28,13 @@
           class="nav-item"
         >
           Bài viết
+        </p>
+        <p
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          class="nav-item"
+        >
+          Sản phẩm
         </p>
         <!-- <p class="nav-item">Cộng đồng</p> -->
       </div>
