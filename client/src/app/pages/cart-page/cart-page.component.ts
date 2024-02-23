@@ -14,6 +14,11 @@ import {
   VoucherService,
 } from '../../cores/services';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
+import {
+  IPayPalConfig,
+  ICreateOrderRequest,
+  NgxPayPalModule,
+} from 'ngx-paypal';
 
 @Component({
   selector: 'app-cart-page',
@@ -23,6 +28,7 @@ import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.se
     HeaderComponent,
     CartItemComponent,
     ListRelatedCourseComponent,
+    NgxPayPalModule,
   ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
@@ -37,8 +43,10 @@ export class CartPageComponent implements OnInit, OnDestroy {
   public isApplyVoucher: boolean = false;
   public errorVoucher: boolean = false;
   public totalAmountBeforeApplyVoucher = 0;
-  private subscriptions: Subscription[] = [];
+  public payPalConfig?: IPayPalConfig;
+  public isProgressSpinner: boolean = false;
 
+  private subscriptions: Subscription[] = [];
   constructor(
     private courseService: CourseService,
     private cartService: CartService,
@@ -115,36 +123,107 @@ export class CartPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
     this.subscriptions.push(getAllVoucherSubs$);
+
+    this.payPalConfig = {
+      currency: 'EUR',
+      clientId: 'sb',
+      createOrderOnClient: (data: any) =>
+        <ICreateOrderRequest>{
+          intent: 'CAPTURE',
+          purchase_units: [
+            {
+              amount: {
+                currency_code: 'EUR',
+                value: '9.99',
+                breakdown: {
+                  item_total: {
+                    currency_code: 'EUR',
+                    value: '9.99',
+                  },
+                },
+              },
+              items: [
+                {
+                  name: 'Enterprise Subscription',
+                  quantity: '1',
+                  category: 'DIGITAL_GOODS',
+                  unit_amount: {
+                    currency_code: 'EUR',
+                    value: '9.99',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      advanced: {
+        commit: 'true',
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical',
+      },
+      onApprove: (data: any, actions: any) => {
+        console.log(
+          'onApprove - transaction was approved, but not authorized',
+          data,
+          actions
+        );
+        actions.order.get().then((details: any) => {
+          console.log(
+            'onApprove - you can get full order details inside onApprove: ',
+            details
+          );
+        });
+      },
+      onClientAuthorization: (data: any) => {
+        console.log(
+          'onClientAuthorization - you should probably inform your server about completed transaction at this point',
+          data
+        );
+      },
+      onCancel: (data: any, actions: any) => {
+        console.log('OnCancel', data, actions);
+      },
+      onError: (err: any) => {
+        console.log('OnError', err);
+      },
+      onClick: (data: any, actions: any) => {
+        console.log('onClick', data, actions);
+      },
+    };
   }
 
   applyVoucher(code: string) {
     if (this.cart && this.cart.items.length > 0) {
+      this.isProgressSpinner = true;
       const applyVoucherSub$ = this.voucherService
-      .applyVoucherToCart(code)
-      .subscribe({
-        next: (res: any) => {
-          if (res && res.status === 200) {
-            this.voucherDetail = res.data;
-            if (this.voucherDetail && this.cart) {
-              this.voucherCode = this.voucherDetail.code;
-              this.isApplyVoucher = true;
-              this.errorVoucher = false;
-              this.totalAmountBeforeApplyVoucher =
-                this.cart.amount - this.voucherDetail.discount_amount;
+        .applyVoucherToCart(code)
+        .subscribe({
+          next: (res: any) => {
+            if (res && res.status === 200) {
+              this.voucherDetail = res.data;
+              if (this.voucherDetail && this.cart) {
+                this.voucherCode = this.voucherDetail.code;
+                this.isApplyVoucher = true;
+                this.errorVoucher = false;
+                this.totalAmountBeforeApplyVoucher =
+                  this.cart.amount - this.voucherDetail.discount_amount;
+                this.isProgressSpinner = false;
+              }
             }
-          }
-        },
-        error: (err: Error) => {
-          console.log(err);
-          this.errorVoucher = true;
-          this.isApplyVoucher = false;
-          this.voucherDetail = undefined;
-          if (this.cart) {
-            this.totalAmountBeforeApplyVoucher = this.cart.amount;
-          }
-        },
-      });
-    this.subscriptions.push(applyVoucherSub$);
+          },
+          error: (err: Error) => {
+            console.log(err);
+            this.errorVoucher = true;
+            this.isApplyVoucher = false;
+            this.voucherDetail = undefined;
+            if (this.cart) {
+              this.totalAmountBeforeApplyVoucher = this.cart.amount;
+            }
+          },
+        });
+      this.subscriptions.push(applyVoucherSub$);
     } else {
       this.dialogBroadcastService.broadcastDialog({
         header: 'Giỏ hàng',
@@ -184,21 +263,20 @@ export class CartPageComponent implements OnInit, OnDestroy {
                   });
                   this.sharedService.isUpdateCartItem();
                   this.initForm();
-                 
                 }
-              }, error: (err: any) => {
+              },
+              error: (err: any) => {
                 this.dialogBroadcastService.broadcastDialog({
                   header: 'Giỏ hàng',
                   message: 'Xóa khóa học thất bại',
                   type: 'error',
                   display: true,
                 });
-              }
+              },
             });
           this.subscriptions.push(deleteItemCartSub$);
         }
       }
     }
   }
-
 }

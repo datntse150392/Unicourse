@@ -22,6 +22,8 @@ import { errorInterceptor } from './cores/interceptors/error.interceptor';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 
+// Paypayl config
+
 export const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyCrH3nRPoIYgBtcCMdFwtu4IgayGz5EXps',
   authDomain: 'unicourse-f4020.firebaseapp.com',
