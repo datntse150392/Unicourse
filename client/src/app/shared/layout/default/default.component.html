@@ -198,62 +198,40 @@
         <h2 class="font-bold text-3xl text-black">Unicourse News Feed</h2>
       </div>
     </ng-template>
-    <div class="body-new-feed-container pr-4 pl-4 mb-4">
+    <div
+      *ngFor="let newFeed of listNewFeeds"
+      class="body-new-feed-container pr-4 pl-4 mb-4"
+    >
       <div class="title flex flex-nowrap items-center gap-1 mb-3">
         <span class="font-bold text-orange-600 text-2xl">#</span>
         <p class="font-semibold text-2xl text-black">
-          Tại sao F8 bị DDos lại không thể truy cập được?
+          {{ newFeed.title }}
         </p>
       </div>
       <div class="content">
         <p class="font-normal text-lg mb-3">
-          Ngày hôm qua F8 không truy cập được là do bị tấn công từ chối dịch vụ
-          phân tán (DDos). Rất mong các bạn thông cảm khi F8 có không truy cập
-          được. Chúng mình sẽ tìm giải pháp để duy trì sự ổn định giúp các bạn
-          có môi trường học tập tốt nhất có thể ❤
+          {{ newFeed.description }}
         </p>
         <img
           class="w-full mt-2 mb-2 text-center rounded-lg"
-          src="https://files.fullstack.edu.vn/f8-prod/public-images/650d9b3b1aa0f.png"
+          src="{{ newFeed.image }}"
           alt="hình ảnh"
         />
+        <p class="font-normal text-lg mb-3">
+          {{ newFeed.footer }}
+        </p>
       </div>
       <div
         class="author flex flex-nowrap gap-1 pb-2"
         [ngStyle]="{ 'border-bottom': '1px solid #3333' }"
       >
         <span class="font-normal">Đăng bởi</span>
-        <p class="font-bold italic text-[#f05123]">Nguyễn Thành Đạt</p>
-        ·<span class="font-normal">1 giờ trước</span>
-      </div>
-    </div>
-    <div class="body-new-feed-container pr-4 pl-4 mb-4">
-      <div class="title flex flex-nowrap items-center gap-1 mb-3">
-        <span class="font-bold text-orange-600 text-2xl">#</span>
-        <p class="font-semibold text-2xl text-black">
-          Tại sao F8 bị DDos lại không thể truy cập được?
+        <p class="font-bold italic text-[#f05123]">
+          {{ newFeed.author.fullName }}
         </p>
-      </div>
-      <div class="content">
-        <p class="font-normal text-lg mb-3">
-          Ngày hôm qua F8 không truy cập được là do bị tấn công từ chối dịch vụ
-          phân tán (DDos). Rất mong các bạn thông cảm khi F8 có không truy cập
-          được. Chúng mình sẽ tìm giải pháp để duy trì sự ổn định giúp các bạn
-          có môi trường học tập tốt nhất có thể ❤
-        </p>
-        <img
-          class="w-full mt-2 mb-2 text-center rounded-lg"
-          src="https://files.fullstack.edu.vn/f8-prod/public-images/650d9b3b1aa0f.png"
-          alt="hình ảnh"
-        />
-      </div>
-      <div
-        class="author flex flex-nowrap gap-1 pb-2"
-        [ngStyle]="{ 'border-bottom': '1px solid #3333' }"
-      >
-        <span class="font-normal">Đăng bởi</span>
-        <p class="font-bold italic text-[#f05123]">Nguyễn Thành Đạt</p>
-        ·<span class="font-normal">1 giờ trước</span>
+        ·<span class="font-normal">{{
+          publishedAtString(newFeed.post_date)
+        }}</span>
       </div>
     </div>
   </p-dialog>

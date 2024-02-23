@@ -12,9 +12,10 @@ import {
   AngularFireAuthModule,
   AngularFireAuth,
 } from '@angular/fire/compat/auth';
-import { AuthService } from '../../../cores/services';
+import { AuthService, NewFeedService } from '../../../cores/services';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 import { environment } from '../../../../environments/environment.development';
+import { NewFeed } from '../../../cores/models/new-feed.model';
 
 @Component({
   selector: 'app-default',
@@ -39,13 +40,15 @@ export class DefaultComponent implements OnInit, OnDestroy {
   helper = new JwtHelperService();
   user!: User;
   visibleDialogNewFeed: boolean = false;
+  public listNewFeeds: NewFeed[] = [];
 
   private subScriptions: Subscription[] = [];
   constructor(
     private sharedService: SharedService,
     public authService: AuthService,
     public afAuth: AngularFireAuth,
-    private dialogBroadcastService: DialogBroadcastService
+    private dialogBroadcastService: DialogBroadcastService,
+    private readonly newFeedService: NewFeedService
   ) {}
   ngOnInit(): void {
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
@@ -67,11 +70,26 @@ export class DefaultComponent implements OnInit, OnDestroy {
     // Lưu các subscription vào mảng để unsubscribe
     this.subScriptions.push(turnOnSignUpSub);
     this.subScriptions.push(turnOnSignInSub);
+
+    this.initForm();
   }
 
   ngOnDestroy(): void {
     // Unsubscribe tất cả các subscription
     this.subScriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  initForm() {
+    const getListNewFeedsSubs$ = this.newFeedService
+      .getAllNewFeeds()
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.status === 200) {
+            this.listNewFeeds = res.data;
+          }
+        },
+      });
+    this.subScriptions.push(getListNewFeedsSubs$);
   }
 
   // Đóng dialog đăng nhập
@@ -177,5 +195,29 @@ export class DefaultComponent implements OnInit, OnDestroy {
 
   showDialog() {
     this.visibleDialogNewFeed = true;
+  }
+
+  // Hanle time since publication
+  publishedAtString(published_at: Date): string {
+    const publishedAt: Date = new Date(published_at);
+    const currentTime: Date = new Date();
+    const timeDifference: number =
+      currentTime.getTime() - publishedAt.getTime();
+    const days: number = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours: number = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes: number = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    if (days > 0) {
+      return `${days} ngày trước`;
+    } else if (hours > 0) {
+      return `${hours} giờ trước`;
+    } else if (minutes > 0) {
+      return `${minutes} phút trước`;
+    } else {
+      return `vài phút trước`;
+    }
   }
 }
