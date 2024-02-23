@@ -30,8 +30,6 @@ export class TableDemoComponent implements OnInit {
 
     selectedCustomer: Customer = {};
 
-    representatives: Representative[] = [];
-
     statuses: any[] = [];
 
     products: Product[] = [];
@@ -87,12 +85,6 @@ export class TableDemoComponent implements OnInit {
             next: (res) => {
                 this.blogs = res.data;
                 this.loading = false;
-                this.blogs.map((blog: Blog) => {
-                    this.representatives.push({
-                        name: blog.userId.fullName,
-                        image: blog.userId.profile_image
-                    })
-                });
             },
         });
     

@@ -1,0 +1,37 @@
+.group-thumbnail {
+    text-align: -webkit-center !important;
+  
+    .thumbnail {
+      width: 10rem;
+      border-radius: 1rem;
+    }
+  }
+  
+  .truncated-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Hiệu ứng ... nối đuôi */
+    max-width: 15ch;
+    /* Giới hạn số lượng text tối đa 10 ký tự */
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  
+  .group-avatar {
+    display: grid;
+    grid-template-columns: 40px auto;
+    align-items: center;
+  
+    .avatar {
+      width: 40px;
+      height: auto;
+    }
+  }
+  
+  .tags {
+    display: grid;
+    grid-auto-columns: auto;
+    row-gap: 5px;
+  }
