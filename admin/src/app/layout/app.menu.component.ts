@@ -17,7 +17,8 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Home',
                 items: [
-                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] }
+                    { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/'] },
+                    { label: 'Danh sách bài viết', icon: 'pi pi-fw pi-globe', routerLink: ['/blogs'] }
                 ]
             },
             {
@@ -84,11 +85,6 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/auth/access']
                             }
                         ]
-                    },
-                    {
-                        label: 'Blog',
-                        icon: 'pi pi-fw pi-globe',
-                        routerLink: ['/pages/blog']
                     },
                     {
                         label: 'Crud',

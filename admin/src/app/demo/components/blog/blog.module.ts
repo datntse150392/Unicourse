@@ -16,6 +16,11 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
 import { BlogComponent } from './blog.component';
+import { ImageModule } from 'primeng/image';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ColorPickerModule } from 'primeng/colorpicker';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
     imports: [
@@ -34,7 +39,12 @@ import { BlogComponent } from './blog.component';
         DropdownModule,
         RadioButtonModule,
         InputNumberModule,
-        DialogModule
+        DialogModule,
+        ImageModule,
+        MultiSelectModule,
+        ColorPickerModule,
+        InputSwitchModule,
+        SelectButtonModule
     ],
     declarations: [BlogComponent]
 })

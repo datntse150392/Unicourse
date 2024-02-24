@@ -142,73 +142,63 @@
 		</div>
 
 		<!-- Hiển thị dialog -->
-		<p-dialog [(visible)]="blogDialog" [style]="{width: '450px'}" header="Chi tiết bài viết" [modal]="true"
+		<p-dialog [(visible)]="blogDialog" [style]="{width: '50%'}" header="Chi tiết bài viết" [modal]="true"
 			class="p-fluid">
 			<ng-template pTemplate="content">
-				<img [src]="blog.thumbnail_url" [alt]="blog.title" width="150"
-					class="mt-0 mx-auto mb-5 block shadow-2" *ngIf="blog.thumbnail_url">
+
+				<div class="field">
+					<label for="status">Nổi bật</label>
+					<div>
+						<p-inputSwitch [(ngModel)]="blog.flag"></p-inputSwitch>
+					</div>
+				</div>
+				
+				<div *ngIf="blog.thumbnail_url !== ''" class="field">
+					<label for="thumbnail">Ảnh thumbnail</label>
+					<div class="thumbnail-detail">
+						<p-image [src]="blog.thumbnail_url" [previewImageSrc]="blog.thumbnail_url" alt="blog.title" width="250" imageStyle="border-radius: 1rem;" [preview]="true"></p-image>
+					</div>
+				</div>
+
+				<div class="field">
+					<label *ngIf="blog.thumbnail_url !== ''" for="thumbnail">Chính sửa ảnh thumbnail</label>
+					<label *ngIf="blog.thumbnail_url === ''" for="thumbnail">Thêm ảnh thumbnail</label>
+					<p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" accept="image/*" maxFileSize="1000000">
+						<ng-template pTemplate="content">
+							<p *ngIf="uploadedFiles">{{ file.name }} - {{ file.size }} bytes</p>
+						</ng-template>
+					</p-fileUpload>
+				</div>
+
 				<div class="field">
 					<label for="title">Tiêu đề</label>
 					<input type="text" pInputText id="title" [(ngModel)]="blog.title" required autofocus
 						[ngClass]="{'ng-invalid ng-dirty' : submitted && !blog.title}" />
 					<small class="ng-dirty ng-invalid" *ngIf="submitted && !blog.title">Tiêu đề không được trống.</small>
 				</div>
+
 				<div class="field">
 					<label for="description">Mô tả</label>
 					<textarea id="description" pInputTextarea [(ngModel)]="blog.description" required rows="3"
 						cols="20"></textarea>
 				</div>
+
 				<div class="field">
-					<label for="status">Trạng thái</label>
-					<p-dropdown [(ngModel)]="blog.status" inputId="status" optionValue="label"
-						[options]="statuses" placeholder="Chọn">
-						<ng-template pTemplate="selectedItem">
-							<span *ngIf="blog && blog.status"
-								[class]="'product-badge status-' + blog.status.toString().toLowerCase()">{{blog.status}}</span>
+					<label for="description">Nhãn dán</label>
+					<p-multiSelect [options]="tags" [(ngModel)]="selectedTags" placeholder="Chọn nhãn dán" optionLabel="name">
+						<ng-template let-tag pTemplate="item">
+							<div class="flex align-items-center gap-2">
+								<p-colorPicker [(ngModel)]="tag.color" [disabled]="true"></p-colorPicker>
+								<div>{{ tag.name }}</div>
+							</div>
 						</ng-template>
-						<ng-template let-option pTemplate="item">
-							<span [class]="'product-badge status-' + option.value">{{option.label}}</span>
-						</ng-template>
-					</p-dropdown>
+					</p-multiSelect>
 				</div>
 
-				<!-- <div class="field">
-					<label class="mb-3">Nhãn dán</label>
-					<div class="formgrid grid">
-						<div class="field-radiobutton col-6">
-							<p-radioButton id="tag1" name="tag" value="Accessories"
-								[(ngModel)]="blog.tags"></p-radioButton>
-							<label for="tag1">Accessories</label>
-						</div>
-						<div class="field-radiobutton col-6">
-							<p-radioButton id="tag2" name="category" value="Clothing"
-								[(ngModel)]="product.category"></p-radioButton>
-							<label for="tag2">Clothing</label>
-						</div>
-						<div class="field-radiobutton col-6">
-							<p-radioButton id="category3" name="category" value="Electronics"
-								[(ngModel)]="product.category"></p-radioButton>
-							<label for="category3">Electronics</label>
-						</div>
-						<div class="field-radiobutton col-6">
-							<p-radioButton id="category4" name="category" value="Fitness"
-								[(ngModel)]="product.category"></p-radioButton>
-							<label for="category4">Fitness</label>
-						</div>
-					</div>
-				</div> -->
-
-				<!-- <div class="formgrid grid">
-					<div class="field col">
-						<label for="price">Price</label>
-						<p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD"
-							locale="en-US"></p-inputNumber>
-					</div>
-					<div class="field col">
-						<label for="quantity">Quantity</label>
-						<p-inputNumber id="quantity" [(ngModel)]="product.quantity"></p-inputNumber>
-					</div>
-				</div> -->
+				<div class="field">
+					<label for="status">Trạng thái</label>
+					<p-selectButton [options]="statusOptions" [(ngModel)]="selectedStatus" optionLabel="name" optionValue="value"></p-selectButton>
+				</div>
 			</ng-template>
 
 			<ng-template pTemplate="footer">

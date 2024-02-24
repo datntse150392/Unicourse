@@ -1,12 +1,22 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CustomerService } from 'src/app/demo/service/customer.service';
-import { Blog } from 'src/app/demo/api/blog';
+import { Blog, jsonData, UserBlog, Tags, Tag } from 'src/app/demo/api/blog';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { BlogService } from 'src/app/demo/service';
 import { Subscription } from 'rxjs';
 import * as FileSaver from 'file-saver';
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
+
+interface StatusOption {
+
+}
+
 
 @Component({
   selector: 'app-blog',
@@ -15,16 +25,21 @@ import * as FileSaver from 'file-saver';
   providers: [MessageService, ConfirmationService]
 })
 export class BlogComponent {
-  blogDialog: boolean = false;
+  blogDialog: boolean = true;
   deleteBlogDialog: boolean = false;
   statuses: any[] = [];
   loading: boolean = true;
   blogs!: Blog[] | undefined;
-  blog!: Blog;
+  blog!: Blog | any;
+  uploadedFiles: any;
+  tags: Tag[] = Tags;
+  selectedTags!: Tag[]
+  statusOptions!: StatusOption[];
+  selectedStatus: String = '';
   private subscriptions: Subscription[] = [];
   @ViewChild('filter') filter!: ElementRef;
 
-  constructor(private customerService: CustomerService, private productService: ProductService, private blogService: BlogService) {
+  constructor(private blogService: BlogService, private messageService: MessageService) {
     // Thiết lập title cho trang
     window.document.title = 'Tổng hợp các bài viết tại Unicourse';
     // Scroll smooth to top lên đầu trang
@@ -33,11 +48,13 @@ export class BlogComponent {
 
   ngOnInit() {
     this.initForm();
-
-    this.statuses = [
-      { label: 'Pending', value: 'pending' },
-      { label: 'Approved', value: 'approved' },
-      { label: 'Rejected', value: 'rejected' }
+    this.blog = { ...jsonData };
+    this.selectedTags = jsonData.tags[0].name === '' ? [{name: 'Chọn nhãn dán', code: 'none', color: ''}] : jsonData.tags;
+    this.selectedStatus = jsonData.status;
+    this.statusOptions = [
+      { name: 'Đang chờ', value: 'pending' },
+      { name: 'Duyệt', value: 'approved' },
+      { name: 'Hủy', value: 'rejected' }
     ];
   }
 
@@ -81,16 +98,24 @@ export class BlogComponent {
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 
-  saveBLog() {}
+  saveBLog() { }
 
   // Xử lý CRUD Blog
   editBlog(blog: Blog) {
-    this.blog = { ...blog };
+    this.blog = { ...jsonData };
     this.blogDialog = true;
   }
 
   deleteBlog(blog: Blog) {
-      this.deleteBlogDialog = true;
-      this.blog = { ...blog };
+    this.deleteBlogDialog = true;
+    this.blog = { ...blog };
+  }
+
+  onUpload(event: UploadEvent) {
+    for (let file of event.files) {
+      this.uploadedFiles = file;
+    }
+
+    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 }

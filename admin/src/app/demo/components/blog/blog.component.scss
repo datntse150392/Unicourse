@@ -1,3 +1,23 @@
+:host ::ng-deep .p-image-preview-container>img {
+  border-radius: 1rem;
+}
+
+:host ::ng-deep .p-image-preview-indicator {
+  border-radius: 1rem;
+}
+
+:host ::ng-deep .p-button-icon-only {
+  width: inherit;
+}
+
+:host ::ng-deep .p-fileupload-files {
+  text-align-last: center;
+}
+
+:host ::ng-deep .p-fileupload-content {
+  padding: 0;
+}
+
 .group-thumbnail {
     text-align: -webkit-center !important;
   
@@ -35,3 +55,16 @@
     grid-auto-columns: auto;
     row-gap: 5px;
   }
+
+.thumbnail-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  .thumbnail-detail {
+    height: 10rem;
+    width: auto;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+}
