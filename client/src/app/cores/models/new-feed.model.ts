@@ -7,7 +7,8 @@ export interface NewFeed {
   image: string;
   footer: string;
   author: User;
-  post_date: Date;
   status: string;
   flag: string;
+  created_at: Date;
+  updated_at: Date;
 }
