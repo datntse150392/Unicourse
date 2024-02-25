@@ -1,7 +1,34 @@
 <div class="header">
   <app-header></app-header>
 </div>
+
 <div class="container relative">
+  <!-- Breachrum Group-->
+  <nav class="flex mb-4" aria-label="Breadcrumb">
+    <ol
+      class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+    >
+      <li>
+        <div class="flex flex-row items-center">
+          <a
+            [routerLink]="['/']"
+            ariaCurrentWhenActive="page"
+            class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+            >Trang chủ</a
+          >
+        </div>
+      </li>
+      /
+      <li aria-current="page">
+        <div class="flex items-center">
+          <span
+            class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
+            >Bài viết</span
+          >
+        </div>
+      </li>
+    </ol>
+  </nav>
   <!-- Bài đăng gần đây -->
   <div class="blog-current">
     <!-- <h2>Bài đăng gần đây</h2> -->
