@@ -16,7 +16,7 @@
   }
   .main-content-container {
     h2 {
-      font-size: 2rem;
+      font-size: 1.3rem;
       font-weight: bold;
       color: #000;
     }
@@ -24,5 +24,86 @@
   footer {
     padding-top: 1rem;
     border-top: 2px solid #ff5c00;
+  }
+}
+:host ::ng-deep .p-sidebar {
+  width: 50rem !important;
+  overflow: auto;
+}
+.sidebar-comment {
+  .container-sidebar-comment {
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    span {
+      font-weight: 300;
+      font-size: 1rem;
+      font-style: italic;
+    }
+    .user-comment {
+      width: 100%;
+      p {
+        border-bottom: 1px solid #3333;
+        margin-bottom: 4px;
+      }
+    }
+    .btn-comment {
+      padding: 0.5rem 1rem;
+      width: 7.5rem;
+      border-radius: 1rem;
+      background: linear-gradient(to right bottom, #ff8f26, #ff5117);
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+      }
+    }
+    .btn-cancel-editor {
+      padding: 0.5rem 1rem;
+      width: 7.5rem;
+      border-radius: 1rem;
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000;
+      }
+    }
+    .container-body {
+      .content {
+        width: 100%;
+        .main {
+          padding: 1rem;
+          background-color: #f2f3f5;
+          border-radius: 18px;
+          color: #1c1e21;
+          h5 {
+            font-size: 1rem;
+            font-weight: 600;
+          }
+          span {
+            cursor: pointer;
+          }
+        }
+        .sub-main {
+          span {
+            font-size: 1rem;
+            font-style: normal;
+          }
+          p {
+            font-size: 0.8rem;
+          }
+          .p-custome {
+            color: #b0b3b8;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            &:hover {
+              color: #000;
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -42,6 +42,20 @@ export class BlogService {
       .pipe(catchError(this.handleError));
   }
 
+  // Like bài viết
+  likeBlog(blogId: string) {
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/blog/like-blog`, { blogId })
+      .pipe(catchError(this.handleError));
+  }
+
+  // Unlike bài viết
+  unlikeBlog(blogId: string) {
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/blog/unlike-blog`, { blogId })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));
