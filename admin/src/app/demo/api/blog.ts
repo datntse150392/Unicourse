@@ -32,21 +32,22 @@ export interface Tag {
 }
 
 export const Tags = [
-  { name: 'Front-end', code: 'frontend', color: '#ff4032' },
-  { name: 'Back-end', code: 'backend', color: '#32a852' },
-  { name: 'JavaScript', code: 'javascript', color: '#f0db4f' },
-  { name: 'UI/UX', code: 'ui_ux', color: '#007acc' },
-  { name: 'AI', code: 'ai', color: '#ff9900' },
-  { name: 'Thủ thuật', code: 'thu_thuat', color: '#888888' },
-  { name: 'Tâm sự', code: 'tam_su', color: '#ff69b4' },
-  { name: 'Kinh nghiệm', code: 'kinh_nghiem', color: '#008080' },
-  { name: 'Hỏi đáp', code: 'hoi_dap', color: '#cc7a00' },
-  { name: 'Cơ bản', code: 'co_ban', color: '#336699' },
-  { name: 'Mobile', code: 'mobile', color: '#3c3c3c' },
-  { name: 'Game', code: 'game', color: '#9900cc' },
-  { name: 'Web', code: 'web', color: '#4CAF50' },
-  { name: 'Thông tin', code: 'thong_tin', color: '#607d8b' },
-  { name: 'Chọn nhãn dán', code: 'none', color: '' }
+  { name: "Front-end", code: "frontend", color: "#ff4032" },
+  { name: "Back-end", code: "backend", color: "#32a852" },
+  { name: "JavaScript", code: "javascript", color: "#f0db4f" },
+  { name: "UI/UX", code: "ui_ux", color: "#007acc" },
+  { name: "AI", code: "ai", color: "#ff9900" },
+  { name: "Thủ thuật", code: "thu_thuat", color: "#888888" },
+  { name: "Tâm sự", code: "tam_su", color: "#ff69b4" },
+  { name: "Kinh nghiệm", code: "kinh_nghiem", color: "#008080" },
+  { name: "Hỏi đáp", code: "hoi_dap", color: "#cc7a00" },
+  { name: "Cơ bản", code: "co_ban", color: "#336699" },
+  { name: "Mobile", code: "mobile", color: "#3c3c3c" },
+  { name: "Game", code: "game", color: "#9900cc" },
+  { name: "Web", code: "web", color: "#4CAF50" },
+  { name: "Thông tin", code: "thong_tin", color: "#607d8b" },
+  { name: "Thuật toán", code: "thuat_toan", color: "#CCCCCC" },
+  { name: "Chọn nhãn dán", code: "none", color: "#CCCCCC" }
 ];
 
 
@@ -88,29 +89,4 @@ export const jsonData = {
   ],
   "created_at": "2024-01-23T00:00:00.000Z",
   "updated_at": "2024-01-23T00:00:00.000Z"
-};
-
-const blogData: Blog = {
-  _id: jsonData._id,
-  userId: {
-    _id: jsonData.userId._id,
-    email: jsonData.userId.email,
-    fullName: jsonData.userId.fullName,
-    profileName: jsonData.userId.fullName,
-    profile_image: jsonData.userId.profile_image
-  },
-  title: jsonData.title,
-  description: jsonData.description,
-  min_read: jsonData.min_read,
-  images: jsonData.images,
-  date_modified: new Date(jsonData.date_modified),
-  thumbnail_url: jsonData.thumbnail_url,
-  comment_obj: jsonData.comment_obj,
-  content: jsonData.content,
-  tags: jsonData.tags,
-  status: jsonData.status,
-  flag: jsonData.flag,
-  date_published: new Date(jsonData.date_published),
-  created_at: new Date(jsonData.created_at),
-  updated_at: new Date(jsonData.updated_at)
 };

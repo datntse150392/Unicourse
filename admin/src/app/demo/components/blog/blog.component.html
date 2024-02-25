@@ -108,7 +108,7 @@
 						<td>
 							<div class="tags">
 								<ng-container *ngFor="let tag of blog.tags">
-									<span [class]="'customer-badge status-' + blog.status">{{tag}}</span>
+									<span [class]="'customer-badge status-' + blog.status">{{tag.name}}</span>
 								</ng-container>
 							</div>
 						</td>
@@ -120,9 +120,9 @@
 								[class]="'customer-badge status-' + blog.status">{{blog.status}}</span>
 						</td>
 						<td>
-							<button pButton pRipple icon="pi pi-pencil"
-								class="p-button-rounded p-button-success mr-2" (click)="editBlog(blog)"></button>
-							<button pButton pRipple icon="pi pi-trash"
+							<button pButton pRipple type="button" icon="pi pi-pencil"
+								class="p-button-rounded p-button-success mr-2" (click)="popupEditDialog(blog)"></button>
+							<button pButton type="button" pRipple icon="pi pi-trash"
 								class="p-button-rounded p-button-warning" (click)="deleteBlog(blog)"></button>
 						</td>
 					</tr>
@@ -141,15 +141,14 @@
 			</p-table>
 		</div>
 
-		<!-- Hiển thị dialog -->
+		<!-- Chỉnh sửa blog -->
 		<p-dialog [(visible)]="blogDialog" [style]="{width: '50%'}" header="Chi tiết bài viết" [modal]="true"
 			class="p-fluid">
 			<ng-template pTemplate="content">
-
 				<div class="field">
 					<label for="status">Nổi bật</label>
 					<div>
-						<p-inputSwitch [(ngModel)]="blog.flag"></p-inputSwitch>
+						<p-inputSwitch [(ngModel)]="blog.flag" name="flag" (onChange)="onBlogChange(blog.flag, 'flag')"></p-inputSwitch>
 					</div>
 				</div>
 				
@@ -172,20 +171,42 @@
 
 				<div class="field">
 					<label for="title">Tiêu đề</label>
-					<input type="text" pInputText id="title" [(ngModel)]="blog.title" required autofocus
+					<input type="text" pInputText id="title" [(ngModel)]="blog.title" name="title" (ngModelChange)="onBlogChange(blog.title, 'title')" required autofocus
 						[ngClass]="{'ng-invalid ng-dirty' : submitted && !blog.title}" />
 					<small class="ng-dirty ng-invalid" *ngIf="submitted && !blog.title">Tiêu đề không được trống.</small>
 				</div>
 
 				<div class="field">
 					<label for="description">Mô tả</label>
-					<textarea id="description" pInputTextarea [(ngModel)]="blog.description" required rows="3"
+					<textarea id="description" pInputTextarea [(ngModel)]="blog.description" name="description" (ngModelChange)="onBlogChange(blog.description, 'description')" required rows="3"
 						cols="20"></textarea>
+				</div>
+
+				<!-- Editor -->
+				<div class="field editor">
+					<label for="status">Nội dung</label>
+					<!-- Editor Text -->
+					<div>
+						<ng-container *ngIf="preview; else preViewBlog">
+							<editor [(ngModel)]="blog.content" name="content" (ngModelChange)="onBlogChange(blog.content, 'content')" apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+								[init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
+				
+							<button *ngIf="blog.content" (click)="togglePreview()" pButton pRipple label="Xem trước"
+								class="btn-view-demo p-button-success"></button>
+						</ng-container>
+						<ng-template #preViewBlog>
+							<div class="card">
+								<div class="w-full h-full" *ngIf="blog.content" [innerHTML]="sanitizeContent(blog.content)"></div>
+							</div>
+							<button (click)="togglePreview()" pButton pRipple label="Trở về"
+								class="btn-view-demo p-button-success"></button>
+						</ng-template>
+					</div>
 				</div>
 
 				<div class="field">
 					<label for="description">Nhãn dán</label>
-					<p-multiSelect [options]="tags" [(ngModel)]="selectedTags" placeholder="Chọn nhãn dán" optionLabel="name">
+					<p-multiSelect [options]="tags" [(ngModel)]="selectedTags" name="tags" (ngModelChange)="onBlogChange(selectedTags, 'tags')" placeholder="Chọn nhãn dán" optionLabel="name">
 						<ng-template let-tag pTemplate="item">
 							<div class="flex align-items-center gap-2">
 								<p-colorPicker [(ngModel)]="tag.color" [disabled]="true"></p-colorPicker>
@@ -197,14 +218,15 @@
 
 				<div class="field">
 					<label for="status">Trạng thái</label>
-					<p-selectButton [options]="statusOptions" [(ngModel)]="selectedStatus" optionLabel="name" optionValue="value"></p-selectButton>
+					<p-selectButton [options]="statusOptions" [(ngModel)]="selectedStatus" name="tags" (ngModelChange)="onBlogChange(selectedStatus, 'status')" optionLabel="name" optionValue="value"></p-selectButton>
 				</div>
+				
 			</ng-template>
 
 			<ng-template pTemplate="footer">
-				<button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+				<button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-text"
 					(click)="hideDialog()"></button>
-				<button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+				<button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-text"
 					(click)="saveBLog()"></button>
 			</ng-template>
 		</p-dialog>

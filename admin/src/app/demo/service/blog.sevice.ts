@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Blog } from '../api/blog';
 @Injectable({ providedIn: 'root' })
 export class BlogService {
   constructor(private httpClient: HttpClient) {}
@@ -40,6 +41,14 @@ export class BlogService {
     return this.httpClient
       .post<any>(`${environment.baseUrl}/api/blog`, data)
       .pipe(catchError(this.handleError));
+  }
+
+  // Update blog
+  updateBlog(data: Blog) {
+    return this.httpClient
+      .put<any>(`${environment.baseUrl}/api/blog/${data._id}`, data,
+        { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } })
+      .pipe(catchError(this.handleError))
   }
 
   private handleError(error: any) {

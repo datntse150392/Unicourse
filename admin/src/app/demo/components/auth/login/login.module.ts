@@ -7,6 +7,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import { AuthService } from 'src/app/demo/service/auth.service';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
     imports: [
@@ -16,8 +19,11 @@ import { InputTextModule } from 'primeng/inputtext';
         CheckboxModule,
         InputTextModule,
         FormsModule,
-        PasswordModule
+        PasswordModule,
+        ToastModule,
+        AngularFireAuthModule
     ],
+    providers: [AuthService],
     declarations: [LoginComponent]
 })
 export class LoginModule { }
