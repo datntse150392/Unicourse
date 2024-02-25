@@ -41,6 +41,7 @@ export class BlogComponent {
   @ViewChild('filter') filter!: ElementRef;
   updateBlog!: Blog; // Biến lưu trữ new blog
   originalBlog!: Blog; // Biến lưu trữ blog ban đầu
+  disableSubmitBtn: boolean = false; // Biến kiểm tra xem có thể submit form không
 
   constructor(
     private blogService: BlogService,
@@ -103,9 +104,8 @@ export class BlogComponent {
 
   // Mở dialog chỉnh sửa blog: Khởi tạo biến originalBlog và updateBlog
   popupEditDialog(blog: Blog) {
-    console.log("BLog", blog)
     this.blog = { ...blog }; // Khởi tạo giá trị ban đầu cho blog
-    this.selectedTags = blog.tags[0].name === '' ? [{name: 'Chọn nhãn dán', code: 'none', color: ''}] : blog.tags; // Khởi tạo giá trị ban đầu cho tags
+    this.selectedTags = blog.tags.length === 0 ? [{name: 'Chọn nhãn dán', code: 'none', color: '#CCCCCC'}] : blog.tags; // Khởi tạo giá trị ban đầu cho tags
     this.selectedStatus = blog.status; // Khởi tạo giá trị ban đầu cho status
     this.blogContent = blog.content; // Khởi tạo giá trị ban đầu cho content
     this.updateBlog = { ...blog };
@@ -122,7 +122,12 @@ export class BlogComponent {
   // Xử lý thay đổi value blog
   onBlogChange(value: any, name: string) {
     this.updateBlog = { ...this.blog, [name]: value };
-    console.log(this.updateBlog)
+    // Check field là content, title null thì set biến disableSubmitBtn = true
+    if (this.updateBlog.content === '' || this.updateBlog.title === '') {
+      this.disableSubmitBtn = true;
+    } else {
+      this.disableSubmitBtn = false;
+    }
   }
 
   // Xử lý lưu thay đổi blog -> call API update blog
@@ -133,6 +138,7 @@ export class BlogComponent {
           this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật bài viết thành công' });
           this.blogDialog = false;
           this.blog = { ...this.updateBlog };
+          this.initForm();
         }
       },
       error: (err) => {
@@ -140,6 +146,7 @@ export class BlogComponent {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật bài viết thất bại' });
         this.blogDialog = false;
         this.blog = { ...this.originalBlog };
+        this.initForm();
       }
     });
   }

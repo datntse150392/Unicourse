@@ -22,6 +22,8 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { TagModule } from 'primeng/tag';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     imports: [
@@ -46,7 +48,9 @@ import { EditorModule } from '@tinymce/tinymce-angular';
         ColorPickerModule,
         InputSwitchModule,
         SelectButtonModule,
-        EditorModule
+        EditorModule,
+        TagModule,
+        TooltipModule
     ],
     declarations: [BlogComponent]
 })

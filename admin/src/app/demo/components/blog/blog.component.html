@@ -89,13 +89,16 @@
 				<ng-template pTemplate="body" let-blog>
 					<tr>
 						<td>
-							<p class="truncated-text" pTooltip="{{blog.title}}">
+							<p class="truncated-text" [pTooltip]="blog.title">
 								{{blog.title}}
 							</p>
 						</td>
 						<td>
-							<div class="group-thumbnail">
+							<div *ngIf="blog.thumbnail_url" class="group-thumbnail">
 								<img [src]="blog.thumbnail_url" [class]="'thumbnail flag flag-' + blog.title">
+							</div>
+							<div *ngIf="!blog.thumbnail_url" class="group-thumbnail">
+								<img src="assets/layout/images/default-blog.png" [class]="'thumbnail flag flag-' + blog.title">
 							</div>
 						</td>
 						<td>
@@ -108,7 +111,10 @@
 						<td>
 							<div class="tags">
 								<ng-container *ngFor="let tag of blog.tags">
-									<span [class]="'customer-badge status-' + blog.status">{{tag.name}}</span>
+									<span *ngIf="tag" [style.background]="tag.color" style="color: white; text-align: center" [class]="'customer-badge status-' + blog.status">{{tag.name}}</span>
+								</ng-container>
+								<ng-container *ngIf="!blog.tags || blog.tags.length === 0">
+									<span style="background: #CCCCCC; color: white; text-align: center" [class]="'customer-badge status-' + blog.status">Chọn nhãn dán</span>
 								</ng-container>
 							</div>
 						</td>
@@ -226,7 +232,7 @@
 			<ng-template pTemplate="footer">
 				<button pButton pRipple label="Hủy" icon="pi pi-times" class="p-button-text"
 					(click)="hideDialog()"></button>
-				<button pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-text"
+				<button [disabled]="disableSubmitBtn" pButton pRipple label="Lưu" icon="pi pi-check" class="p-button-text"
 					(click)="saveBLog()"></button>
 			</ng-template>
 		</p-dialog>
