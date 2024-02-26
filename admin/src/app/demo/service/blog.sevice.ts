@@ -51,6 +51,14 @@ export class BlogService {
       .pipe(catchError(this.handleError))
   }
 
+  // Xóa blog
+  deleteBlog(id: string) {
+    return this.httpClient
+      .delete<any>(`${environment.baseUrl}/api/blog/${id}`,
+        { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

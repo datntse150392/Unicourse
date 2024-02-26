@@ -158,11 +158,19 @@
 					</div>
 				</div>
 				
-				<div *ngIf="blog.thumbnail_url !== ''" class="field">
-					<label for="thumbnail">Ảnh thumbnail</label>
-					<div class="thumbnail-detail">
-						<p-image [src]="blog.thumbnail_url" [previewImageSrc]="blog.thumbnail_url" alt="blog.title" width="250" imageStyle="border-radius: 1rem;" [preview]="true"></p-image>
-					</div>
+				<div *ngIf="updateBlog.thumbnail_url !== ''" class="field">
+					<ng-container *ngIf="isUpdateThumbnail; else newThumbnail">
+						<label for="thumbnail">Ảnh thumbnail</label>
+						<div class="thumbnail-detail">
+							<p-image [src]="updateBlog.thumbnail_url" [previewImageSrc]="updateBlog.thumbnail_url" alt="updateBlog.title" width="250" imageStyle="border-radius: 1rem;" [preview]="true"></p-image>
+						</div>
+					</ng-container>
+					<ng-template #newThumbnail>
+						<label for="thumbnail">Ảnh thumbnail</label>
+						<div class="thumbnail-detail">
+							<p-image [src]="updateBlog.thumbnail_url" [previewImageSrc]="updateBlog.thumbnail_url" alt="updateBlog.title" width="250" imageStyle="border-radius: 1rem;" [preview]="true"></p-image>
+						</div>
+					</ng-template>
 				</div>
 
 				<div class="field">

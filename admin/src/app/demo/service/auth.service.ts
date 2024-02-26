@@ -22,7 +22,6 @@ export class AuthService {
 
   doLogout() {
     // Đăng xuất khỏi firebase
-    localStorage.removeItem('access_token');
     return this.afAuth.signOut();
   }
 

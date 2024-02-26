@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core';
 import { Blog, jsonData, UserBlog, Tags, Tag } from 'src/app/demo/api/blog';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
@@ -6,6 +6,15 @@ import { BlogService } from 'src/app/demo/service';
 import { Subscription } from 'rxjs';
 import * as FileSaver from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FileUploadEvent } from 'primeng/fileupload';
+import {
+  Storage,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from '@angular/fire/storage';
+import { User } from '../../api/user';
+import { GalleriaThumbnails } from 'primeng/galleria';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -24,24 +33,26 @@ interface StatusOption {
   providers: [MessageService, ConfirmationService]
 })
 export class BlogComponent {
+  @ViewChild('filter') filter!: ElementRef;
+  private subscriptions: Subscription[] = [];
+
+  user!: User;
   blogDialog: boolean = false;
   deleteBlogDialog: boolean = false;
   statuses: any[] = [];
   loading: boolean = true;
   blogs!: Blog[] | undefined;
   blog!: Blog | any;
-  uploadedFiles: any;
   tags: Tag[] = Tags;
   selectedTags!: Tag[]
   statusOptions!: StatusOption[];
   selectedStatus: String = '';
   blogContent!: String;
   preview: boolean = true;
-  private subscriptions: Subscription[] = [];
-  @ViewChild('filter') filter!: ElementRef;
   updateBlog!: Blog; // Biến lưu trữ new blog
   originalBlog!: Blog; // Biến lưu trữ blog ban đầu
   disableSubmitBtn: boolean = false; // Biến kiểm tra xem có thể submit form không
+  isUpdateThumbnail: boolean = false; // Biến kiểm tra xem có thể update thumbnail không
 
   constructor(
     private blogService: BlogService,
@@ -110,6 +121,7 @@ export class BlogComponent {
     this.blogContent = blog.content; // Khởi tạo giá trị ban đầu cho content
     this.updateBlog = { ...blog };
     this.originalBlog = { ...blog };
+    this.isUpdateThumbnail = false;
     this.blogDialog = true;
   }
 
@@ -117,6 +129,23 @@ export class BlogComponent {
   deleteBlog(blog: Blog) {
     this.deleteBlogDialog = true;
     this.blog = { ...blog };
+  }
+
+  confirmDelete() {
+    this.blogService.deleteBlog(this.blog._id).subscribe({
+      next: (res) => {
+        if (res && res.status === 200) {
+          this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Xóa bài viết thành công' });
+          this.deleteBlogDialog = false;
+          this.initForm();
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Xóa bài viết thất bại' });
+        this.deleteBlogDialog = false;
+      }
+    });
   }
 
   // Xử lý thay đổi value blog
@@ -138,6 +167,7 @@ export class BlogComponent {
           this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật bài viết thành công' });
           this.blogDialog = false;
           this.blog = { ...this.updateBlog };
+          this.isUpdateThumbnail = false;
           this.initForm();
         }
       },
@@ -146,6 +176,7 @@ export class BlogComponent {
         this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật bài viết thất bại' });
         this.blogDialog = false;
         this.blog = { ...this.originalBlog };
+        this.isUpdateThumbnail = false;
         this.initForm();
       }
     });
@@ -157,14 +188,6 @@ export class BlogComponent {
     this.blogDialog = false;
   }
 
-  // Xử lý upload ảnh thumbnail
-  onUpload(event: UploadEvent) {
-    for (let file of event.files) {
-      this.uploadedFiles = file;
-    }
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
-  }
-
   // Sanitize content: Chuyển content từ string sang HTML
   sanitizeContent(content: any): any {
     return this.sanitizer.bypassSecurityTrustHtml(content);
@@ -173,5 +196,22 @@ export class BlogComponent {
   // Xử lý preview blog
   togglePreview() {
     this.preview = !this.preview;
+  }
+
+  // Xử lý upload ảnh thumnaill
+  storage = inject(Storage);
+  async onUpload($event: FileUploadEvent) {
+    try {
+      const storageRef = ref(this.storage, 'Blog/' + $event.files[0].name);
+      const uploadTask = await uploadBytes(storageRef, $event.files[0]);
+      const downloadUrl = await getDownloadURL(uploadTask.ref);
+      this.blog.thumbnail_url = downloadUrl;
+      this.onBlogChange(downloadUrl, 'thumbnail_url')
+      this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Upload ảnh thành công' });
+      this.isUpdateThumbnail = true;
+    } catch (error) {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Upload ảnh thất bại' });
+      this.isUpdateThumbnail = false;
+    }
   }
 }

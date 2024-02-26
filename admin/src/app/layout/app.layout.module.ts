@@ -18,6 +18,7 @@ import { AppConfigModule } from './config/config.module';
 import { AppSidebarComponent } from "./app.sidebar.component";
 import { AppLayoutComponent } from "./app.layout.component";
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
         RippleModule,
         RouterModule,
         AppConfigModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        MenuModule
     ],
     exports: [AppLayoutComponent]
 })

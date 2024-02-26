@@ -1,7 +1,7 @@
 <div class="layout-topbar">
     <a class="layout-topbar-logo" routerLink="">
         <img src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo">
-        <span>SAKAI</span>
+        <span>UNICOURSE</span>
     </a>
 
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
@@ -17,10 +17,22 @@
             <i class="pi pi-calendar"></i>
             <span>Calendar</span>
         </button>
-        <button class="p-link layout-topbar-button">
-            <i class="pi pi-user"></i>
-            <span>Profile</span>
-        </button>
+        <span>
+            <ng-container *ngIf="isLogin; else unLogin">
+                <p-menu #menu [popup]="true" [model]="items1" (click)="logout()"></p-menu>
+                <button class="p-link layout-topbar-button" (click)="menu.toggle($event)">
+                    <i class="pi pi-user"></i>
+                    <span>Profile</span>
+                </button>
+            </ng-container>
+            <ng-template #unLogin>
+                <p-menu #menu1 [popup]="true" [model]="items" (click)="login()"></p-menu>
+                <button class="p-link layout-topbar-button" (click)="menu1.toggle($event)">
+                    <i class="pi pi-user"></i>
+                    <span>Profile</span>
+                </button>
+            </ng-template>
+        </span>
         <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
             <i class="pi pi-cog"></i>
             <span>Settings</span>

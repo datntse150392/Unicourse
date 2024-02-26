@@ -11,14 +11,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styles: [`
-        :host ::ng-deep .pi-eye,
-        :host ::ng-deep .pi-eye-slash {
-            transform:scale(1.6);
-            margin-right: 1rem;
-            color: var(--primary-color) !important;
-        }
-    `],
+    styleUrl: './login.component.scss',
     providers: [MessageService, ConfirmationService]
 })
 export class LoginComponent {
@@ -59,14 +52,22 @@ export class LoginComponent {
                       localStorage.setItem('access_token', token);
                       localStorage.setItem('isLogin', 'true');
                       localStorage.setItem('UserInfo', JSON.stringify(this.user));
-                      window.location.reload();
-                      this.authService.settingLocalStorage();
-                      this.messageService.add({
-                        severity: 'success',
-                        summary: 'Đăng nhập thành công',
-                        detail: 'Chào mừng bạn đến với Unicourse',
-                      });
-                      this.router.navigate(['/']);
+                      if (this.user.role === 'admin') {
+                        this.authService.settingLocalStorage();
+                        this.messageService.add({
+                          severity: 'success',
+                          summary: 'Đăng nhập thành công',
+                          detail: 'Chào mừng bạn đến với Unicourse',
+                        });
+                        this.router.navigate(['/']);
+                      } else {
+                        this.messageService.add({
+                          severity: 'error',
+                          summary: 'Lỗi đăng nhập',
+                          detail: 'Tài khoản không có quyền truy cập',
+                        });
+                        this.router.navigate(['/auth/login']);
+                      }
                     }
                   },
                   (error) => {
