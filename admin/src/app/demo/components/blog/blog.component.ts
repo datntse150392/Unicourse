@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core';
-import { Blog, jsonData, UserBlog, Tags, Tag } from 'src/app/demo/api/blog';
+import { Blog, UserBlog, Tags, Tag } from 'src/app/demo/api/blog';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { BlogService } from 'src/app/demo/service';
