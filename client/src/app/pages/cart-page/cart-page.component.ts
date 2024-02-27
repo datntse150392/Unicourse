@@ -19,6 +19,11 @@ import {
   ICreateOrderRequest,
   NgxPayPalModule,
 } from 'ngx-paypal';
+import { TransactionService } from '../../cores/services/transaction.service';
+import {
+  PaymentMethod,
+  StatusOfPayment,
+} from '../../cores/models/transaction.model';
 
 @Component({
   selector: 'app-cart-page',
@@ -45,6 +50,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   public totalAmountBeforeApplyVoucher = 0;
   public payPalConfig?: IPayPalConfig;
   public isProgressSpinner: boolean = false;
+  public blockedUI: boolean = false;
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -53,7 +59,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private sharedService: SharedService,
     private dialogBroadcastService: DialogBroadcastService,
-    private voucherService: VoucherService
+    private voucherService: VoucherService,
+    private readonly transactionService: TransactionService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -83,6 +90,30 @@ export class CartPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Function to convert from VND to EUR
+  convertVNDtoEUR(amountInVND: number, exchangeRate: number) {
+    return amountInVND / exchangeRate;
+  }
+
+  // Function to convert from EUR to VND
+  convertEURtoVND(amountInEUR: number, exchangeRate: number) {
+    return amountInEUR * exchangeRate;
+  }
+
+  // Mã giao dịch (transaction code) thường được sử dụng để định danh một giao dịch cụ thể hoặc một loạt các giao dịch liên quan đến nhau
+  generateTransactionCode(length: number): string {
+    const prefix = 'UNC';
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let transactionCode = prefix;
+    const remainingLength = length - prefix.length; // Tính toán độ dài còn lại sau khi trừ đi độ dài của prefix
+    for (let i = 0; i < remainingLength; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      transactionCode += characters[randomIndex];
+    }
+    return transactionCode;
+  }
+
   // Config on init
   initForm(): void {
     // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
@@ -106,6 +137,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
           if (this.cart.items.length === 0) {
             this.removeVoucher();
           }
+
+          // Config paypal
+          this.configPaypal(this.totalAmountBeforeApplyVoucher);
         }
       },
       error: (err: any) => {
@@ -123,7 +157,20 @@ export class CartPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
     this.subscriptions.push(getAllVoucherSubs$);
+  }
 
+  configPaypal(totalAmountBeforeApplyVoucher: number) {
+    // Config giá tiền
+    // Số tiền thanh toán trong VND
+    // Tỉ giá hối đoái từ VND sang EUR (ví dụ)
+    const exchangeRate = 25000;
+
+    // Chuyển đổi số tiền sang EUR
+    const amountInEUR = this.convertVNDtoEUR(
+      totalAmountBeforeApplyVoucher,
+      exchangeRate
+    );
+    console.log('amountInEUR ===>', amountInEUR);
     this.payPalConfig = {
       currency: 'EUR',
       clientId: 'sb',
@@ -134,11 +181,11 @@ export class CartPageComponent implements OnInit, OnDestroy {
             {
               amount: {
                 currency_code: 'EUR',
-                value: '9.99',
+                value: amountInEUR.toFixed(2), // Giữ hai chữ số thập phân
                 breakdown: {
                   item_total: {
                     currency_code: 'EUR',
-                    value: '9.99',
+                    value: amountInEUR.toFixed(2),
                   },
                 },
               },
@@ -149,7 +196,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
                   category: 'DIGITAL_GOODS',
                   unit_amount: {
                     currency_code: 'EUR',
-                    value: '9.99',
+                    value: amountInEUR.toFixed(2),
                   },
                 },
               ],
@@ -164,6 +211,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
         layout: 'vertical',
       },
       onApprove: (data: any, actions: any) => {
+        // Block UI
+        this.blockedUI = true;
         console.log(
           'onApprove - transaction was approved, but not authorized',
           data,
@@ -174,6 +223,64 @@ export class CartPageComponent implements OnInit, OnDestroy {
             'onApprove - you can get full order details inside onApprove: ',
             details
           );
+          try {
+            if (this.cart) {
+              // Tạo mã giao dịch ngẫu nhiên
+              const transactionCodeLength = Math.floor(Math.random() * 3) + 8; // Độ dài ngẫu nhiên từ 8 đến 10
+              const transactionCode = this.generateTransactionCode(
+                transactionCodeLength
+              );
+
+              // Tạo object thanh toán
+              const paymentObject = {
+                cart_id: this.cart._id,
+                total_new_amount: this.totalAmountBeforeApplyVoucher,
+                voucher_id: this.voucherDetail ? this.voucherDetail._id : null,
+              };
+
+              console.log('paymentObject ===>', paymentObject);
+              console.log('transactionCode ===>', transactionCode);
+
+              // Xử lí việc call API thanh toán
+              const payWithPaypalSub$ = this.transactionService
+                .payWithPaypal(
+                  details.payer,
+                  paymentObject.cart_id,
+                  PaymentMethod.PAYPAL,
+                  paymentObject.total_new_amount,
+                  paymentObject.voucher_id,
+                  StatusOfPayment.SUCCESS,
+                  transactionCode
+                )
+                .subscribe({
+                  next: (res: any) => {
+                    if (res.status === 201) {
+                      // Unblock UI
+                      this.blockedUI = false;
+                      this.dialogBroadcastService.broadcastDialog({
+                        header: 'Thanh toán',
+                        message: 'Thanh toán thành công',
+                        type: 'success',
+                        display: true,
+                      });
+                      // Redirect to home page
+                      this.router.navigate(['/']);
+                    }
+                  },
+                  error: (err: any) => {
+                    this.dialogBroadcastService.broadcastDialog({
+                      header: 'Thanh toán',
+                      message: 'Thanh toán thất bại',
+                      type: 'error',
+                      display: true,
+                    });
+                  },
+                });
+              this.subscriptions.push(payWithPaypalSub$);
+            }
+          } catch (error) {
+            console.error(error);
+          }
         });
       },
       onClientAuthorization: (data: any) => {
@@ -210,6 +317,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
                 this.totalAmountBeforeApplyVoucher =
                   this.cart.amount - this.voucherDetail.discount_amount;
                 this.isProgressSpinner = false;
+
+                // Config paypal when apply voucher
+                this.configPaypal(this.totalAmountBeforeApplyVoucher);
               }
             }
           },

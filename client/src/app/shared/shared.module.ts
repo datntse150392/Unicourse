@@ -31,6 +31,7 @@ import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { BlockUIModule } from 'primeng/blockui';
 
 @NgModule({
   imports: [
@@ -67,6 +68,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     FileUploadModule,
     ScrollTopModule,
     ProgressSpinnerModule,
+    BlockUIModule,
   ],
   declarations: [],
   exports: [
@@ -101,6 +103,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     FileUploadModule,
     ScrollTopModule,
     ProgressSpinnerModule,
+    BlockUIModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

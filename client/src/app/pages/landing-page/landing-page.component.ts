@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { AuthService, CourseService } from '../../cores/services';
 import { Course, User } from '../../cores/models';
 import { Router } from '@angular/router';
+import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -24,8 +25,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   constructor(
     private courseService: CourseService,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialogBroadcastService: DialogBroadcastService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -122,11 +123,21 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         (item: any) => item.course._id === courseId
       );
       if (course) {
-        this.router.navigate([
-          `/learning-course`,
-          courseId,
-          course.trackProgress[0].subTrackProgress[0].subTrackId.content_url,
-        ]);
+        if (course.trackProgress[0]) {
+          this.router.navigate([
+            `/learning-course`,
+            courseId,
+            course.trackProgress[0].subTrackProgress[0].subTrackId.content_url,
+          ]);
+        } else {
+          this.dialogBroadcastService.broadcastDialog({
+            header: 'Thông báo',
+            message:
+              'Khóa học đang trong quá trình cập nhật, vui lòng quay lại sau!',
+            type: 'info',
+            display: true,
+          });
+        }
       } else {
         this.router.navigate([`/course`, courseId]);
       }
