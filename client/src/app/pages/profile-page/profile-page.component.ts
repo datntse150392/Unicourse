@@ -5,6 +5,9 @@ import { HeaderComponent } from '../../shared/components';
 import { UserService } from '../../cores/services/user.service';
 import { User } from '../../cores/models';
 import { Subscription, filter, switchMap } from 'rxjs';
+import { CourseService } from '../../cores/services';
+import { Router } from '@angular/router';
+import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -14,7 +17,13 @@ import { Subscription, filter, switchMap } from 'rxjs';
   styleUrl: './profile-page.component.scss',
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private courseService: CourseService,
+    private router: Router,
+    private dialogBroadcastService: DialogBroadcastService
+  ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
     // Scroll smooth lên đầu trang
@@ -23,7 +32,9 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
 
   public userDetail!: User;
   public userId!: string;
-  private subscription = new Subscription();
+  public userInfo!: User;
+  public myCourses!: any;
+  private subscriptions: Subscription[] = [];
   public userCreatedTime!: string;
 
   ngOnInit(): void {
@@ -52,11 +63,15 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
         console.log(err);
       },
     });
-    this.subscription.add(userSub$);
+    if (localStorage.getItem('isLogin')) {
+      this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
+      this.getMyCourses();
+    }
+    this.subscriptions.push(userSub$);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   // hanle time since publication
@@ -80,6 +95,51 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       return `${minutes} phút trước`;
     } else {
       return `vài phút trước`;
+    }
+  }
+
+  // Lấy tất cả các khóa học đã đăng ký
+  getMyCourses(): void {
+    const myCoursesSub$ = this.courseService
+      .getMyCourses(this.userInfo._id)
+      .subscribe({
+        next: (res: any) => {
+          this.myCourses = res.data;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+    this.subscriptions.push(myCoursesSub$);
+  }
+
+  // hanleGetCourseDetail
+  hanleGetCourseDetail(courseId: string): void {
+    if (this.myCourses) {
+      var course = this.myCourses.find(
+        (item: any) => item._id === courseId
+      );
+      if (course) {
+        if (course.trackProgress[0]) {
+          this.router.navigate([
+            `/learning-course`,
+            course.course._id,
+            course.trackProgress[0].subTrackProgress[0].subTrackId.content_url,
+          ]);
+        } else {
+          this.dialogBroadcastService.broadcastDialog({
+            header: 'Thông báo',
+            message:
+              'Khóa học đang trong quá trình cập nhật, vui lòng quay lại sau!',
+            type: 'info',
+            display: true,
+          });
+        }
+      } else {
+        this.router.navigate([`/course`, courseId]);
+      }
+    } else {
+      this.router.navigate([`/course`, courseId]);
     }
   }
 }
