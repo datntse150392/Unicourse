@@ -15,6 +15,21 @@ export class CommentService {
       .pipe(catchError(this.handleError));
   }
 
+  // Chỉnh sửa bình luận
+  editComment(commentId: string, comment: string) {
+    const body = { commentId, comment };
+    return this.httpClient
+      .put<any>(`${environment.baseUrl}/api/comment`, body)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Xóa bình luận
+  deleteComment(commentId: string) {
+    return this.httpClient
+      .delete<any>(`${environment.baseUrl}/api/comment/${commentId}`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

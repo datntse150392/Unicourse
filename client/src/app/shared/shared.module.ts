@@ -32,6 +32,8 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @NgModule({
   imports: [
@@ -69,6 +71,8 @@ import { BlockUIModule } from 'primeng/blockui';
     ScrollTopModule,
     ProgressSpinnerModule,
     BlockUIModule,
+    TieredMenuModule,
+    ConfirmPopupModule,
   ],
   declarations: [],
   exports: [
@@ -104,6 +108,8 @@ import { BlockUIModule } from 'primeng/blockui';
     ScrollTopModule,
     ProgressSpinnerModule,
     BlockUIModule,
+    TieredMenuModule,
+    ConfirmPopupModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

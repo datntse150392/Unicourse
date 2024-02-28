@@ -233,7 +233,7 @@
 
           <ng-template #DisplayNormalInput>
             <div class="user-comment" (click)="toggleEditorComment()">
-              <p>Nhập bình luận của bạn ...</p>
+              <p>Nhập bình luận của bạn...</p>
             </div>
           </ng-template>
         </div>
@@ -242,7 +242,7 @@
       <!-- Comment User -->
       <div class="mt-6">
         <div
-          *ngFor="let comment of blogDetail.comment_obj"
+          *ngFor="let comment of blogDetail.comment_obj; let i = index"
           class="container-body flex flex-nowrap gap-4 p-4 pt-0 mb-2"
         >
           <!-- Avatar -->
@@ -256,16 +256,86 @@
             <div class="main">
               <div class="flex justify-between items-center">
                 <h5 class="mb-2">{{ comment.commentator.fullName }}</h5>
-                <span (click)="reportComment()" class="pi pi-ellipsis-h"></span>
               </div>
               <div [innerHTML]="sanitizeContent(comment.comment)"></div>
             </div>
-            <div class="sub-main mt-2 flex items-center">
-              <p class="mr-2 font-normal">
+            <div class="sub-main mt-2 flex items-center relative">
+              <p class="mr-2 font-normal text-[#999999]">
                 {{ publishedAtString(comment.created_at) }}
               </p>
               <p (click)="likeComment()" class="mr-2 p-custome">Thích</p>
               <p (click)="replyComment()" class="mr-2 p-custome">Phản hồi</p>
+              <div class="dropdown ml-2">
+                <span class="pi pi-ellipsis-h dropbtn"></span>
+                <div class="dropdown-content">
+                  <ng-container
+                    *ngIf="
+                      userInfo._id === comment.commentator._id;
+                      else ReportCommentBtn
+                    "
+                  >
+                    <a
+                      class="w-full flex flex-nowrap gap-2 items-center"
+                      (click)="
+                        toggleEditorUpdateCommentFunc(i, comment.comment)
+                      "
+                    >
+                      <i
+                        class="pi pi-pencil"
+                        style="color: 'var(--primary-color)'"
+                      ></i>
+                      Chỉnh sửa bình luận</a
+                    >
+                    <a
+                      class="w-full flex flex-nowrap gap-2 items-center"
+                      (click)="confirm(comment._id)"
+                    >
+                      <i
+                        class="pi pi-trash"
+                        style="color: 'var(--primary-color)'"
+                      ></i>
+                      Xóa bình luận</a
+                    >
+                  </ng-container>
+                  <ng-template #ReportCommentBtn>
+                    <a (click)="reportComment()">Báo cáo bình luận</a>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="editorVisible[i]" class="editorComment">
+              <div class="flex items-start gap-2 p-2">
+                <p-avatar
+                  image="{{ comment.commentator.profile_image }}"
+                  size="large"
+                  shape="circle"
+                ></p-avatar>
+                <div class="w-full">
+                  <editor
+                    class="w-full mb-4"
+                    [(ngModel)]="this.editorUpdateComment"
+                    apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                    [init]="{
+                      plugins: 'lists link image table code help wordcount'
+                    }"
+                  ></editor>
+                  <div class="flex justify-end">
+                    <button
+                      (click)="toggleEditorUpdateCommentFunc(i, '')"
+                      class="btn-cancel-editor"
+                    >
+                      <p>Hủy</p>
+                    </button>
+                    <button
+                      (click)="updateComment(comment._id, i)"
+                      *ngIf="editorUpdateComment !== ''"
+                      class="btn-comment"
+                    >
+                      <p>Chỉnh sửa</p>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -273,3 +343,31 @@
     </div>
   </ng-template>
 </p-sidebar>
+
+<!-- Dialog xác thực xóa comment -->
+<p-toast></p-toast>
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+    <div
+      class="custome-dislog flex flex-column p-4 surface-overlay border-round"
+    >
+      <div class="header">
+        <h2>Thông báo</h2>
+        <p-accordion></p-accordion>
+      </div>
+      <div class="body">
+        <p>Bạn có chắc chắn muốn xóa bình luận này?</p>
+      </div>
+
+      <div class="flex justify-end gap-2 mt-4">
+        <button (click)="cd.reject()" class="btn-cancel-editor">
+          <p>Hủy bỏ</p>
+        </button>
+
+        <button (click)="cd.accept()" class="btn-comment">
+          <p>Đồng ý</p>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

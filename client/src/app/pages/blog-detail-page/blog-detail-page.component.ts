@@ -9,8 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Sidebar } from 'primeng/sidebar';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { CommentService } from '../../cores/services/comment.service';
-import { MenuItem } from 'primeng/api';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-blog-detail-page',
@@ -18,6 +18,7 @@ import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.se
   imports: [SharedModule, HeaderComponent, EditorModule],
   templateUrl: './blog-detail-page.component.html',
   styleUrl: './blog-detail-page.component.scss',
+  providers: [MessageService, ConfirmationService],
 })
 export class BlogDetailPageComponent {
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
@@ -28,6 +29,9 @@ export class BlogDetailPageComponent {
   public userInfo!: User;
   public toggleEditor: boolean = false;
   public editorContentComment: string = '';
+  public toggleEditorUpdateComment: boolean = false;
+  public editorUpdateComment: string = '';
+  public editorVisible: { [key: string]: boolean } = {};
 
   public isLikeBlog: boolean = false;
 
@@ -42,7 +46,9 @@ export class BlogDetailPageComponent {
     private sanitizer: DomSanitizer,
     private readonly commentService: CommentService,
     private readonly dialogBroadcastService: DialogBroadcastService,
-    private readonly sharedService: SharedService
+    private readonly sharedService: SharedService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     // Thiết lập title cho trang
     window.document.title = 'Chi tiết bài viết';
@@ -125,7 +131,7 @@ export class BlogDetailPageComponent {
     } else if (minutes > 0) {
       return `${minutes} phút trước`;
     } else {
-      return `vài phút trước`;
+      return `vài giây trước`;
     }
   }
 
@@ -225,6 +231,67 @@ export class BlogDetailPageComponent {
           },
         });
       this.subscriptions.push(unlikeBlogSubs$);
+    }
+  }
+
+  toggleEditorUpdateCommentFunc(commentId: number, currentComment: any) {
+    // Nếu chưa có trạng thái cho comment này, mặc định là false
+    if (this.editorVisible[commentId] === undefined) {
+      this.editorVisible[commentId] = false;
+    }
+    // Toggle trạng thái hiển thị
+    // Lưu giá trị comment hiện tại vào biến editorUpdateComment
+    this.editorUpdateComment = currentComment;
+    this.editorVisible[commentId] = !this.editorVisible[commentId];
+  }
+
+  confirm(comment_id: any) {
+    this.confirmationService.confirm({
+      header: 'Are you sure?',
+      message: 'Please confirm to proceed.',
+      accept: () => {
+        const deleteCommentSubs$ = this.commentService
+          .deleteComment(comment_id)
+          .subscribe({
+            next: (res: any) => {
+              if (res && res.status === 200) {
+                this.messageService.add({
+                  severity: 'info',
+                  summary: 'Bình luận',
+                  detail: 'Đã xóa thành công',
+                  life: 3000,
+                });
+                this.inItForm();
+              }
+            },
+          });
+      },
+    });
+  }
+
+  // Sửa binh luận
+  updateComment(commentId: any, currentToggle: any) {
+    if (this.editorUpdateComment && this.userInfo) {
+      const editCommentSubs$ = this.commentService
+        .editComment(commentId, this.editorUpdateComment)
+        .subscribe({
+          next: (res: any) => {
+            if (res && res.status === 201) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Bình luận',
+                detail: 'Cập nhật thành công',
+                life: 3000,
+              });
+              this.inItForm();
+              this.toggleEditorUpdateCommentFunc(currentToggle, '');
+            }
+          },
+          error: (err: Error) => {
+            console.log(err);
+          },
+        });
+      this.subscriptions.push(editCommentSubs$);
     }
   }
 }

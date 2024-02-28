@@ -63,8 +63,8 @@
           <div class="tags">
             <p-tag
               *ngFor="let tag of blogHighLight[0].tags"
-              severity="success"
-              value="{{ tag }}"
+              value="{{ tag.name }}"
+              [style]="{ 'background-color': tag.color }"
             ></p-tag>
           </div>
         </div>
@@ -100,8 +100,8 @@
               <div class="tags">
                 <p-tag
                   *ngFor="let tag of blogHighLight[0].tags"
-                  severity="success"
-                  value="{{ tag }}"
+                  value="{{ tag.name }}"
+                  [style]="{ 'background-color': tag.color }"
                 ></p-tag>
               </div>
             </div>
@@ -145,8 +145,8 @@
           <div class="tags">
             <p-tag
               *ngFor="let tag of blog.tags"
-              severity="success"
-              value="{{ tag }}"
+              value="{{ tag.name }}"
+              [style]="{ 'background-color': tag.color }"
             ></p-tag>
           </div>
         </div>
