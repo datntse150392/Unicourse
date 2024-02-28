@@ -30,6 +30,31 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
+  // Thực hiện lấy link gửi đến gateway của VNPAY
+  getLinkVnPay(
+    cart_id: string,
+    payment_method: string,
+    total_new_amount: number,
+    voucher_id: string | null,
+    transactionCode: string
+  ) {
+    const body = {
+      amount: total_new_amount,
+      bankCode: 'VNBANK',
+      locale: 'vn',
+      transactionCode: transactionCode
+    };
+    localStorage.setItem('cart_id', cart_id);
+    localStorage.setItem('payment_method', payment_method);
+    localStorage.setItem('total_new_amount', total_new_amount.toString());
+    voucher_id && localStorage.setItem('voucher_id', voucher_id);
+    localStorage.setItem('transaction_code', transactionCode);
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/transactions/create_payment_url`, body,
+      { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } })
+      .pipe(catchError(this.handleError));
+  }
+
   // Xử lí khi có lỗi
   private handleError(error: any) {
     // Handle the error appropriately here

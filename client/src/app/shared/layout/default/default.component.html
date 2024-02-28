@@ -1,6 +1,8 @@
 <router-outlet class="absolute"></router-outlet>
 <app-footer></app-footer>
-
+<p-blockUI [blocked]="blockedUI"
+    ><p-progressSpinner></p-progressSpinner>
+</p-blockUI>
 <!-- Dialog đăng nhập tài khoản -->
 <div class="card flex justify-content-center">
   <p-dialog [(visible)]="visibleSignIn">

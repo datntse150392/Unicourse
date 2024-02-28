@@ -130,8 +130,7 @@
           <!-- List Course -->
           <a
             *ngFor="let course of userDetail.enrollCourses"
-            routerLink="/course/{{ course.courseId._id }}"
-            routerLinkActive="active"
+            (click)="hanleGetCourseDetail(course._id)"
             ariaCurrentWhenActive="page"
             class="block max-w-full bg-white mt-3 pb-4 flex flex-row border-b-2 border-gray-200"
           >

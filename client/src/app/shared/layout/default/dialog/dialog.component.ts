@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SharedModule } from '../../../shared.module';
 import { DialogBroadcastService } from '../../../../cores/services/dialog-broadcast.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -56,5 +56,5 @@ export class DialogComponent {
           this.messageService.add({ severity: 'error', summary: 'Từ chối', detail: 'Bạn bị từ chối', life: 3000 });
       }
   });
-  }
+  } 
 }
