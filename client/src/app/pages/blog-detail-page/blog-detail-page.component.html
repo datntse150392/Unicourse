@@ -289,7 +289,9 @@
                       z-index: 1;
                     "
                   ></div>
-                  <p class="ml-1">1</p>
+                  <p class="ml-1">
+                    {{ comment.interactions && comment.interactions.length }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -455,7 +457,7 @@
 
             <!-- Hiển thị các phản hồi nếu có phản hồi của comment -->
             <div
-              *ngIf="comment.replies.length > 0"
+              *ngIf="comment.replies && comment.replies.length > 0"
               class="replies-comment p-2 pr-0"
             >
               <ng-container
