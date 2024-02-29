@@ -29,9 +29,11 @@ export class BlogDetailPageComponent {
   public userInfo!: User;
   public toggleEditor: boolean = false;
   public editorContentComment: string = '';
-  public toggleEditorUpdateComment: boolean = false;
   public editorUpdateComment: string = '';
   public editorVisible: { [key: string]: boolean } = {};
+  public editorReplyComment: string = '';
+  public editorVisibleReplyComment: { [key: string]: boolean } = {};
+  public showRepliesComment: { [key: string]: boolean } = {};
 
   public isLikeBlog: boolean = false;
 
@@ -174,14 +176,25 @@ export class BlogDetailPageComponent {
   }
 
   // Like bình luận
-  likeComment() {
-    // Call API here
-    this.dialogBroadcastService.broadcastDialog({
-      header: 'Like bình luận',
-      message: 'Tính năng này đang trong quá trình xây dựng',
-      type: 'info',
-      display: true,
-    });
+  likeorUnLikeComment(commentId: any) {
+    try {
+      const likeCommentSubs$ = this.commentService
+        .likeOrUnLikeComment(commentId)
+        .subscribe({
+          next: (res: any) => {
+            if (res && res.status === 200) {
+              this.inItForm();
+            }
+          },
+        });
+    } catch (error) {}
+
+    // this.dialogBroadcastService.broadcastDialog({
+    //   header: 'Like bình luận',
+    //   message: 'Tính năng này đang trong quá trình xây dựng',
+    //   type: 'info',
+    //   display: true,
+    // });
   }
 
   // Phản hồi bình luận
@@ -243,6 +256,9 @@ export class BlogDetailPageComponent {
     // Lưu giá trị comment hiện tại vào biến editorUpdateComment
     this.editorUpdateComment = currentComment;
     this.editorVisible[commentId] = !this.editorVisible[commentId];
+
+    // Tắt visible editor reply comment
+    this.editorVisibleReplyComment[commentId] = false;
   }
 
   confirm(comment_id: any) {
@@ -265,6 +281,7 @@ export class BlogDetailPageComponent {
               }
             },
           });
+        this.subscriptions.push(deleteCommentSubs$);
       },
     });
   }
@@ -293,5 +310,76 @@ export class BlogDetailPageComponent {
         });
       this.subscriptions.push(editCommentSubs$);
     }
+  }
+
+  // Bật tắt editor phản hồi bình luận
+  toggleEditorReplyCommentFunc(commentId: number, currentComment: any) {
+    // Nếu chưa có trạng thái cho comment này, mặc định là false
+    if (this.editorVisibleReplyComment[commentId] === undefined) {
+      this.editorVisibleReplyComment[commentId] = false;
+    }
+
+    // Toggle trạng thái hiển thị
+    // Lưu giá trị comment hiện tại vào biến editorUpdateComment
+    this.editorReplyComment = currentComment;
+    this.editorVisibleReplyComment[commentId] =
+      !this.editorVisibleReplyComment[commentId];
+
+    // Tắt visible editor comment
+    this.editorVisible[commentId] = false;
+  }
+
+  // Gửi phản hồi bình luận
+  sendReplyComment(commentId: any, currentComment: any) {
+    if (this.editorReplyComment && this.userInfo) {
+      const createReplyCommentSubs$ = this.commentService
+        .replyComment(commentId, this.editorReplyComment)
+        .subscribe({
+          next: (res: any) => {
+            if (res && res.status === 201) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Bình luận',
+                detail: 'Gửi phản hồi thành công',
+                life: 3000,
+              });
+              this.inItForm();
+              this.editorReplyComment = '';
+              this.editorVisibleReplyComment[commentId] = false;
+              this.toggleEditorReplyCommentFunc(currentComment, '');
+            }
+          },
+          error: (err: Error) => {
+            console.log(err);
+          },
+        });
+      this.subscriptions.push(createReplyCommentSubs$);
+    }
+  }
+
+  // Bật tắt hiển thị phản hồi bình luận
+  toggleRepliesComment(indexCurrent: any) {
+    // Nếu chưa có trạng thái cho comment này, mặc định là false
+    if (this.showRepliesComment[indexCurrent] === undefined) {
+      this.showRepliesComment[indexCurrent] = false;
+    }
+
+    // Toggle trạng thái hiển thị
+    this.showRepliesComment[indexCurrent] =
+      !this.showRepliesComment[indexCurrent];
+  }
+
+  // Kiểm tra xem đã có thích bình luận hay chưa
+  checkLikeComment(comment: Comment): boolean {
+    console.log('comment', comment);
+
+    if (this.userInfo && comment) {
+      console.log('comment.interactions', comment.interactions);
+
+      if (comment.interactions) {
+        return comment.interactions.includes(this.userInfo._id);
+      }
+    }
+    return false;
   }
 }

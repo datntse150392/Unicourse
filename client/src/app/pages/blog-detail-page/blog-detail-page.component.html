@@ -186,7 +186,7 @@
       (click)="closeCallback($event)"
       icon="pi pi-times"
     ></p-button>
-    <div class="container-sidebar-comment pr-2 pl-2 pt-4">
+    <div class="container-sidebar-comment pr-2 pl-2 pt-4 mb-8">
       <div class="pr-4 pl-4 mb-6">
         <h2>{{ blogDetail.comment_obj.length || 0 }} bình luận</h2>
         <span
@@ -257,14 +257,89 @@
               <div class="flex justify-between items-center">
                 <h5 class="mb-2">{{ comment.commentator.fullName }}</h5>
               </div>
+
               <div [innerHTML]="sanitizeContent(comment.comment)"></div>
+
+              <div
+                *ngIf="comment.interactions && comment.interactions.length > 0"
+                class="comment-interaction"
+              >
+                <div class="flex flex-nowrap items-center">
+                  <div
+                    style="
+                      width: 18px;
+                      height: 18px;
+                      background-size: 100% 100%;
+                      border-radius: 8px;
+                      background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzM3NjZfMTY0OTIpIj4KPHBhdGggZD0iTTEyIDBDOC44MTc0IDAgNS43NjUxNiAxLjI2NDI4IDMuNTE0NzIgMy41MTQ3MkMxLjI2NDI4IDUuNzY1MTYgMCA4LjgxNzQgMCAxMkMwIDE1LjE4MjYgMS4yNjQyOCAxOC4yMzQ4IDMuNTE0NzIgMjAuNDg1M0M1Ljc2NTE2IDIyLjczNTcgOC44MTc0IDI0IDEyIDI0QzE1LjE4MjYgMjQgMTguMjM0OCAyMi43MzU3IDIwLjQ4NTMgMjAuNDg1M0MyMi43MzU3IDE4LjIzNDggMjQgMTUuMTgyNiAyNCAxMkMyNCA4LjgxNzQgMjIuNzM1NyA1Ljc2NTE2IDIwLjQ4NTMgMy41MTQ3MkMxOC4yMzQ4IDEuMjY0MjggMTUuMTgyNiAwIDEyIDBWMFoiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNzY2XzE2NDkyKSIvPgo8cGF0aCBkPSJNMTUuNzA5NCA2QzEyLjQxMjQgNiAxMS45OTk5IDguNzM2IDExLjk5OTkgOC43MzZDMTEuOTk5OSA4LjczNiAxMS41ODg5IDYgOC4yOTE4NiA2QzUuMTIwODYgNiA0LjE5Njg2IDkuMzMzIDQuNTgzODYgMTEuMTE1QzUuNjAzODYgMTUuODI1IDExLjk5OTkgMTkuMTI1IDExLjk5OTkgMTkuMTI1QzExLjk5OTkgMTkuMTI1IDE4LjM5NzQgMTUuODI1IDE5LjQxNzQgMTEuMTE1QzE5LjgwMjkgOS4zMzMgMTguODc3NCA2IDE1LjcwOTQgNloiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNzY2XzE2NDkyIiB4MT0iMTIiIHkxPSIwIiB4Mj0iMTIiIHkyPSIyNCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjRkY2NjgwIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI0U2MTczOSIvPgo8L2xpbmVhckdyYWRpZW50Pgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzM3NjZfMTY0OTIiPgo8cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==');
+                      box-shadow: rgb(250, 250, 250) 0px 0px 0px 2px;
+                      position: relative;
+                      z-index: 3;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 18px;
+                      height: 18px;
+                      background-size: 100% 100%;
+                      border-radius: 8px;
+                      background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzM3NjZfMTY0OTMpIj4KPHBhdGggZD0iTTEyIDBDOC44MTc0IDAgNS43NjUxNiAxLjI2NDI4IDMuNTE0NzIgMy41MTQ3MkMxLjI2NDI4IDUuNzY1MTYgMCA4LjgxNzQgMCAxMkMwIDE1LjE4MjYgMS4yNjQyOCAxOC4yMzQ4IDMuNTE0NzIgMjAuNDg1M0M1Ljc2NTE2IDIyLjczNTcgOC44MTc0IDI0IDEyIDI0QzE1LjE4MjYgMjQgMTguMjM0OCAyMi43MzU3IDIwLjQ4NTMgMjAuNDg1M0MyMi43MzU3IDE4LjIzNDggMjQgMTUuMTgyNiAyNCAxMkMyNCA4LjgxNzQgMjIuNzM1NyA1Ljc2NTE2IDIwLjQ4NTMgMy41MTQ3MkMxOC4yMzQ4IDEuMjY0MjggMTUuMTgyNiAwIDEyIDBWMFoiIGZpbGw9InVybCgjcGFpbnQwX2xpbmVhcl8zNzY2XzE2NDkzKSIvPgo8cGF0aCBkPSJNMTguMjQzIDExLjAwN0MxOC41MDcgMTEuMTkxNSAxOC43NSAxMS4zNzQ1IDE4Ljc1IDEyLjAxOEMxOC43NSAxMi42NjMgMTguNDA2NSAxMi45MjQgMTguMDM5IDEzLjEwNTVDMTguMTg5IDEzLjM1IDE4LjIzNyAxMy42NDU1IDE4LjE3MjUgMTMuOTI0NUMxOC4wNTcgMTQuNDQwNSAxNy41ODQ1IDE0Ljg0MSAxNy4xNjQ1IDE0Ljk1OTVDMTcuMzQ2IDE1LjI1MDUgMTcuNDAzIDE1LjUzNyAxNy4xODcgMTUuODg5NUMxNi45MDk1IDE2LjMzMiAxNi42NjggMTYuNSAxNS42IDE2LjVIMTEuMjVDOS43NjggMTYuNSA5IDE1LjY4MSA5IDE1VjExLjQ5NzVDOSA5LjY1MjUgMTEuMjAwNSA4LjA4NSAxMS4yMDA1IDYuODAyNUwxMS4wNDE1IDUuMjA1QzExLjAzNCA1LjEwNzUgMTEuMDUzNSA0Ljg2OSAxMS4xMjg1IDQuOEMxMS4yNDg1IDQuNjgxNSAxMS41OCA0LjUgMTIuMDgxIDQuNUMxMi40MDggNC41IDEyLjYyNTUgNC41NjE1IDEyLjg4MiA0LjY4NDVDMTMuNzUzNSA1LjEgMTMuOTggNi4xNTE1IDEzLjk4IDYuOTk3NUMxMy45OCA3LjQwNCAxMy4zNTkgOC42MjIgMTMuMjc1IDkuMDQzNUMxMy4yNzUgOS4wNDM1IDE0LjU3NTUgOC43NTU1IDE2LjA5MzUgOC43NDVDMTcuNjg1IDguNzM2IDE4LjcxNyA5LjAzIDE4LjcxNyAxMC4wMDhDMTguNzE3IDEwLjM5OTUgMTguMzg4NSAxMC43OTI1IDE4LjI0MyAxMS4wMDdaTTUuNCAxMC41SDYuNkM2LjgzODcgMTAuNSA3LjA2NzYxIDEwLjU5NDggNy4yMzY0IDEwLjc2MzZDNy40MDUxOCAxMC45MzI0IDcuNSAxMS4xNjEzIDcuNSAxMS40VjE3LjFDNy41IDE3LjMzODcgNy40MDUxOCAxNy41Njc2IDcuMjM2NCAxNy43MzY0QzcuMDY3NjEgMTcuOTA1MiA2LjgzODcgMTggNi42IDE4SDUuNEM1LjE2MTMxIDE4IDQuOTMyMzkgMTcuOTA1MiA0Ljc2MzYgMTcuNzM2NEM0LjU5NDgyIDE3LjU2NzYgNC41IDE3LjMzODcgNC41IDE3LjFWMTEuNEM0LjUgMTEuMTYxMyA0LjU5NDgyIDEwLjkzMjQgNC43NjM2IDEwLjc2MzZDNC45MzIzOSAxMC41OTQ4IDUuMTYxMzEgMTAuNSA1LjQgMTAuNVoiIGZpbGw9IndoaXRlIi8+CjwvZz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhcl8zNzY2XzE2NDkzIiB4MT0iMTIiIHkxPSIwIiB4Mj0iMTIiIHkyPSIyNCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPgo8c3RvcCBzdG9wLWNvbG9yPSIjMThBRkZGIi8+CjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwNjJERiIvPgo8L2xpbmVhckdyYWRpZW50Pgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzM3NjZfMTY0OTMiPgo8cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIGZpbGw9IndoaXRlIi8+CjwvY2xpcFBhdGg+CjwvZGVmcz4KPC9zdmc+Cg==');
+                      box-shadow: rgb(250, 250, 250) 0px 0px 0px 2px;
+                      position: relative;
+                      z-index: 1;
+                    "
+                  ></div>
+                  <p class="ml-1">1</p>
+                </div>
+              </div>
             </div>
             <div class="sub-main mt-2 flex items-center relative">
               <p class="mr-2 font-normal text-[#999999]">
                 {{ publishedAtString(comment.created_at) }}
               </p>
-              <p (click)="likeComment()" class="mr-2 p-custome">Thích</p>
-              <p (click)="replyComment()" class="mr-2 p-custome">Phản hồi</p>
+
+              <p
+                *ngIf="!checkLikeComment(comment); else UnLikeComment"
+                (click)="likeorUnLikeComment(comment._id)"
+                class="mr-2 p-custome"
+              >
+                Thích
+              </p>
+              <ng-template #UnLikeComment>
+                <p
+                  (click)="likeorUnLikeComment(comment._id)"
+                  class="mr-2 p-custome"
+                >
+                  Bỏ thích
+                </p>
+              </ng-template>
+
+              <ng-container
+                *ngIf="userInfo._id == comment.commentator._id; else NotAuthor"
+              >
+                <p
+                  (click)="toggleEditorReplyCommentFunc(i, '')"
+                  class="mr-2 p-custome"
+                >
+                  Phản hồi
+                </p>
+              </ng-container>
+              <ng-template #NotAuthor>
+                <p
+                  (click)="
+                    toggleEditorReplyCommentFunc(
+                      i,
+                      '<strong>' +
+                        comment.commentator.fullName +
+                        '</strong> &nbsp;'
+                    )
+                  "
+                  class="mr-2 p-custome"
+                >
+                  Phản hồi
+                </p>
+              </ng-template>
+
               <div class="dropdown ml-2">
                 <span class="pi pi-ellipsis-h dropbtn"></span>
                 <div class="dropdown-content">
@@ -303,6 +378,7 @@
                 </div>
               </div>
             </div>
+
             <div *ngIf="editorVisible[i]" class="editorComment">
               <div class="flex items-start gap-2 p-2">
                 <p-avatar
@@ -333,6 +409,137 @@
                     >
                       <p>Chỉnh sửa</p>
                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visible Reply  Comment -->
+            <div
+              *ngIf="editorVisibleReplyComment[i]"
+              class="editorReplyComment"
+            >
+              <div class="flex items-start gap-2 p-2">
+                <p-avatar
+                  image="{{ comment.commentator.profile_image }}"
+                  size="large"
+                  shape="circle"
+                ></p-avatar>
+                <div class="w-full">
+                  <editor
+                    class="w-full mb-4"
+                    [(ngModel)]="this.editorReplyComment"
+                    apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                    [init]="{
+                      plugins: 'lists link image table code help wordcount'
+                    }"
+                  ></editor>
+                  <div class="flex justify-end">
+                    <button
+                      (click)="toggleEditorReplyCommentFunc(i, '')"
+                      class="btn-cancel-editor"
+                    >
+                      <p>Hủy</p>
+                    </button>
+                    <button
+                      (click)="sendReplyComment(comment._id, i)"
+                      *ngIf="editorReplyComment !== ''"
+                      class="btn-comment"
+                    >
+                      <p>Bình luận</p>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hiển thị các phản hồi nếu có phản hồi của comment -->
+            <div
+              *ngIf="comment.replies.length > 0"
+              class="replies-comment p-2 pr-0"
+            >
+              <ng-container
+                *ngIf="showRepliesComment[i]; else HiddenRepliesComment"
+              >
+                <p
+                  [ngStyle]="{ cursor: 'pointer' }"
+                  (click)="toggleRepliesComment(i)"
+                >
+                  Ẩn câu trả lời
+                </p>
+              </ng-container>
+              <ng-template #HiddenRepliesComment>
+                <p
+                  [ngStyle]="{ cursor: 'pointer' }"
+                  (click)="toggleRepliesComment(i)"
+                >
+                  Xem {{ comment.replies.length }} câu trả lời
+                </p>
+              </ng-template>
+
+              <div
+                [ngClass]="{ hidden: !showRepliesComment[i] }"
+                class="reply-content-comment"
+                *ngFor="let reply of comment.replies"
+              >
+                <div class="flex flex-nowrap items-start gap-2">
+                  <p-avatar
+                    image="{{ reply.commentator.profile_image }}"
+                    size="large"
+                    shape="circle"
+                  ></p-avatar>
+                  <div class="main w-full">
+                    <div class="flex justify-between items-center">
+                      <h5 class="mb-2">{{ reply.commentator.fullName }}</h5>
+                    </div>
+                    <div [innerHTML]="sanitizeContent(comment.comment)"></div>
+                  </div>
+                </div>
+                <div class="sub-main mt-2 flex items-center relative">
+                  <p class="mr-2 font-normal text-[#999999]">
+                    {{ publishedAtString(reply.created_at) }}
+                  </p>
+                  <p class="mr-2 p-custome">Thích</p>
+                  <ng-container
+                    *ngIf="
+                      userInfo._id == comment.commentator._id;
+                      else NotAuthor
+                    "
+                  >
+                    <p class="mr-2 p-custome">Phản hồi</p>
+                  </ng-container>
+                  <ng-template #NotAuthor>
+                    <p class="mr-2 p-custome">Phản hồi</p>
+                  </ng-template>
+
+                  <div class="dropdown ml-2">
+                    <span class="pi pi-ellipsis-h dropbtn"></span>
+                    <div class="dropdown-content">
+                      <ng-container
+                        *ngIf="
+                          userInfo._id === comment.commentator._id;
+                          else ReportCommentBtn
+                        "
+                      >
+                        <a class="w-full flex flex-nowrap gap-2 items-center">
+                          <i
+                            class="pi pi-pencil"
+                            style="color: 'var(--primary-color)'"
+                          ></i>
+                          Chỉnh sửa bình luận</a
+                        >
+                        <a class="w-full flex flex-nowrap gap-2 items-center">
+                          <i
+                            class="pi pi-trash"
+                            style="color: 'var(--primary-color)'"
+                          ></i>
+                          Xóa bình luận</a
+                        >
+                      </ng-container>
+                      <ng-template #ReportCommentBtn>
+                        <a (click)="reportComment()">Báo cáo bình luận</a>
+                      </ng-template>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -14,6 +14,8 @@ export interface Comment {
   is_approved: boolean;
   created_at: Date;
   updated_at: Date;
+  replies: Array<Comment>;
+  interactions: Array<String>;
 }
 export interface Blog {
   _id: String;

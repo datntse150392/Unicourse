@@ -30,6 +30,22 @@ export class CommentService {
       .pipe(catchError(this.handleError));
   }
 
+  // Phản hồi comment
+  replyComment(commentId: string, comment: string) {
+    const body = { commentId, comment };
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/comment/reply`, body)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Like or unlike comment
+  likeOrUnLikeComment(commentId: string) {
+    const body = { commentId };
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/comment/like_or_unlike`, body)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));
