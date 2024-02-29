@@ -374,8 +374,6 @@ export class BlogDetailPageComponent {
     console.log('comment', comment);
 
     if (this.userInfo && comment) {
-      console.log('comment.interactions', comment.interactions);
-
       if (comment.interactions) {
         return comment.interactions.includes(this.userInfo._id);
       }

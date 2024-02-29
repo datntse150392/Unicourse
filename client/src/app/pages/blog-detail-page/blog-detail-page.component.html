@@ -492,7 +492,7 @@
                     <div class="flex justify-between items-center">
                       <h5 class="mb-2">{{ reply.commentator.fullName }}</h5>
                     </div>
-                    <div [innerHTML]="sanitizeContent(comment.comment)"></div>
+                    <div [innerHTML]="sanitizeContent(reply.comment)"></div>
                   </div>
                 </div>
                 <div class="sub-main mt-2 flex items-center relative">
