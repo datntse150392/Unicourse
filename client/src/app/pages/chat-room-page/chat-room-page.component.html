@@ -1,0 +1,124 @@
+<div class="main grid grid-cols-4 w-full">
+  <div class="p-4 side-bar">
+    <div
+      [routerLink]="['/']"
+      class="logo flex flex-col items-center justify-center"
+    >
+      <img src="{{ Logo }}" alt="Logo" />
+      <h2 class="text-2xl">Unicourse</h2>
+    </div>
+    <div class="list-rooms">
+      <h2 class="flex justify-start text-2xl mb-0">Đoạn chat</h2>
+      <span class="p-input-icon-left search mb-3 mt-3 w-full">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          placeholder="Tìm kiếm trên Unicourse"
+          class="w-full pl-5 p-2"
+        />
+      </span>
+      <div class="room-detail flex flex-row items-center gap-2">
+        <img
+          width="100"
+          height="100"
+          src="{{
+            chatRoomDetail.thumbnail ||
+              'https://img.icons8.com/nolan/50/room.png'
+          }}"
+          alt="room"
+        />
+        <h2>{{ chatRoomDetail.name }}</h2>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="userInfo && chatRoomDetail"
+    class="content col-span-3 flex flex-col w-full"
+  >
+    <div class="header flex flex-row items-center justify-between">
+      <!-- Title Room -->
+      <div class="title-room flex flex-row items-center gap-2">
+        <img
+          width="100"
+          height="100"
+          src="{{
+            chatRoomDetail.thumbnail ||
+              'https://img.icons8.com/nolan/50/room.png'
+          }}"
+          alt="room"
+        />
+        <h2>{{ chatRoomDetail.name }}</h2>
+      </div>
+      <!-- Profile -->
+      <div class="profile flex flex-row items-center gap-2">
+        <h2>{{ userInfo.fullName }}</h2>
+        <p-avatar
+          image="{{ userInfo.profile_image }}"
+          styleClass="mr-2"
+          size="normal"
+          shape="circle"
+        ></p-avatar>
+      </div>
+    </div>
+    <div class="main-content w-full grid">
+      <div class="list-msg mt-4 p-4 grid grid-cols-4">
+        <div
+          class="msg col-span-3 flex flex-col items-start gap-3"
+          #chatContainer
+        >
+          <ng-container *ngFor="let message of chatRoomDetail.messages">
+            <div
+              *ngIf="message.user._id !== userInfo._id"
+              class="msg-left w-full flex flex-row items-center justify-normal mb-4"
+            >
+              <p-avatar
+                image="{{ message.user.profile_image }}"
+                styleClass="mr-2"
+                size="normal"
+                shape="circle"
+              ></p-avatar>
+
+              <!-- Hiển thị nội dung tin nhắn -->
+              <div class="text w-5 p-2">
+                {{ message.message }}
+                <p class="author">{{ message.user.fullName }}</p>
+              </div>
+            </div>
+            <div
+              *ngIf="message.user._id === userInfo._id"
+              class="msg-right flex flex-row items-center justify-end pr-4"
+            >
+              <!-- Hiển thị nội dung tin nhắn -->
+              <div class="text w-5 p-2">
+                {{ message.message }}
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="group-input p-4">
+            <input
+              [(ngModel)]="this.message"
+              (keyup.enter)="sendMessage(this.message)"
+              class="pr-4"
+              placeholder="Mời bạn nhập tin nhắn ..."
+              type="text"
+              pInputText
+            />
+          </div>
+        </div>
+        <div class="ads flex flex-col gap-4">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Promotion%2FAds%201.png?alt=media&token=b6ed1b2e-85ad-4365-be7c-c2c79d296e62"
+          />
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Promotion%2FAds%203.png?alt=media&token=f0e3ee61-be97-4da7-92be-9ee2aef4cdb2"
+          />
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Promotion%2FAds%202.png?alt=media&token=9bb23cca-0718-4b5c-b430-d6a28bf9aba2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

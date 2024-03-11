@@ -14,6 +14,7 @@ import { SettingComponent } from './shared/layout/setting/setting.component';
 import { SettingPersonalComponent } from './pages/setting-personal/setting-personal.component';
 import { BlogDetailPageComponent } from './pages/blog-detail-page/blog-detail-page.component';
 import { loginSystemGuard } from './cores/guards/login-system.guard';
+import { ChatRoomPageComponent } from './pages/chat-room-page/chat-room-page.component';
 
 export const routes: Routes = [
   {
@@ -55,6 +56,11 @@ export const routes: Routes = [
     component: SettingComponent,
     canActivate: [loginSystemGuard],
     children: [{ path: 'personal', component: SettingPersonalComponent }],
+  },
+  {
+    path: 'chat-room/:id',
+    component: ChatRoomPageComponent,
+    canActivate: [loginSystemGuard],
   },
   { path: '**', component: PageNotFoundComponent },
 ];

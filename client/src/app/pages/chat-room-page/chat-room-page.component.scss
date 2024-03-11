@@ -1,0 +1,115 @@
+.main {
+  margin: 0;
+  height: 100vh;
+  .side-bar {
+    background-color: #29303bd7;
+    .logo {
+      cursor: pointer;
+      img {
+        width: 8rem;
+      }
+      h2 {
+        font-family: "system ui", sans-serif;
+        font-weight: bold;
+        color: #fff;
+      }
+      padding-right: 2rem;
+    }
+    h2 {
+      font-weight: 500;
+      font-size: 1.3rem;
+      color: #ffffff;
+      text-align: center;
+      margin: 1rem 0rem;
+      margin-bottom: 1.5rem;
+    }
+    .list-rooms {
+      .room-detail {
+        padding: 0.5rem;
+        background-color: #29303b;
+        border-radius: 15px;
+        margin-bottom: 1.5rem;
+        h2 {
+          font-size: 1rem;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .content {
+    padding: 0;
+    .header {
+      background-color: #29303b;
+      opacity: 90%;
+      padding: 1rem;
+      width: 100%;
+      h2 {
+        font-weight: 500;
+        font-size: 1rem;
+        color: #ffffff;
+        text-align: center;
+        margin: 1rem 0rem;
+        margin-bottom: 1.5rem;
+      }
+      .profile {
+        h2 {
+          font-weight: 400;
+        }
+      }
+    }
+    .main-content {
+      margin: 0;
+      background-color: #faf1e4;
+      .list-msg {
+        position: relative;
+        margin: 0;
+        .msg {
+          height: 70vh;
+          overflow-y: scroll;
+          .msg-left {
+            .author {
+              color: #29303b88;
+              position: absolute;
+              top: -45%;
+              left: 0%;
+            }
+            .text {
+              width: 10rem;
+              position: relative;
+              font-size: 0.8 rem;
+              width: fit-content;
+              background-color: #ffffff;
+              border: 1px solid #ba9359;
+              border-radius: 5px;
+            }
+          }
+          .msg-right {
+            width: 100%;
+            .text {
+              position: relative;
+              font-size: 0.8 rem;
+              width: fit-content;
+              background-color: #ffffff;
+              border: 1px solid #ba9359;
+              border-radius: 5px;
+            }
+          }
+          .group-input {
+            position: absolute;
+            bottom: 0;
+            input {
+              background-color: #9999998d;
+              padding: 1rem;
+              width: 51rem;
+            }
+          }
+        }
+        .ads {
+          background-color: #eaf2e1;
+          padding: 1rem;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}

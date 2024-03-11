@@ -9,11 +9,14 @@
     background-color: none;
   }
   .custom-scrolltop {
-    background-color: #f05123;
+    background-color: #f04f2379;
   }
   .card {
     height: 100vh;
-    background-image: url("../../../assets/images/FillBg.png");
+    // background-image: url("../../../assets/images/BgImage.png");
+    // https://daihoc.fpt.edu.vn/wp-content/uploads/2023/12/Hocbong-100_-e-thumb-2-650x359.png
+    background-image: url("https://daihoc.fpt.edu.vn/wp-content/uploads/2022/02/HCM-scaled.jpeg");
+    // background-color: #ff95008f;
     background-size: cover;
     .logan {
       width: 100%;
@@ -23,7 +26,7 @@
       font-size: 70px;
       transform: translate(0%, 50%);
       .title-1 {
-        color: #ff7b29;
+        color: #e66b23;
       }
 
       /* DEMO-SPECIFIC STYLES */
@@ -40,7 +43,7 @@
         }
       }
       .title-2 {
-        color: #31c3e0;
+        color: #0066b2;
       }
       .btn {
         box-shadow: -8px 4px 20px #fc3b5040;

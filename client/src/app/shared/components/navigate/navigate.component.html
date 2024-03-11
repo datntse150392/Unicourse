@@ -29,14 +29,10 @@
         >
           Bài viết
         </p>
-        <p
-          routerLinkActive="active"
-          ariaCurrentWhenActive="page"
-          class="nav-item"
-        >
-          Sản phẩm
+
+        <p routerLink="/chat-room/65ebe4d2d0cb58ef9cb250cc" class="nav-item">
+          Cộng đồng
         </p>
-        <!-- <p class="nav-item">Cộng đồng</p> -->
       </div>
     </div>
     <div class="flex flex-row align-items-center justify-content-between gap-2">
@@ -45,7 +41,7 @@
           (click)="redirectToCart()"
           class="pi pi-shopping-cart mr-4 p-text-secondary"
           pBadge
-          style="font-size: 2rem; cursor: pointer"
+          style="font-size: 2rem; cursor: pointer; color: #000"
           value="{{ lengthOfCartItems }}"
           severity="danger"
         ></i>
