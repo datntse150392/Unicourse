@@ -126,7 +126,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
             .subscribe(
               (res) => {
                 if (res.status === 200 || res.status === 201) {
-                  const token = res && res.data.access_token.split(' ')[1];
+                  const token = res && res.data.split(' ')[1];
                   // Decode the token
                   const decoded = this.helper.decodeToken(token);
                   this.user = decoded;
@@ -166,7 +166,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
             .signIn(res.email, res.displayName, res.photoURL)
             .subscribe((res) => {
               if (res.status === 200 || res.status === 201) {
-                const token = res && res.data.access_token.split(' ')[1];
+                const token = res && res.data.split(' ')[1];
                 // Decode the token
                 const decoded = this.helper.decodeToken(token);
                 this.user = decoded;

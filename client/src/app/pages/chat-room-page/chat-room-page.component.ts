@@ -2,7 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { ChatRoomService } from '../../cores/services/chatRoom.service';
 import { User } from '../../cores/models';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatRoom, Message } from '../../cores/models/chatRoom.model';
 import { environment } from '../../../environments/environment.development';
@@ -30,7 +30,8 @@ export class ChatRoomPageComponent {
   constructor(
     private chatRoomService: ChatRoomService,
     private route: ActivatedRoute,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,6 +39,7 @@ export class ChatRoomPageComponent {
   }
 
   ngOnDestory() {
+    this.socketService.leaveRoom(this.chatRoomId, this.userInfo._id);
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
@@ -126,6 +128,12 @@ export class ChatRoomPageComponent {
         this.isScrollBottom = true;
       }, 1000);
     });
+  }
+
+  LeaveRoom() {
+    console.log('LeaveRoom')
+    this.socketService.leaveRoom(this.chatRoomId, this.userInfo._id);
+    this.router.navigate(['/']);
   }
 
   // Scroll xuống cuối cùng

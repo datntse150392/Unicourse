@@ -1,7 +1,7 @@
 <div class="main grid grid-cols-4 w-full">
   <div class="p-4 side-bar">
     <div
-      [routerLink]="['/']"
+      (click)="LeaveRoom()"
       class="logo flex flex-col items-center justify-center"
     >
       <img src="{{ Logo }}" alt="Logo" />
