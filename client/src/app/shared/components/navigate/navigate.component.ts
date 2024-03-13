@@ -8,6 +8,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService, CartService } from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { SocketService } from '../../../cores/services/socketIO.service';
 @Component({
   selector: 'app-navigate',
   standalone: true,
@@ -30,7 +31,8 @@ export class NavigateComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private authService: AuthService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private socketSertvice: SocketService
   ) {}
 
   ngOnInit(): void {
@@ -158,5 +160,15 @@ export class NavigateComponent implements OnInit, OnDestroy {
 
   redirectToSettingPersonal() {
     this.router.navigate([`/setting/personal`]);
+  }
+
+  // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io
+  joinRoom(roomId: string) {
+    if (roomId && this.user) {
+      this.socketSertvice.joinRoom(roomId, this.user._id);
+      this.router.navigate([`/chat-room/${roomId}`]);
+    } else {
+      this.sharedService.turnOnSignInDialog();
+    }
   }
 }

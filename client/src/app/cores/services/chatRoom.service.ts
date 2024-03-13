@@ -29,6 +29,13 @@ export class ChatRoomService {
       .pipe(catchError(this.handleError));
   }
 
+  // Lấy danh sách tin nhắn trong phòng chat
+  getMessagesByChatRoomId(chatRoomId: string) {
+    return this.httpClient
+      .get<any>(`${environment.baseUrl}/api/chatRoom/get-message/${chatRoomId}`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

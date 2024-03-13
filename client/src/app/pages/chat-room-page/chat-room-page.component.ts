@@ -4,8 +4,9 @@ import { ChatRoomService } from '../../cores/services/chatRoom.service';
 import { User } from '../../cores/models';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ChatRoom } from '../../cores/models/chatRoom.model';
+import { ChatRoom, Message } from '../../cores/models/chatRoom.model';
 import { environment } from '../../../environments/environment.development';
+import { SocketService } from '../../cores/services/socketIO.service';
 @Component({
   selector: 'app-chat-room-page',
   standalone: true,
@@ -17,17 +18,19 @@ export class ChatRoomPageComponent {
   @ViewChild('chatContainer') private chatContainer!: ElementRef;
 
   public userInfo!: User;
-  public chatRoomId: string | null = null;
+  public chatRoomId!: string;
   public chatRoomDetail!: ChatRoom;
   public message!: string;
-  Logo: string = environment.LOGO;
+  public Logo: string = environment.LOGO;
 
   private isScrollBottom = false;
 
   private subscriptions: Subscription[] = [];
+  private tempListMessage: Message[] = [];
   constructor(
     private chatRoomService: ChatRoomService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private socketService: SocketService
   ) {}
 
   ngOnInit() {
@@ -47,17 +50,25 @@ export class ChatRoomPageComponent {
   }
 
   initForm() {
-    this.route.paramMap.subscribe((params) => {
-      this.chatRoomId = params.get('id');
-      if (this.chatRoomId) {
-        this.getChatRoomByChatRoomId(this.chatRoomId);
-      }
-    });
     // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
     if (localStorage !== undefined) {
       if (localStorage.getItem('isLogin')) {
         this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
       }
+    }
+    this.route.paramMap.subscribe((params) => {
+      this.chatRoomId = params.get('id') || '';
+      if (this.chatRoomId && this.userInfo) {
+        this.getChatRoomByChatRoomId(this.chatRoomId);
+        this.listenForMessages();
+      }
+    });
+    this.setupRoom();
+  }
+
+  private setupRoom(): void {
+    if (this.chatRoomId) {
+      this.socketService.joinRoom(this.chatRoomId, this.userInfo._id);
     }
   }
 
@@ -68,6 +79,7 @@ export class ChatRoomPageComponent {
       .subscribe((res) => {
         if (res && res.status === 200) {
           this.chatRoomDetail = res.data;
+          this.tempListMessage = res.data;
           this.isScrollBottom = true; // Set the flag to scroll after view checks
         }
       });
@@ -79,16 +91,41 @@ export class ChatRoomPageComponent {
     if (this.chatRoomId && message.length > 0) {
       const sendMessageSubs$ = this.chatRoomService
         .sendMessage(this.chatRoomId, message)
-        .subscribe((res) => {
-          if (res && res.status === 200) {
+        .subscribe({
+          next: (res) => {
             if (this.chatRoomId) {
-              this.getChatRoomByChatRoomId(this.chatRoomId);
+              this.chatRoomDetail.messages = res.data;
               this.message = '';
+              this.isScrollBottom = true; // Set the flag to scroll after view checks
+              this.socketService.sendMessage(
+                this.chatRoomId,
+                this.userInfo._id,
+                message,
+                this.tempListMessage
+              );
             }
-          }
+          },
+          error: (err) => {
+            console.log(err);
+          },
+          complete: () => {},
         });
       this.subscriptions.push(sendMessageSubs$);
     }
+  }
+
+  // Lấy danh sách tin nhắn trong phòng chat
+  getMessagesByChatRoomId(chatRoomId: string) {}
+
+  listenForMessages(): void {
+    this.socketService.getMessages().subscribe((data: any) => {
+      // Fetch new messages after a delay to allow time for the DOM to update
+      setTimeout(() => {
+        this.chatRoomDetail.messages = data.listMessage.messages;
+        console.log(this.chatRoomDetail.messages);
+        this.isScrollBottom = true;
+      }, 1000);
+    });
   }
 
   // Scroll xuống cuối cùng
