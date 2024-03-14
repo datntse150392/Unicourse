@@ -131,7 +131,6 @@ export class ChatRoomPageComponent {
   }
 
   LeaveRoom() {
-    console.log('LeaveRoom')
     this.socketService.leaveRoom(this.chatRoomId, this.userInfo._id);
     this.router.navigate(['/']);
   }

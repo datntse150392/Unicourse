@@ -1,14 +1,18 @@
 <div class="main grid grid-cols-4 w-full">
   <div class="p-4 side-bar">
-    <div
-      (click)="LeaveRoom()"
-      class="logo flex flex-col items-center justify-center"
-    >
-      <img src="{{ Logo }}" alt="Logo" />
-      <h2 class="text-2xl">Unicourse</h2>
-    </div>
     <div class="list-rooms">
-      <h2 class="flex justify-start text-2xl mb-0">Đoạn chat</h2>
+      <div class="flex flex-row justify-between items-center">
+        <h2 class="flex justify-start text-2xl mb-0 mt-0">Đoạn chat</h2>
+        <img
+          (click)="LeaveRoom()"
+          width="40"
+          height="40"
+          src="https://img.icons8.com/ios/40/circled-left--v1.png"
+          alt="circled-left--v1"
+          pTooltip="Trở về trang chủ"
+          [ngStyle]="{ cursor: 'pointer' }"
+        />
+      </div>
       <span class="p-input-icon-left search mb-3 mt-3 w-full">
         <i class="pi pi-search"></i>
         <input
