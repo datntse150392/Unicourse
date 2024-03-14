@@ -16,7 +16,10 @@ import { AuthService, NewFeedService } from '../../../cores/services';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 import { environment } from '../../../../environments/environment.development';
 import { NewFeed } from '../../../cores/models/new-feed.model';
-import { PaymentMethod, StatusOfPayment } from '../../../cores/models/transaction.model';
+import {
+  PaymentMethod,
+  StatusOfPayment,
+} from '../../../cores/models/transaction.model';
 import { TransactionService } from '../../../cores/services/transaction.service';
 
 @Component({
@@ -126,7 +129,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
             .subscribe(
               (res) => {
                 if (res.status === 200 || res.status === 201) {
-                  const token = res && res.data.split(' ')[1];
+                  const token = res && res.data.access_token.split(' ')[1];
                   // Decode the token
                   const decoded = this.helper.decodeToken(token);
                   this.user = decoded;
@@ -244,7 +247,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
         let total_new_amount = localStorage.getItem('total_new_amount') ?? '0';
         let amount = parseFloat(total_new_amount);
         let voucher_id = localStorage.getItem('voucher_id') as string;
-        let transaction_code = localStorage.getItem('transaction_code') as string;
+        let transaction_code = localStorage.getItem(
+          'transaction_code'
+        ) as string;
         payer['vnp_Amount'] = total_new_amount;
         payer['vnp_BankCode'] = urlParams.get('vnp_BankCode');
         payer['vnp_BankTranNo'] = urlParams.get('vnp_BankTranNo');
