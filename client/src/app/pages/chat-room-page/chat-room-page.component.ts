@@ -32,7 +32,10 @@ export class ChatRoomPageComponent {
     private route: ActivatedRoute,
     private socketService: SocketService,
     private router: Router
-  ) {}
+  ) {
+    // Set title cho trang
+    window.document.title = 'Messenger | Unicourse';
+  }
 
   ngOnInit() {
     this.initForm();

@@ -8,6 +8,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { AuthService, CartService } from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
+import { ChatRoomService } from '../../../cores/services/chatRoom.service';
 @Component({
   selector: 'app-navigate',
   standalone: true,
@@ -30,7 +31,8 @@ export class NavigateComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private authService: AuthService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private chatRoomService: ChatRoomService
   ) {}
 
   ngOnInit(): void {
@@ -163,6 +165,27 @@ export class NavigateComponent implements OnInit, OnDestroy {
   // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io
   joinRoom(roomId: string) {
     if (roomId && this.user) {
+      const checkUserInChatRoomSub$ = this.chatRoomService
+        .checkUserInChatRoom(roomId)
+        .subscribe({
+          next: (res: any) => {
+            if (res && res.data === true) {
+              this.router.navigate([`/chat-room/${roomId}`]);
+            } else {
+              const joinChatRoomSub$ = this.chatRoomService
+                .joinChatRoom(roomId)
+                .subscribe({
+                  next: (res: any) => {
+                    if (res && res.status === 200) {
+                      this.router.navigate([`/chat-room/${roomId}`]);
+                    }
+                  },
+                });
+              this.subscriptions.push(joinChatRoomSub$);
+            }
+          },
+        });
+      this.subscriptions.push(checkUserInChatRoomSub$);
       this.router.navigate([`/chat-room/${roomId}`]);
     } else {
       this.sharedService.turnOnSignInDialog();

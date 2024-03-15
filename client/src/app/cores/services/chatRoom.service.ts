@@ -36,6 +36,25 @@ export class ChatRoomService {
       .pipe(catchError(this.handleError));
   }
 
+  // Kiểm tra xem user có tồn tại trong phòng chat không
+  checkUserInChatRoom(chatRoomId: string) {
+    return this.httpClient
+      .get<any>(
+        `${environment.baseUrl}/api/chatRoom/check-user-in-room/${chatRoomId}`
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  // Tham gia phòng chat
+  joinChatRoom(chatRoomId: string) {
+    return this.httpClient
+      .put<any>(
+        `${environment.baseUrl}/api/chatRoom/join-room/${chatRoomId}`,
+        {}
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));
