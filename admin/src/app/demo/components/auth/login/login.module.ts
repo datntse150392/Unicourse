@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { AuthService } from 'src/app/demo/service/auth.service';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
     imports: [
@@ -21,9 +22,10 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
         FormsModule,
         PasswordModule,
         ToastModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        DividerModule,
     ],
     providers: [AuthService],
-    declarations: [LoginComponent]
+    declarations: [LoginComponent],
 })
-export class LoginModule { }
+export class LoginModule {}
