@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Course, User } from 'src/app/core/models';
 import { CourseService, SharedService } from 'src/app/core/services';
 import { SharedModule } from 'src/app/shared';
-
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
     selector: 'app-course-detail',
     standalone: true,
@@ -22,7 +22,8 @@ export class CourseDetailComponent {
     constructor(
         private courseService: CourseService,
         private sharedService: SharedService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private sanitizer: DomSanitizer
     ) {
         // Thiết lập tiêu đề cho trang
         window.document.title = 'Chi tiết khóa học';
@@ -58,6 +59,35 @@ export class CourseDetailComponent {
                     },
                 });
             this.subscriptions.push(getDetailCourseSubs$);
+        }
+    }
+
+    // Xử lý hiển thị thẻ video
+    getVideoUrl(contentUrl: string): any {
+        return this.sanitizer.bypassSecurityTrustResourceUrl(
+            `https://www.youtube.com/embed/${contentUrl}`
+        );
+    }
+
+    convertToHHMMSS(minutes: number): string {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        const remainingSeconds = remainingMinutes * 60;
+
+        const hoursStr = hours < 10 ? `0${hours}` : `${hours}`;
+        const minutesStr =
+            remainingMinutes < 10
+                ? `0${remainingMinutes}`
+                : `${remainingMinutes}`;
+        const secondsStr =
+            remainingSeconds < 10
+                ? `0${remainingSeconds}`
+                : `${remainingSeconds}`;
+
+        if (hours > 0) {
+            return `${hoursStr}:${minutesStr}:${secondsStr}`;
+        } else {
+            return `${minutesStr}:${secondsStr}`;
         }
     }
 }

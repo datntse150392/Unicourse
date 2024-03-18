@@ -146,4 +146,21 @@ export class LearningCourseComponent implements OnDestroy {
       (track: Track) => track.position - 1
     );
   }
+
+  convertToHHMMSS(minutes: number): string {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    const remainingSeconds = Math.floor(remainingMinutes * 60);
+
+    const hoursStr = hours < 10 ? `0${hours}` : `${hours}`;
+    const minutesStr =
+      remainingMinutes < 10 ? `0${remainingMinutes}` : `${remainingMinutes}`;
+    let secondsStr =
+      remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
+
+    // Ensure secondsStr is always two digits or defaults to '00'
+    secondsStr = secondsStr.length === 0 ? '00' : secondsStr.padStart(2, '0');
+
+    return `${hoursStr}:${minutesStr}:00`;
+  }
 }

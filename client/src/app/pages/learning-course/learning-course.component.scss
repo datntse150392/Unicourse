@@ -181,7 +181,7 @@
   }
 }
 .set-width {
-  width: 25rem;
+  width: 30rem;
   .tree-page {
     display: flex;
     flex-direction: row;
@@ -193,7 +193,6 @@
       color: #000;
       font-size: 1.2rem;
       font-weight: bold;
-      padding: 1rem;
       padding-top: 0rem !important;
     }
     .accordion-tab {
@@ -208,8 +207,8 @@
       }
       .step-track {
         margin: -14px;
-        padding: 1rem 2.5rem;
-        width: 22rem !important;
+        padding: 1.5rem 2.5rem;
+        width: 28rem !important;
         display: flex;
         flex-direction: column;
         .duration {
