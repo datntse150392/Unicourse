@@ -1,7 +1,11 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { SharedModule } from '../../../shared';
 import { Cart, CartItem, Course } from '../../../cores/models';
-import { CourseService, SharedService, CartService } from '../../../cores/services';
+import {
+  CourseService,
+  SharedService,
+  CartService,
+} from '../../../cores/services';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
@@ -19,6 +23,8 @@ export class CourseDetailComponent implements OnDestroy {
   cart: Cart | undefined;
   public courseId!: string | null;
   public isExistedCourseInsideCart: boolean = false;
+  public blockedUI: boolean = true;
+
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -51,7 +57,7 @@ export class CourseDetailComponent implements OnDestroy {
             if (item._id === this.courseId) {
               this.isExistedCourseInsideCart = true;
             }
-          })
+          });
         }
       },
       error: (err: any) => {
@@ -95,30 +101,30 @@ export class CourseDetailComponent implements OnDestroy {
         this.sharedService.turnOnSignInDialog();
       } else {
         if (courseId) {
-          const addtoCartSub$ = this.cartService
-            .addToCart(courseId)
-            .subscribe({
-              next: (res: any) => {
-                if (res.status === 201) {
-                  this.dialogBroadcastService.broadcastDialog({
-                    header: 'Giỏ hàng',
-                    message: 'Thêm khóa học vào giỏ hàng thành công',
-                    type: 'success',
-                    display: true,
-                  });
-                  this.sharedService.isUpdateCartItem();
-                  this.initForm();
-                }}, error: (err: any) => {
-                  this.dialogBroadcastService.broadcastDialog({
-                    header: 'Giỏ hàng',
-                    message: 'Thêm khóa học vào giỏ hàng thất bại',
-                    type: 'error',
-                    display: true,
-                  });
+          const addtoCartSub$ = this.cartService.addToCart(courseId).subscribe({
+            next: (res: any) => {
+              if (res.status === 201) {
+                this.dialogBroadcastService.broadcastDialog({
+                  header: 'Giỏ hàng',
+                  message: 'Thêm khóa học vào giỏ hàng thành công',
+                  type: 'success',
+                  display: true,
+                });
+                this.sharedService.isUpdateCartItem();
+                this.initForm();
               }
-            });
-            this.subscriptions.push(addtoCartSub$);
-          }
+            },
+            error: (err: any) => {
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Giỏ hàng',
+                message: 'Thêm khóa học vào giỏ hàng thất bại',
+                type: 'error',
+                display: true,
+              });
+            },
+          });
+          this.subscriptions.push(addtoCartSub$);
+        }
       }
     }
   }
@@ -142,17 +148,19 @@ export class CourseDetailComponent implements OnDestroy {
                   });
                   this.sharedService.isUpdateCartItem();
                   this.initForm();
-                }}, error: (err: any) => {
-                  this.dialogBroadcastService.broadcastDialog({
-                    header: 'Giỏ hàng',
-                    message: 'Xóa khóa học thất bại',
-                    type: 'error',
-                    display: true,
-                  });
-              }
+                }
+              },
+              error: (err: any) => {
+                this.dialogBroadcastService.broadcastDialog({
+                  header: 'Giỏ hàng',
+                  message: 'Xóa khóa học thất bại',
+                  type: 'error',
+                  display: true,
+                });
+              },
             });
-            this.subscriptions.push(deleteItemCartSub$);
-          }
+          this.subscriptions.push(deleteItemCartSub$);
+        }
       }
     }
   }

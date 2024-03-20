@@ -6,13 +6,6 @@ import { Blog } from '../../cores/models';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
-interface PageEvent {
-  first: number;
-  rows: number;
-  page: number;
-  pageCount: number;
-}
-
 @Component({
   selector: 'app-blog-page',
   standalone: true,
@@ -27,6 +20,7 @@ export class BlogPageComponent {
   public first: number = 0;
   public rows: number = 6;
   public page!: number;
+  public blockedUI: boolean = true;
 
   private subscriptions: Subscription[] = [];
 
@@ -54,6 +48,7 @@ export class BlogPageComponent {
       .getHighLightBlog()
       .subscribe((res) => {
         this.blogHighLight = res.data;
+        this.blockedUI = false;
       });
 
     const blogsSubs$ = this.blogService.getAllBlogs().subscribe({

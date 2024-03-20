@@ -22,6 +22,7 @@ export class ChatRoomPageComponent {
   public chatRoomDetail!: ChatRoom;
   public message!: string;
   public Logo: string = environment.LOGO;
+  public blockedUI: boolean = true;
 
   private isScrollBottom = false;
 
@@ -66,6 +67,7 @@ export class ChatRoomPageComponent {
       if (this.chatRoomId && this.userInfo) {
         this.getChatRoomByChatRoomId(this.chatRoomId);
         this.listenForMessages();
+        this.blockedUI = false;
       }
     });
     this.setupRoom();

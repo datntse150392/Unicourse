@@ -1,5 +1,8 @@
 <div class="main grid grid-cols-4 w-full">
   <div class="p-4 side-bar">
+    <p-blockUI [blocked]="blockedUI"
+      ><p-progressSpinner></p-progressSpinner>
+    </p-blockUI>
     <div class="list-rooms">
       <div class="flex flex-row justify-between items-center">
         <h2 class="flex justify-start text-2xl mb-0 mt-0">Đoạn chat</h2>

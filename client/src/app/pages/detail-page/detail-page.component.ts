@@ -45,6 +45,8 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   public coursesFree: Course[] = [];
   public courseSemester1: Course[] = [];
   public coursePro: Course[] = [];
+  public blockedUI: boolean = true;
+
   private subscription = new Subscription();
 
   ngOnInit(): void {
@@ -116,6 +118,8 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     this.subscription.add(courseSemester1Sub$);
     this.subscription.add(courseProSub$);
     this.subscription.add(courseDetailSub$);
+
+    this.blockedUI = false;
   }
 
   // SERVICE XỬ LÝ DỮ LIỆU CHO COMPONENT

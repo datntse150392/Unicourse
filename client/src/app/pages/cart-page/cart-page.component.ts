@@ -50,7 +50,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   public totalAmountBeforeApplyVoucher = 0;
   public payPalConfig?: IPayPalConfig;
   public isProgressSpinner: boolean = false;
-  public blockedUI: boolean = false;
+  public blockedUI: boolean = true;
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -157,6 +157,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
     this.subscriptions.push(getAllVoucherSubs$);
+
+    this.blockedUI = false;
   }
 
   configPaypal(totalAmountBeforeApplyVoucher: number) {
@@ -407,30 +409,30 @@ export class CartPageComponent implements OnInit, OnDestroy {
           voucher_id: this.voucherDetail ? this.voucherDetail._id : null,
         };
 
-        this.transactionService.getLinkVnPay(
-          paymentObject.cart_id,
-          PaymentMethod.VNPAY,
-          paymentObject.total_new_amount,
-          paymentObject.voucher_id,
-          transactionCode
-        ).subscribe({
-          next: (res: any) => {
-            if (res && res.status === 200) {
-              window.location.href = res.data;
-            }
-          },
-          error: (err: any) => {
-            this.dialogBroadcastService.broadcastDialog({
-              header: 'Thanh toán',
-              message: 'Thanh toán thất bại',
-              type: 'error',
-              display: true,
-            });
-          },
-        });
+        this.transactionService
+          .getLinkVnPay(
+            paymentObject.cart_id,
+            PaymentMethod.VNPAY,
+            paymentObject.total_new_amount,
+            paymentObject.voucher_id,
+            transactionCode
+          )
+          .subscribe({
+            next: (res: any) => {
+              if (res && res.status === 200) {
+                window.location.href = res.data;
+              }
+            },
+            error: (err: any) => {
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Thanh toán',
+                message: 'Thanh toán thất bại',
+                type: 'error',
+                display: true,
+              });
+            },
+          });
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 }
