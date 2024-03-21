@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../../shared.module';
 import { environment } from '../../../../environments/environment.development';
 import { User } from '../../../cores/models';
-import { FooterComponent } from '../../components';
+import { FooterComponent, HeaderComponent } from '../../components';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { AuthService, SharedService } from '../../../cores/services';
 @Component({
   selector: 'app-setting',
   standalone: true,
-  imports: [SharedModule, FooterComponent],
+  imports: [SharedModule, FooterComponent, HeaderComponent],
   templateUrl: './setting.component.html',
   styleUrl: './setting.component.scss',
 })
