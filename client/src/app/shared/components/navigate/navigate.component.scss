@@ -1,7 +1,70 @@
+.nav-info {
+  padding: 1% 5%;
+  background-color: #f9f9f9;
+  color: rgba(0, 0, 0, 0.8);
+  .group-logo {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #3333;
+    .img-logo {
+      width: 6rem;
+    }
+    .title {
+      font-family: "system ui", sans-serif;
+      font-weight: bold;
+      font-size: large;
+      margin-top: 0.5rem;
+      color: rgba(0, 0, 0, 0.8);
+    }
+    .search {
+      width: 20rem;
+      input {
+        width: 100%;
+        padding: 0.5rem 2rem;
+        border-radius: 1rem;
+        border: 1px solid #3333;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  .nav-left {
+    .logo {
+      cursor: pointer;
+      img {
+        width: 8rem;
+      }
+      h2 {
+        font-family: "system ui", sans-serif;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.8);
+      }
+    }
+    .nav-items {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 1rem;
+      .nav-item {
+        padding: 2% 0%;
+        width: 7rem;
+        color: rgba(0, 0, 0, 0.8);
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+          border-radius: 5px;
+          background-color: #94a3b8;
+        }
+      }
+    }
+  }
+}
+
 .card {
   margin: 0% 5%;
   .container {
-    height: 7rem;
     .nav-left {
       .logo {
         cursor: pointer;

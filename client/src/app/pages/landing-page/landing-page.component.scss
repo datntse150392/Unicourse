@@ -3,14 +3,7 @@
 }
 
 .container {
-  background-color: #f9f9f9 !important;
-  max-width: 100% !important;
-  :host ::ng-deep .button {
-    background-color: none;
-  }
-  .custom-scrolltop {
-    background-color: #f04f2379;
-  }
+  position: relative;
   .card {
     height: 100vh;
     // background-image: url("../../../assets/images/BgImage.png");
@@ -18,15 +11,23 @@
     background-image: url("https://daihoc.fpt.edu.vn/wp-content/uploads/2022/02/HCM-scaled.jpeg");
     // background-color: #ff95008f;
     background-size: cover;
+    .bg-grey {
+      position: absolute;
+      width: 100%;
+      background-color: #171414;
+      height: 82vh;
+      opacity: 0.6;
+    }
     .logan {
       width: 100%;
       text-align: center;
-      color: black;
+      color: #ffffff;
+
       font-weight: bold;
       font-size: 70px;
       transform: translate(0%, 50%);
       .title-1 {
-        color: #e66b23;
+        color: #f17125;
       }
 
       /* DEMO-SPECIFIC STYLES */
@@ -43,7 +44,7 @@
         }
       }
       .title-2 {
-        color: #0066b2;
+        color: #f17125;
       }
       .btn {
         box-shadow: -8px 4px 20px #fc3b5040;

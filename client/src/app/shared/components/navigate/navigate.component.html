@@ -1,13 +1,31 @@
 <p-toast [life]="1000"></p-toast>
-<div class="card">
-  <div class="container flex flex-row justify-content-between">
+<div class="nav-info">
+  <div class="group-logo flex flex-row items-center justify-content-between">
+    <div class="flex flex-row items-center">
+      <img class="img-logo" src="{{ Logo }}" alt="Logo" />
+      <h1 class="title">UNICOURSE</h1>
+    </div>
+    <div class="flex flex-row items-center gap-2">
+      <span class="search p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input placeholder="Tìm kiếm thông tin" type="text" pInputText />
+      </span>
+
+      <img
+        pTooltip="Tiếng việt"
+        width="30"
+        height="30"
+        src="https://img.icons8.com/fluency/48/vietnam-circular.png"
+        alt="vietnam-circular"
+      />
+    </div>
+  </div>
+  <div class="flex flex-row items-center">
     <div class="nav-left w-full flex">
       <div
         [routerLink]="['/']"
         class="logo flex flex-col items-center justify-center"
-      >
-        <img src="{{ Logo }}" alt="Logo" />
-      </div>
+      ></div>
       <div
         class="nav-items flex flex-row justify-content-center align-items-center text-center"
       >
@@ -34,7 +52,7 @@
         </p>
       </div>
     </div>
-    <div class="flex flex-row align-items-center justify-content-between gap-2">
+    <div class="flex flex-row gap-2 mt-3">
       <ng-container *ngIf="user; else unLogin">
         <i
           (click)="redirectToCart()"
@@ -66,4 +84,7 @@
       </ng-template>
     </div>
   </div>
+</div>
+<div class="card">
+  <div class="container flex flex-row justify-content-between"></div>
 </div>
