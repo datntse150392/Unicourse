@@ -19,7 +19,7 @@ module.exports = {
       // customize2: { min: "1400px", max: "1499px" },
       // // => @media (min-width: 1400px and max-width: 1499px) { ... }
 
-      customize3: { min: "1500px" },
+      // customize3: { min: "1500px" },
       // => @media (min-width: 1500px) { ... }
     },
   },

@@ -34,6 +34,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @NgModule({
   imports: [
@@ -73,6 +74,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     BlockUIModule,
     TieredMenuModule,
     ConfirmPopupModule,
+    OverlayPanelModule,
   ],
   declarations: [],
   exports: [
@@ -110,6 +112,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     BlockUIModule,
     TieredMenuModule,
     ConfirmPopupModule,
+    OverlayPanelModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

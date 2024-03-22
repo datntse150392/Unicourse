@@ -11,7 +11,7 @@
     </h4>
   </div>
 
-  <div *ngIf="userDetail" class="header-background shadow">
+  <div *ngIf="userDetail" class="header-background bg-white shadow">
     <img
       class="w-full h-80 object-cover"
       src="../../../assets/images/fillBgProfile.png"
@@ -20,28 +20,28 @@
     <div class="group-info flex">
       <img
         [src]="userDetail.profile_image"
-        class="w-32 h-32 p-1 bg-white rounded-full flex-none"
+        class="w-32 h-32 p-1 mt-3 ml-3 bg-white rounded-full flex-none"
         alt="Avatar"
       />
       <div class="grow grid grid-rows-2 justify-items-end">
         <button
           type="button"
-          class="h-12 customize1:h-10 customize2:h-12 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
+          class="h-12 sm:h-10 md:h-12 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-5 py-2.5 mt-4 mr-4 text-center inline-flex items-center me-2 mb-2"
         >
-          <i class="pi pi-camera mr-3 p-0" style="font-size: 1.5rem"></i>
-          Chỉnh sửa ảnh
+          <i class="pi pi-user mr-3 p-0" style="font-size: 1.2rem"></i>
+          Chỉnh sửa
         </button>
       </div>
     </div>
     <div
-      class="user-info bg-white w-full max-h-32 h-full rounded-b-lg flex flex-row"
+      class="user-info bg-white w-full max-h-32 h-full ml-3 pb-4 rounded-b-lg flex flex-row"
     >
       <div class="basis-6/12 flex flex-row">
         <div
-          class="customize1:basis-5/12 customize2:basis-5/12 customize3:basis-4/12"
+          class="sm:basis-5/12 md:basis-5/12 lg:basis-4/12"
         ></div>
         <div
-          class="customize1:basis-8/12 customize2:basis-9/12 customize3:basis-9/12 pt-2"
+          class="sm:basis-8/12 md:basis-9/12 lg:basis-9/12 pt-2"
         >
           <h4 class="text-2xl font-bold font-customFont text-gray-900">
             {{ userDetail.fullName }}
@@ -67,16 +67,6 @@
             </h5>
           </ng-container>
         </div>
-      </div>
-      <div
-        class="basis-6/12 text-end customize1:mr-24 customize2:mr-28 customize3:mr-36"
-      >
-        <button
-          type="button"
-          class="h-10 border-gray-900 customize1:h-10 customize2:h-10 text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-bold font-customFont rounded-lg text-sm px-10 py-2.5 text-center inline-flex items-center me-2 mb-2 mt-4"
-        >
-          Chỉnh sửa
-        </button>
       </div>
     </div>
   </div>

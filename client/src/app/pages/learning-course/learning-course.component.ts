@@ -6,10 +6,12 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Course, Track, TrackStep } from '../../cores/models';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ChatBotComponent } from './chat-bot/chat-bot.component';
+
 @Component({
   selector: 'app-learning-course',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, ChatBotComponent],
   templateUrl: './learning-course.component.html',
   styleUrl: './learning-course.component.scss',
   encapsulation: ViewEncapsulation.None,
