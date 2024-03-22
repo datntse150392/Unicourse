@@ -60,6 +60,27 @@
       }
     }
   }
+  .btn-sign-up {
+    padding: 0.5rem 1rem;
+    width: 7.5rem;
+    border-radius: 1rem;
+    background: linear-gradient(to right bottom, #ff8f26, #ff5117);
+    p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+  }
+  .btn-sign-in {
+    padding: 0.5rem 1rem;
+    width: 7.5rem;
+    border-radius: 1rem;
+    p {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #000;
+    }
+  }
 }
 
 .card {
@@ -95,27 +116,6 @@
             background-color: #94a3b8;
           }
         }
-      }
-    }
-    .btn-sign-up {
-      padding: 0.5rem 1rem;
-      width: 7.5rem;
-      border-radius: 1rem;
-      background: linear-gradient(to right bottom, #ff8f26, #ff5117);
-      p {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #fff;
-      }
-    }
-    .btn-sign-in {
-      padding: 0.5rem 1rem;
-      width: 7.5rem;
-      border-radius: 1rem;
-      p {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #000;
       }
     }
   }

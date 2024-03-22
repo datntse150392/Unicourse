@@ -1,3 +1,6 @@
+:host ::ng-deep .p-sidebar .p-sidebar-header .p-sidebar-content {
+  overflow-x: hidden !important;
+}
 .card {
   header {
     background: rgb(41, 48, 59);
@@ -181,7 +184,7 @@
   }
 }
 .set-width {
-  width: 25rem;
+  width: 30rem;
   .tree-page {
     display: flex;
     flex-direction: row;
@@ -189,6 +192,7 @@
   }
 
   .card {
+    overflow-x: hidden !important;
     h2 {
       color: #000;
       font-size: 1.2rem;
@@ -200,23 +204,24 @@
       p {
         font-size: 1rem;
         font-weight: 600;
+        width: 100%;
       }
       span {
         color: #29303b;
         font-size: 12px;
         font-weight: 300;
       }
+
       .step-track {
-        margin: -14px;
+        margin-left: -14px !important;
+        width: 30rem !important;
         padding: 1rem 2.5rem;
-        width: 22rem !important;
         display: flex;
         flex-direction: column;
         .duration {
           display: flex;
           flex-direction: row;
           gap: 0.5rem;
-          padding: 0.2rem 0.5rem;
           align-items: center;
           span {
             font-size: 0.8rem;
