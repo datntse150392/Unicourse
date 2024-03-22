@@ -1,15 +1,15 @@
 .nav-info {
-  padding: 1% 5%;
   background-color: #f9f9f9;
   color: rgba(0, 0, 0, 0.8);
   .group-logo {
+    padding: 1% 5%;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #3333;
     .img-logo {
       width: 6rem;
     }
     .title {
-      font-family: "system ui", sans-serif;
+      font-family: "open sans", sans-serif;
       font-weight: bold;
       font-size: large;
       margin-top: 0.5rem;
@@ -27,8 +27,24 @@
         }
       }
     }
+    .group-contact {
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.8);
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        cursor: pointer;
+      }
+      p:nth-child(1),
+      p:nth-child(2) {
+        border-right: 1px solid #3333;
+      }
+    }
   }
   .nav-left {
+    padding: 0% 5%;
+    margin-bottom: 1%;
     .logo {
       cursor: pointer;
       img {
@@ -40,45 +56,58 @@
         color: rgba(0, 0, 0, 0.8);
       }
     }
-    .nav-items {
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-      align-items: center;
-      margin-top: 1rem;
-      .nav-item {
-        padding: 2% 0%;
-        width: 7rem;
-        color: rgba(0, 0, 0, 0.8);
-        font-weight: bold;
-        cursor: pointer;
-        &:hover {
-          color: #fff;
-          border-radius: 5px;
-          background-color: #94a3b8;
+    .nav-item {
+      margin-top: 4%;
+      position: relative; /* Cho phép absolute positioning bên trong .nav-item */
+      padding: 2% 1%;
+      width: 7rem;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      overflow: hidden; /* Giữ cho pseudo-element không vượt ra ngoài .nav-item */
+      &:hover {
+        color: #000;
+        border-radius: 5px;
+        &::before {
+          width: 100%; /* Mở rộng pseudo-element ra toàn bộ chiều rộng khi hover */
         }
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%; /* Bắt đầu từ chiều rộng 0 */
+        height: 2px; /* Đặt chiều cao của border mong muốn */
+        background: #fff; /* Màu của border */
+        transition: width 0.8s ease-in-out; /* Hiệu ứng mượt mà chạy từ 0 đến 100% chiều rộng */
       }
     }
   }
-  .btn-sign-up {
-    padding: 0.5rem 1rem;
-    width: 7.5rem;
-    border-radius: 1rem;
-    background: linear-gradient(to right bottom, #ff8f26, #ff5117);
-    p {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
+  .nav-right {
+    display: flex;
+    align-items: center;
+    padding: 0% 5%;
+    .btn-sign-up {
+      padding: 0.5rem 1rem;
+      width: 7.5rem;
+      border-radius: 1rem;
+      background: linear-gradient(to right bottom, #ff8f26, #ff5117);
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+      }
     }
-  }
-  .btn-sign-in {
-    padding: 0.5rem 1rem;
-    width: 7.5rem;
-    border-radius: 1rem;
-    p {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #000;
+    .btn-sign-in {
+      padding: 0.5rem 1rem;
+      width: 7.5rem;
+      border-radius: 1rem;
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000;
+      }
     }
   }
 }

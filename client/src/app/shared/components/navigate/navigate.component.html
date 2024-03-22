@@ -5,23 +5,32 @@
       <img class="img-logo" src="{{ Logo }}" alt="Logo" />
       <h1 class="title">UNICOURSE</h1>
     </div>
-    <div class="flex flex-row items-center gap-2">
-      <span class="search p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <input placeholder="Tìm kiếm thông tin" type="text" pInputText />
-      </span>
-
-      <img
-        pTooltip="Việt Nam"
-        width="30"
-        height="30"
-        src="https://img.icons8.com/fluency/48/vietnam-circular.png"
-        alt="vietnam-circular"
-      />
+    <div class="flex flex-col items-center gap-2">
+      <div class="group-contact flex flex-row items-center">
+        <p>Hỗ trợ</p>
+        <p>Liên hệ</p>
+        <p>Trở thành giảng viên</p>
+      </div>
+      <div class="flex flex-row items-center gap-2">
+        <span class="search p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input placeholder="Tìm kiếm thông tin" type="text" pInputText />
+        </span>
+        <img
+          pTooltip="Việt Nam"
+          width="30"
+          height="30"
+          src="https://img.icons8.com/fluency/48/vietnam-circular.png"
+          alt="vietnam-circular"
+        />
+      </div>
     </div>
   </div>
-  <div class="flex flex-row items-center">
-    <div class="nav-left w-full flex">
+  <div
+    [ngStyle]="{ 'background-color': 'rgb(242 111 34 / 75%)' }"
+    class="w-full flex flex-row items-center"
+  >
+    <div class="nav-left w-full flex items-center">
       <div
         [routerLink]="['/']"
         class="logo flex flex-col items-center justify-center"
@@ -52,7 +61,7 @@
         </p>
       </div>
     </div>
-    <div class="flex flex-row gap-2 mt-3">
+    <div class="nav-right flex flex-row gap-2">
       <ng-container *ngIf="user; else unLogin">
         <i
           (click)="redirectToCart()"
