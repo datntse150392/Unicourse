@@ -79,7 +79,7 @@
         left: 0;
         width: 0%; /* Bắt đầu từ chiều rộng 0 */
         height: 2px; /* Đặt chiều cao của border mong muốn */
-        background: #fff; /* Màu của border */
+        background: #000; /* Màu của border */
         transition: width 0.8s ease-in-out; /* Hiệu ứng mượt mà chạy từ 0 đến 100% chiều rộng */
       }
     }
