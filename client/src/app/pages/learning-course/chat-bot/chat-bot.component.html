@@ -10,6 +10,7 @@
                     alt="Avatar"
                 />
                 <h5 class="mb-2 mr-4 uppercase font-customFont text-xl font-bold tracking-tight text-gray-900">Unicourse Assistant</h5>
+                <i class="pi pi-minus p-2 mr-2 close-btn cursor-pointer rounded-full bg-slate-200" (click)="op.toggle($event)"></i>
                 <i class="pi pi-times p-2 close-btn cursor-pointer rounded-full bg-slate-200" (click)="toggleOverlay(op, $event)"></i>
             </div>
 
@@ -33,14 +34,10 @@
 
             <!-- Khung AI trả lời -->
             <label for="message" class="block m-2 mt-0 text-sm font-medium font-customFont text-gray-900">Trả lời của AI</label>
-            <textarea id="message" [(ngModel)]="displayText" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            <textarea id="message" [(ngModel)]="displayText" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
 
             <!-- Khung seeding -->
             <div>
-                <div class="seeding w-full h-[88px] py-3 mt-4 bg-neutral-100 rounded-2xl justify-start items-center inline-flex">
-                    <div class="w-[317px] text-center text-neutral-400 text-base font-medium font-customFont leading-tight">Unicourse Assistant tích hợp AI giúp các bạn research ngay trong quá trình tự học</div>
-                </div>
-    
                 <div class="seeding w-full h-[88px] py-3 mt-4 bg-neutral-100 rounded-2xl justify-start items-center inline-flex">
                     <div class="w-[317px] text-center text-neutral-400 text-base font-medium font-customFont leading-tight">
                         <span>Nâng cấp VIP chỉ với 99k cho sinh viên FPT! </span>
@@ -54,7 +51,7 @@
     </p-overlayPanel>
 
     <!-- Button chatbot -->
-    <button (click)="toggleOverlay(op, $event)" type="button">
+    <button (click)="op.toggle($event)" type="button">
         <svg class="chatbot-icon" width="50" height="50" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_3812_6196)">
                 <circle cx="35" cy="35" r="35" fill="#17C3CE" />
