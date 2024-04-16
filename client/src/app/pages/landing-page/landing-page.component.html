@@ -83,8 +83,8 @@
     </div>
   </div>
 
-  <!-- Các khóa học tại chuyên ngành 1 -->
-  <ng-container *ngIf="courseSemester1 && courseSemester1.length > 0">
+  <!-- Các khóa học của Khối 10 -->
+  <ng-container *ngIf="courseClass10 && courseClass10.length > 0">
     <div class="semester">
       <span
         [ngStyle]="{
@@ -97,7 +97,7 @@
       <div class="title flex flex-row relative">
         <div class="flex flex-row gap-1">
           <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-            Chuyên Ngành 1
+            Các Khóa Học Khối 10
           </h1>
           <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
         </div>
@@ -108,8 +108,11 @@
       </div>
 
       <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of courseSemester1" class="course col-3">
-          <img src="{{ course.thumbnail }}" />
+        <div *ngFor="let course of courseClass10" class="course col-3">
+          <img
+            [ngStyle]="{ 'object-fit': 'contain' }"
+            src="{{ course.thumbnail }}"
+          />
           <p-button
             class="register-button flipup animation-duration-300"
             [style]="{
@@ -142,8 +145,8 @@
     </div>
   </ng-container>
 
-  <!-- Các khóa học tại chuyên ngành 2 -->
-  <ng-container *ngIf="courseSemester2 && courseSemester2.length > 0">
+  <!-- Các khóa học của Khối 11 -->
+  <ng-container *ngIf="courseClass11 && courseClass11.length > 0">
     <div class="semester">
       <span
         [ngStyle]="{
@@ -156,7 +159,7 @@
       <div class="title flex flex-row relative">
         <div class="flex flex-row gap-1">
           <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-            Chuyên Ngành 2
+            Các Khóa Học Khối 11
           </h1>
           <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
         </div>
@@ -167,8 +170,11 @@
       </div>
 
       <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of courseSemester2" class="course col-3">
-          <img src="{{ course.thumbnail }}" />
+        <div *ngFor="let course of courseClass11" class="course col-3">
+          <img
+            [ngStyle]="{ 'object-fit': 'contain' }"
+            src="{{ course.thumbnail }}"
+          />
           <p-button
             class="register-button flipup animation-duration-300"
             [style]="{
@@ -201,74 +207,67 @@
     </div>
   </ng-container>
 
-  <!-- Feedback -->
-  <div
-    class="feedback flex flex-column justify-content-center align-items-center"
-  >
-    <h2>Cảm nhận của học viên về Unicourse?</h2>
-    <div class="user grid flex flex-row">
-      <div class="col-4 text-center">
-        <div class="fb-user p-4">
-          <p-avatar
-            image="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Ficons8-person-100.png?alt=media&token=b286a20f-ba68-4a8b-8b44-c210da1e2875"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-          <h4>Bùi Đức Trí</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-          <p>
-            Các khóa học của Unicourse rất bổ ích với mình. Nhờ các khóa học mà
-            minh đạt được thành tích tốt trong kỳ vừa rồi.
-          </p>
+  <!-- Các khóa học của Khối 10 -->
+  <ng-container *ngIf="courseClass12 && courseClass12.length > 0">
+    <div class="semester">
+      <span
+        [ngStyle]="{
+          color: '#82919b',
+          'font-size': '14px',
+          'font-weight': '600'
+        }"
+        >20+ người đã học</span
+      >
+      <div class="title flex flex-row relative">
+        <div class="flex flex-row gap-1">
+          <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
+            Các Khóa Học Khối 12
+          </h1>
+          <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
+        </div>
+        <div class="road-map">
+          <p>Xem lộ trình</p>
+          <i class="icon pi pi-angle-right" style="font-size: 1.2rem"></i>
         </div>
       </div>
-      <div class="col-4 text-center">
-        <div class="fb-user-2 p-4">
-          <p-avatar
-            image="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Ficons8-person-100.png?alt=media&token=b286a20f-ba68-4a8b-8b44-c210da1e2875"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-          <h4>Đinh Gia Bảo</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-          <p>
-            Nhờ có khóa học React của Unicourse mà mình đã làm được project cá
-            nhân khá chỉnh chu. Cảm ơn Unicourse rất nhiều.
-          </p>
-        </div>
-      </div>
-      <div class="col-4 text-center">
-        <div class="fb-user p-4">
-          <p-avatar
-            image="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Ficons8-person-100.png?alt=media&token=b286a20f-ba68-4a8b-8b44-c210da1e2875"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-          <h4>Nguyễn Trung Kiên</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-          <p>
-            Các giảng viên của Unicourse rất nhiệt huyết và giảng dạy rất có
-            tâm.
-          </p>
+
+      <div class="flex flex-wrap align-items-center justify-content-start">
+        <div *ngFor="let course of courseClass12" class="course col-3">
+          <img
+            [ngStyle]="{ 'object-fit': 'contain' }"
+            src="{{ course.thumbnail }}"
+          />
+          <p-button
+            class="register-button flipup animation-duration-300"
+            [style]="{
+              background: '#fff',
+              border: '10px solid #fff',
+              'border-radius': '2rem'
+            }"
+          >
+            <span
+              (click)="hanleGetCourseDetail(course._id)"
+              class="font-bold"
+              [style]="{ color: '#000' }"
+              >Xem khóa học</span
+            >
+          </p-button>
+          <h3
+            class="mb-1 mt-1 text-lg"
+            [ngStyle]="{
+              color: '#292929'
+            }"
+          >
+            {{ course.title }}
+          </h3>
+          <div class="flex flex-row gap-2 align-items-center">
+            <i class="pi pi-users" style="color: #708090"></i>
+            <span>{{ course.enrollmentCount }} người đã tham gia</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 
   <!-- Contact -->
   <div class="contact pb-5">

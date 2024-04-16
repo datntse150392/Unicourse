@@ -166,6 +166,7 @@
     }
 
     .btn-sidebar {
+      position: absolute;
       cursor: pointer;
       display: flex;
       flex-direction: row;
@@ -173,8 +174,8 @@
       justify-content: center;
       align-items: center;
       border-radius: 50%;
-      position: absolute;
-      right: -6%;
+      align-self: flex-start;
+      left: 2%;
       transform: translate(-50%, 50%);
       p {
         color: #000;

@@ -14,13 +14,12 @@ import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.se
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  public coursesFree: Course[] = [];
-  public courseSemester1: Course[] = [];
-  public courseSemester2: Course[] = [];
-  public coursePro: Course[] = [];
   public userInfo!: User;
   public myCourses!: any;
   public value = 5;
+  public courseClass10: Course[] = [];
+  public courseClass11: Course[] = [];
+  public courseClass12: Course[] = [];
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -52,53 +51,45 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       }
     }
 
-    const coursesFreeSub$ = this.courseService.getCourseFree().subscribe({
-      next: (res: any) => {
-        this.coursesFree = res.data;
-        this.courseService.listcoursesPro = res.data;
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
-
-    const courseSemester1Sub$ = this.courseService
-      .getCoursebySemester('1')
+    // Lấy danh sách khóa học của khối 10
+    const courseClass10Sub$ = this.courseService
+      .getCourseByClass(10)
       .subscribe({
         next: (res: any) => {
-          this.courseSemester1 = res.data;
+          this.courseClass10 = res.data;
         },
         error: (err: any) => {
           console.log(err);
         },
       });
 
-    const courseSemester2Sub$ = this.courseService
-      .getCoursebySemester('2')
+    // Lấy danh sách khóa học của khối 11
+    const courseClass11Sub$ = this.courseService
+      .getCourseByClass(11)
       .subscribe({
         next: (res: any) => {
-          this.courseSemester2 = res.data;
+          this.courseClass11 = res.data;
         },
         error: (err: any) => {
           console.log(err);
         },
       });
 
-    // Lấy danh sách khóa học PRO
-    const courseProSub$ = this.courseService.getCoursePro().subscribe({
-      next: (res: any) => {
-        this.coursePro = res.data;
-        this.courseService.listcoursesPro = res.data;
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
+    // Lấy danh sách khóa học của khối 12
+    const courseClass12Sub$ = this.courseService
+      .getCourseByClass(12)
+      .subscribe({
+        next: (res: any) => {
+          this.courseClass12 = res.data;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
 
-    this.subscriptions.push(coursesFreeSub$);
-    this.subscriptions.push(courseSemester1Sub$);
-    this.subscriptions.push(courseSemester2Sub$);
-    this.subscriptions.push(courseProSub$);
+    this.subscriptions.push(courseClass10Sub$);
+    this.subscriptions.push(courseClass11Sub$);
+    this.subscriptions.push(courseClass12Sub$);
   }
 
   // Lấy tất cả các khóa học đã đăng ký

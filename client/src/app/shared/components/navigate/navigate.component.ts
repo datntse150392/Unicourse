@@ -89,7 +89,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
           {
             label: 'Uni Coin',
             command: () => {
-              this.redirectToProfile();
+              this.redirectToUniCoin();
             },
           },
         ],
@@ -166,6 +166,10 @@ export class NavigateComponent implements OnInit, OnDestroy {
 
   redirectToSettingPersonal() {
     this.router.navigate([`/setting/personal`]);
+  }
+
+  redirectToUniCoin() {
+    this.router.navigate([`uni-coins`]);
   }
 
   // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io

@@ -132,12 +132,12 @@
       ></i>
     </div>
     <div class="btn-sidebar">
-      <p *ngIf="track">{{ track.chapterTitle }}</p>
       <i
         (click)="toggleSidebar()"
         class="pi pi-align-justify"
         style="font-size: 1.5rem"
       ></i>
+      <!-- <p *ngIf="track">{{ track.chapterTitle }}</p> -->
     </div>
     <app-chat-bot class="absolute right-3 bottom-20"></app-chat-bot>
   </footer>
@@ -145,7 +145,7 @@
 
 <!-- Sidebar Learning -->
 <div class="card flex flex-wrap justify-content-center gap-2">
-  <p-sidebar [(visible)]="sidebar" styleClass="set-width" position="right">
+  <p-sidebar [(visible)]="sidebar" styleClass="set-width" position="left">
     <div class="card flex flex-col justify-content-center">
       <h2>Nội dung khóa học</h2>
 
