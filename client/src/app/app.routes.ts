@@ -15,6 +15,7 @@ import { SettingPersonalComponent } from './pages/setting-personal/setting-perso
 import { BlogDetailPageComponent } from './pages/blog-detail-page/blog-detail-page.component';
 import { loginSystemGuard } from './cores/guards/login-system.guard';
 import { ChatRoomPageComponent } from './pages/chat-room-page/chat-room-page.component';
+import { UniCoinPageComponent } from './pages/uni-coin-page/uni-coin-page.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,10 @@ export const routes: Routes = [
         path: 'profile/:id/cart',
         component: CartPageComponent,
         canActivate: [loginSystemGuard],
+      },
+      {
+        path: 'uni-coins',
+        component: UniCoinPageComponent,
       },
     ],
   },

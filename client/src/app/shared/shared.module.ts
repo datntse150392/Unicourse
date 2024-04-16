@@ -35,6 +35,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TabViewModule } from 'primeng/tabview';
 
 @NgModule({
   imports: [
@@ -75,6 +76,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     TieredMenuModule,
     ConfirmPopupModule,
     OverlayPanelModule,
+    TabViewModule,
   ],
   declarations: [],
   exports: [
@@ -113,6 +115,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     TieredMenuModule,
     ConfirmPopupModule,
     OverlayPanelModule,
+    TabViewModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

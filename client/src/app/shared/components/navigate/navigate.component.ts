@@ -86,6 +86,12 @@ export class NavigateComponent implements OnInit, OnDestroy {
               this.redirectToCart();
             },
           },
+          {
+            label: 'Uni Coin',
+            command: () => {
+              this.redirectToProfile();
+            },
+          },
         ],
       },
       {

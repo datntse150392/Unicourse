@@ -9,11 +9,12 @@
       width: 6rem;
     }
     .title {
-      font-family: "open sans", sans-serif;
-      font-weight: bold;
+      font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+      font-weight: 900;
       font-size: large;
       margin-top: 0.5rem;
-      color: rgba(0, 0, 0, 0.8);
+      color: #111827;
     }
     .search {
       width: 20rem;
