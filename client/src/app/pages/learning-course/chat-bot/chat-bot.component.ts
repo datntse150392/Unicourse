@@ -78,5 +78,6 @@ export class ChatBotComponent {
   clearForm() {
     this.displayText = '';
     this.questionText = '';
+    this.i = 0;
   }
 }
