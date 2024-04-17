@@ -1,92 +1,111 @@
-<div class="card flex justify-content-center">
-    <!-- Form hỏi đáp -->
-    <p-overlayPanel #op>
-        <div class="max-w-lg bg-white rounded-lg shadow overscroll-auto" >
-            <!-- Header -->
-            <div class="flex flow-row items-center justify-around">
-                <img
-                    src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/README%2FLogo%20UniCourse.svg?alt=media&token=d05b64f7-5f30-49ea-a4ae-f553a5196e38"
-                    class="avatar p-1 bg-white rounded-full shadow shadow-gray-900 flex-none"
-                    alt="Avatar"
-                />
-                <h5 class="mb-2 mr-4 uppercase font-customFont text-xl font-bold tracking-tight text-gray-900">Unicourse Assistant</h5>
-                <i class="pi pi-minus p-2 mr-2 close-btn cursor-pointer rounded-full bg-slate-200" (click)="op.toggle($event)"></i>
-                <i class="pi pi-times p-2 close-btn cursor-pointer rounded-full bg-slate-200" (click)="toggleOverlay(op, $event)"></i>
-            </div>
+<div class="flex justify-content-center">
+  <!-- Form hỏi đáp -->
+  <p-overlayPanel #op>
+    <div
+      [ngStyle]="{ padding: '1rem' }"
+      class="max-w-lg bg-white rounded-lg shadow overscroll-auto"
+    >
+      <!-- Header -->
+      <div class="flex flow-row items-center justify-around">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/README%2FLogo%20UniCourse.svg?alt=media&token=d05b64f7-5f30-49ea-a4ae-f553a5196e38"
+          class="avatar p-1 bg-white rounded-full shadow shadow-gray-900 flex-none"
+          alt="Avatar"
+        />
+        <h5
+          class="mb-2 mr-4 uppercase font-customFont text-xl font-bold tracking-tight text-gray-900"
+        >
+          Unicourse Assistant
+        </h5>
+        <i
+          class="pi pi-minus p-2 mr-2 close-btn cursor-pointer rounded-full bg-slate-200"
+          (click)="op.toggle($event)"
+        ></i>
+        <i
+          class="pi pi-times p-2 close-btn cursor-pointer rounded-full bg-slate-200"
+          (click)="toggleOverlay(op, $event)"
+        ></i>
+      </div>
 
-            <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700">
+      <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700" />
 
-            <!-- Khung hỏi -->
-            <label for="message" class="block m-2 text-sm font-medium font-customFont text-gray-900">Nội dung</label>
-            <textarea autofocus id="message" [(ngModel)]="questionText" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Nhập câu hỏi hoặc đoạn văn..."></textarea>
+      <!-- Khung hỏi -->
+      <label
+        for="message"
+        class="block m-2 text-sm font-medium font-customFont text-gray-900"
+        >Nội dung</label
+      >
+      <textarea
+        autofocus
+        id="message"
+        [(ngModel)]="questionText"
+        rows="4"
+        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Nhập câu hỏi hoặc đoạn văn..."
+      ></textarea>
 
-            <!-- Hỏi Button -->
-            <div class="flex flex-row">
-                <button type="button" (click)="askQuestion()" class="py-2.5 px-5 me-2 m-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
-                    <i class="pi pi-question-circle mr-2"></i>
-                    <span>Hỏi</span>
-                </button>
-                <button type="button" (click)="clearForm()" class="py-2.5 px-5 me-2 m-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">
-                    <i class="pi pi-eraser mr-2"></i>
-                    <span>Làm mới</span>
-                </button>
-            </div>
+      <!-- Hỏi Button -->
+      <div class="flex flex-row">
+        <button
+          type="button"
+          (click)="askQuestion()"
+          class="py-2.5 px-5 me-2 m-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+        >
+          <i class="pi pi-question-circle mr-2"></i>
+          <span>Hỏi</span>
+        </button>
+        <button
+          type="button"
+          (click)="clearForm()"
+          class="py-2.5 px-5 me-2 m-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+        >
+          <i class="pi pi-eraser mr-2"></i>
+          <span>Làm mới</span>
+        </button>
+      </div>
 
-            <!-- Khung AI trả lời -->
-            <label for="message" class="block m-2 mt-0 text-sm font-medium font-customFont text-gray-900">Trả lời của AI</label>
-            <textarea id="message" [(ngModel)]="displayText" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+      <!-- Khung AI trả lời -->
+      <label
+        for="message"
+        class="block m-2 mt-0 text-sm font-medium font-customFont text-gray-900"
+        >Trả lời của AI</label
+      >
+      <textarea
+        id="message"
+        [(ngModel)]="displayText"
+        rows="6"
+        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+      ></textarea>
 
-            <!-- Khung seeding -->
-            <div>
-                <div class="seeding w-full h-[88px] py-3 mt-4 bg-neutral-100 rounded-2xl justify-start items-center inline-flex">
-                    <div class="w-[317px] text-center text-neutral-400 text-base font-medium font-customFont leading-tight">
-                        <span>Nâng cấp VIP chỉ với 99k cho sinh viên FPT! </span>
-                        <span class="text-cyan-500 text-blue-600 font-semibold font-customFont underline leading-tight hover:underline cursor-pointer">Nâng cấp ngay</span>
-                        <span> 🚀</span>
-                    </div>
-                </div>
-            </div>
-
+      <!-- Khung seeding -->
+      <div>
+        <div
+          class="seeding w-full h-[88px] py-3 mt-4 bg-neutral-100 rounded-2xl justify-start items-center inline-flex"
+        >
+          <div
+            class="w-[317px] text-center text-neutral-400 text-base font-medium font-customFont leading-tight"
+          >
+            <span>Nâng cấp VIP chỉ với 99k cho sinh viên FPT! </span>
+            <span
+              class="text-cyan-500 text-blue-600 font-semibold font-customFont underline leading-tight hover:underline cursor-pointer"
+              >Nâng cấp ngay</span
+            >
+            <span> 🚀</span>
+          </div>
         </div>
-    </p-overlayPanel>
+      </div>
+    </div>
+  </p-overlayPanel>
 
-    <!-- Button chatbot -->
-    <button (click)="op.toggle($event)" type="button">
-        <svg class="chatbot-icon" width="50" height="50" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_d_3812_6196)">
-                <circle cx="35" cy="35" r="35" fill="#17C3CE" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M27.7971 22.1905H42.2029C43.9917 22.1904 45.4681 22.1904 46.6707 22.2894C47.9198 22.3922 49.0681 22.6128 50.1466 23.1662C51.8191 24.0245 53.179 25.3941 54.0312 27.0786C54.5807 28.1648 54.7997 29.3212 54.9018 30.5792C55.0001 31.7905 55 33.2774 55 35.0789V45.1115C55 46.9131 55.0001 48.4 54.9018 49.6112C54.7997 50.8693 54.5807 52.0257 54.0312 53.1119C53.179 54.7964 51.8191 56.166 50.1466 57.0243C49.0681 57.5777 47.9198 57.7983 46.6707 57.9011C45.4681 58.0001 43.9917 58 42.2028 58H27.7972C26.0083 58 24.5319 58.0001 23.3293 57.9011C22.0802 57.7983 20.9319 57.5777 19.8534 57.0243C18.1809 56.166 16.821 54.7964 15.9688 53.1119C15.4193 52.0257 15.2003 50.8693 15.0982 49.6112C14.9999 48.4 15 46.9131 15 45.1115V35.079C15 33.2774 14.9999 31.7905 15.0982 30.5792C15.2003 29.3212 15.4193 28.1648 15.9688 27.0786C16.821 25.3941 18.1809 24.0245 19.8534 23.1662C20.9319 22.6128 22.0802 22.3922 23.3293 22.2894C24.5319 22.1904 26.0083 22.1904 27.7971 22.1905ZM23.6912 26.7507C22.7169 26.8309 22.2187 26.9762 21.8712 27.1545C21.0349 27.5837 20.355 28.2685 19.9289 29.1107C19.7518 29.4607 19.6075 29.9625 19.5279 30.9438C19.4462 31.9511 19.4444 33.2543 19.4444 35.1714V45.019C19.4444 46.9362 19.4462 48.2394 19.5279 49.2467C19.6075 50.2279 19.7518 50.7297 19.9289 51.0798C20.355 51.922 21.0349 52.6068 21.8712 53.0359C22.2187 53.2143 22.7169 53.3596 23.6912 53.4398C24.6914 53.5221 25.9854 53.5238 27.8889 53.5238H42.1111C44.0146 53.5238 45.3086 53.5221 46.3088 53.4398C47.2831 53.3596 47.7813 53.2143 48.1288 53.0359C48.9651 52.6068 49.645 51.922 50.0711 51.0798C50.2482 50.7297 50.3925 50.2279 50.4721 49.2467C50.5538 48.2394 50.5556 46.9362 50.5556 45.019V35.1714C50.5556 33.2543 50.5538 31.9511 50.4721 30.9438C50.3925 29.9625 50.2482 29.4607 50.0711 29.1107C49.645 28.2685 48.9651 27.5837 48.1288 27.1545C47.7813 26.9762 47.2831 26.8309 46.3088 26.7507C45.3086 26.6684 44.0146 26.6667 42.1111 26.6667H27.8889C25.9854 26.6667 24.6914 26.6684 23.6912 26.7507Z"
-                    fill="white" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M30.5556 16.4386L30.5556 17.7144L26.1111 17.7141L26.1113 14.5765L26.7295 13.9272C27.2684 13.3611 28.0723 12.5379 29.4775 11.9239C30.8366 11.33 32.5891 11 35.0001 11C37.4111 11 39.1636 11.33 40.5227 11.9239C41.9279 12.538 42.7318 13.3612 43.2706 13.9271L43.8889 14.5765V17.7143H39.4444V16.4385C39.2478 16.284 39.0321 16.1519 38.7536 16.0302C38.1317 15.7584 37.0335 15.4762 35.0001 15.4762C32.9667 15.4762 31.8685 15.7584 31.2466 16.0302C30.968 16.1519 30.7523 16.284 30.5556 16.4386Z"
-                    fill="white" />
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M35.0012 49.0476C32.3549 49.0491 29.6519 48.3651 27 46.3619L29.6667 42.781C31.4592 44.1349 33.1968 44.5724 34.9988 44.5714C36.8008 44.5704 38.5423 44.1338 40.3333 42.781L43 46.3619C40.3466 48.3662 37.6398 49.0462 35.0012 49.0476Z"
-                    fill="white" />
-                <path
-                    d="M23.8889 36.7381C23.8889 34.884 25.3813 33.381 27.2222 33.381C29.0632 33.381 30.5556 34.884 30.5556 36.7381C30.5556 38.5922 29.0632 40.0952 27.2222 40.0952C25.3813 40.0952 23.8889 38.5922 23.8889 36.7381Z"
-                    fill="white" />
-                <path
-                    d="M39.4444 36.7381C39.4444 34.884 40.9368 33.381 42.7778 33.381C44.6187 33.381 46.1111 34.884 46.1111 36.7381C46.1111 38.5922 44.6187 40.0952 42.7778 40.0952C40.9368 40.0952 39.4444 38.5922 39.4444 36.7381Z"
-                    fill="white" />
-            </g>
-            <defs>
-                <filter id="filter0_d_3812_6196" x="-4" y="0" width="78" height="78" filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                        result="hardAlpha" />
-                    <feOffset dy="4" />
-                    <feGaussianBlur stdDeviation="2" />
-                    <feComposite in2="hardAlpha" operator="out" />
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3812_6196" />
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3812_6196" result="shape" />
-                </filter>
-            </defs>
-        </svg>
+  <!-- Button chatbot -->
+  <button (click)="op.toggle($event)" type="button">
+    <div class="chat-bot" pTooltip="Chat với AI">
+      <img
+        [ngStyle]="{ width: '4rem', height: '4rem' }"
+        src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Logo%2Fchatbot.svg?alt=media&token=eaf2ab54-5688-432f-9510-a4058e729e0c"
+      />
+    </div>
 
-        <span class="sr-only">Icon description</span>
-    </button>
+    <span class="sr-only">Icon description</span>
+  </button>
 </div>

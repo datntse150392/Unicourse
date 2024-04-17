@@ -1,9 +1,17 @@
 .avatar {
-    width: 3.5rem;
-    height: 3.5rem;
-    object-fit: contain;
-    margin: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  margin: 1rem;
 }
 .seeding {
-    place-content: center;
+  place-content: center;
+}
+
+.chat-bot {
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  background-color: #040000;
+  border-radius: 100%;
 }

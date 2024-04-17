@@ -4,3 +4,4 @@ export * from './dialog.model';
 export * from './cart.model';
 export * from './blog.model';
 export * from './voucher.model';
+export * from './coin.model';

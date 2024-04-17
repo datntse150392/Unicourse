@@ -1,3 +1,5 @@
+import { Coin } from './coin.model';
+
 export interface User {
   _id: string;
   email: string;
@@ -12,6 +14,8 @@ export interface User {
   create_at: string;
   update_at: string;
   published_at: string;
+  class: string;
+  coins: Array<Coin>;
 }
 
 export interface EnrollCourses {
