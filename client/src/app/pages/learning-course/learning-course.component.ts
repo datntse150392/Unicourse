@@ -54,6 +54,9 @@ export class LearningCourseComponent implements OnDestroy {
       this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
         `https://www.youtube.com/embed/${this.conntent_url}`
       );
+      // this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      //   `https://drive.google.com/file/d/13UO5zu5UuZyCJP541RRrjIpFrSjE3RyF/preview`
+      // )
       this.getNextLesson();
       this.getPrevLesson();
     });
