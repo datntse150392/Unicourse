@@ -5,3 +5,4 @@ export * from './cart.model';
 export * from './blog.model';
 export * from './voucher.model';
 export * from './coin.model';
+export * from './checking-daily-event.model';
