@@ -12,6 +12,7 @@ import {
   CartService,
   SharedService,
   VoucherService,
+  CoinService,
 } from '../../cores/services';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 import {
@@ -45,12 +46,15 @@ export class CartPageComponent implements OnInit, OnDestroy {
   public vouchers: Voucher[] = [];
   public voucherDetail: Voucher | undefined;
   public voucherCode: string | undefined;
-  public isApplyVoucher: boolean = false;
-  public errorVoucher: boolean = false;
   public totalAmountBeforeApplyVoucher = 0;
   public payPalConfig?: IPayPalConfig;
+  public totalCoin: number = 0;
+
   public isProgressSpinner: boolean = false;
   public blockedUI: boolean = true;
+  public isApplyVoucher: boolean = false;
+  public errorVoucher: boolean = false;
+  public isUseCoin: boolean = false;
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -60,7 +64,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private dialogBroadcastService: DialogBroadcastService,
     private voucherService: VoucherService,
-    private readonly transactionService: TransactionService
+    private readonly transactionService: TransactionService,
+    private readonly coinService: CoinService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -154,9 +159,21 @@ export class CartPageComponent implements OnInit, OnDestroy {
         }
       },
     });
+
+    const totalCoinSub$ = this.coinService.getTotalCoinByUserId().subscribe({
+      next: (res: any) => {
+        if (res && res.status === 200) {
+          this.totalCoin = res.data;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
     this.subscriptions.push(coursesFreeSub$);
     this.subscriptions.push(cartSub$);
     this.subscriptions.push(getAllVoucherSubs$);
+    this.subscriptions.push(totalCoinSub$);
 
     this.blockedUI = false;
   }
@@ -322,6 +339,10 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
                 // Config paypal when apply voucher
                 this.configPaypal(this.totalAmountBeforeApplyVoucher);
+
+                if (this.isUseCoin) {
+                  this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+                }
               }
             }
           },
@@ -352,6 +373,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
       this.voucherCode = '';
       this.totalAmountBeforeApplyVoucher = this.cart.amount || 0;
       this.voucherDetail = undefined;
+      if (this.isUseCoin) {
+        this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+      }
     }
   }
 
@@ -434,5 +458,29 @@ export class CartPageComponent implements OnInit, OnDestroy {
           });
       }
     } catch (error) {}
+  }
+
+  // Hàm xử lý thanh toán bằng coin
+  applyCoin() {
+    this.isUseCoin = !this.isUseCoin;
+    if (
+      this.isUseCoin &&
+      this.totalCoin > 0 &&
+      this.totalCoin > this.totalAmountBeforeApplyVoucher
+    ) {
+      this.totalAmountBeforeApplyVoucher = 0;
+    } else if (
+      this.isUseCoin &&
+      this.totalCoin > 0 &&
+      this.totalCoin < this.totalAmountBeforeApplyVoucher
+    ) {
+      this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+    } else if (
+      !this.isUseCoin &&
+      this.totalCoin > 0 &&
+      this.totalCoin < this.totalAmountBeforeApplyVoucher
+    ) {
+      this.totalAmountBeforeApplyVoucher += this.totalCoin;
+    }
   }
 }

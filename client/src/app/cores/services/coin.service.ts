@@ -10,9 +10,13 @@ export class CoinService {
 
   getCoinByUserId(): Observable<Coin> {
     return this.httpClient
-      .get<any>(`${environment.baseUrl}/api/coins/get-coin`, {
-        headers: {},
-      })
+      .get<any>(`${environment.baseUrl}/api/coins/get-coin`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getTotalCoinByUserId(): Observable<number> {
+    return this.httpClient
+      .get<number>(`${environment.baseUrl}/api/coins/get-total-coin`)
       .pipe(catchError(this.handleError));
   }
 
