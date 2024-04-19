@@ -13,6 +13,12 @@ export class CheckingDailyEventService {
       .pipe(catchError(this.handleError));
   }
 
+  attendCheckingDailyEvent(dailyId: string): Observable<any> {
+    return this.httpClient
+      .put<any>(`${environment.baseUrl}/api/checkingDaily/mark/${dailyId}`, {})
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

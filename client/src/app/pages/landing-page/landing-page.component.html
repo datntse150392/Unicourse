@@ -42,7 +42,34 @@
                   src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
                 />
               </div>
-              <p class="active-day">Hôm nay</p>
+
+              <ng-container
+                *ngIf="
+                  checkUserJoinEvent(event.list_users);
+                  else expiredAndNotCheckin
+                "
+              >
+                <div class="flex items-center justify-center">
+                  <img
+                    [ngStyle]="{ width: '3rem' }"
+                    class="flex items-center"
+                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/dailycheckin/00d5f0b0136ba898b7684a755f587183.png"
+                  />
+                </div>
+
+                <div class="btn-take-coin-back">
+                  <p class="m-0">Quay lại vào ngày mai để nhận 100 xu</p>
+                </div>
+              </ng-container>
+              <ng-template #expiredAndNotCheckin>
+                <p class="active-day">Hôm nay</p>
+                <div
+                  (click)="attendCheckingDailyEvent(event._id)"
+                  class="btn-take-coin"
+                >
+                  <p class="m-0">Nhận ngay 100 xu</p>
+                </div>
+              </ng-template>
             </div>
           </ng-container>
           <ng-template #NotEventToday>
@@ -57,7 +84,23 @@
                     src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
                   />
                 </div>
-                <p>Quá hạn</p>
+                <ng-container
+                  *ngIf="
+                    checkUserJoinEvent(event.list_users);
+                    else expiredAndNotCheckin
+                  "
+                >
+                  <div class="flex items-center justify-center">
+                    <img
+                      [ngStyle]="{ width: '3rem' }"
+                      class="flex items-center"
+                      src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/dailycheckin/00d5f0b0136ba898b7684a755f587183.png"
+                    />
+                  </div>
+                </ng-container>
+                <ng-template #expiredAndNotCheckin>
+                  <p>Quá hạn</p>
+                </ng-template>
               </div>
             </ng-container>
             <ng-template #isNotExpired>
@@ -74,9 +117,6 @@
             </ng-template>
           </ng-template>
         </ng-container>
-      </div>
-      <div class="btn-take-coin">
-        <p class="m-0">Nhận ngay 100 xu</p>
       </div>
     </div>
   </div>

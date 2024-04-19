@@ -184,4 +184,42 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     }
     return false;
   }
+
+  // Kiểm tra xem user đã tham gia sự kiện kiểm tra hàng ngày chưa
+  checkUserJoinEvent(listUsers: string[]): any {
+    if (listUsers.includes(this.userInfo._id)) {
+      return true;
+    }
+    return false;
+  }
+
+  // Tham gia sự kiện kiểm tra hàng ngày
+  attendCheckingDailyEvent(dailyId: string): void {
+    const attendCheckingDailyEventSub$ = this.checkingDailyEventService
+      .attendCheckingDailyEvent(dailyId)
+      .subscribe({
+        next: (res: any) => {
+          if (res.status === 200) {
+            this.dialogBroadcastService.broadcastDialog({
+              header: 'Thông báo',
+              message: 'Tham gia sự kiện kiểm tra hàng ngày thành công!',
+              type: 'success',
+              display: true,
+            });
+            this.initForm();
+          }
+        },
+        error: (err: any) => {
+          this.dialogBroadcastService.broadcastDialog({
+            header: 'Thông báo',
+            message:
+              'Bạn đã điểm danh sự kiện này rồi, quay lại vào ngày mai nhé!',
+            type: 'error',
+            display: true,
+          });
+          console.log(err);
+        },
+      });
+    this.subscriptions.push(attendCheckingDailyEventSub$);
+  }
 }
