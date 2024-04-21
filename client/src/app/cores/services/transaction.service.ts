@@ -14,7 +14,8 @@ export class TransactionService {
     total_new_amount: number,
     voucher_id: string | null,
     status: string,
-    transaction_code: string
+    transaction_code: string,
+    used_coin: boolean
   ) {
     const body = {
       payer,
@@ -24,6 +25,7 @@ export class TransactionService {
       voucher_id,
       status,
       transaction_code,
+      used_coin,
     };
     return this.httpClient
       .post<any>(`${environment.baseUrl}/api/transactions/pay`, body)
@@ -42,7 +44,7 @@ export class TransactionService {
       amount: total_new_amount,
       bankCode: 'VNBANK',
       locale: 'vn',
-      transactionCode: transactionCode
+      transactionCode: transactionCode,
     };
     localStorage.setItem('cart_id', cart_id);
     localStorage.setItem('payment_method', payment_method);
@@ -50,8 +52,15 @@ export class TransactionService {
     voucher_id && localStorage.setItem('voucher_id', voucher_id);
     localStorage.setItem('transaction_code', transactionCode);
     return this.httpClient
-      .post<any>(`${environment.baseUrl}/api/transactions/create_payment_url`, body,
-      { headers: { Authorization: `Bearer ${localStorage.getItem('access_token')}` } })
+      .post<any>(
+        `${environment.baseUrl}/api/transactions/create_payment_url`,
+        body,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        }
+      )
       .pipe(catchError(this.handleError));
   }
 

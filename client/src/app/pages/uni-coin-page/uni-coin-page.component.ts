@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class UniCoinPageComponent {
   public coins: Coin[] = [];
   public listCoinsUsed: Coin[] = [];
+  public listCounsActived: Coin[] = [];
   public totalCoin: number = 0;
 
   private subscriptions: Subscription[] = [];
@@ -35,26 +36,26 @@ export class UniCoinPageComponent {
     const coinSub$ = this.coinService.getCoinByUserId().subscribe({
       next: (res: any) => {
         this.coins = res.data;
+        // Sắp xếp xu theo thời gian tạo mới nhất
+        this.coins.sort((a: Coin, b: Coin) => {
+          return (
+            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+        });
         if (this.coins.length > 0) {
           // Tính tổng số xu sau
-          const totalCoinAfter = this.coins.reduce(
-            (acc: number, coin: Coin) => acc + coin.coin,
-            0
-          );
-
-          // Trừ đi số xu đã sử dụng có trạng thái là is_used === true
-          const totalCoinUsed = this.coins
-            .filter((coin: Coin) => coin.is_used === true)
-            .reduce((acc: number, coin: Coin) => acc + coin.coin, 0);
-
-          // Tính tổng số xu hiện tại
-          this.totalCoin = totalCoinAfter - totalCoinUsed;
+          this.totalCoin = this.coins.reduce((acc: number, coin: Coin) => {
+            return acc + coin.coin;
+          }, 0);
         }
         // Lọc ra những xu đã sử dụng
         this.listCoinsUsed = this.coins.filter(
-          (coin: Coin) => coin.is_used === true
+          (coin: Coin) => coin.status == 'used'
         );
-        console.log(this.coins);
+        // Lọc ra những xu chưa sử dụng
+        this.listCounsActived = this.coins.filter(
+          (coin: Coin) => coin.status == 'active'
+        );
       },
       error: (err) => {
         console.log(err);

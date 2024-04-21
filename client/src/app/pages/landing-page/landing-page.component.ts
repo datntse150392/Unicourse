@@ -202,7 +202,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           if (res.status === 200) {
             this.dialogBroadcastService.broadcastDialog({
               header: 'Thông báo',
-              message: 'Tham gia sự kiện kiểm tra hàng ngày thành công!',
+              message: 'Chúc mừng bạn đã nhận được phần thưởng',
               type: 'success',
               display: true,
             });

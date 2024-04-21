@@ -270,7 +270,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
             amount,
             voucher_id,
             StatusOfPayment.SUCCESS,
-            transaction_code
+            transaction_code,
+            false
           )
           .subscribe({
             next: (res: any) => {

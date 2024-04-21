@@ -34,31 +34,14 @@
                     </p>
                   </div>
                 </div>
-                <p class="his-right">+{{ item.coin }}</p>
-              </div>
-              <!-- List xu sử dụng -->
-              <div *ngIf="item.is_used" class="history">
-                <div class="his-left">
-                  <img
-                    class="his-img"
-                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
-                  />
-                  <div>
-                    <p class="his-text">{{ item.title }}</p>
-                    <p class="his-sub-text">Sử dụng xu</p>
-                    <p class="his-sub-text">
-                      {{ item.date_used | date : "h:mm a d/M/yy " }}
-                    </p>
-                  </div>
-                </div>
-                <p [ngStyle]="{ color: 'red' }" class="his-right">
-                  -{{ item.coin }}
+                <p class="his-right">
+                  {{ item.status === "active" ? "+" + item.coin : item.coin }}
                 </p>
               </div>
             </ng-container>
           </p-tabPanel>
           <p-tabPanel header="Nhận xu">
-            <div *ngFor="let item of this.coins" class="history">
+            <div *ngFor="let item of this.listCounsActived" class="history">
               <div class="his-left">
                 <img
                   class="his-img"
@@ -77,24 +60,22 @@
           </p-tabPanel>
           <p-tabPanel header="Dùng xu">
             <div *ngFor="let item of this.listCoinsUsed" class="history">
-              <ng-container *ngIf="item.is_used">
-                <div class="his-left">
-                  <img
-                    class="his-img"
-                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
-                  />
-                  <div>
-                    <p class="his-text">{{ item.title }}</p>
-                    <p class="his-sub-text">Sử dụng xu</p>
-                    <p class="his-sub-text">
-                      {{ item.date_used | date : "h:mm a d/M/yy " }}
-                    </p>
-                  </div>
+              <div class="his-left">
+                <img
+                  class="his-img"
+                  src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
+                />
+                <div>
+                  <p class="his-text">{{ item.title }}</p>
+                  <p class="his-sub-text">Sử dụng xu</p>
+                  <p class="his-sub-text">
+                    {{ item.date_used | date : "h:mm a d/M/yy " }}
+                  </p>
                 </div>
-                <p [ngStyle]="{ color: 'red' }" class="his-right">
-                  -{{ item.coin }}
-                </p>
-              </ng-container>
+              </div>
+              <p [ngStyle]="{ color: 'red' }" class="his-right">
+                {{ item.coin }}
+              </p>
             </div>
           </p-tabPanel>
         </p-tabView>
