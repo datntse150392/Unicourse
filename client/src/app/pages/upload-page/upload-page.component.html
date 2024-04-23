@@ -1,0 +1,11 @@
+<div>
+    <p-fileUpload
+        mode="basic"
+        chooseLabel="Choose"
+        name="fileUpload"
+        accept="video/*"
+        (onSelect)="onFileSelect($event)">
+    </p-fileUpload>
+    <button (click)="uploadFile()">UPLOAD</button>
+    <p-progressBar [value]="uploadPercent"></p-progressBar>
+</div>
