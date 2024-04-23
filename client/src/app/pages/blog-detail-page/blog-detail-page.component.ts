@@ -183,7 +183,11 @@ export class BlogDetailPageComponent {
         .subscribe({
           next: (res: any) => {
             if (res && res.status === 200) {
-              this.inItForm();
+              console.log('Here');
+              if (this.blogId) {
+                console.log('blogId', this.blogId);
+                this.getBlogByBlogId(this.blogId);
+              }
             }
           },
         });
@@ -214,6 +218,7 @@ export class BlogDetailPageComponent {
       const likeBlogSubs$ = this.blogService.likeBlog(this.blogId).subscribe({
         next: (res: any) => {
           if (res && res.status === 200) {
+            console.log('Here');
             this.inItForm();
           }
         },
@@ -343,6 +348,8 @@ export class BlogDetailPageComponent {
                 detail: 'Gửi phản hồi thành công',
                 life: 3000,
               });
+
+              console.log('here');
               this.inItForm();
               this.editorReplyComment = '';
               this.editorVisibleReplyComment[commentId] = false;
@@ -371,8 +378,6 @@ export class BlogDetailPageComponent {
 
   // Kiểm tra xem đã có thích bình luận hay chưa
   checkLikeComment(comment: Comment): boolean {
-    console.log('comment', comment);
-
     if (this.userInfo && comment) {
       if (comment.interactions) {
         return comment.interactions.includes(this.userInfo._id);
