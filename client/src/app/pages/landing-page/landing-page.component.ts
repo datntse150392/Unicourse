@@ -2,7 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { SharedModule } from '../../shared';
 import { Subscription } from 'rxjs';
-import { CoinService, CourseService } from '../../cores/services';
+import {
+  CoinService,
+  CourseService,
+  SharedService,
+} from '../../cores/services';
 import { CheckingDailyEvent, Course, User } from '../../cores/models';
 import { Router } from '@angular/router';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
@@ -30,7 +34,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialogBroadcastService: DialogBroadcastService,
     private readonly checkingDailyEventService: CheckingDailyEventService,
-    private readonly coinService: CoinService
+    private readonly coinService: CoinService,
+    private readonly sharedService: SharedService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -195,31 +200,36 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   // Tham gia sự kiện kiểm tra hàng ngày
   attendCheckingDailyEvent(dailyId: string): void {
-    const attendCheckingDailyEventSub$ = this.checkingDailyEventService
-      .attendCheckingDailyEvent(dailyId)
-      .subscribe({
-        next: (res: any) => {
-          if (res.status === 200) {
+    if (!this.userInfo) {
+      // Nếu không thấy user thì tự động bật form đăng nhập
+      this.sharedService.turnOnSignInDialog();
+    } else {
+      const attendCheckingDailyEventSub$ = this.checkingDailyEventService
+        .attendCheckingDailyEvent(dailyId)
+        .subscribe({
+          next: (res: any) => {
+            if (res.status === 200) {
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Thông báo',
+                message: 'Chúc mừng bạn đã nhận được phần thưởng',
+                type: 'success',
+                display: true,
+              });
+              this.initForm();
+            }
+          },
+          error: (err: any) => {
             this.dialogBroadcastService.broadcastDialog({
               header: 'Thông báo',
-              message: 'Chúc mừng bạn đã nhận được phần thưởng',
-              type: 'success',
+              message:
+                'Bạn đã điểm danh sự kiện này rồi, quay lại vào ngày mai nhé!',
+              type: 'error',
               display: true,
             });
-            this.initForm();
-          }
-        },
-        error: (err: any) => {
-          this.dialogBroadcastService.broadcastDialog({
-            header: 'Thông báo',
-            message:
-              'Bạn đã điểm danh sự kiện này rồi, quay lại vào ngày mai nhé!',
-            type: 'error',
-            display: true,
-          });
-          console.log(err);
-        },
-      });
-    this.subscriptions.push(attendCheckingDailyEventSub$);
+            console.log(err);
+          },
+        });
+      this.subscriptions.push(attendCheckingDailyEventSub$);
+    }
   }
 }

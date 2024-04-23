@@ -20,48 +20,32 @@
 
   <!-- Checking Daily -->
   <div class="checking-daily">
-    <div
-      class="content left flex flex-column justify-content-center align-items-center"
-    >
-      <h3 class="font-bold">Ưu đãi nhận xu từ Unicourse</h3>
-      <div class="coin-already">
-        <img
-          class="coins-img"
-          src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
-        />
-        <p class="coin-text">{{ getTotalCoin }} xu</p>
-      </div>
-      <div class="day-container">
-        <ng-container *ngFor="let event of dataCheckingDailyEvent">
-          <ng-container *ngIf="checkEventToday(event.day); else NotEventToday">
-            <div class="day-detail">
-              <div class="form-coin">
-                <span>+100</span>
-                <img
-                  class="coins-img"
-                  src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
-                />
-              </div>
-
-              <ng-container
-                *ngIf="
-                  checkUserJoinEvent(event.list_users);
-                  else expiredAndNotCheckin
-                "
-              >
-                <div class="flex items-center justify-center">
+    <ng-container *ngIf="!userInfo; else userLogged">
+      <div
+        class="content left flex flex-column justify-content-center align-items-center"
+      >
+        <h3 class="font-bold">Ưu đãi nhận xu từ Unicourse</h3>
+        <div class="coin-already">
+          <img
+            class="coins-img"
+            src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
+          />
+          <p class="coin-text">{{ getTotalCoin }} xu</p>
+        </div>
+        <div class="day-container">
+          <ng-container *ngFor="let event of dataCheckingDailyEvent">
+            <ng-container
+              *ngIf="checkEventToday(event.day); else NotEventToday"
+            >
+              <div class="day-detail">
+                <div class="form-coin-active">
+                  <span>+100</span>
                   <img
-                    [ngStyle]="{ width: '3rem' }"
-                    class="flex items-center"
-                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/dailycheckin/00d5f0b0136ba898b7684a755f587183.png"
+                    class="coins-img"
+                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
                   />
                 </div>
 
-                <div class="btn-take-coin-back">
-                  <p class="m-0">Quay lại vào ngày mai để nhận 100 xu</p>
-                </div>
-              </ng-container>
-              <ng-template #expiredAndNotCheckin>
                 <p class="active-day">Hôm nay</p>
                 <div
                   (click)="attendCheckingDailyEvent(event._id)"
@@ -69,13 +53,9 @@
                 >
                   <p class="m-0">Nhận ngay 100 xu</p>
                 </div>
-              </ng-template>
-            </div>
-          </ng-container>
-          <ng-template #NotEventToday>
-            <ng-container
-              *ngIf="checkEventExpired(event.day); else isNotExpired"
-            >
+              </div>
+            </ng-container>
+            <ng-template #NotEventToday>
               <div class="day-detail">
                 <div class="form-coin">
                   <span>+{{ event.coin }}</span>
@@ -84,6 +64,39 @@
                     src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
                   />
                 </div>
+                <p>{{ event.day | date : "d/M" }}</p>
+              </div>
+            </ng-template>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #userLogged>
+      <div
+        class="content left flex flex-column justify-content-center align-items-center"
+      >
+        <h3 class="font-bold">Ưu đãi nhận xu từ Unicourse</h3>
+        <div class="coin-already">
+          <img
+            class="coins-img"
+            src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
+          />
+          <p class="coin-text">{{ getTotalCoin }} xu</p>
+        </div>
+        <div class="day-container">
+          <ng-container *ngFor="let event of dataCheckingDailyEvent">
+            <ng-container
+              *ngIf="checkEventToday(event.day); else NotEventToday"
+            >
+              <div class="day-detail">
+                <div class="form-coin">
+                  <span>+100</span>
+                  <img
+                    class="coins-img"
+                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
+                  />
+                </div>
+
                 <ng-container
                   *ngIf="
                     checkUserJoinEvent(event.list_users);
@@ -97,28 +110,70 @@
                       src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/dailycheckin/00d5f0b0136ba898b7684a755f587183.png"
                     />
                   </div>
+
+                  <div class="btn-take-coin-back">
+                    <p class="m-0">Quay lại vào ngày mai để nhận 100 xu</p>
+                  </div>
                 </ng-container>
                 <ng-template #expiredAndNotCheckin>
-                  <p>Quá hạn</p>
+                  <p class="active-day">Hôm nay</p>
+                  <div
+                    (click)="attendCheckingDailyEvent(event._id)"
+                    class="btn-take-coin"
+                  >
+                    <p class="m-0">Nhận ngay 100 xu</p>
+                  </div>
                 </ng-template>
               </div>
             </ng-container>
-            <ng-template #isNotExpired>
-              <div class="day-detail">
-                <div class="form-coin">
-                  <span>+{{ event.coin }}</span>
-                  <img
-                    class="coins-img"
-                    src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
-                  />
+            <ng-template #NotEventToday>
+              <ng-container
+                *ngIf="checkEventExpired(event.day); else isNotExpired"
+              >
+                <div class="day-detail">
+                  <div class="form-coin">
+                    <span>+{{ event.coin }}</span>
+                    <img
+                      class="coins-img"
+                      src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
+                    />
+                  </div>
+                  <ng-container
+                    *ngIf="
+                      checkUserJoinEvent(event.list_users);
+                      else expiredAndNotCheckin
+                    "
+                  >
+                    <div class="flex items-center justify-center">
+                      <img
+                        [ngStyle]="{ width: '3rem' }"
+                        class="flex items-center"
+                        src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/dailycheckin/00d5f0b0136ba898b7684a755f587183.png"
+                      />
+                    </div>
+                  </ng-container>
+                  <ng-template #expiredAndNotCheckin>
+                    <p>Quá hạn</p>
+                  </ng-template>
                 </div>
-                <p>{{ event.day | date : "d/M" }}</p>
-              </div>
+              </ng-container>
+              <ng-template #isNotExpired>
+                <div class="day-detail">
+                  <div class="form-coin">
+                    <span>+{{ event.coin }}</span>
+                    <img
+                      class="coins-img"
+                      src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
+                    />
+                  </div>
+                  <p>{{ event.day | date : "d/M" }}</p>
+                </div>
+              </ng-template>
             </ng-template>
-          </ng-template>
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
-    </div>
+    </ng-template>
   </div>
 
   <!-- Educational Programs -->
