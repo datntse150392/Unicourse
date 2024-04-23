@@ -1,7 +1,9 @@
 .container {
   background-color: #f9f9f9;
   max-width: 100%;
+  position: relative;
   .back-step {
+    position: absolute !important;
     &:hover {
       i {
         color: #212121 !important;
@@ -14,6 +16,13 @@
   .body-container {
     width: 80%;
     margin: auto;
+  }
+  .info-container {
+    padding: 0% 10%;
+    position: relative;
+    .info-intro-body {
+      margin-top: -5rem;
+    }
   }
 }
 

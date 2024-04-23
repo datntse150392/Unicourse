@@ -132,6 +132,7 @@
       }
     }
   }
+
   .semester {
     margin-top: 2%;
     padding: 0% 10%;
@@ -225,7 +226,7 @@
     margin: 3% 0%;
     padding-top: 3%;
     padding-bottom: 6%;
-    background-color: #d9d9d9;
+    background-color: #fcf9f4;
     h2 {
       font-size: 40px;
       font-weight: bold;
@@ -274,6 +275,146 @@
         width: 50%;
         text-align: center;
         color: #ffffff88;
+      }
+    }
+  }
+
+  .checking-daily {
+    margin: 2% 0%;
+    padding: 0% 15%;
+    .coin-already {
+      width: 30%;
+      .coins-img {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 3%;
+      .coin-text {
+        font-size: 2.5rem;
+        color: #f17125;
+        font-weight: bold;
+      }
+    }
+    .content {
+      padding: 5 % 15%;
+      width: 100%;
+      height: 100%;
+      background-color: #211903;
+      border-radius: 10px;
+      h3 {
+        font-size: 36px;
+        color: #ffffff;
+        margin-bottom: 2%;
+      }
+      p {
+        margin: 0;
+        width: 50%;
+        text-align: center;
+        color: #ffffff88;
+      }
+    }
+    .day-container {
+      padding-bottom: 8rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      .day-detail {
+        background-color: #d9d9d9;
+        padding: 1rem;
+        border-radius: 5%;
+        .form-coin {
+          padding: 1rem 1rem;
+          border: 1px solid #727171;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border-radius: 5%;
+          gap: 0.5rem;
+          span {
+            font-size: 1rem;
+            font-weight: bold;
+          }
+          .coins-img {
+            width: 2rem;
+            height: 2rem;
+          }
+        }
+        .form-coin-active {
+          padding: 1rem 1rem;
+          border: 1px solid #f05123;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          border-radius: 5%;
+          gap: 0.5rem;
+          span {
+            font-size: 1rem;
+            font-weight: bold;
+          }
+          .coins-img {
+            width: 2rem;
+            height: 2rem;
+          }
+        }
+        .active-day {
+          width: 100%;
+          font-size: 1rem;
+          font-weight: bold;
+          color: #f05123;
+        }
+        p {
+          width: 100%;
+          font-size: 1rem;
+          color: #727171;
+        }
+      }
+      .btn-take-coin {
+        position: absolute;
+        left: 32%;
+        margin-top: 4%;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        width: 35%;
+        height: 3.5rem;
+        background-color: #f05123;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 10rem;
+        p {
+          width: 100%;
+          color: #fff;
+          font-size: 1.5rem;
+          text-align: center;
+          font-weight: 500;
+        }
+      }
+      .btn-take-coin-back {
+        position: absolute;
+        left: 32%;
+        margin-top: 4%;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        width: 35%;
+        height: 3.5rem;
+        background-color: #f6f6f6;
+        font-weight: bold;
+        cursor: pointer;
+        text-align: center;
+        border-radius: 10rem;
+        p {
+          width: 100%;
+          color: rgba(0, 0, 0, 0.5);
+          font-size: 1.5rem;
+          text-align: center;
+          font-weight: 500;
+        }
       }
     }
   }

@@ -269,7 +269,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
                   paymentObject.total_new_amount,
                   paymentObject.voucher_id,
                   StatusOfPayment.SUCCESS,
-                  transactionCode
+                  transactionCode,
+                  this.isUseCoin
                 )
                 .subscribe({
                   next: (res: any) => {

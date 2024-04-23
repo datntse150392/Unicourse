@@ -3,7 +3,6 @@ export interface Coin {
   title: string;
   description: string;
   coin: number;
-  is_used: boolean;
   date_used: Date;
   status: string;
   updated_at: Date;
