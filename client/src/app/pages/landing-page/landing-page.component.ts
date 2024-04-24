@@ -27,6 +27,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public courseClass12: Course[] = [];
   public dataCheckingDailyEvent: CheckingDailyEvent[] = [];
   public getTotalCoin: number = 0;
+  public currentDateTime = new Date();
 
   private subscriptions: Subscription[] = [];
   constructor(

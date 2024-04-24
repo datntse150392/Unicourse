@@ -5,10 +5,12 @@
 .container {
   position: relative;
   .card {
+    background-color: #d9d9d9;
     height: 100vh;
+    padding: 1% 2%;
     // background-image: url("../../../assets/images/BgImage.png");
     // https://daihoc.fpt.edu.vn/wp-content/uploads/2023/12/Hocbong-100_-e-thumb-2-650x359.png
-    background-image: url("https://daihoc.fpt.edu.vn/wp-content/uploads/2022/02/HCM-scaled.jpeg");
+    // background-image: url("https://daihoc.fpt.edu.vn/wp-content/uploads/2022/02/HCM-scaled.jpeg");
     // background-color: #ff95008f;
     background-size: cover;
     .bg-grey {
@@ -64,6 +66,124 @@
           color: #fcf9f4;
           opacity: 0.8;
           font-weight: bold;
+        }
+      }
+    }
+    .main-menu {
+      margin-top: 1rem;
+      .main-menu-title {
+        background-color: #eeeef2;
+        padding: 1rem;
+        border-radius: 0.5rem 0.5rem 0rem 0rem;
+      }
+      .home-menu {
+        padding: 0 !important;
+        background-color: white;
+        border-radius: 0.5rem !important;
+        .mega-menu-dropdown {
+          background-color: #eeeef2;
+          z-index: 100;
+        }
+        .main-menu-body {
+          list-style-type: none;
+          padding: 0.5rem;
+          .main-menu-body-title {
+            .menu-title {
+              font-size: 1.3rem;
+              color: #111827c1;
+              font-weight: 400;
+              cursor: pointer;
+            }
+          }
+          .main-menu-body-title:hover {
+            .menu-title {
+              color: black;
+              font-weight: bold;
+            }
+            .active-icon {
+              color: #00afff;
+            }
+          }
+          .sub-menu-dropdown {
+            margin: 1rem 0rem;
+            li {
+              padding: 0.5rem 1rem;
+            }
+            .sub-menu-title {
+              color: #374151;
+              font-size: 1rem;
+              font-weight: 600;
+            }
+            li:hover {
+              background-color: #00aeff7c;
+              .sub-menu-title {
+                color: rgb(68, 68, 68);
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+      .slide-banner {
+        .custome-btn {
+          span {
+            width: 2.5rem !important;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+          }
+        }
+      }
+      .header-right-content {
+        position: relative;
+        .clock-time {
+          img {
+            border-radius: 0.5rem 0.5rem 0rem 0rem;
+          }
+          .count-time {
+            width: 100%;
+            position: absolute;
+            top: 10%;
+            text-align: center;
+            .first-text {
+              font-size: 2.2rem;
+              color: #ffffff;
+              font-weight: 600;
+            }
+            .second-text {
+              font-size: 1.5rem;
+              color: #ffffff;
+              font-weight: 300;
+            }
+          }
+        }
+        .section-study {
+          margin-top: 0.5rem;
+
+          .section-study-obj {
+            padding: 1rem;
+            background-color: white;
+            border-bottom: 1px solid #bdb0b09a;
+            .host-name {
+              font-size: 1rem;
+              font-weight: 600;
+              color: #171414;
+            }
+            .title {
+              font-size: 1rem;
+              font-weight: 400;
+              color: #171414;
+            }
+            .duration {
+              .time-start {
+              }
+              .time-end {
+              }
+            }
+          }
+        }
+        .view-all {
+          cursor: pointer;
         }
       }
     }
