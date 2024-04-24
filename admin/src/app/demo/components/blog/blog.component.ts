@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core'
 import { Blog, UserBlog, Tags, Tag } from 'src/app/demo/api/blog';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { BlogService } from 'src/app/demo/service';
+import { BlogService } from 'src/app/core/services';
 import { Subscription } from 'rxjs';
 import * as FileSaver from 'file-saver';
 import { DomSanitizer } from '@angular/platform-browser';

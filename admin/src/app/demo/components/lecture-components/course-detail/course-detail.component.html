@@ -1,3 +1,7 @@
+<p-blockUI [blocked]="blockedUI">
+    <p-progressSpinner></p-progressSpinner>
+</p-blockUI>
+<p-toast key="tst"></p-toast>
 <div class="grid">
     <div class="col-12">
         <div class="card">
@@ -194,6 +198,34 @@
                                     </div>
                                 </div>
                                 <p-divider></p-divider>
+
+                                <!-- START ZONE: XỬ LÝ UPLOAD VIDEO CHO TỪNG TRACK -->
+
+                                <form [formGroup]="formGroup">
+                                    <p-selectButton (onChange)="onChangeUploadType($event, track)" [options]="uploadOptions" formControlName="value" optionLabel="label" optionValue="value"></p-selectButton>
+                                </form>
+                                <p-divider></p-divider>
+                                <ng-container *ngIf="track._id == trackSelect && valSelect1 == 'youtube'">
+                                    <p class="m-0">Nhập link url Youtube</p>
+                                    <div class="formgroup-inline">
+                                        <div class="field">
+                                            <input pInputText id="youtubeUrl" (change)="extractVideoId()" [(ngModel)]="youtubeUrl" class="w-full" type="text" placeholder="Ví dụ: https://youtu.be/...." />
+                                        </div>
+                                        <button pButton icon="pi pi-upload" (click)="uploadTrackVideo()" label="Upload" [disabled]="videoId == ''"></button>
+                                    </div>
+                                    <p-divider></p-divider>
+                                </ng-container>
+                                <ng-container *ngIf="track._id == trackSelect && valSelect1 == 'googleDrive'">
+                                    <p-fileUpload name="demo[]" (onUpload)="onUpload($event)" [multiple]="false" accept="video/*">
+                                        <ng-template pTemplate="content">
+                                            <ul *ngIf="uploadedFiles.length">
+                                                <li *ngFor="let file of uploadedFiles">
+                                                    {{ file.name }} - {{ file.size }} bytes
+                                                </li>
+                                            </ul>
+                                        </ng-template>
+                                    </p-fileUpload>
+                                </ng-container>
                                 <button
                                     class="mt-2"
                                     pButton
@@ -201,6 +233,9 @@
                                     type="button"
                                     label="+"
                                 ></button>
+
+                                <!-- END ZONE: XỬ LÝ UPLOAD VIDEO CHO TỪNG TRACK -->
+
                             </p-accordionTab>
                             <button
                                 class="mt-2"

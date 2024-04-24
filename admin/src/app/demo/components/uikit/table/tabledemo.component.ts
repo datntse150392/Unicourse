@@ -6,7 +6,7 @@ import { Blog } from 'src/app/demo/api/blog';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { Table } from 'primeng/table';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { BlogService } from 'src/app/demo/service';
+import { BlogService } from 'src/app/core/services/index';
 import { Subscription } from 'rxjs';
 
 interface expandedRows {

@@ -6,3 +6,8 @@ export const environment = {
   // Logo
   LOGO: 'https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/README%2FLogo%20UniCourse.svg?alt=media&token=d05b64f7-5f30-49ea-a4ae-f553a5196e38',
 };
+
+export const creadentials = {
+  YOUTUBE_API_KEY: 'AIzaSyCFwlbUmxHXK2nqlAD4Dj-nUru-T73e45s'
+  
+}

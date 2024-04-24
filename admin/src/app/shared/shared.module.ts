@@ -33,6 +33,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'primeng/blockui';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
     imports: [
@@ -72,6 +73,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
         BlockUIModule,
         TieredMenuModule,
         ConfirmPopupModule,
+        SelectButtonModule,
     ],
     declarations: [],
     exports: [
@@ -109,6 +111,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
         BlockUIModule,
         TieredMenuModule,
         ConfirmPopupModule,
+        SelectButtonModule,
     ],
     providers: [],
 })

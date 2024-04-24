@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.prod';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Blog } from '../api/blog';
+import { Blog } from '../../demo/api/blog';
 @Injectable({ providedIn: 'root' })
 export class BlogService {
   constructor(private httpClient: HttpClient) {}
