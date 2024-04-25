@@ -1,73 +1,27 @@
-# Unicourse - Nền tảng cung cấp khóa học trực tuyến
+# Client
 
-## 1. Hình Ảnh | Introduction Screenshots
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.8.
 
-### Màn Hình Landing | Landing Page
+## Development server
 
-<div class="screenshot-container">
-  <img src="/assets/LandingPage.png" alt="Landing Page">
-</div>
-Mô tả chi tiết về Màn Hình Landing.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-### Màn Hình đăng nhập | Sign-In Page
+## Code scaffolding
 
-<div class="screenshot-container">
-  <img src="/assets/SignIn.png" alt="Sign-In Page">
-</div>
-Mô tả chi tiết về Màn Hình đăng nhập.
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### Màn Hình đăng ký | Sign-Up Page
+## Build
 
-<div class="screenshot-container">
-  <img src="/assets/SignUp.png" alt="Sign-Up Page">
-</div>
-Mô tả chi tiết về Màn Hình đăng ký.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-### Màn Hình Chi Tiết Khóa Học | Detail Course Page
+## Running unit tests
 
-<div class="screenshot-container">
-  <img src="/assets/CourseDetailPage.png" alt="Detail Course Page">
-</div>
-Mô tả chi tiết về màn hình chi tiết khóa học.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### Màn Hình Leanring | Leanring Page
+## Running end-to-end tests
 
-<div class="screenshot-container">
-  <img src="/assets/LeanringPage.PNG" alt="Learning Page">
-</div>
-Mô tả chi tiết về màn hình Leanring.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-### Màn Hình Giỏ Hàng | Cart Page
+## Further help
 
-<div class="screenshot-container">
-  <img src="/assets/CartPage.png" alt="Cart Page">
-</div>
-Mô tả chi tiết về màn hình giỏ hàng.
-
-### Màn Hình Bài Viết | Blog Page
-
-<div class="screenshot-container">
-  <img src="/assets/BlogPage.png" alt="Blog Page">
-</div>
-Mô tả chi tiết về màn hình bài viết.
-
-### Màn Hình Tạo Bài Viết | Create New Blog Page
-
-<div class="screenshot-container">
-  <img src="/assets/CreateNewBlog.png" alt="Create New Blog Page">
-</div>
-Mô tả chi tiết về màn hình tạo bài viết.
-
-### Màn Hình Trang Cá Nhân | Profile Page
-
-<div class="screenshot-container">
-  <img src="/assets/PersonalPage.png" alt="Profile Page">
-</div>
-Mô tả chi tiết về màn hình trang cá nhân.
-
-### Màn Hình Cài Đặt | Setting Profile Page
-
-<div class="screenshot-container">
-  <img src="/assets/SettingPerrsonalPage.png" alt="Setting Profile Page">
-</div>
-Mô tả chi tiết về màn hình cài đặt tài khoản.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
