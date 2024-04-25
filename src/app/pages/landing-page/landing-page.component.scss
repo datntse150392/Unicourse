@@ -5,65 +5,9 @@
 .container {
   position: relative;
   .card {
-    height: 100vh;
+    height: 67vh;
     padding: 1% 2%;
     background-size: cover;
-    .bg-grey {
-      position: absolute;
-      width: 100%;
-      background-color: #171414;
-      height: 80.5vh;
-      opacity: 0.7;
-    }
-    .logan {
-      width: 100%;
-      text-align: center;
-      color: #ffffff;
-
-      font-weight: bold;
-      font-size: 70px;
-      transform: translate(0%, 50%);
-      .title-1 {
-        color: #d9d9d9;
-        font-size: 3.7rem;
-        font-weight: bolder;
-        /* Tăng giá trị offset theo chiều ngang và chiều dọc để bóng nghiêng về dưới phải */
-        text-shadow: 2px 2px 20px #ff8f2683;
-        font-family: "open sans", sans-serif;
-      }
-
-      /* DEMO-SPECIFIC STYLES */
-      .typewriter {
-        padding: 0% 5%;
-        h1 {
-          overflow: hidden; /* Ensures the content is not revealed until the animation */
-          border-right: 0.15em solid orange; /* The typwriter cursor */
-          white-space: nowrap; /* Keeps the content on a single line */
-          margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-          letter-spacing: 0.2em; /* Adjust as needed */
-          animation: typing 3.5s steps(30, end),
-            blink-caret 0.5s step-end infinite;
-        }
-      }
-      .title-2 {
-        color: #f17125;
-      }
-      .btn {
-        box-shadow: -8px 4px 20px #fc3b5040;
-        width: 350px;
-        height: 55px;
-        border: none;
-        border-radius: 10px;
-        background: linear-gradient(to right bottom, #ff8f26, #ff5117);
-        transition: 1.5s;
-        p {
-          font-size: 25px;
-          color: #fcf9f4;
-          opacity: 0.8;
-          font-weight: bold;
-        }
-      }
-    }
     .main-menu {
       margin-top: 1rem;
       .main-menu-title {
@@ -340,10 +284,10 @@
   }
 
   .feedback {
-    margin: 3% 0%;
+    margin: 3% 10%;
     padding-top: 3%;
     padding-bottom: 6%;
-    background-color: white;
+    border-radius: 10px;
     h2 {
       font-size: 40px;
       font-weight: bold;
@@ -358,7 +302,7 @@
       }
       p {
         color: #1f1c14;
-        font-size: 12px;
+        font-size: 14px;
       }
       .fb-user-2 {
         height: 120%;
@@ -375,12 +319,12 @@
 
   .contact {
     margin-top: 2%;
-    padding: 0% 15%;
+    padding: 0% 10%;
     height: 20rem;
     .content {
       width: 100%;
       height: 100%;
-      background-color: #211903;
+      background-color: #000;
       border-radius: 10px;
       h3 {
         font-size: 36px;
@@ -397,6 +341,7 @@
   }
 
   .checking-daily {
+    height: 35rem;
     margin: 2% 0%;
     padding: 0% 10%;
     .coin-already {
@@ -420,18 +365,18 @@
       padding: 5% 15%;
       width: 100%;
       height: 100%;
-      background-color: #211903;
+      background-color: #c8e8ff;
       border-radius: 10px;
       h3 {
         font-size: 36px;
-        color: #ffffff;
+        color: #000;
         margin-bottom: 2%;
       }
       p {
         margin: 0;
         width: 50%;
         text-align: center;
-        color: #ffffff88;
+        color: white;
       }
     }
     .day-container {
@@ -440,19 +385,19 @@
       flex-direction: row;
       gap: 1rem;
       .day-detail {
-        background-color: #d9d9d9;
-        padding: 1rem;
+        background-color: white;
+        padding: 2.5rem;
         border-radius: 5%;
         .form-coin {
           padding: 1rem 1rem;
-          border: 1px solid #727171;
+          border: 1px solid #00000021;
           display: flex;
           flex-direction: column;
           align-items: center;
           border-radius: 5%;
           gap: 0.5rem;
           span {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
           }
           .coins-img {
@@ -461,8 +406,9 @@
           }
         }
         .form-coin-active {
+          background-color: #97d5fe36;
           padding: 1rem 1rem;
-          border: 1px solid #f05123;
+          border: 2px solid #97d5fe;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -484,21 +430,21 @@
           color: #f05123;
         }
         p {
+          margin-top: 0.5rem;
           width: 100%;
           font-size: 1rem;
-          color: #727171;
+          color: #000;
         }
       }
       .btn-take-coin {
         position: absolute;
         left: 32%;
-        margin-top: 4%;
+        margin-top: 6%;
         display: flex;
         align-items: center;
         padding: 1rem;
         width: 35%;
         height: 3.5rem;
-        background-color: #f05123;
         font-weight: bold;
         cursor: pointer;
         text-align: center;
@@ -508,7 +454,7 @@
           color: #fff;
           font-size: 1.5rem;
           text-align: center;
-          font-weight: 500;
+          font-weight: 700;
         }
       }
       .btn-take-coin-back {
@@ -520,14 +466,13 @@
         padding: 1rem;
         width: 35%;
         height: 3.5rem;
-        background-color: #f6f6f6;
         font-weight: bold;
         cursor: pointer;
         text-align: center;
         border-radius: 10rem;
         p {
           width: 100%;
-          color: rgba(0, 0, 0, 0.5);
+          color: rgb(0, 0, 0);
           font-size: 1.5rem;
           text-align: center;
           font-weight: 500;

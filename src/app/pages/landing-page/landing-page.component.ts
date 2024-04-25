@@ -35,6 +35,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public getTotalCoin: number = 0;
   public currentDateTime = new Date();
   public dataScheduleMeetings: ScheduleMeeting[] = [];
+  public dataBanner: any[] = [];
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -153,6 +154,23 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           console.log(err);
         },
       });
+
+    // Lấy danh sách banner fake data
+    this.dataBanner = [
+      {
+        id: '1',
+        image:
+          'https://hocmai.vn/media/images/home/desktop/giup-con-cong-pha-1.png',
+        title: 'Khám phá khóa học mới',
+        description: 'Học tập không bao giờ là đủ',
+      },
+      {
+        id: '2',
+        image: 'https://hocmai.vn/media/images/home/desktop/luyencaptochcm.png',
+        title: 'Học từ những chuyên gia',
+        description: 'Học từ những chuyên gia hàng đầu',
+      },
+    ];
 
     this.subscriptions.push(courseClass10Sub$);
     this.subscriptions.push(courseClass11Sub$);

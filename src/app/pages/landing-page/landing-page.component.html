@@ -470,23 +470,20 @@
           id="default-carousel"
           class="slide-banner col-span-7 relative w-full"
           data-carousel="slide"
+          *ngIf="this.dataBanner.length > 0"
         >
           <!-- Carousel wrapper -->
           <div
             class="relative h-[32rem] w-full overflow-hidden rounded-lg md:h-96"
           >
             <!-- Item 1 -->
-            <div class="hidden duration-1000 ease-in-out" data-carousel-item>
+            <div
+              *ngFor="let banner of this.dataBanner"
+              class="hidden duration-1000 ease-in-out"
+              data-carousel-item
+            >
               <img
-                src="https://hocmai.vn/media/images/home/desktop/giup-con-cong-pha-1.png"
-                class="absolute block rounded-lg h-full w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                alt="..."
-              />
-            </div>
-            <!-- Item 2 -->
-            <div class="hidden duration-1000 ease-in-out" data-carousel-item>
-              <img
-                src="https://hocmai.vn/media/images/home/desktop/luyencaptochcm.png"
+                src="{{ banner.image }}"
                 class="absolute block rounded-lg h-full w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                 alt="..."
               />
@@ -661,85 +658,7 @@
           </div>
         </div>
       </div>
-
-      <div
-        class="w-full mt-6 p-5 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-      >
-        <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-white">
-          Học tập mọi lúc, mọi nơi cùng Unicourse
-        </h5>
-        <p class="mb-4 text-base text-gray-500 sm:text-lg dark:text-gray-400">
-          Luôn cập nhật và tiếp tục học tập cùng với Unicourse trên iOS và
-          Android. Tải ứng dụng ngay hôm nay.
-        </p>
-        <div
-          class="items-center w-full justify-center gap-2 space-y-4 sm:flex sm:space-y-0 sm:space-x-4 rtl:space-x-reverse"
-        >
-          <a
-            href="#"
-            class="w-[12rem] bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-          >
-            <svg
-              class="me-3 w-2 h-7"
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fab"
-              data-icon="apple"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 384 512"
-            >
-              <path
-                fill="currentColor"
-                d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
-              ></path>
-            </svg>
-            <div class="text-left rtl:text-right">
-              <div class="mb-1 text-xs">Download on the</div>
-              <div class="-mt-1 font-sans text-sm font-semibold">
-                Mac App Store
-              </div>
-            </div>
-          </a>
-          <a
-            href="#"
-            class="w-[12rem] m-0 sm:w-auto bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 text-white rounded-lg inline-flex items-center justify-center px-4 py-2.5 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700"
-          >
-            <svg
-              class="me-3 w-2 h-7"
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fab"
-              data-icon="google-play"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="currentColor"
-                d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"
-              ></path>
-            </svg>
-            <div class="text-left rtl:text-right">
-              <div class="mb-1 text-xs">Get in on</div>
-              <div class="-mt-1 font-sans text-sm font-semibold">
-                Google Play
-              </div>
-            </div>
-          </a>
-        </div>
-      </div>
     </section>
-    <!-- <div class="bg-grey"></div>
-    <div class="logan">
-      <br />
-      <div class="typewriter">
-        <h1 class="title-1">Forge your path, own your future</h1>
-      </div>
-      <button class="btn shadow-2 hover:shadow-8">
-        <p class="m-0">Khám phá ngay</p>
-      </button>
-    </div> -->
   </div>
 
   <!-- Checking Daily -->
@@ -813,7 +732,7 @@
               *ngIf="checkEventToday(event.day); else NotEventToday"
             >
               <div class="day-detail">
-                <div class="form-coin">
+                <div class="form-coin-active">
                   <span>+100</span>
                   <img
                     class="coins-img"
@@ -835,7 +754,9 @@
                     />
                   </div>
 
-                  <div class="btn-take-coin-back">
+                  <div
+                    class="btn-take-coin-back bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
+                  >
                     <p class="m-0">Quay lại vào ngày mai để nhận 100 xu</p>
                   </div>
                 </ng-container>
@@ -843,7 +764,7 @@
                   <p class="active-day">Hôm nay</p>
                   <div
                     (click)="attendCheckingDailyEvent(event._id)"
-                    class="btn-take-coin"
+                    class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                   >
                     <p class="m-0">Nhận ngay 100 xu</p>
                   </div>
@@ -901,8 +822,7 @@
   </div>
 
   <!-- Educational Programs -->
-  <div class="edu-program">
-    <!-- Title -->
+  <!-- <div class="edu-program">
     <div class="title flex flex-column align-items-center justify-center">
       <h3 class="mt-0 font-bold">Chương trình giảng dạy</h3>
       <p class="mb-6">
@@ -964,7 +884,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Các khóa học của Khối 10 -->
   <ng-container *ngIf="courseClass10 && courseClass10.length > 0">
@@ -1154,7 +1074,7 @@
 
   <!-- Feedback -->
   <div
-    class="feedback flex flex-column justify-content-center align-items-center"
+    class="feedback bg-[#C8E8FF] flex flex-column justify-content-center align-items-center"
   >
     <h2>Cảm nhận của học viên về Unicourse?</h2>
     <div class="user grid flex flex-row">
@@ -1226,17 +1146,17 @@
     <div
       class="content flex flex-column align-items-center justify-content-center relative"
     >
-      <h3>Làm thế nào liên lạc với Unicourse?</h3>
+      <h3 class="m-1">Tư vấn nhận ưu đãi ngay</h3>
       <p>
-        Đừng ngần ngại để lại cho chúng tôi số điện thoại của bạn. Chúng tôi sẽ
-        liên hệ với bạn để thảo luận về bất kỳ câu hỏi nào bạn có thể có
+        Đừng ngần ngại để lại cho chúng tôi email của bạn, chúng tôi sẽ gửi cho
+        bạn những ưu đãi hấp dẫn nhất. Hãy đăng ký ngay!
       </p>
       <p-inputGroup class="w-25rem h-3rem m-4">
         <input
           type="text"
           [style]="{ 'padding-left': '1rem' }"
           pInputText
-          placeholder="Nhập số điện thoại"
+          placeholder="Nhập mail của bạn"
         />
         <button
           pButton

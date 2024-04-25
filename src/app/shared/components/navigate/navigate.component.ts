@@ -204,4 +204,12 @@ export class NavigateComponent implements OnInit, OnDestroy {
       this.sharedService.turnOnSignInDialog();
     }
   }
+
+  navigateToHome() {
+    // reload lại trang
+    this.router.navigate(['/']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  }
 }

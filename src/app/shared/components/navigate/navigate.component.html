@@ -32,14 +32,14 @@
   >
     <div class="nav-left w-full flex items-center">
       <div
-        [routerLink]="['/']"
+        (click)="navigateToHome()"
         class="logo flex flex-col items-center justify-center"
       ></div>
       <div
         class="nav-items flex flex-row justify-content-center align-items-center text-center"
       >
         <p
-          routerLink="/"
+          (click)="navigateToHome()"
           routerLinkActive="active"
           ariaCurrentWhenActive="page"
           class="nav-item"
