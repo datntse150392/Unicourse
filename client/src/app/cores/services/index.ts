@@ -8,3 +8,5 @@ export * from './blog.service';
 export * from './voucher.service';
 export * from './new-feed.service';
 export * from './coin.service';
+export * from './checking-daily-event.service';
+export * from './schedule-meeting.service';

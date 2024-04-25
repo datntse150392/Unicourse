@@ -5,7 +5,7 @@
     class="bg-orange-600 custom-scroll-top"
     icon="pi pi-arrow-up"
   ></p-scrollTop>
-  <div class="card">
+  <div class="card bg-[#C8E8FF]">
     <section class="wrap-header">
       <div class="nav-header-menu"></div>
 
@@ -608,64 +608,56 @@
 
             <!-- Hiển thị lịch học / section -->
             <div class="section-study">
-              <div class="section-study-obj">
-                <div class="flex flex-row items-end">
-                  <h2 class="host-name mr-2">Nguyễn Thành Đạt</h2>
-                  |
-                  <p class="title ml-2">Buổi giải đề PE PRO192</p>
-                </div>
+              <ng-container
+                *ngIf="
+                  dataScheduleMeetings.length > 0;
+                  else emptyDataScheduleMeeting
+                "
+              >
+                <div
+                  *ngFor="let data of dataScheduleMeetings"
+                  class="section-study-obj"
+                >
+                  <div class="flex flex-row items-end">
+                    <h2 class="host-name mr-2">{{ data.lecture.fullName }}</h2>
+                    |
+                    <p class="title ml-2">{{ data.title }}</p>
+                  </div>
 
-                <!-- Thời gian -->
-                <div class="duration flex flex-row">
-                  <p class="time-start mr-2">12:30 AM</p>
-                  -
-                  <p class="time-end ml-2">14:30 AM</p>
-                  <p class="ml-2">[April 25, 2024]</p>
-                </div>
+                  <!-- Thời gian -->
+                  <div class="duration flex flex-row">
+                    <p class="time-start mr-2">
+                      {{ data.timeStart | date : "h:mm a" }}
+                    </p>
+                    -
+                    {{ data.timeEnd | date : "h:mm a" }}
+                    <p class="ml-2">
+                      {{ data.timeStart | date : "EEEE, MMMM d, y" }}
+                    </p>
+                  </div>
 
-                <!-- Giá và nút đăng ký -->
-                <div class="price-register mt-3 flex flex-row items-center">
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                  <!-- Giá và nút đăng ký -->
+                  <div class="price-register mt-3 flex flex-row items-center">
+                    <button
+                      type="button"
+                      class="text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    >
+                      Đăng ký ngay
+                    </button>
+                  </div>
+
+                  <p
+                    [pTooltip]="'Xem tất cả các lịch giảng trực tuyến'"
+                    class="view-all mt-1 pr-5 w-full text-center text-base align-items-center"
                   >
-                    Đăng ký ngay
-                  </button>
+                    Xem tất cả
+                  </p>
                 </div>
-              </div>
-              <div class="section-study-obj">
-                <div class="flex flex-row items-end">
-                  <h2 class="host-name mr-2">Nguyễn Thành Đạt</h2>
-                  |
-                  <p class="title ml-2">Buổi giải đề PE PRO192</p>
-                </div>
-
-                <!-- Thời gian -->
-                <div class="duration flex flex-row">
-                  <p class="time-start mr-2">12:30 AM</p>
-                  -
-                  <p class="time-end ml-2">14:30 AM</p>
-                  <p class="ml-2">[April 25, 2024]</p>
-                </div>
-
-                <!-- Giá và nút đăng ký -->
-                <div class="price-register mt-3 flex flex-row items-center">
-                  <button
-                    type="button"
-                    class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                  >
-                    Đăng ký ngay
-                  </button>
-                </div>
-              </div>
+              </ng-container>
+              <ng-template #emptyDataScheduleMeeting>
+                <p>Hiện tại chưa có lịch giảng nào!</p>
+              </ng-template>
             </div>
-
-            <p
-              [pTooltip]="'Xem tất cả các lịch giảng trực tuyến'"
-              class="view-all mt-1 font-medium p-0 w-full text-center text-lg align-items-center"
-            >
-              Xem tất cả
-            </p>
           </div>
         </div>
       </div>

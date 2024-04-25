@@ -5,13 +5,8 @@
 .container {
   position: relative;
   .card {
-    background-color: #d9d9d9;
     height: 100vh;
     padding: 1% 2%;
-    // background-image: url("../../../assets/images/BgImage.png");
-    // https://daihoc.fpt.edu.vn/wp-content/uploads/2023/12/Hocbong-100_-e-thumb-2-650x359.png
-    // background-image: url("https://daihoc.fpt.edu.vn/wp-content/uploads/2022/02/HCM-scaled.jpeg");
-    // background-color: #ff95008f;
     background-size: cover;
     .bg-grey {
       position: absolute;
@@ -183,6 +178,8 @@
           }
         }
         .view-all {
+          position: absolute;
+          bottom: 2%;
           cursor: pointer;
         }
       }
@@ -190,7 +187,7 @@
   }
   .edu-program {
     height: 100%;
-    background-color: #fcf9f4;
+    background-color: white;
     padding: 3%;
 
     .title {
@@ -346,7 +343,7 @@
     margin: 3% 0%;
     padding-top: 3%;
     padding-bottom: 6%;
-    background-color: #fcf9f4;
+    background-color: white;
     h2 {
       font-size: 40px;
       font-weight: bold;
@@ -401,7 +398,7 @@
 
   .checking-daily {
     margin: 2% 0%;
-    padding: 0% 15%;
+    padding: 0% 10%;
     .coin-already {
       width: 30%;
       .coins-img {
@@ -420,7 +417,7 @@
       }
     }
     .content {
-      padding: 5 % 15%;
+      padding: 5% 15%;
       width: 100%;
       height: 100%;
       background-color: #211903;

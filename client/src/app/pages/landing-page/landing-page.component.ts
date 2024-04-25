@@ -5,9 +5,15 @@ import { Subscription } from 'rxjs';
 import {
   CoinService,
   CourseService,
+  ScheduleMeetingService,
   SharedService,
 } from '../../cores/services';
-import { CheckingDailyEvent, Course, User } from '../../cores/models';
+import {
+  CheckingDailyEvent,
+  Course,
+  ScheduleMeeting,
+  User,
+} from '../../cores/models';
 import { Router } from '@angular/router';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 import { CheckingDailyEventService } from '../../cores/services/checking-daily-event.service';
@@ -28,6 +34,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public dataCheckingDailyEvent: CheckingDailyEvent[] = [];
   public getTotalCoin: number = 0;
   public currentDateTime = new Date();
+  public dataScheduleMeetings: ScheduleMeeting[] = [];
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -36,7 +43,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private dialogBroadcastService: DialogBroadcastService,
     private readonly checkingDailyEventService: CheckingDailyEventService,
     private readonly coinService: CoinService,
-    private readonly sharedService: SharedService
+    private readonly sharedService: SharedService,
+    private readonly scheduleMeetingService: ScheduleMeetingService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -104,7 +112,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.dataCheckingDailyEvent = res.data;
-          console.log(this.dataCheckingDailyEvent);
         },
         error: (err: any) => {
           console.log(err);
@@ -123,11 +130,36 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         },
       });
 
+    // Lấy ra tất cả dữ liệu của lịch hẹn
+    const getAllScheduleMeetingsSub$ = this.scheduleMeetingService
+      .getAllScheduleMeetings()
+      .subscribe({
+        next: (res: any) => {
+          this.dataScheduleMeetings = res.data;
+          // Nếu có thì sắp xếp theo thời gian từ mới nhất đến cũ nhất
+          if (this.dataScheduleMeetings.length > 0) {
+            this.dataScheduleMeetings.sort(
+              (a: ScheduleMeeting, b: ScheduleMeeting) => {
+                return (
+                  new Date(b.timeStart).getTime() -
+                  new Date(a.timeStart).getTime()
+                );
+              }
+            );
+            this.dataScheduleMeetings = this.dataScheduleMeetings.slice(0, 2);
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+
     this.subscriptions.push(courseClass10Sub$);
     this.subscriptions.push(courseClass11Sub$);
     this.subscriptions.push(courseClass12Sub$);
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
+    this.subscriptions.push(getAllScheduleMeetingsSub$);
   }
 
   // Lấy tất cả các khóa học đã đăng ký

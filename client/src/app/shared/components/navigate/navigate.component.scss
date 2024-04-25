@@ -89,20 +89,10 @@
     display: flex;
     align-items: center;
     padding: 0% 5%;
-    .btn-sign-up {
-      padding: 0.5rem 1rem;
-      width: 7.5rem;
-      border-radius: 1rem;
-      background: linear-gradient(to right bottom, #ff8f26, #ff5117);
-      p {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #fff;
-      }
-    }
+    width: 100%;
+    justify-content: flex-end;
     .btn-sign-in {
-      padding: 0.5rem 1rem;
-      width: 7.5rem;
+      width: 9rem;
       border-radius: 1rem;
       p {
         font-size: 1rem;

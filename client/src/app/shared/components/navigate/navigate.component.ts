@@ -60,7 +60,10 @@ export class NavigateComponent implements OnInit, OnDestroy {
     const cartSub$ = this.cartService.getCart().subscribe({
       next: (res: any) => {
         this.cart = res.data;
-        this.lengthOfCartItems = this.cart.items.length || 0;
+
+        if (this.cart) {
+          this.lengthOfCartItems = this.cart.items ? this.cart.items.length : 0;
+        }
       },
       error: (err: any) => {
         console.log(err);
