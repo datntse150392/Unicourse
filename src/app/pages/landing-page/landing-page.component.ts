@@ -36,7 +36,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public currentDateTime = new Date();
   public dataScheduleMeetings: ScheduleMeeting[] = [];
   public dataBanner: any[] = [];
-
+  public responsiveOptions: any[] | undefined;
   private subscriptions: Subscription[] = [];
   constructor(
     private courseService: CourseService,
@@ -63,6 +63,23 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   // Config on init
   initForm(): void {
+    this.responsiveOptions = [
+      {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
     // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
     if (localStorage !== undefined) {
       if (localStorage.getItem('isLogin')) {
@@ -160,13 +177,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       {
         id: '1',
         image:
-          'https://hocmai.vn/media/images/home/desktop/giup-con-cong-pha-1.png',
+          'https://daihoc.fpt.edu.vn/wp-content/uploads/2023/12/Hocbong-100_-e-thumb-2.png',
         title: 'Khám phá khóa học mới',
         description: 'Học tập không bao giờ là đủ',
       },
       {
         id: '2',
-        image: 'https://hocmai.vn/media/images/home/desktop/luyencaptochcm.png',
+        image:
+          'https://dnuni.fpt.edu.vn/wp-content/uploads/2022/02/Untitled-design-12-min-1600x900.png',
         title: 'Học từ những chuyên gia',
         description: 'Học từ những chuyên gia hàng đầu',
       },

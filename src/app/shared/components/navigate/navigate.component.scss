@@ -1,21 +1,11 @@
 .nav-info {
-  background-color: #f9f9f9;
+  border-bottom: 1px solid #3333;
+  margin-bottom: 2%;
   color: rgba(0, 0, 0, 0.8);
   .group-logo {
     padding: 1% 5%;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #3333;
-    .img-logo {
-      width: 5rem;
-    }
-    .title {
-      font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
-        Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-      font-weight: 900;
-      font-size: large;
-      margin-top: 0.5rem;
-      color: #111827;
-    }
+
     .search {
       width: 20rem;
       input {
@@ -45,25 +35,27 @@
   }
   .nav-left {
     padding: 0% 5%;
-    margin-bottom: 1%;
-    .logo {
-      cursor: pointer;
-      img {
-        width: 8rem;
-      }
-      h2 {
-        font-family: "system ui", sans-serif;
-        font-weight: bold;
-        color: rgba(0, 0, 0, 0.8);
-      }
+    margin-bottom: 0.5%;
+    gap: 10px;
+    .img-logo {
+      width: 5rem;
+    }
+    .title {
+      font-family: ui-sans-serif, system-ui, sans-serif, Apple Color Emoji,
+        Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+      font-weight: 900;
+      font-size: large;
+      color: #111827;
     }
     .nav-item {
-      margin-top: 4%;
+      border-radius: 10px;
+      background-color: #d8efff;
       position: relative; /* Cho phép absolute positioning bên trong .nav-item */
-      padding: 2% 1%;
-      width: 7rem;
+      padding: 2% 0%;
+      width: 6rem;
       color: #000;
       font-weight: bold;
+      margin-right: 10px;
       cursor: pointer;
       overflow: hidden; /* Giữ cho pseudo-element không vượt ra ngoài .nav-item */
       &:hover {
@@ -80,12 +72,14 @@
         left: 0;
         width: 0%; /* Bắt đầu từ chiều rộng 0 */
         height: 2px; /* Đặt chiều cao của border mong muốn */
-        background: #000; /* Màu của border */
+        background: #a080f884; /* Màu của border */
         transition: width 0.8s ease-in-out; /* Hiệu ứng mượt mà chạy từ 0 đến 100% chiều rộng */
       }
     }
   }
   .nav-right {
+    padding: 0% 5%;
+    margin-bottom: 0.5%;
     display: flex;
     align-items: center;
     padding: 0% 5%;
@@ -104,7 +98,6 @@
 }
 
 .card {
-  margin: 0% 5%;
   .container {
     .nav-left {
       .logo {

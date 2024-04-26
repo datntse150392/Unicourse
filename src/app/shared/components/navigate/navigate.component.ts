@@ -21,6 +21,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
   Logo: string = environment.LOGO;
   items: MenuItem[] | undefined;
   user: User | undefined;
+  toggleMenu: boolean = false;
   subscriptions: Subscription[] = [];
   public lengthOfCartItems = 0;
   public cart!: Cart;
@@ -206,10 +207,6 @@ export class NavigateComponent implements OnInit, OnDestroy {
   }
 
   navigateToHome() {
-    // reload lại trang
     this.router.navigate(['/']);
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
   }
 }

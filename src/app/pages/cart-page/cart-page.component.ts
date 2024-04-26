@@ -139,10 +139,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
         this.cart = res.data;
         if (this.cart) {
           this.totalAmountBeforeApplyVoucher = this.cart.amount;
-          if (this.cart.items.length === 0) {
+          if (this.cart && this.cart.items == undefined) {
             this.removeVoucher();
           }
-
           // Config paypal
           this.configPaypal(this.totalAmountBeforeApplyVoucher);
         }
@@ -322,7 +321,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   applyVoucher(code: string) {
-    if (this.cart && this.cart.items.length > 0) {
+    if (this.cart && this.cart?.items && this.cart.items.length > 0) {
       this.isProgressSpinner = true;
       const applyVoucherSub$ = this.voucherService
         .applyVoucherToCart(code)
@@ -440,7 +439,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
             PaymentMethod.VNPAY,
             paymentObject.total_new_amount,
             paymentObject.voucher_id,
-            transactionCode
+            transactionCode,
+            this.isUseCoin
           )
           .subscribe({
             next: (res: any) => {
@@ -463,25 +463,34 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
   // Hàm xử lý thanh toán bằng coin
   applyCoin() {
-    this.isUseCoin = !this.isUseCoin;
-    if (
-      this.isUseCoin &&
-      this.totalCoin > 0 &&
-      this.totalCoin > this.totalAmountBeforeApplyVoucher
-    ) {
-      this.totalAmountBeforeApplyVoucher = 0;
-    } else if (
-      this.isUseCoin &&
-      this.totalCoin > 0 &&
-      this.totalCoin < this.totalAmountBeforeApplyVoucher
-    ) {
-      this.totalAmountBeforeApplyVoucher -= this.totalCoin;
-    } else if (
-      !this.isUseCoin &&
-      this.totalCoin > 0 &&
-      this.totalCoin < this.totalAmountBeforeApplyVoucher
-    ) {
-      this.totalAmountBeforeApplyVoucher += this.totalCoin;
+    if (this.cart && this.cart.items && this.cart.items.length > 0) {
+      this.isUseCoin = !this.isUseCoin;
+      if (
+        this.isUseCoin &&
+        this.totalCoin > 0 &&
+        this.totalCoin > this.totalAmountBeforeApplyVoucher
+      ) {
+        this.totalAmountBeforeApplyVoucher = 0;
+      } else if (
+        this.isUseCoin &&
+        this.totalCoin > 0 &&
+        this.totalCoin < this.totalAmountBeforeApplyVoucher
+      ) {
+        this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+      } else if (
+        !this.isUseCoin &&
+        this.totalCoin > 0 &&
+        this.totalCoin < this.totalAmountBeforeApplyVoucher
+      ) {
+        this.totalAmountBeforeApplyVoucher += this.totalCoin;
+      }
+    } else {
+      this.dialogBroadcastService.broadcastDialog({
+        header: 'Giỏ hàng',
+        message: 'Giỏ hàng của bạn đang trống',
+        type: 'info',
+        display: true,
+      });
     }
   }
 }

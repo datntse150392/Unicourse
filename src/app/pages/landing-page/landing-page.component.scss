@@ -1,15 +1,22 @@
 :host ::ng-deep .custom-scroll-top button {
   background: black;
 }
+:host ::ng-deep {
+  .p-carousel-indicators {
+    display: none;
+  }
+  img {
+    border-radius: 10px;
+    object-fit: cover;
+  }
+}
 
 .container {
   position: relative;
   .card {
     height: 67vh;
     padding: 1% 2%;
-    background-size: cover;
     .main-menu {
-      margin-top: 1rem;
       .main-menu-title {
         background-color: #eeeef2;
         padding: 1rem;
@@ -101,7 +108,6 @@
 
           .section-study-obj {
             padding: 1rem;
-            background-color: white;
             border-bottom: 1px solid #bdb0b09a;
             .host-name {
               font-size: 1rem;
@@ -341,22 +347,24 @@
   }
 
   .checking-daily {
-    height: 35rem;
-    margin: 2% 0%;
+    height: 32rem;
     padding: 0% 10%;
     .coin-already {
-      width: 30%;
-      .coins-img {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      margin-bottom: 3%;
+      margin-bottom: 2%;
+      gap: 1rem;
+      .coins-img {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
       .coin-text {
-        font-size: 2.5rem;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-size: 2.2rem;
         color: #f17125;
         font-weight: bold;
       }
@@ -365,12 +373,12 @@
       padding: 5% 15%;
       width: 100%;
       height: 100%;
-      background-color: #c8e8ff;
+      background-color: #d8efff;
       border-radius: 10px;
       h3 {
-        font-size: 36px;
+        font-size: 30px;
         color: #000;
-        margin-bottom: 2%;
+        margin-top: 2%;
       }
       p {
         margin: 0;
@@ -439,7 +447,7 @@
       .btn-take-coin {
         position: absolute;
         left: 32%;
-        margin-top: 6%;
+        margin-top: 5%;
         display: flex;
         align-items: center;
         padding: 1rem;
@@ -460,7 +468,7 @@
       .btn-take-coin-back {
         position: absolute;
         left: 32%;
-        margin-top: 4%;
+        margin-top: 5%;
         display: flex;
         align-items: center;
         padding: 1rem;
@@ -472,10 +480,10 @@
         border-radius: 10rem;
         p {
           width: 100%;
-          color: rgb(0, 0, 0);
+          color: #fff;
           font-size: 1.5rem;
           text-align: center;
-          font-weight: 500;
+          font-weight: 700;
         }
       }
     }

@@ -38,7 +38,8 @@ export class TransactionService {
     payment_method: string,
     total_new_amount: number,
     voucher_id: string | null,
-    transactionCode: string
+    transactionCode: string,
+    used_coin: boolean
   ) {
     const body = {
       amount: total_new_amount,
@@ -51,6 +52,7 @@ export class TransactionService {
     localStorage.setItem('total_new_amount', total_new_amount.toString());
     voucher_id && localStorage.setItem('voucher_id', voucher_id);
     localStorage.setItem('transaction_code', transactionCode);
+    localStorage.setItem('used_coin', used_coin.toString());
     return this.httpClient
       .post<any>(
         `${environment.baseUrl}/api/transactions/create_payment_url`,

@@ -250,6 +250,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
         let transaction_code = localStorage.getItem(
           'transaction_code'
         ) as string;
+        let used_coin = localStorage.getItem('used_coin') === 'true';
         payer['vnp_Amount'] = total_new_amount;
         payer['vnp_BankCode'] = urlParams.get('vnp_BankCode');
         payer['vnp_BankTranNo'] = urlParams.get('vnp_BankTranNo');
@@ -271,7 +272,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
             voucher_id,
             StatusOfPayment.SUCCESS,
             transaction_code,
-            false
+            used_coin
           )
           .subscribe({
             next: (res: any) => {
@@ -304,6 +305,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     localStorage.removeItem('total_new_amount');
     localStorage.removeItem('voucher_id');
     localStorage.removeItem('transaction_code');
+    localStorage.removeItem('used_coin');
     window.history.replaceState({}, document.title, 'http://localhost:4200/');
     this.dialogBroadcastService.broadcastDialog({
       header: header,
