@@ -2,12 +2,10 @@
   <p-blockUI [blocked]="blockedUI"
     ><p-progressSpinner></p-progressSpinner>
   </p-blockUI>
-  <div class="header-background">
-    <app-header></app-header>
-  </div>
+  <app-header></app-header>
   <div class="body-container">
     <!-- Breachrum Group-->
-    <nav class="flex mt-4" aria-label="Breadcrumb">
+    <nav class="flex" aria-label="Breadcrumb">
       <ol
         class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
       >
@@ -155,7 +153,7 @@
 
     <!-- Course card -->
     <ng-template [ngIf]="courseDetail !== undefined">
-      <div class="flex flex-row pt-5">
+      <div class="flex flex-row pt-2">
         <!-- Description course -->
         <div class="col-8">
           <h3

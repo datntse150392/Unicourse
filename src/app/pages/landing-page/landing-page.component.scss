@@ -14,8 +14,8 @@
 .container {
   position: relative;
   .card {
-    height: 67vh;
-    padding: 1% 2%;
+    height: 100%;
+    padding: 0% 2%;
     .main-menu {
       .main-menu-title {
         background-color: #eeeef2;
@@ -89,7 +89,7 @@
           .count-time {
             width: 100%;
             position: absolute;
-            top: 10%;
+            top: 12%;
             text-align: center;
             .first-text {
               font-size: 2.2rem;
@@ -104,19 +104,17 @@
           }
         }
         .section-study {
-          margin-top: 0.5rem;
-
           .section-study-obj {
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             border-bottom: 1px solid #bdb0b09a;
             .host-name {
-              font-size: 1rem;
-              font-weight: 600;
+              font-size: 1.1rem;
+              font-weight: 400;
               color: #171414;
             }
             .title {
-              font-size: 1rem;
-              font-weight: 400;
+              font-size: 1.2rem;
+              font-weight: bold;
               color: #171414;
             }
             .duration {
@@ -207,9 +205,9 @@
       align-items: center;
       justify-content: space-between;
       position: relative;
-      margin-bottom: 1%;
+      margin-bottom: 0.5%;
       h1 {
-        font-size: 1.6rem;
+        font-size: 2rem;
       }
       h2 {
         color: black;
@@ -255,7 +253,7 @@
       padding: 1%;
       img {
         width: 100%;
-        border-radius: 1rem;
+        border-radius: 10px;
       }
       h3 {
         font-size: 14px;
@@ -346,6 +344,7 @@
   }
 
   .checking-daily {
+    margin-top: 3%;
     height: 35rem;
     padding: 0% 5%;
     .coin-already {

@@ -6,7 +6,7 @@
     icon="pi pi-arrow-up"
   ></p-scrollTop>
   <div class="card">
-    <section class="wrap-header p-4">
+    <section class="wrap-header pr-3 pl-3">
       <div class="nav-header-menu"></div>
 
       <div class="main-menu grid grid-cols-12 gap-4">
@@ -29,10 +29,10 @@
 
         <!-- Hiển thị lịch booking -->
         <div
-          class="h-[32rem] header-right-content col-span-4 w-full bg-[#D8EFFF] rounded-lg dark:bg-gray-800 dark:border-gray-700"
+          class="h-[32rem] header-right-content col-span-4 bg-[#D8EFFF] rounded-lg dark:bg-gray-800 dark:border-gray-700"
         >
           <!-- Hiển thị thời gian -->
-          <div class="clock-time w-full h-1/3">
+          <div class="clock-time w-full h-2/5">
             <img
               class="w-full h-full"
               src="https://i.pinimg.com/564x/dc/77/68/dc7768697208fa969b03da566a3890c4.jpg"
@@ -58,10 +58,21 @@
                   *ngFor="let data of dataScheduleMeetings"
                   class="section-study-obj"
                 >
-                  <div class="flex flex-row items-end">
-                    <p class="title mr-2">{{ data.title }}</p>
-                    |
-                    <h2 class="host-name ml-2">{{ data.lecture.fullName }}</h2>
+                  <div class="flex flex-column items-start">
+                    <div class="flex flex-row items-center gap-2">
+                      <p class="title p-0">{{ data.title }}</p>
+                      <!-- Giá và nút đăng ký -->
+                      <div class="price-register flex flex-row">
+                        <button
+                          type="button"
+                          class="text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                        >
+                          Tham gia
+                        </button>
+                      </div>
+                    </div>
+
+                    <h2 class="host-name">HOST: {{ data.lecture.fullName }}</h2>
                   </div>
 
                   <!-- Thời gian -->
@@ -76,26 +87,18 @@
                     </p>
                   </div>
 
-                  <!-- Giá và nút đăng ký -->
-                  <div class="price-register mt-3 flex flex-row items-center">
-                    <button
-                      type="button"
-                      class="text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                    >
-                      Đăng ký ngay
-                    </button>
-                  </div>
-
                   <p
                     [pTooltip]="'Xem tất cả các lịch giảng trực tuyến'"
-                    class="view-all mt-1 pr-5 w-full text-center text-base align-items-center"
+                    class="view-all pr-7 w-full text-center text-base align-items-center"
                   >
                     Xem tất cả
                   </p>
                 </div>
               </ng-container>
               <ng-template #emptyDataScheduleMeeting>
-                <p>Hiện tại chưa có lịch giảng nào!</p>
+                <p class="text-[1.2rem] w-full h-full text-center mt-2">
+                  Hiện tại chưa có lịch giảng nào!
+                </p>
               </ng-template>
             </div>
           </div>
@@ -349,8 +352,8 @@
     </div>
   </div> -->
 
-  <!-- Các khóa học của Khối 10 -->
-  <ng-container *ngIf="courseClass10 && courseClass10.length > 0">
+  <!-- Các khóa học của Học kỳ 1 -->
+  <ng-container *ngIf="this.semester1 && this.semester1.length > 0">
     <div class="semester">
       <span
         [ngStyle]="{
@@ -363,7 +366,7 @@
       <div class="title flex flex-row relative">
         <div class="flex flex-row gap-1">
           <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-            Các Khóa Học Khối 10
+            Khóa Học kỳ 1
           </h1>
           <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
         </div>
@@ -374,7 +377,7 @@
       </div>
 
       <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of courseClass10" class="course col-3">
+        <div *ngFor="let course of semester1" class="course col-3">
           <img
             [ngStyle]="{ 'object-fit': 'contain' }"
             src="{{ course.thumbnail }}"
@@ -382,15 +385,13 @@
           <p-button
             class="register-button flipup animation-duration-300"
             [style]="{
-              background: '#fff ',
-              border: '10px solid #fff',
-              'border-radius': '2rem'
+              'border-radius': '10px'
             }"
           >
             <span
               (click)="hanleGetCourseDetail(course._id)"
-              class="font-bold"
-              [style]="{ color: '#000' }"
+              class="font-bold bg-gradient-to-br from-[#5edff5] to-[#9f80f8] p-3"
+              [style]="{ color: '#ffffff' }"
               >Xem khóa học</span
             >
           </p-button>
@@ -411,8 +412,8 @@
     </div>
   </ng-container>
 
-  <!-- Các khóa học của Khối 11 -->
-  <ng-container *ngIf="courseClass11 && courseClass11.length > 0">
+  <!-- Các khóa học của Học kỳ 2 -->
+  <ng-container *ngIf="this.semester2 && this.semester2.length > 0">
     <div class="semester">
       <span
         [ngStyle]="{
@@ -425,7 +426,7 @@
       <div class="title flex flex-row relative">
         <div class="flex flex-row gap-1">
           <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-            Các Khóa Học Khối 11
+            Khóa Học kỳ 2
           </h1>
           <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
         </div>
@@ -436,7 +437,7 @@
       </div>
 
       <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of courseClass11" class="course col-3">
+        <div *ngFor="let course of semester2" class="course col-3">
           <img
             [ngStyle]="{ 'object-fit': 'contain' }"
             src="{{ course.thumbnail }}"
@@ -444,15 +445,13 @@
           <p-button
             class="register-button flipup animation-duration-300"
             [style]="{
-              background: '#fff',
-              border: '10px solid #fff',
-              'border-radius': '2rem'
+              'border-radius': '10px'
             }"
           >
             <span
               (click)="hanleGetCourseDetail(course._id)"
-              class="font-bold"
-              [style]="{ color: '#000' }"
+              class="font-bold bg-gradient-to-br from-[#5edff5] to-[#9f80f8] p-3"
+              [style]="{ color: '#ffffff' }"
               >Xem khóa học</span
             >
           </p-button>
@@ -473,8 +472,8 @@
     </div>
   </ng-container>
 
-  <!-- Các khóa học của Khối 10 -->
-  <ng-container *ngIf="courseClass12 && courseClass12.length > 0">
+  <!-- Các khóa học của Học kỳ 3 -->
+  <ng-container *ngIf="this.semester3 && this.semester3.length > 0">
     <div class="semester">
       <span
         [ngStyle]="{
@@ -487,7 +486,7 @@
       <div class="title flex flex-row relative">
         <div class="flex flex-row gap-1">
           <h1 [ngStyle]="{ color: '#242424', 'font-weight': '900' }">
-            Các Khóa Học Khối 12
+            Khóa Học kỳ 3
           </h1>
           <p-badge [value]="'Nổi bật'" severity="danger"></p-badge>
         </div>
@@ -498,7 +497,7 @@
       </div>
 
       <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of courseClass12" class="course col-3">
+        <div *ngFor="let course of semester3" class="course col-3">
           <img
             [ngStyle]="{ 'object-fit': 'contain' }"
             src="{{ course.thumbnail }}"
@@ -506,15 +505,13 @@
           <p-button
             class="register-button flipup animation-duration-300"
             [style]="{
-              background: '#fff',
-              border: '10px solid #fff',
-              'border-radius': '2rem'
+              'border-radius': '10px'
             }"
           >
             <span
               (click)="hanleGetCourseDetail(course._id)"
-              class="font-bold"
-              [style]="{ color: '#000' }"
+              class="font-bold bg-gradient-to-br from-[#5edff5] to-[#9f80f8] p-3"
+              [style]="{ color: '#ffffff' }"
               >Xem khóa học</span
             >
           </p-button>

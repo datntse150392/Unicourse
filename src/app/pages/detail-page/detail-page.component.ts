@@ -79,7 +79,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     });
 
     const courseSemester1Sub$ = this.courseService
-      .getCoursebySemester('1')
+      .getCoursebySemester(1)
       .subscribe({
         next: (res: any) => {
           this.courseSemester1 = res.data;

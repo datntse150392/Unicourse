@@ -31,13 +31,18 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public courseClass10: Course[] = [];
   public courseClass11: Course[] = [];
   public courseClass12: Course[] = [];
+  public semester1: Course[] = [];
+  public semester2: Course[] = [];
+  public semester3: Course[] = [];
   public dataCheckingDailyEvent: CheckingDailyEvent[] = [];
   public getTotalCoin: number = 0;
   public currentDateTime = new Date();
   public dataScheduleMeetings: ScheduleMeeting[] = [];
   public dataBanner: any[] = [];
   public responsiveOptions: any[] | undefined;
+
   private subscriptions: Subscription[] = [];
+
   constructor(
     private courseService: CourseService,
     private router: Router,
@@ -72,40 +77,70 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     }
 
     // Lấy danh sách khóa học của khối 10
-    const courseClass10Sub$ = this.courseService
-      .getCourseByClass(10)
-      .subscribe({
-        next: (res: any) => {
-          this.courseClass10 = res.data;
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-      });
+    // const courseClass10Sub$ = this.courseService
+    //   .getCourseByClass(10)
+    //   .subscribe({
+    //     next: (res: any) => {
+    //       this.courseClass10 = res.data;
+    //     },
+    //     error: (err: any) => {
+    //       console.log(err);
+    //     },
+    //   });
 
     // Lấy danh sách khóa học của khối 11
-    const courseClass11Sub$ = this.courseService
-      .getCourseByClass(11)
-      .subscribe({
-        next: (res: any) => {
-          this.courseClass11 = res.data;
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-      });
+    // const courseClass11Sub$ = this.courseService
+    //   .getCourseByClass(11)
+    //   .subscribe({
+    //     next: (res: any) => {
+    //       this.courseClass11 = res.data;
+    //     },
+    //     error: (err: any) => {
+    //       console.log(err);
+    //     },
+    //   });
 
     // Lấy danh sách khóa học của khối 12
-    const courseClass12Sub$ = this.courseService
-      .getCourseByClass(12)
-      .subscribe({
-        next: (res: any) => {
-          this.courseClass12 = res.data;
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-      });
+    // const courseClass12Sub$ = this.courseService
+    //   .getCourseByClass(12)
+    //   .subscribe({
+    //     next: (res: any) => {
+    //       this.courseClass12 = res.data;
+    //     },
+    //     error: (err: any) => {
+    //       console.log(err);
+    //     },
+    //   });
+
+    // Lấy danh sách khóa học của học kỳ 1
+    const semester1Sub$ = this.courseService.getCoursebySemester(1).subscribe({
+      next: (res: any) => {
+        this.semester1 = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
+    // Lấy danh sách khóa học của học kỳ 2
+    const semester2Sub$ = this.courseService.getCoursebySemester(2).subscribe({
+      next: (res: any) => {
+        this.semester2 = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+
+    // Lấy danh sách khóa học của học kỳ 3
+    const semester3Sub$ = this.courseService.getCoursebySemester(3).subscribe({
+      next: (res: any) => {
+        this.semester3 = res.data;
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
 
     // Lấy danh sách sự kiện kiểm tra hàng ngày
     const checkingDailyEventSub$ = this.checkingDailyEventService
@@ -173,12 +208,15 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       },
     ];
 
-    this.subscriptions.push(courseClass10Sub$);
-    this.subscriptions.push(courseClass11Sub$);
-    this.subscriptions.push(courseClass12Sub$);
+    // this.subscriptions.push(courseClass10Sub$);
+    // this.subscriptions.push(courseClass11Sub$);
+    // this.subscriptions.push(courseClass12Sub$);
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
     this.subscriptions.push(getAllScheduleMeetingsSub$);
+    this.subscriptions.push(semester1Sub$);
+    this.subscriptions.push(semester2Sub$);
+    this.subscriptions.push(semester3Sub$);
   }
 
   // Lấy tất cả các khóa học đã đăng ký

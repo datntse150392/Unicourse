@@ -16,7 +16,7 @@ export class CourseService {
   }
 
   // Lấy danh sách khóa học theo chuyên ngành
-  getCoursebySemester(semester: string): Observable<Course[]> {
+  getCoursebySemester(semester: number): Observable<Course[]> {
     return this.httpClient
       .get<Course[]>(`${environment.baseUrl}/api/course/semester/${semester}`)
       .pipe(catchError(this.handleError));
