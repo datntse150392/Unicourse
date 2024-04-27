@@ -201,8 +201,8 @@
   }
 
   .semester {
-    margin-top: 2%;
-    padding: 0% 10%;
+    margin-top: 3%;
+    padding: 0% 5%;
     .title {
       align-items: center;
       justify-content: space-between;
@@ -254,7 +254,6 @@
       position: relative;
       padding: 1%;
       img {
-        height: 10.5rem;
         width: 100%;
         border-radius: 1rem;
       }
@@ -284,13 +283,13 @@
         display: block;
       }
       img {
-        opacity: 0.5; /* Điều chỉnh độ trong suốt của hình ảnh */
+        opacity: 0.4; /* Điều chỉnh độ trong suốt của hình ảnh */
       }
     }
   }
 
   .feedback {
-    margin: 3% 10%;
+    margin: 3% 5%;
     padding-top: 3%;
     padding-bottom: 6%;
     border-radius: 10px;
@@ -300,7 +299,7 @@
       padding-bottom: 2%;
     }
     .user {
-      padding: 0% 15%;
+      padding: 0% 10%;
       h4 {
         font-size: 18px;
         margin-top: 2%;
@@ -325,7 +324,7 @@
 
   .contact {
     margin-top: 2%;
-    padding: 0% 10%;
+    padding: 0% 5%;
     height: 20rem;
     .content {
       width: 100%;
@@ -347,8 +346,8 @@
   }
 
   .checking-daily {
-    height: 32rem;
-    padding: 0% 10%;
+    height: 35rem;
+    padding: 0% 5%;
     .coin-already {
       display: flex;
       flex-direction: row;
@@ -356,10 +355,7 @@
       align-items: center;
       margin-bottom: 2%;
       gap: 1rem;
-      .coins-img {
-        width: 2.5rem;
-        height: 2.5rem;
-      }
+
       .coin-text {
         width: 100%;
         display: flex;
@@ -397,8 +393,9 @@
         padding: 2.5rem;
         border-radius: 5%;
         .form-coin {
-          padding: 1rem 1rem;
-          border: 1px solid #00000021;
+          background-color: #f5f5f5;
+          height: 7rem;
+          padding: 1.5rem 1.5rem;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -414,6 +411,7 @@
           }
         }
         .form-coin-active {
+          height: 7rem;
           background-color: #97d5fe36;
           padding: 1rem 1rem;
           border: 2px solid #97d5fe;
@@ -423,7 +421,7 @@
           border-radius: 5%;
           gap: 0.5rem;
           span {
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: bold;
           }
           .coins-img {
@@ -441,7 +439,8 @@
           margin-top: 0.5rem;
           width: 100%;
           font-size: 1rem;
-          color: #000;
+          color: #00000098;
+          font-weight: bold;
         }
       }
       .btn-take-coin {

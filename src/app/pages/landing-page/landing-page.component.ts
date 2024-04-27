@@ -63,23 +63,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   // Config on init
   initForm(): void {
-    this.responsiveOptions = [
-      {
-        breakpoint: '1199px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-      {
-        breakpoint: '991px',
-        numVisible: 2,
-        numScroll: 1,
-      },
-      {
-        breakpoint: '767px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ];
     // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
     if (localStorage !== undefined) {
       if (localStorage.getItem('isLogin')) {
@@ -278,13 +261,23 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (res: any) => {
             if (res.status === 200) {
+              // Lấy danh sách sự kiện kiểm tra hàng ngày
+              this.checkingDailyEventService
+                .getAllDataCheckingDailyEvent()
+                .subscribe({
+                  next: (res: any) => {
+                    this.dataCheckingDailyEvent = res.data;
+                  },
+                  error: (err: any) => {
+                    console.log(err);
+                  },
+                });
               this.dialogBroadcastService.broadcastDialog({
                 header: 'Thông báo',
                 message: 'Chúc mừng bạn đã nhận được phần thưởng',
                 type: 'success',
                 display: true,
               });
-              this.initForm();
             }
           },
           error: (err: any) => {
