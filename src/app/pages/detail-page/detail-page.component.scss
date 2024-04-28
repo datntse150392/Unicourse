@@ -1,7 +1,7 @@
 .container {
   max-width: 100%;
   .body-container {
-    width: 90%;
+    padding: 0% 10%;
     margin: auto;
     .p-card-content {
       padding: 0;
@@ -12,6 +12,21 @@
         padding: 0;
         margin: 0;
         background-color: #ffffff;
+      }
+    }
+    .will-learn {
+      padding: 2rem;
+      border: 1px solid #e0e0e0;
+    }
+    .course-info-right {
+      position: fixed;
+      right: 7%;
+      width: 30%;
+    }
+    .main-info {
+      .avt {
+        width: 10rem;
+        border-radius: 100%;
       }
     }
   }

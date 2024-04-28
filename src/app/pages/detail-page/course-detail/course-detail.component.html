@@ -1,54 +1,44 @@
 <div
-  class="course-detail border rounded-lg border-gray-200 shadow dark:border-gray-700 mx-4 p-3"
+  class="course-detail border border-gray-200 shadow dark:border-gray-700 mx-4 p-3"
 >
   <a href="#">
-    <img
-      class="w-full h-auto rounded-t-lg rounded-xl"
-      [src]="course.thumbnail"
-      [alt]="course.title"
-    />
+    <img class="w-full h-auto" [src]="course.thumbnail" [alt]="course.title" />
   </a>
-  <div class="px-5 py-5">
+  <div class="px-5 py-2">
     <div class="flex items-center mt-2.5 mb-5">
       <div class="border-round-right">
         <ul class="list-none space-y-4">
-          <li>
-            <p class="font-normal text-base text-gray-900 font-customFont">
-              Số bài học:
-              <span class="font-bold text-gray-900 font-customFont"
-                >{{ number }} bài học</span
-              >
-            </p>
+          <li class="flex flex-row gap-2 items-center">
+            <i class="pi pi-desktop" style="font-size: 1.2rem"></i>
+            <span class="text-gray-900 font-customFont"
+              >3 giờ 5 phút theo yêu cầu</span
+            >
           </li>
-          <li>
-            <p class="font-normal text-base text-gray-900 font-customFont">
-              Giảng viên:
-              <span
-                class="font-bold font-customFont"
-                [style]="{ color: '#9B51E0' }"
-                >Sơn Đặng
-              </span>
-            </p>
+          <li class="flex flex-row gap-2 items-center">
+            <i class="pi pi-sync" style="font-size: 1.2rem"></i>
+            <span class="text-gray-900 font-customFont"
+              >Quyền truy cập đầy đủ suốt đời</span
+            >
           </li>
-          <li>
-            <p class="font-normal text-base text-gray-900 font-customFont">
-              Học viên đã học:
-              <span class="font-bold text-gray-900 font-customFont">100+</span>
-            </p>
+
+          <li class="flex flex-row gap-2 items-center">
+            <i class="pi pi-mobile" style="font-size: 1.2rem"></i>
+            <span class="text-gray-900 font-customFont"
+              >Truy cập trên thiết bị di động và TV</span
+            >
           </li>
-          <li class="flex">
-            <p class="font-normal text-base text-gray-900 font-customFont">
-              Đánh giá:
-            </p>
-            &nbsp;
-            <p-rating [(ngModel)]="starValue" [cancel]="false"></p-rating>
+          <li class="flex flex-row gap-2 items-center">
+            <i class="pi pi-verified" style="font-size: 1.2rem"></i>
+            <span class="text-gray-900 font-customFont"
+              >Giấy chứng nhận hoàn thành</span
+            >
           </li>
         </ul>
       </div>
     </div>
     <div class="flex items-center justify-between">
       <span>
-        <p class="font-semibold text-2xl text-gray-900 font-customFont">
+        <p class="font-semibold text-3xl text-gray-900 font-customFont">
           <span class="font-bold text-gray-900 font-customFont">
             {{
               course.amount === 0
@@ -66,7 +56,7 @@
             <button
               (click)="handleRemoveFromCart(course._id)"
               type="button"
-              class="font-customFont focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2"
+              class="ffont-customFont focus:outline-none text-black bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-3 me-2"
             >
               Bỏ khỏi giỏ hàng
             </button>
@@ -76,7 +66,7 @@
             <button
               (click)="handleAddToCart(course._id)"
               type="button"
-              class="font-customFont focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2"
+              class="font-customFont focus:outline-none text-black bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-3 me-2"
             >
               Thêm vào giỏ hàng
             </button>
