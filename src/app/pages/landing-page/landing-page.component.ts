@@ -195,7 +195,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       {
         id: '1',
         image:
-          'https://daihoc.fpt.edu.vn/wp-content/uploads/2023/12/Hocbong-100_-e-thumb-2.png',
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FT%E1%BB%95ng%20h%E1%BB%A3p%20thi%E1%BA%BFt%20k%E1%BA%BF%20banner%20(1).png?alt=media&token=a3201442-814c-467f-ab1a-3fd540f7903c',
         title: 'Khám phá khóa học mới',
         description: 'Học tập không bao giờ là đủ',
       },

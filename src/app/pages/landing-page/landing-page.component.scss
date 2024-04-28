@@ -7,7 +7,14 @@
   }
   img {
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: fit;
+  }
+
+  .p-carousel-prev {
+    display: none;
+  }
+  .p-carousel-next {
+    display: none;
   }
 }
 
@@ -272,7 +279,7 @@
         margin-right: auto;
         left: 0;
         right: 0;
-        top: 30%;
+        top: 35%;
         text-align: center;
       }
     }
