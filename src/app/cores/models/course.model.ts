@@ -31,3 +31,11 @@ export interface Course {
   tracks: Track[];
   semester_number: number;
 }
+
+export interface FileStatus {
+  filename: string;
+  progress: number;
+  uploadedBytes: number;
+  size: number;
+  message?: string; // For pending, completed, failed
+}

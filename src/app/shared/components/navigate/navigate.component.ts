@@ -4,7 +4,7 @@ import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
 import { Cart, User } from '../../../cores/models';
 import { Subscription } from 'rxjs';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MegaMenuItem, MenuItem, MessageService } from 'primeng/api';
 import { AuthService, CartService } from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
@@ -26,6 +26,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
   public lengthOfCartItems = 0;
   public cart!: Cart;
   public updateCartSub$: Subscription | undefined;
+  items1: MegaMenuItem[] | undefined;
 
   constructor(
     private sharedService: SharedService,
@@ -48,6 +49,85 @@ export class NavigateComponent implements OnInit, OnDestroy {
         }
       }
     );
+
+    this.items1 = [
+      {
+        label: 'Danh mục',
+        items: [
+          [
+            {
+              label: 'Chuyên Ngành 1',
+              items: [
+                { label: 'CSI104' },
+                { label: 'PRF192' },
+                { label: 'MAE101' },
+                { label: 'CEA201' },
+              ],
+            },
+            {
+              label: 'Chuyên Ngành 2',
+              items: [
+                { label: 'PRO192' },
+                { label: 'MAD101' },
+                { label: 'OSG202' },
+                { label: 'SSG104' },
+              ],
+            },
+            {
+              label: 'Chuyên Ngành 3',
+              items: [
+                { label: 'JPD113' },
+                { label: 'CSD201' },
+                { label: 'DBI202' },
+                { label: 'LAB211' },
+              ],
+            },
+          ],
+          [
+            {
+              label: 'Chuyên Ngành 4',
+              items: [
+                { label: 'JPD123' },
+                { label: 'IOT102' },
+                { label: 'PRJ301' },
+                { label: 'MAS291' },
+              ],
+            },
+            {
+              label: 'Chuyên Ngành 5',
+              items: [
+                { label: 'SWR302' },
+                { label: 'SWT301' },
+                { label: 'PRJ301' },
+                { label: 'SWP391' },
+              ],
+            },
+            {
+              label: 'Chuyên Ngành 7',
+              items: [
+                { label: 'SWD392' },
+                { label: 'ISC301' },
+                { label: 'PRM392' },
+                { label: 'SDN301m' },
+              ],
+            },
+          ],
+          [
+            {
+              label: 'Chuyên Ngành 8-9',
+              items: [
+                { label: 'MMA301' },
+                { label: 'MLN111' },
+                { label: 'MLN122' },
+                { label: 'HCM202' },
+                { label: 'MLN131' },
+                { label: 'VNR202' },
+              ],
+            },
+          ],
+        ],
+      },
+    ];
   }
 
   ngOnDestroy(): void {

@@ -193,13 +193,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     // Lấy danh sách banner fake data
     this.dataBanner = [
       {
-        id: '1',
-        image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FT%E1%BB%95ng%20h%E1%BB%A3p%20thi%E1%BA%BFt%20k%E1%BA%BF%20banner%20(1).png?alt=media&token=a3201442-814c-467f-ab1a-3fd540f7903c',
-        title: 'Khám phá khóa học mới',
-        description: 'Học tập không bao giờ là đủ',
-      },
-      {
         id: '2',
         image:
           'https://dnuni.fpt.edu.vn/wp-content/uploads/2022/02/Untitled-design-12-min-1600x900.png',

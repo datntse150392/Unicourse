@@ -37,6 +37,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     OverlayPanelModule,
     TabViewModule,
     CheckboxModule,
+    MegaMenuModule,
   ],
   declarations: [],
   exports: [
@@ -119,6 +121,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     OverlayPanelModule,
     TabViewModule,
     CheckboxModule,
+    MegaMenuModule,
   ],
   providers: [GlobalDialogHandlerService],
 })

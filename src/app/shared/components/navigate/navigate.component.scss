@@ -1,3 +1,31 @@
+:host ::ng-deep {
+  li {
+    display: flex;
+  }
+  .p-megamenu-panel {
+    margin-left: 7rem;
+    margin-top: 3rem;
+    border-radius: 5px;
+  }
+  .p-megamenu {
+    padding: 0;
+    background-color: #d8efff;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  .p-menuitem-text {
+    color: #000 !important;
+    width: 5rem;
+    display: flex;
+  }
+
+  .p-menuitem-content {
+    .p-menuitem-text {
+      font-weight: 600;
+    }
+  }
+}
+
 .nav-info {
   border-bottom: 1px solid #3333;
   margin-bottom: 2%;
@@ -38,19 +66,20 @@
       color: #111827;
     }
     .nav-item {
-      border-radius: 10px;
+      border-radius: 5px;
       background-color: #d8efff;
       position: relative; /* Cho phép absolute positioning bên trong .nav-item */
       padding: 2% 0%;
       width: 6rem;
       color: #000;
-      font-weight: bold;
+      font-weight: 600;
       margin-right: 10px;
       cursor: pointer;
       overflow: hidden; /* Giữ cho pseudo-element không vượt ra ngoài .nav-item */
       &:hover {
         color: #000;
         border-radius: 5px;
+        font-weight: 700;
         &::before {
           width: 100%; /* Mở rộng pseudo-element ra toàn bộ chiều rộng khi hover */
         }
@@ -72,7 +101,7 @@
       input {
         width: 100%;
         padding: 0.5rem 2rem;
-        border-radius: 10px;
+        border-radius: 5px;
         border: 1px solid #3333;
         &:focus {
           outline: none;

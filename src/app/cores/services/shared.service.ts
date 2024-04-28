@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FileStatus } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
@@ -22,6 +23,23 @@ export class SharedService {
   // Dùng để gửi thông báo khi cập nhật giỏ hàng
   private isUpdateCart = new BehaviorSubject<boolean>(false);
   isUpdateCart$ = this.isUpdateCart.asObservable();
+
+  // Dùng để nhận bắt đầu nhận thông báo progress upload file
+  private startUpload = new BehaviorSubject<boolean>(false);
+  startUpload$ = this.startUpload.asObservable();
+
+  // Dùng để tắt thông báo progress upload file
+  private stopUpload = new BehaviorSubject<boolean>(false);
+  stopUpload$ = this.stopUpload.asObservable();
+
+  // Dùng để lưu thông tin progress upload file
+  public fileStatus = new BehaviorSubject<FileStatus>({
+    filename: '',
+    progress: 0,
+    uploadedBytes: 0,
+    size: 0,
+    message: '' // Status: Uploading, Uploaded, Error
+  });
 
   constructor() {}
 
@@ -51,5 +69,23 @@ export class SharedService {
 
   isUpdateCartItem() {
     this.isUpdateCart.next(true);
+  }
+
+  startUploadFile() {
+    this.startUpload.next(true);
+  }
+
+  stopUploadFile() {
+    this.stopUpload.next(true);
+  }
+
+  // Lưu thông tin progress upload file
+  setFileStatus(fileStatus: FileStatus) {
+    this.fileStatus.next(fileStatus);
+  }
+
+  // Lấy thông tin progress upload file
+  getFileStatus() {
+    return this.fileStatus.asObservable();
   }
 }
