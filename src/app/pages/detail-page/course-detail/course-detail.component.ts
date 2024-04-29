@@ -53,11 +53,13 @@ export class CourseDetailComponent implements OnDestroy {
         this.cart = res.data;
         if (this.cart) {
           this.isExistedCourseInsideCart = false;
-          this.cart.items.map((item: CartItem) => {
-            if (item._id === this.courseId) {
-              this.isExistedCourseInsideCart = true;
-            }
-          });
+          if (this.cart.items && this.cart.items.length > 0) {
+            this.cart.items.map((item: CartItem) => {
+              if (item._id === this.courseId) {
+                this.isExistedCourseInsideCart = true;
+              }
+            });
+          }
         }
       },
       error: (err: any) => {

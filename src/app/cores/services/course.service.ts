@@ -64,6 +64,15 @@ export class CourseService {
       .pipe(catchError(this.handleError));
   }
 
+  // Lấy khóa học theo title
+  getCourseByTitle(title: string): Observable<Course> {
+    return this.httpClient
+      .get<Course>(
+        `${environment.baseUrl}/api/course/get-course-title/${title}`
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

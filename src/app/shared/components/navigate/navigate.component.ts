@@ -5,10 +5,15 @@ import { SharedService } from '../../../cores/services/shared.service';
 import { Cart, User } from '../../../cores/models';
 import { Subscription } from 'rxjs';
 import { MegaMenuItem, MenuItem, MessageService } from 'primeng/api';
-import { AuthService, CartService } from '../../../cores/services';
+import {
+  AuthService,
+  CartService,
+  CourseService,
+} from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { ChatRoomService } from '../../../cores/services/chatRoom.service';
+import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 @Component({
   selector: 'app-navigate',
   standalone: true,
@@ -34,7 +39,9 @@ export class NavigateComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private cartService: CartService,
-    private chatRoomService: ChatRoomService
+    private chatRoomService: ChatRoomService,
+    private readonly dialogBroadcastService: DialogBroadcastService,
+    private readonly courseService: CourseService
   ) {}
 
   ngOnInit(): void {
@@ -58,28 +65,28 @@ export class NavigateComponent implements OnInit, OnDestroy {
             {
               label: 'Chuyên Ngành 1',
               items: [
-                { label: 'CSI104' },
-                { label: 'PRF192' },
-                { label: 'MAE101' },
-                { label: 'CEA201' },
+                { label: 'CSI104', command: () => this.goToCourse('CSI104') },
+                { label: 'PRF192', command: () => this.goToCourse('PRF192') },
+                { label: 'MAE101', command: () => this.goToCourse('MAE101') },
+                { label: 'CEA201', command: () => this.goToCourse('CEA201') },
               ],
             },
             {
               label: 'Chuyên Ngành 2',
               items: [
-                { label: 'PRO192' },
-                { label: 'MAD101' },
-                { label: 'OSG202' },
-                { label: 'SSG104' },
+                { label: 'PRO192', command: () => this.goToCourse('PRO192') },
+                { label: 'MAD101', command: () => this.goToCourse('MAD101') },
+                { label: 'OSG202', command: () => this.goToCourse('OSG202') },
+                { label: 'SSG104', command: () => this.goToCourse('SSG104') },
               ],
             },
             {
               label: 'Chuyên Ngành 3',
               items: [
-                { label: 'JPD113' },
-                { label: 'CSD201' },
-                { label: 'DBI202' },
-                { label: 'LAB211' },
+                { label: 'JPD113', command: () => this.goToCourse('JPD113') },
+                { label: 'CSD201', command: () => this.goToCourse('CSD201') },
+                { label: 'DBI202', command: () => this.goToCourse('DBI202') },
+                { label: 'LAB211', command: () => this.goToCourse('LAB211') },
               ],
             },
           ],
@@ -87,28 +94,28 @@ export class NavigateComponent implements OnInit, OnDestroy {
             {
               label: 'Chuyên Ngành 4',
               items: [
-                { label: 'JPD123' },
-                { label: 'IOT102' },
-                { label: 'PRJ301' },
-                { label: 'MAS291' },
+                { label: 'JPD123', command: () => this.goToCourse('JPD123') },
+                { label: 'IOT102', command: () => this.goToCourse('IOT102') },
+                { label: 'PRJ301', command: () => this.goToCourse('PRJ301') },
+                { label: 'MAS291', command: () => this.goToCourse('MAS291') },
               ],
             },
             {
               label: 'Chuyên Ngành 5',
               items: [
-                { label: 'SWR302' },
-                { label: 'SWT301' },
-                { label: 'PRJ301' },
-                { label: 'SWP391' },
+                { label: 'SWR302', command: () => this.goToCourse('SWR302') },
+                { label: 'SWT301', command: () => this.goToCourse('SWT301') },
+                { label: 'PRJ301', command: () => this.goToCourse('PRJ301') },
+                { label: 'SWP391', command: () => this.goToCourse('SWP391') },
               ],
             },
             {
               label: 'Chuyên Ngành 7',
               items: [
-                { label: 'SWD392' },
-                { label: 'ISC301' },
-                { label: 'PRM392' },
-                { label: 'SDN301m' },
+                { label: 'SWD392', command: () => this.goToCourse('SWD392') },
+                { label: 'ISC301', command: () => this.goToCourse('ISC301') },
+                { label: 'PRM392', command: () => this.goToCourse('PRM392') },
+                { label: 'SDN301m', command: () => this.goToCourse('SDN301') },
               ],
             },
           ],
@@ -116,12 +123,12 @@ export class NavigateComponent implements OnInit, OnDestroy {
             {
               label: 'Chuyên Ngành 8-9',
               items: [
-                { label: 'MMA301' },
-                { label: 'MLN111' },
-                { label: 'MLN122' },
-                { label: 'HCM202' },
-                { label: 'MLN131' },
-                { label: 'VNR202' },
+                { label: 'MMA301', command: () => this.goToCourse('MMA301') },
+                { label: 'MLN111', command: () => this.goToCourse('MLN111') },
+                { label: 'MLN122', command: () => this.goToCourse('MLN122') },
+                { label: 'HCM202', command: () => this.goToCourse('HCM202') },
+                { label: 'MLN131', command: () => this.goToCourse('MLN131') },
+                { label: 'VNR202', command: () => this.goToCourse('VNR202') },
               ],
             },
           ],
@@ -288,5 +295,33 @@ export class NavigateComponent implements OnInit, OnDestroy {
 
   navigateToHome() {
     this.router.navigate(['/']);
+  }
+
+  // Chuyển trang đến khóa học
+  goToCourse(title: string): void {
+    const getCourseByTitleSub$ = this.courseService
+      .getCourseByTitle(title)
+      .subscribe({
+        next: (res: any) => {
+          const result = res.data;
+          if (res.status === 200 && result && result._id) {
+            // Check user nếu đã đăng ký khóa học thì chuyển trang đến khóa học
+            if (this.user && this.user._id) {
+            }
+            this.router.navigate([`/course`, result._id]);
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.dialogBroadcastService.broadcastDialog({
+            header: 'Thông báo',
+            message:
+              'Khóa học đang trong quá trình phát triển, vui lòng quay lại sau!',
+            type: 'info',
+            display: true,
+          });
+        },
+      });
+    this.subscriptions.push(getCourseByTitleSub$);
   }
 }

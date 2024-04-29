@@ -378,10 +378,7 @@
 
       <div class="flex flex-wrap align-items-center justify-content-start">
         <div *ngFor="let course of semester1" class="course col-3">
-          <img
-            [ngStyle]="{ 'object-fit': 'contain' }"
-            src="{{ course.thumbnail }}"
-          />
+          <img src="{{ course.thumbnail }}" />
           <button
             class="register-button flipup animation-duration-300"
             [style]="{
@@ -438,10 +435,7 @@
 
       <div class="flex flex-wrap align-items-center justify-content-start">
         <div *ngFor="let course of semester2" class="course col-3">
-          <img
-            [ngStyle]="{ 'object-fit': 'contain' }"
-            src="{{ course.thumbnail }}"
-          />
+          <img class="img-course" src="{{ course.thumbnail }}" />
           <button
             class="register-button flipup animation-duration-300"
             [style]="{

@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { CourseService } from '../services';
+import { AuthService, CourseService } from '../services';
 import { User } from '../models';
 import { DialogBroadcastService } from '../services/dialog-broadcast.service';
 
@@ -20,17 +20,24 @@ export const viewCouruseDetailGuard: CanActivateFn = (route, state) => {
         next: (res: any) => {
           var course = res.data.find((item: any) => item.course._id === id);
           if (course) {
-            if (course.trackProgress[0]) {
+            if (course.trackProgress.length > 0 && course.trackProgress[0]) {
               router.navigate([
                 `/learning-course`,
-                course._id,
+                id,
                 course.trackProgress[0].subTrackProgress[0].subTrackId
                   .content_url,
               ]);
-              return true;
+            } else {
+              router.navigate(['/']);
+              dialogBroadcastService.broadcastDialog({
+                header: 'Thông báo',
+                message:
+                  'Khóa học đang trong quá trình cập nhật, vui lòng quay lại sau!',
+                type: 'info',
+                display: true,
+              });
             }
           }
-          return false; // Ensure a return statement outside of the callback
         },
         error: (err: any) => {
           console.log(err);

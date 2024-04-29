@@ -52,7 +52,7 @@
   .nav-left {
     padding: 0% 5%;
     margin: 1% 0%;
-    gap: 10px;
+    gap: 5px;
     .img-logo {
       width: 6rem;
     }
@@ -130,18 +130,6 @@
 .card {
   .container {
     .nav-left {
-      .logo {
-        cursor: pointer;
-        img {
-          width: 8rem;
-        }
-        h2 {
-          font-family: "system ui", sans-serif;
-          font-weight: bold;
-          color: rgba(0, 0, 0, 0.8);
-        }
-        padding-right: 2rem;
-      }
       .nav-items {
         display: flex;
         justify-content: center;
