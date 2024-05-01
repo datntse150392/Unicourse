@@ -363,7 +363,6 @@
       align-items: center;
       margin-bottom: 2%;
       gap: 1rem;
-
       .coin-text {
         width: 100%;
         display: flex;
@@ -371,6 +370,10 @@
         font-size: 2.2rem;
         color: #f17125;
         font-weight: bold;
+      }
+      i:hover {
+        color: #f17125;
+        cursor: pointer;
       }
     }
     .content {
@@ -494,6 +497,13 @@
         }
       }
     }
+  }
+}
+
+.modal-body {
+  p {
+    font-size: 1rem;
+    line-height: 2;
   }
 }
 

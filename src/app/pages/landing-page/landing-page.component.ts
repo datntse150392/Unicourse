@@ -40,6 +40,10 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public dataScheduleMeetings: ScheduleMeeting[] = [];
   public dataBanner: any[] = [];
   public responsiveOptions: any[] | undefined;
+  public scheduleData: ScheduleMeeting | undefined;
+
+  public isToggleRegisterScheduleMeeting: boolean = false;
+  public isToggleDepositPoint: boolean = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -323,6 +327,56 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           },
         });
       this.subscriptions.push(attendCheckingDailyEventSub$);
+    }
+  }
+
+  // Check user already register schedule meeting
+  checkUserRegisterScheduleMeeting(data: ScheduleMeeting) {
+    if (data.list_register.includes(this.userInfo._id)) {
+      return true;
+    }
+    return false;
+  }
+
+  // Toggle form đăng ký lịch hẹn
+  toggleRegisterScheduleMeeting(data: ScheduleMeeting): void {
+    // Kiểm tra user phải đăng nhập
+    if (!this.userInfo) {
+      this.sharedService.turnOnSignInDialog();
+    } else {
+      this.scheduleData = data;
+      if (this.getTotalCoin < data.price) {
+        this.isToggleDepositPoint = true;
+      } else {
+        this.isToggleRegisterScheduleMeeting = true;
+      }
+    }
+  }
+
+  handleRegisterScheduleMeeting() {
+    if (this.scheduleData) {
+      const registerScheduleMeetingSub$ = this.scheduleMeetingService
+        .registerScheduleMeeting(this.scheduleData._id)
+        .subscribe({
+          next: (res: any) => {
+            if (res.status === 200) {
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Thông báo',
+                message: 'Đăng ký lịch hẹn thành công',
+                type: 'success',
+                display: true,
+              });
+              this.isToggleRegisterScheduleMeeting = false;
+              this.isToggleDepositPoint = false;
+              // Lấy ra tất cả dữ liệu của lịch hẹn
+              this.initForm();
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+          },
+        });
+      this.subscriptions.push(registerScheduleMeetingSub$);
     }
   }
 }

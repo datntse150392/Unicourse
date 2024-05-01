@@ -63,12 +63,28 @@
                       <p class="title p-0">{{ data.title }}</p>
                       <!-- Giá và nút đăng ký -->
                       <div class="price-register flex flex-row">
-                        <button
-                          type="button"
-                          class="text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                        <ng-container
+                          *ngIf="
+                            checkUserRegisterScheduleMeeting(data);
+                            else userNotRegisterScheduleMeeting
+                          "
                         >
-                          Tham gia
-                        </button>
+                          <button
+                            type="button"
+                            class="text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                          >
+                            Đã đăng ký
+                          </button>
+                        </ng-container>
+                        <ng-template #userNotRegisterScheduleMeeting>
+                          <button
+                            (click)="toggleRegisterScheduleMeeting(data)"
+                            type="button"
+                            class="text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                          >
+                            Tham gia
+                          </button></ng-template
+                        >
                       </div>
                     </div>
 
@@ -82,7 +98,7 @@
                     </p>
                     -
                     {{ data.timeEnd | date : "h:mm a" }}
-                    <p class="ml-2">
+                    <p class="ml-3">
                       {{ data.timeStart | date : "EEEE, MMMM d, y" }}
                     </p>
                   </div>
@@ -113,7 +129,7 @@
       <div
         class="content left flex flex-column justify-content-center align-items-center"
       >
-        <h3 class="font-bold">Ưu đãi nhận xu</h3>
+        <h3 class="font-bold">Ưu đãi nhận UNI Point</h3>
         <div class="coin-already">
           <img
             width="50"
@@ -121,7 +137,7 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coin-text">{{ getTotalCoin }} xu</p>
+          <p class="coin-text">{{ getTotalCoin }} UNI Point</p>
         </div>
         <div class="day-container">
           <ng-container
@@ -146,7 +162,7 @@
                   (click)="attendCheckingDailyEvent(event._id)"
                   class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                 >
-                  <p class="m-0">Nhận ngay 100 xu</p>
+                  <p class="m-0">Nhận ngay 100 UNI Point</p>
                 </div>
               </div>
             </ng-container>
@@ -172,7 +188,7 @@
       <div
         class="content left flex flex-column justify-content-center align-items-center"
       >
-        <h3 class="font-bold">Ưu đãi nhận xu</h3>
+        <h3 class="font-bold">Ưu đãi nhận UNI Point</h3>
         <div class="coin-already">
           <img
             width="50"
@@ -180,7 +196,13 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coin-text">{{ getTotalCoin }} xu</p>
+          <p class="coin-text">{{ getTotalCoin }} UNI Point</p>
+          <i
+            routerLink="/uni-coins"
+            class="pi pi-angle-right"
+            style="font-size: 2rem"
+            pTooltip="Xem chi tiết UNI Point của bạn"
+          ></i>
         </div>
         <div class="day-container">
           <ng-container
@@ -217,7 +239,9 @@
                   <div
                     class="btn-take-coin-back bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                   >
-                    <p class="m-0">Quay lại vào ngày mai để nhận 100 xu</p>
+                    <p class="m-0">
+                      Quay lại vào ngày mai để nhận 100 UNI Point
+                    </p>
                   </div>
                 </ng-container>
                 <ng-template #expiredAndNotCheckin>
@@ -226,7 +250,7 @@
                     (click)="attendCheckingDailyEvent(event._id)"
                     class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                   >
-                    <p class="m-0">Nhận ngay 100 xu</p>
+                    <p class="m-0">Nhận ngay 100 UNI Point</p>
                   </div>
                 </ng-template>
               </div>
@@ -623,3 +647,79 @@
     </div>
   </div>
 </div>
+
+<!-- Modal xác nhận đăng ký lịch giảng -->
+<p-dialog
+  header="Header"
+  [(visible)]="isToggleRegisterScheduleMeeting"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  *ngIf="scheduleData"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+        Xác nhận tham gia
+      </h2>
+    </div>
+  </ng-template>
+
+  <div class="modal-body">
+    <p class="text-2xl font-bold">{{ scheduleData.title }}</p>
+    <p>HOST: {{ scheduleData.lecture.fullName }}</p>
+    <div class="duration flex flex-row">
+      <p class="time-start mr-2">
+        {{ scheduleData.timeStart | date : "h:mm a" + " -" }}
+      </p>
+      <p>{{ scheduleData.timeEnd | date : "h:mm a" }}</p>
+      <p class="ml-3">
+        {{ scheduleData.timeStart | date : "EEEE, MMMM d, y" }}
+      </p>
+    </div>
+
+    <div>
+      <button
+        (click)="handleRegisterScheduleMeeting()"
+        type="submit"
+        class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        {{ scheduleData.price }} UNI Point
+      </button>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Modal nạp điểm -->
+<p-dialog
+  header="Header"
+  [(visible)]="isToggleDepositPoint"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+        Có rắc rối rồi!
+      </h2>
+    </div>
+  </ng-template>
+
+  <div class="modal-body">
+    <p>
+      Rất tiếc, bạn cần {{ scheduleData && scheduleData.price }} UNI Point để
+      thực hiện hành động này.
+    </p>
+
+    <div>
+      <button
+        [routerLink]="['/coin-banking']"
+        type="submit"
+        class="w-full mt-2 text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Nạp UNI Point ngay
+      </button>
+    </div>
+  </div>
+</p-dialog>

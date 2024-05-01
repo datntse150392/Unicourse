@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="container">
+  <div class="coin-banking-contaienr w-full flex flex-row gird grid-cols-12">
+    <div class="coin-banking-left w-full col-span-6">
+      <h2>Tài khoản tiếp nhận nạp UNI Point</h2>
+      <div class="bank-info">
+        <p>CHỦ TÀI KHOẢN: <span>NGUYEN THANH DAT</span></p>
+        <p>SỐ TK: <span>070098425924</span></p>
+        <p>NGÂN HÀNG: <span>SACOMBANK</span></p>
+        <p>NỘI DUNG CHUYỂN: NAP UNIPOINT</p>
+      </div>
+
+      <div class="point-info">
+        <p>Mệnh giá UNI Point</p>
+        <span>1.000 UNI Point = 1.000 VNĐ</span>
+      </div>
+
+      <div class="note">
+        Vui lòng chuyển đúng nội dung chuyển tiền để tránh trường hợp không nhận
+        được UNI Point, nếu chuyển sai nội dung vui lòng liên hệ với
+        <a>ADMIN</a> để được hỗ trợ kịp thời.
+      </div>
+
+      <p [ngStyle]="{ 'margin-top': '2rem' }">
+        Sau khi chuyển tiền thành công, vui lòng chờ ít nhất 1 phút để hệ thống
+        xử lý.
+      </p>
+    </div>
+    <div class="coin-banking-right w-full col-span-6">
+      <img
+        src="https://img.vietqr.io/image/sacombank-070098425924-compact.jpg"
+      />
+    </div>
+  </div>
+</div>

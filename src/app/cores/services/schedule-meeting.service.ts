@@ -14,6 +14,16 @@ export class ScheduleMeetingService {
       .pipe(catchError(this.handleError));
   }
 
+  // Thực hiện việc đăng ký lịch hẹn
+  registerScheduleMeeting(scheduleMeetingId: string) {
+    return this.httpClient
+      .put<any>(
+        `${environment.baseUrl}/api/schedule-meetings/register/${scheduleMeetingId}`,
+        {}
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

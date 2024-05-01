@@ -3,7 +3,7 @@
 <div class="uni-coin-container">
   <div class="body">
     <ng-container *ngIf="this.coins.length > 0; else emptyCoin">
-      <!-- Hiển thị xu -->
+      <!-- Hiển thị UNI Point -->
       <header>
         <div class="display-coins">
           <img
@@ -13,10 +13,10 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coins-text">{{ totalCoin }} Xu đang có</p>
+          <p class="coins-text">{{ totalCoin }} UNI Point đang có</p>
         </div>
         <div class="get-coins">
-          <p class="coins-text">Nhận thêm xu</p>
+          <p class="coins-text">Nhận thêm UNI Point</p>
         </div>
       </header>
       <div class="tab-view-history">
@@ -71,7 +71,7 @@
               </ng-template>
             </ng-container>
           </p-tabPanel>
-          <p-tabPanel header="Nhận xu">
+          <p-tabPanel header="Nhận UNI Point">
             <div *ngFor="let item of this.listCounsActived" class="history">
               <div class="his-left">
                 <img
@@ -89,7 +89,7 @@
               <p class="his-right">+{{ item.coin }}</p>
             </div>
           </p-tabPanel>
-          <p-tabPanel header="Dùng xu">
+          <p-tabPanel header="Dùng UNI Point">
             <div *ngFor="let item of this.listCoinsUsed" class="history">
               <div class="his-left">
                 <img
@@ -98,7 +98,7 @@
                 />
                 <div>
                   <p class="his-text">{{ item.title }}</p>
-                  <p class="his-sub-text">Sử dụng xu</p>
+                  <p class="his-sub-text">Sử dụng UNI Point</p>
                   <p class="his-sub-text">
                     {{ item.date_used | date : "h:mm a d/M/yy " }}
                   </p>
@@ -115,7 +115,8 @@
     <ng-template #emptyCoin>
       <div class="empty-coin">
         <p class="empty-text">
-          Bạn chưa có xu nào. Hãy tham gia các hoạt động để nhận xu nhé!
+          Bạn chưa có UNI Point nào. Hãy tham gia các hoạt động để nhận UNI
+          Point nhé!
         </p>
       </div>
     </ng-template>
