@@ -332,10 +332,13 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   // Check user already register schedule meeting
   checkUserRegisterScheduleMeeting(data: ScheduleMeeting) {
-    if (data.list_register.includes(this.userInfo._id)) {
-      return true;
+    if (this.userInfo === undefined) return false;
+    else {
+      if (data.list_register.includes(this.userInfo._id)) {
+        return true;
+      }
+      return false;
     }
-    return false;
   }
 
   // Toggle form đăng ký lịch hẹn
