@@ -82,7 +82,9 @@ export class BlogDetailPageComponent {
       }
     }
 
-    this.isBlockUI = false;
+    setTimeout(() => {
+      this.isBlockUI = false;
+    }, 1000);
   }
 
   // CALL API getBlogByBlogId

@@ -10,7 +10,7 @@
     icon="pi pi-arrow-up"
   ></p-scrollTop>
   <div class="card">
-    <section class="wrap-header pr-3 pl-3">
+    <section class="wrap-header">
       <div class="nav-header-menu"></div>
 
       <div class="main-menu grid grid-cols-12 gap-4">
@@ -20,7 +20,7 @@
           [numVisible]="1"
           [numScroll]="1"
           [circular]="false"
-          [autoplayInterval]="3000"
+          [autoplayInterval]="7000"
         >
           <ng-template let-product pTemplate="item">
             <img
@@ -141,7 +141,7 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coin-text">{{ getTotalCoin }} UNI Point</p>
+          <p class="coin-text">{{ getTotalCoin }}</p>
         </div>
         <div class="day-container">
           <ng-container
@@ -166,7 +166,7 @@
                   (click)="attendCheckingDailyEvent(event._id)"
                   class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                 >
-                  <p class="m-0">Nhận ngay 100 UNI Point</p>
+                  <p class="m-0">Nhận ngay 100 Point</p>
                 </div>
               </div>
             </ng-container>
@@ -200,12 +200,12 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coin-text">{{ getTotalCoin }} UNI Point</p>
+          <p class="coin-text">{{ getTotalCoin }}</p>
           <i
             routerLink="/uni-coins"
             class="pi pi-angle-right"
             style="font-size: 2rem"
-            pTooltip="Xem chi tiết UNI Point của bạn"
+            pTooltip="Xem chi tiết Point của bạn"
           ></i>
         </div>
         <div class="day-container">
@@ -243,9 +243,7 @@
                   <div
                     class="btn-take-coin-back bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                   >
-                    <p class="m-0">
-                      Quay lại vào ngày mai để nhận 100 UNI Point
-                    </p>
+                    <p class="m-0">Quay lại vào ngày mai để nhận 100 Point</p>
                   </div>
                 </ng-container>
                 <ng-template #expiredAndNotCheckin>
@@ -254,7 +252,7 @@
                     (click)="attendCheckingDailyEvent(event._id)"
                     class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                   >
-                    <p class="m-0">Nhận ngay 100 UNI Point</p>
+                    <p class="m-0">Nhận ngay 100 Point</p>
                   </div>
                 </ng-template>
               </div>
@@ -716,8 +714,8 @@
 
   <div class="modal-body">
     <p>
-      Rất tiếc, bạn cần {{ scheduleData && scheduleData.price }} UNI Point để
-      thực hiện hành động này.
+      Rất tiếc, bạn cần {{ scheduleData && scheduleData.price }} Point để thực
+      hiện hành động này.
     </p>
 
     <div>
@@ -726,7 +724,7 @@
         type="submit"
         class="w-full mt-2 text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        Nạp UNI Point ngay
+        Nạp Point ngay
       </button>
     </div>
   </div>

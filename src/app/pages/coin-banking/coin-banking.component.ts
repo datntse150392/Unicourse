@@ -14,6 +14,6 @@ export class CoinBankingComponent {
     // Scroll to top and smooth
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // Setting title for page
-    document.title = 'Nạp Uni Point';
+    document.title = 'Nạp Point';
   }
 }

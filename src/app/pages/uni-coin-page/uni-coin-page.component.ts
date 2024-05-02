@@ -66,6 +66,8 @@ export class UniCoinPageComponent {
     });
     this.subscriptions.push(coinSub$);
 
-    this.isBlockUI = false;
+    setTimeout(() => {
+      this.isBlockUI = false;
+    }, 1000);
   }
 }

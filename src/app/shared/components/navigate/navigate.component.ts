@@ -178,7 +178,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
             },
           },
           {
-            label: 'UNI Point',
+            label: 'Lịch sử Point',
             command: () => {
               this.redirectToUniCoin();
             },

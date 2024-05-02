@@ -201,9 +201,16 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     // Lấy danh sách banner fake data
     this.dataBanner = [
       {
+        id: '1',
+        image:
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F4.jpg?alt=media&token=d03dbd88-97a9-4dcc-a0c3-ac33621ddbe1',
+        title: 'Học từ những chuyên gia',
+        description: 'Học từ những chuyên gia hàng đầu',
+      },
+      {
         id: '2',
         image:
-          'https://dnuni.fpt.edu.vn/wp-content/uploads/2022/02/Untitled-design-12-min-1600x900.png',
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F5.jpg?alt=media&token=62fbec8d-eedd-4375-80ed-05e27347d65f',
         title: 'Học từ những chuyên gia',
         description: 'Học từ những chuyên gia hàng đầu',
       },

@@ -119,7 +119,9 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     this.subscription.add(courseProSub$);
     this.subscription.add(courseDetailSub$);
 
-    this.blockedUI = false;
+    setTimeout(() => {
+      this.blockedUI = false;
+    }, 1000);
   }
 
   // SERVICE XỬ LÝ DỮ LIỆU CHO COMPONENT
