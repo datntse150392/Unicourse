@@ -17,6 +17,8 @@ export class UniCoinPageComponent {
   public listCounsActived: Coin[] = [];
   public totalCoin: number = 0;
 
+  public isBlockUI: boolean = false;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private readonly coinService: CoinService) {
@@ -33,6 +35,7 @@ export class UniCoinPageComponent {
   ngOnDestroy(): void {}
 
   initForm() {
+    this.isBlockUI = true;
     const coinSub$ = this.coinService.getCoinByUserId().subscribe({
       next: (res: any) => {
         this.coins = res.data;
@@ -62,5 +65,7 @@ export class UniCoinPageComponent {
       },
     });
     this.subscriptions.push(coinSub$);
+
+    this.isBlockUI = false;
   }
 }

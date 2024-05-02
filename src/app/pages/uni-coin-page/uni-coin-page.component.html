@@ -1,6 +1,10 @@
 <app-header></app-header>
 
 <div class="uni-coin-container">
+  <!-- Thực hiện việc blockUI khi gọi các API  -->
+  <p-blockUI [blocked]="isBlockUI"
+    ><p-progressSpinner></p-progressSpinner>
+  </p-blockUI>
   <div class="body">
     <ng-container *ngIf="this.coins.length > 0; else emptyCoin">
       <!-- Hiển thị UNI Point -->
@@ -15,8 +19,8 @@
           />
           <p class="coins-text">{{ totalCoin }} UNI Point đang có</p>
         </div>
-        <div class="get-coins">
-          <p class="coins-text">Nhận thêm UNI Point</p>
+        <div class="get-coins" routerLink="/coin-banking">
+          <p class="coins-text">Nạp thêm UNI Point</p>
         </div>
       </header>
       <div class="tab-view-history">

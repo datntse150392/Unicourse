@@ -48,7 +48,6 @@ export class BlogPageComponent {
       .getHighLightBlog()
       .subscribe((res) => {
         this.blogHighLight = res.data;
-        this.blockedUI = false;
       });
 
     const blogsSubs$ = this.blogService.getAllBlogs().subscribe({
@@ -74,6 +73,8 @@ export class BlogPageComponent {
 
     this.subscriptions.push(blogHighLightSubs$);
     this.subscriptions.push(blogsSubs$);
+
+    this.blockedUI = false;
   }
 
   onPageChange(event: any) {

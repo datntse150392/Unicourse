@@ -31,11 +31,11 @@
         justify-content: space-between;
         padding: 0.5rem 1rem;
         border-radius: 1rem;
-        background: linear-gradient(to right bottom, #ff8f26, #ff5117);
+        background: linear-gradient(to right bottom, #d8efff, #97d5fe);
         p {
           font-size: 1rem;
           font-weight: 600;
-          color: #fff;
+          color: rga(0, 0, 0, 0.5);
           cursor: pointer;
         }
       }

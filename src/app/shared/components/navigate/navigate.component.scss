@@ -11,10 +11,10 @@
     padding: 0;
     background-color: #fff;
     border-radius: 5px;
-    font-weight: 600;
+    font-weight: 700;
   }
   .p-menuitem-content .p-menuitem-text {
-    color: #000 !important;
+    color: rgba(0, 0, 0, 0.7);
     display: flex;
   }
   .p-menuitem-content {
@@ -68,8 +68,8 @@
       position: relative; /* Cho phép absolute positioning bên trong .nav-item */
       padding: 2% 0%;
       width: 6rem;
-      color: #000;
-      font-weight: 600;
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 700;
       margin-right: 10px;
       cursor: pointer;
       overflow: hidden; /* Giữ cho pseudo-element không vượt ra ngoài .nav-item */

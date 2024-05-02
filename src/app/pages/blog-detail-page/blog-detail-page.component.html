@@ -2,6 +2,10 @@
   <app-header></app-header>
 </div>
 <div class="container" *ngIf="blogDetail">
+  <!-- Thực hiện việc blockUI khi gọi các API  -->
+  <p-blockUI [blocked]="isBlockUI"
+    ><p-progressSpinner></p-progressSpinner>
+  </p-blockUI>
   <!-- Breachrum Group-->
   <nav class="flex mb-4" aria-label="Breadcrumb">
     <ol

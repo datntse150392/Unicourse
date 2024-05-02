@@ -46,6 +46,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   public isToggleRegisterScheduleMeeting: boolean = false;
   public isToggleDepositPoint: boolean = false;
+  public isBlockUI: boolean = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -74,6 +75,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   // Config on init
   initForm(): void {
+    this.isBlockUI = true;
     // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
     if (localStorage !== undefined) {
       if (localStorage.getItem('isLogin')) {
@@ -216,6 +218,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(semester1Sub$);
     this.subscriptions.push(semester2Sub$);
     this.subscriptions.push(semester3Sub$);
+
+    this.isBlockUI = false;
   }
 
   // Lấy tất cả các khóa học đã đăng ký
@@ -293,6 +297,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       // Nếu không thấy user thì tự động bật form đăng nhập
       this.sharedService.turnOnSignInDialog();
     } else {
+      this.isBlockUI = true;
       this.checkingDailyEventService
         .attendCheckingDailyEvent(dailyId)
         .pipe(
@@ -339,6 +344,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
                 type: 'success',
                 display: true,
               });
+
+              this.isBlockUI = false;
             } else {
               // Nếu attendCheckingDailyEvent không thành công, hiển thị thông báo lỗi
               this.dialogBroadcastService.broadcastDialog({
@@ -348,6 +355,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
                 type: 'error',
                 display: true,
               });
+
+              this.isBlockUI = false;
             }
           },
           error: (err: any) => {
@@ -386,6 +395,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
   handleRegisterScheduleMeeting() {
     if (this.scheduleData) {
+      this.isBlockUI = true;
       const registerScheduleMeetingSub$ = this.scheduleMeetingService
         .registerScheduleMeeting(this.scheduleData._id)
         .pipe(
@@ -435,6 +445,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
 
               this.isToggleRegisterScheduleMeeting = false;
               this.isToggleDepositPoint = false;
+              this.isBlockUI = false;
             } else {
               // Nếu registerScheduleMeeting không thành công, hiển thị thông báo lỗi
               this.dialogBroadcastService.broadcastDialog({
@@ -444,6 +455,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
                 type: 'error',
                 display: true,
               });
+              this.isBlockUI = false;
             }
           },
           error: (err: any) => {
@@ -451,7 +463,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
             console.log(err);
           },
         });
-
       this.subscriptions.push(registerScheduleMeetingSub$);
     }
   }

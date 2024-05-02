@@ -36,6 +36,7 @@ export class BlogDetailPageComponent {
   public showRepliesComment: { [key: string]: boolean } = {};
 
   public isLikeBlog: boolean = false;
+  public isBlockUI: boolean = false;
 
   closeCallback(e: any): void {
     this.sidebarRef.close(e);
@@ -67,6 +68,7 @@ export class BlogDetailPageComponent {
   }
 
   inItForm() {
+    this.isBlockUI = true;
     this.route.paramMap.subscribe((params) => {
       this.blogId = params.get('id');
       if (this.blogId) {
@@ -79,6 +81,8 @@ export class BlogDetailPageComponent {
         this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
       }
     }
+
+    this.isBlockUI = false;
   }
 
   // CALL API getBlogByBlogId

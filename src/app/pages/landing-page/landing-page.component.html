@@ -1,5 +1,9 @@
 <app-header></app-header>
 <div class="container">
+  <!-- Thực hiện việc blockUI khi gọi các API  -->
+  <p-blockUI [blocked]="isBlockUI"
+    ><p-progressSpinner></p-progressSpinner>
+  </p-blockUI>
   <p-scrollTop
     [threshold]="100"
     class="bg-orange-600 custom-scroll-top"
@@ -666,16 +670,20 @@
   </ng-template>
 
   <div class="modal-body">
-    <p class="text-2xl font-bold">{{ scheduleData.title }}</p>
-    <p>HOST: {{ scheduleData.lecture.fullName }}</p>
-    <div class="duration flex flex-row">
-      <p class="time-start mr-2">
-        {{ scheduleData.timeStart | date : "h:mm a" + " -" }}
-      </p>
-      <p>{{ scheduleData.timeEnd | date : "h:mm a" }}</p>
-      <p class="ml-3">
-        {{ scheduleData.timeStart | date : "EEEE, MMMM d, y" }}
-      </p>
+    <div
+      class="bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] p-4 border-gray-900"
+    >
+      <p class="text-2xl font-bold">{{ scheduleData.title }}</p>
+      <p>HOST: {{ scheduleData.lecture.fullName }}</p>
+      <div class="duration flex flex-row">
+        <p class="time-start mr-2">
+          {{ scheduleData.timeStart | date : "h:mm a" + " -" }}
+        </p>
+        <p>{{ scheduleData.timeEnd | date : "h:mm a" }}</p>
+        <p class="ml-3">
+          {{ scheduleData.timeStart | date : "EEEE, MMMM d, y" }}
+        </p>
+      </div>
     </div>
 
     <div>
@@ -684,7 +692,7 @@
         type="submit"
         class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        {{ scheduleData.price }} UNI Point
+        {{ scheduleData.price | currency : "VND" }}
       </button>
     </div>
   </div>
