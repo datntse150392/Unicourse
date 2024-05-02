@@ -1,0 +1,19 @@
+.container {
+    max-width: 100%;
+    margin-bottom: 2%;
+    .body-container {
+        height: 100%;
+        padding: 0% 2%;
+        margin: auto;
+        .activeButton {
+            color: white !important;
+            background-color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+        .dropdownButton:hover {
+            color: white !important;
+            background-color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+    }
+}

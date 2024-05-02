@@ -1,0 +1,191 @@
+<app-header></app-header>
+<div class="container">
+    <div class="body-container">
+        <section
+            class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative">
+                <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+                    Bạn sẽ học gì hôm nay?
+                </h1>
+                <blockquote class="text-xl text-gray-500 italic font-semibold text-center">
+                    <p>"Chuẩn bị cho bài kiểm tra sắp tới của bạn ngay bây giờ!</p>
+                    <p>"Tham gia vào bài kiểm tra ôn tập tại đây để nâng cao hiệu suất học tập và tự tin hơn khi đối diện với
+                        bài kiểm tra!"
+                    </p>
+                </blockquote>
+            </div>
+        </section>
+
+        <div class="max-w-full p-5 bg-white border border-gray-200 rounded-lg shadow">
+            <!-- Search component -->
+            <form class="max-w-lg mb-4">
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Tìm kiếm</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-10 h-6 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search"
+                        class="block w-full pl-6 p-3 text-md text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Nhập mã môn" required />
+                    <button type="submit"
+                        class="text-white absolute end-2.5 bottom-2.5 bg-custom-700 hover:bg-custom-800 focus:ring-4 focus:outline-none focus:ring-custom-300 font-medium rounded-lg text-sm px-4 py-2">Tìm
+                        kiếm</button>
+                </div>
+            </form>
+
+            <!-- Filter component -->
+            <div class="flex flex-row mb-4 items-center">
+                <p class="text-medium text-gray-800 font-medium text-medium mr-4">Sắp xếp theo</p>
+                <button [ngStyle]="{ width: '11rem' }" [class.activeButton]="filter === 'newest'" (click)="onFilterChange('newest')"
+                    class="text-gray-900 border border-gray-300 font-medium rounded-lg text-medium px-4 py-2 mr-4 justify-self-end">
+                    Mới nhất
+                </button>
+                <button [ngStyle]="{ width: '11rem' }" [class.activeButton]="filter === 'mostView'" (click)="onFilterChange('mostView')"
+                    class="text-gray-900 border border-gray-300 font-medium rounded-lg text-medium px-4 py-2 mr-4 justify-self-end">
+                    Học nhiều nhất
+                </button>
+                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
+                    class="dropdownButton border border-gray-300 text-gray-900 font-medium rounded-lg text-medium font-medium px-5 py-2.5 text-center inline-flex items-center"
+                    type="button">Chuyên ngành<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                
+                <!-- Dropdown menu -->
+                <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                    <ul class="py-2 text-sm font-medium text-gray-900" aria-labelledby="dropdownHoverButton">
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 1</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 2</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 3</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 4</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 5</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 6</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 7</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 8</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 9</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Flashcard list -->
+            <ng-container *ngIf="flashcards.length > 0; else emptyFlashcard">
+                <div *ngFor="let flashcard of flashcards" class="flex flex-row max-w-full p-5 mb-3 bg-white border border-gray-200">
+                    <div class="basis-3/4">
+                        <div class="flex flex-row">
+                            <!-- Ảnh flashcard -->
+                            <div class="h-36 w-40 mr-4 cursor-pointer" [routerLink]="['/flashcard/', flashcard._id]">
+                                <img class="h-full w-full object-cover rounded-lg" src="{{flashcard.thumbnail}}" alt="{{flashcard.title}}">
+                            </div>
+                            <!-- Nội dung flashcard -->
+                            <div>
+                                <h6 class="text-xl text-gray-900 font-bold font-customFont mb-2 cursor-pointer" [routerLink]="['/flashcard/', flashcard._id]">
+                                    {{flashcard.title}}
+                                </h6>
+                                <div class="flex flex-row mb-2">
+                                    <i class="pi pi-question-circle text-gray-800 pr-2" style="font-size: large"></i>
+                                    <p class="text-medium text-gray-800 font-customFont truncate">{{flashcard.numberItems}}</p>
+                                </div>
+                                <!-- Tác giả -->
+                                <div class="flex items-center content-center mb-2">
+                                    <p-avatar image="{{flashcard.picture}}" size="normal" shape="circle"></p-avatar>
+                                    <div class="flex-1 min-w-0 ms-2">
+                                        <p class="text-medium font-customFont text-gray-800 truncate">
+                                            {{flashcard.author}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Thông tin khác -->
+                                <div class="flex flex-row">
+                                    <span
+                                        class="bg-gray-100 text-gray-800 text-xs font-medium font-customFont inline-flex items-center px-2.5 py-2 rounded me-2">
+                                        {{flashcard.role}}
+                                    </span>
+                                    <span
+                                        class="bg-gray-100 text-gray-800 text-xs font-medium font-customFont inline-flex items-center px-2.5 py-2 rounded me-2">
+                                        <i class="pi pi-user pr-2" style="font-size: 0.9rem"></i>
+                                        {{flashcard.viewer}} người đã học
+                                    </span>
+                                    <span
+                                        class="bg-blue-100 text-blue-800 text-xs font-medium font-customFont inline-flex items-center px-2.5 py-2 rounded">
+                                        <i class="pi pi-clock pr-2" style="font-size: 0.9rem"></i>
+                                        {{flashcard.createDate}} ngày trước
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="basis-1/4 text-end content-center">
+                        <div class="grid grid-rows-2 gap-2 justify-end content-between">
+                            <div class="flex flex-row justify-end items-center">
+                                <div class="like flex flex-nowrap items-center gap-1">
+                                    <span (click)="toggleLike(flashcard._id)"
+                                        class="cursor-pointer bg-gray-100 text-gray-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-2">
+                                        <p class="text-medium font-bold font-customFont text-gray-800 truncate mr-2 py-2">Thêm vào yêu thích</p>
+                                        <div [@likeAnimation]="flashcard.isLike ? 'liked' : 'unliked'">
+                                            <ng-container *ngIf="flashcard.isLike; else unLike">
+                                                <img width="16" height="16" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1" />
+                                            </ng-container>
+                                            <ng-template #unLike>
+                                                <img width="16" height="16" src="https://img.icons8.com/color/48/star--v1.png" alt="star"/>
+                                            </ng-template>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <button
+                                [routerLink]="['/flashcard/', flashcard._id]"
+                                [ngStyle]="{ width: '7rem' }"
+                                class="text-white bg-custom-700 hover:bg-custom-800 focus:ring-4 focus:outline-none focus:ring-custom-300 font-medium rounded-lg text-medium px-4 py-3 justify-self-end">Bắt
+                                đầu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #emptyFlashcard>
+                <div role="status"
+                    class="max-w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="h-2.5 bg-gray-300 rounded-full w-24 mb-2.5"></div>
+                            <div class="w-32 h-2 bg-gray-200 rounded-full"></div>
+                        </div>
+                        <div class="h-2.5 bg-gray-300 rounded-full w-12"></div>
+                    </div>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </ng-template>
+
+            <!-- Paginator -->
+            <div class="card flex justify-content-center">
+                <p-paginator [first]="first" [rows]="rows" [totalRecords]="6"
+                    (onPageChange)="onPageChange()"></p-paginator>
+            </div>
+
+        </div>
+    </div>
+</div>
+

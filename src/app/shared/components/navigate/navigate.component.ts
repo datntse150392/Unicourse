@@ -263,6 +263,10 @@ export class NavigateComponent implements OnInit, OnDestroy {
     this.router.navigate([`uni-coins`]);
   }
 
+  redirectToFlashcard() {
+    this.router.navigate([`flashcard`]);
+  }
+
   // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io
   joinRoom(roomId: string) {
     if (roomId && this.user) {

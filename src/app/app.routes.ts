@@ -16,6 +16,8 @@ import { BlogDetailPageComponent } from './pages/blog-detail-page/blog-detail-pa
 import { loginSystemGuard } from './cores/guards/login-system.guard';
 import { ChatRoomPageComponent } from './pages/chat-room-page/chat-room-page.component';
 import { UniCoinPageComponent } from './pages/uni-coin-page/uni-coin-page.component';
+import { FlashcardPageComponent } from './pages/flashcard-page/flashcard-page.component';
+import { FlashcardDetailPageComponent } from './pages/flashcard-detail-page/flashcard-detail-page.component';
 import { CoinBankingComponent } from './pages/coin-banking/coin-banking.component';
 
 export const routes: Routes = [
@@ -44,6 +46,14 @@ export const routes: Routes = [
       {
         path: 'uni-coins',
         component: UniCoinPageComponent,
+      },
+      {
+        path: 'flashcard',
+        component: FlashcardPageComponent,
+      },
+      {
+        path: 'flashcard/:id',
+        component: FlashcardDetailPageComponent,
       },
       {
         path: 'coin-banking',

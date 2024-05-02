@@ -38,6 +38,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { MegaMenuModule } from 'primeng/megamenu';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -81,6 +83,8 @@ import { MegaMenuModule } from 'primeng/megamenu';
     TabViewModule,
     CheckboxModule,
     MegaMenuModule,
+    InputSwitchModule,
+    RadioButtonModule
   ],
   declarations: [],
   exports: [
@@ -122,6 +126,8 @@ import { MegaMenuModule } from 'primeng/megamenu';
     TabViewModule,
     CheckboxModule,
     MegaMenuModule,
+    InputSwitchModule,
+    RadioButtonModule
   ],
   providers: [GlobalDialogHandlerService],
 })
