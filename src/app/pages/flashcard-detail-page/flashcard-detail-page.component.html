@@ -111,7 +111,8 @@
               </div>
               <div class="basis-11/12">
                 <p
-                  class="text-lg text-justify font-medium font-customFont text-gray-900"
+                [class.activeText]="item.isChoiced"
+                  class="text-lg text-justify font-sm font-customFont text-gray-900"
                 >
                   {{ item.content }}
                 </p>

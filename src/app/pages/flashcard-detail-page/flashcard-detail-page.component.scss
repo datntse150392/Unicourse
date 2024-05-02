@@ -1,38 +1,42 @@
 .container {
-    max-width: 100%;
-    margin-bottom: 2%;
-    .body-container {
-        height: 100%;
-        padding: 0% 2%;
-        margin: auto;
-        .animation-color {
-            color: #708090; // Default color
-            font-size: larger;
-            transition: 0.5s ease; // Smooth transition for color change
-            border: 2px solid #708090; // Default border
-        }
-        .animation-color:hover {
-            color: #bbf7d0;
-            border: 2px solid #bbf7d0;
-            cursor: pointer;
-        }
-        .active {
-            transition: 0.5s ease; // Smooth transition for color change
-            color: #4ade80;
-            border: 2px solid #4ade80;
-        }
-        .disabled {
-            background-color: #97D5FE;
-            cursor: not-allowed;
-        }
-        .activeIcon {
-            color: #4ade80 !important;
-            transition: 0.5s ease;
-        }
-        .activeButton {
-            color: white !important;
-            background-color: #22c55e;
-            border: 1px solid #22c55e;
-        }
+  max-width: 100%;
+  margin-bottom: 2%;
+  .body-container {
+    height: 100%;
+    padding: 0% 2%;
+    margin: auto;
+    .animation-color {
+      color: #708090; // Default color
+      font-size: larger;
+      transition: 0.5s ease; // Smooth transition for color change
+      border: 2px solid #708090; // Default border
     }
+    .animation-color:hover {
+      color: #bbf7d0;
+      border: 2px solid #bbf7d0;
+      cursor: pointer;
+    }
+    .active {
+      transition: 0.5s ease; // Smooth transition for color change
+      color: #4ade80;
+      border: 2px solid #4ade80;
+    }
+    .disabled {
+      background-color: #97d5fe;
+      cursor: not-allowed;
+    }
+    .activeIcon {
+      color: #4ade80 !important;
+      transition: 0.5s ease;
+    }
+    .activeButton {
+      color: white !important;
+      background-color: #22c55e;
+      border: 1px solid #22c55e;
+    }
+    .activeText {
+      color: #22c55e !important;
+      transition: 0.5s ease;
+    }
+  }
 }
