@@ -121,11 +121,17 @@ export class NavigateComponent implements OnInit, OnDestroy {
           ],
           [
             {
-              label: 'Chuyên Ngành 8-9',
+              label: 'Chuyên Ngành 8',
               items: [
-                { label: 'MMA301', command: () => this.goToCourse('MMA301') },
                 { label: 'MLN111', command: () => this.goToCourse('MLN111') },
                 { label: 'MLN122', command: () => this.goToCourse('MLN122') },
+                { label: 'PMG201c', command: () => this.goToCourse('PMG201c') },
+                { label: 'MMA301', command: () => this.goToCourse('MMA301') },
+              ],
+            },
+            {
+              label: 'Chuyên Ngành 9',
+              items: [
                 { label: 'HCM202', command: () => this.goToCourse('HCM202') },
                 { label: 'MLN131', command: () => this.goToCourse('MLN131') },
                 { label: 'VNR202', command: () => this.goToCourse('VNR202') },

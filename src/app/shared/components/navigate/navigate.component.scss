@@ -1,10 +1,12 @@
 :host ::ng-deep {
   .p-megamenu-submenu-header {
     display: flex;
+    color: #25a8ff;
+    font-weight: 900;
   }
   .p-megamenu-panel {
-    margin-left: 7rem;
-    margin-top: 3rem;
+    margin-left: 5rem;
+    margin-top: 1rem;
     border-radius: 5px;
   }
   .p-megamenu {

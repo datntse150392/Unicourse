@@ -1,8 +1,26 @@
 <app-header></app-header>
 <div class="container">
+  <section
+    class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+  >
+    <div
+      class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+    >
+      <h1
+        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+      >
+        Nơi tiếp nhận nạp Point
+      </h1>
+      <blockquote
+        class="text-xl text-gray-500 italic font-semibold text-center"
+      >
+        <p>"Quét mã QR để nạp điểm vào tài khoản của bạn ngay lập tức!"</p>
+      </blockquote>
+    </div>
+  </section>
+
   <div class="coin-banking-contaienr w-full flex flex-row gird grid-cols-12">
     <div class="coin-banking-left w-full col-span-6">
-      <h2>Tài khoản tiếp nhận nạp Point</h2>
       <div class="bank-info">
         <p>CHỦ TÀI KHOẢN: <span>NGUYEN THANH DAT</span></p>
         <p>SỐ TK: <span>070098425924</span></p>
@@ -26,8 +44,9 @@
         xử lý.
       </p>
     </div>
-    <div class="coin-banking-right w-full col-span-6">
+    <div class="coin-banking-right w-full col-span-6 flex justify-center">
       <img
+        class="w-[25rem]"
         src="https://img.vietqr.io/image/sacombank-070098425924-compact.jpg"
       />
     </div>
