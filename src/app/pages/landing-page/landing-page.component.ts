@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { SharedModule } from '../../shared';
-import { Subscription } from 'rxjs';
+import { Subscription, of, forkJoin, catchError } from 'rxjs';
 import {
   CoinService,
   CourseService,
@@ -17,6 +17,8 @@ import {
 import { Router } from '@angular/router';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 import { CheckingDailyEventService } from '../../cores/services/checking-daily-event.service';
+import { switchMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-landing-page',
   standalone: true,
@@ -291,42 +293,68 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       // Nếu không thấy user thì tự động bật form đăng nhập
       this.sharedService.turnOnSignInDialog();
     } else {
-      const attendCheckingDailyEventSub$ = this.checkingDailyEventService
+      this.checkingDailyEventService
         .attendCheckingDailyEvent(dailyId)
+        .pipe(
+          switchMap((attendResponse: any) => {
+            if (attendResponse.status === 200) {
+              return forkJoin({
+                totalCoinReponse: this.coinService.getTotalCoinByUserId(),
+                allDataResponse: this.checkingDailyEventService
+                  .getAllDataCheckingDailyEvent()
+                  .pipe(
+                    catchError((error: any) => {
+                      // Xử lý lỗi nếu có
+                      console.error(
+                        'Error fetching data after attending event:',
+                        error
+                      );
+                      // Trả về một giá trị Observable rỗng nếu có lỗi
+                      return of(null);
+                    })
+                  ),
+              });
+            } else {
+              // Nếu attendCheckingDailyEvent không thành công, trả về một giá trị Observable rỗng
+              return of(null);
+            }
+          })
+        )
         .subscribe({
-          next: (res: any) => {
-            if (res.status === 200) {
-              // Lấy danh sách sự kiện kiểm tra hàng ngày
-              this.checkingDailyEventService
-                .getAllDataCheckingDailyEvent()
-                .subscribe({
-                  next: (res: any) => {
-                    this.dataCheckingDailyEvent = res.data;
-                  },
-                  error: (err: any) => {
-                    console.log(err);
-                  },
-                });
+          next: (results: any) => {
+            if (
+              results &&
+              results.totalCoinReponse &&
+              results.allDataResponse
+            ) {
+              // Nếu getAllDataCheckingDailyEvent thành công, xử lý dữ liệu ở đây
+              console.log('Dữ liệu mới nhận được:', results);
+              this.dataCheckingDailyEvent = results.allDataResponse.data;
+              this.getTotalCoin = results.totalCoinReponse.data;
+
+              // Hiển thị thông báo
               this.dialogBroadcastService.broadcastDialog({
                 header: 'Thông báo',
                 message: 'Chúc mừng bạn đã nhận được phần thưởng',
                 type: 'success',
                 display: true,
               });
+            } else {
+              // Nếu attendCheckingDailyEvent không thành công, hiển thị thông báo lỗi
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Thông báo',
+                message:
+                  'Bạn đã điểm danh sự kiện này rồi, quay lại vào ngày mai nhé!',
+                type: 'error',
+                display: true,
+              });
             }
           },
           error: (err: any) => {
-            this.dialogBroadcastService.broadcastDialog({
-              header: 'Thông báo',
-              message:
-                'Bạn đã điểm danh sự kiện này rồi, quay lại vào ngày mai nhé!',
-              type: 'error',
-              display: true,
-            });
+            // Xử lý lỗi nếu có
             console.log(err);
           },
         });
-      this.subscriptions.push(attendCheckingDailyEventSub$);
     }
   }
 
@@ -360,25 +388,70 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     if (this.scheduleData) {
       const registerScheduleMeetingSub$ = this.scheduleMeetingService
         .registerScheduleMeeting(this.scheduleData._id)
+        .pipe(
+          switchMap((registerResponse: any) => {
+            if (registerResponse.status === 200) {
+              return forkJoin({
+                totalCoinReponse: this.coinService.getTotalCoinByUserId(),
+                allDataResponse: this.scheduleMeetingService
+                  .getAllScheduleMeetings()
+                  .pipe(
+                    catchError((error: any) => {
+                      // Xử lý lỗi nếu có
+                      console.error(
+                        'Error fetching data after attending event:',
+                        error
+                      );
+                      // Trả về một giá trị Observable rỗng nếu có lỗi
+                      return of(null);
+                    })
+                  ),
+              });
+            } else {
+              // Nếu registerScheduleMeeting không thành công, trả về một giá trị Observable rỗng
+              return of(null);
+            }
+          })
+        )
         .subscribe({
-          next: (res: any) => {
-            if (res.status === 200) {
+          next: (results: any) => {
+            if (
+              results &&
+              results.totalCoinReponse &&
+              results.allDataResponse
+            ) {
+              // Nếu getAllScheduleMeetings thành công, xử lý dữ liệu ở đây
+              console.log('Dữ liệu mới nhận được:', results);
+              this.dataScheduleMeetings = results.allDataResponse.data;
+              this.getTotalCoin = results.totalCoinReponse.data;
+
+              // Hiển thị thông báo
               this.dialogBroadcastService.broadcastDialog({
                 header: 'Thông báo',
                 message: 'Đăng ký lịch hẹn thành công',
                 type: 'success',
                 display: true,
               });
+
               this.isToggleRegisterScheduleMeeting = false;
               this.isToggleDepositPoint = false;
-              // Lấy ra tất cả dữ liệu của lịch hẹn
-              this.initForm();
+            } else {
+              // Nếu registerScheduleMeeting không thành công, hiển thị thông báo lỗi
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Thông báo',
+                message:
+                  'Bạn đã đăng ký lịch hẹn này rồi, vui lòng chọn lịch hẹn khác!',
+                type: 'error',
+                display: true,
+              });
             }
           },
           error: (err: any) => {
+            // Xử lý lỗi nếu có
             console.log(err);
           },
         });
+
       this.subscriptions.push(registerScheduleMeetingSub$);
     }
   }

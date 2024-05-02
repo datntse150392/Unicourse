@@ -9,8 +9,11 @@ export class ScheduleMeetingService {
 
   // Thực hiện việc lấy tất cả dữ liệu của lịch hẹn
   getAllScheduleMeetings() {
+    const randomParam = new Date().getTime();
     return this.httpClient
-      .get<any>(`${environment.baseUrl}/api/schedule-meetings`)
+      .get<any>(
+        `${environment.baseUrl}/api/schedule-meetings?random=${randomParam}`
+      )
       .pipe(catchError(this.handleError));
   }
 

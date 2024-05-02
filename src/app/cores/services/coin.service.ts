@@ -15,8 +15,12 @@ export class CoinService {
   }
 
   getTotalCoinByUserId(): Observable<number> {
+    // Tham số ngẫu nhiên
+    const randomParam = new Date().getTime();
     return this.httpClient
-      .get<number>(`${environment.baseUrl}/api/coins/get-total-coin`)
+      .get<number>(
+        `${environment.baseUrl}/api/coins/get-total-coin?random=${randomParam}`
+      )
       .pipe(catchError(this.handleError));
   }
 

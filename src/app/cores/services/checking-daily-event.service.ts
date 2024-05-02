@@ -3,13 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ScheduleMeeting } from '../models';
 @Injectable({ providedIn: 'root' })
 export class CheckingDailyEventService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllDataCheckingDailyEvent(): Observable<any> {
+  getAllDataCheckingDailyEvent(): Observable<ScheduleMeeting> {
+    // Tham số ngẫu nhiên
+    const randomParam = new Date().getTime();
     return this.httpClient
-      .get<any>(`${environment.baseUrl}/api/checkingDaily`)
+      .get<ScheduleMeeting>(
+        `${environment.baseUrl}/api/checkingDaily?random=${randomParam}`
+      )
       .pipe(catchError(this.handleError));
   }
 
