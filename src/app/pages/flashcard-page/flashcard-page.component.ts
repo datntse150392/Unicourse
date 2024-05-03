@@ -23,6 +23,15 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         animate('0.5s ease-in') // Adjust the duration and easing as needed
       ]),
     ]),
+    trigger('fadeInOut', [
+      state(
+        'void',
+        style({
+          opacity: 0,
+        })
+      ),
+      transition('void <=> *', animate(500)),
+    ]),
   ],
 })
 export class FlashcardPageComponent implements OnInit, OnDestroy {
@@ -32,6 +41,7 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   // isLike: boolean = false;
   ingredient!: string;
   filter: string = 'none';
+  isShowDropdown: boolean = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -130,6 +140,10 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
 
   onFilterChange(filter: string) {
     this.filter = filter;
+  }
+
+  handleMouseInOut(isHovering: boolean) {
+    this.isShowDropdown = isHovering;
   }
   
   ngOnDestroy(): void {

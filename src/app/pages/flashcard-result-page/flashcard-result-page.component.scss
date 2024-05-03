@@ -1,0 +1,70 @@
+:host ::ng-deep .p-knob-text {
+    font-weight: 900;
+}
+
+.container {
+    max-width: 100%;
+    margin-bottom: 2%;
+
+    .body-container {
+        height: 100%;
+        padding: 0% 2%;
+        margin: auto;
+
+        .activeIcon {
+            color: #4ade80 !important;
+            transition: 0.5s ease;
+        }
+
+        .dropdownButton:hover {
+            color: white !important;
+            background-color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .dropdownButtonActive {
+            color: white !important;
+            background-color: #22c55e;
+            border: 1px solid #22c55e;
+        }
+
+        .review-answer-container {
+            height: 100%;
+            padding: 0% 10%;
+            margin: auto;
+            margin-top: 2%;
+            .correct-answer {
+                background-color: #00f359;
+                border: 2px solid #22c55e;
+                .text-answer {
+                    color: white;
+                    font-weight: 500;
+                }
+                .icon-answer {
+                    color: white;
+                }
+            }
+            .wrong-answer {
+                border: 2px solid #eb1c20;
+                background-color: #ff4d4f;
+                .text-answer {
+                    color: white;
+                    font-weight: 500;
+                }
+                .icon-answer {
+                    color: white;
+                }
+            }
+            .disable-answer {
+                border: 2px solid #bdbdbd;
+                .text-disable-answer {
+                    color: #bdbdbd;
+                    font-weight: 500;
+                }
+                .icon-disable-answer {
+                    color: #bdbdbd;
+                }
+            }
+        }
+    }
+}

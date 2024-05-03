@@ -48,45 +48,46 @@
                     class="text-gray-900 border border-gray-300 font-medium rounded-lg text-medium px-4 py-2 mr-4 justify-self-end">
                     Học nhiều nhất
                 </button>
-                <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover"
-                    class="dropdownButton border border-gray-300 text-gray-900 font-medium rounded-lg text-medium font-medium px-5 py-2.5 text-center inline-flex items-center"
-                    type="button">Chuyên ngành<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                
-                <!-- Dropdown menu -->
-                <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                    <ul class="py-2 text-sm font-medium text-gray-900" aria-labelledby="dropdownHoverButton">
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 1</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 2</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 3</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 4</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 5</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 6</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 7</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 8</a>
-                        </li>
-                        <li>
-                            <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 9</a>
-                        </li>
-                    </ul>
+                <div class="text-center">
+                    <button (mouseenter)="handleMouseInOut(true)" (mouseleave)="handleMouseInOut(false)" class="dropdownButton border border-gray-300 text-gray-900 font-medium rounded-lg text-medium font-medium px-5 py-2.5 text-center inline-flex items-center"
+                        type="button">Chuyên ngành<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown menu -->
+                    <div [class.hidden]="!isShowDropdown" (mouseenter)="handleMouseInOut(true)" (mouseleave)="handleMouseInOut(false)" [ngStyle]="{ width: '168px' }" class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow">
+                        <ul class="py-2 text-sm font-medium text-gray-900" aria-labelledby="dropdownHoverButton">
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 1</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 2</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 3</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 4</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 5</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 6</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 7</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 8</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-300 cursor-pointer">Chuyên ngành 9</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

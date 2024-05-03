@@ -1,0 +1,152 @@
+<app-header></app-header>
+<div class="container">
+  <div class="body-container">
+    <section class="bg-white bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]">
+        <!-- Top component: Btn thử lại || Tiêu đề || Btn kết thúc -->
+        <div class="flex justify-between items-center">
+            <!-- Group left component -->
+            <div>
+                <div class="text-center">
+                    <button (click)="toggleDropdown()" [class.dropdownButtonActive]="isShowDropdown" class="dropdownButton border border-gray-300 text-gray-900 font-medium rounded-lg text-medium font-medium px-5 py-2.5 text-center inline-flex items-center"
+                        type="button">Đáp án của bạn<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown menu -->
+                    <div [class.hidden]="!isShowDropdown" style="width: 168px; overflow: auto;" class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow">
+                        <ul class="py-2 max-h-80 scroll-auto text-sm font-medium text-gray-900">
+                            <li *ngFor="let item of userFlashcard.items; let i = index" class="flex flex-row items-center justify-content-center py-2 hover:bg-gray-300 cursor-pointer">
+                                <ng-container *ngIf="item.userCorrect; else wrongItem">
+                                    <i class="pi pi-check" style="color: green"></i>
+                                    <a class="block px-4">Câu số {{i + 1}}</a>
+                                </ng-container>
+                                <ng-template #wrongItem>
+                                    <i class="pi pi-times" style="color: red"></i>
+                                    <a class="block px-4">Câu số {{i + 1}}</a>
+                                </ng-template>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Group center component -->
+            <div class="text-center">
+                <h3 class="text-3xl font-bold text-gray-900">3 / 5</h3>
+                <p class="text-2xl text-justify font-medium font-customFont text-gray-900">MKT208c</p>
+            </div>
+    
+            <!-- Group right component -->
+            <div [ngStyle]="{ width: '11rem' }">
+            </div>
+        </div>
+
+        <!-- Body component -->
+        <div class="py-4 px-4 mx-auto max-w-screen-xl text-center z-0 relative">
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">
+                Đỉnh cao thành tựu
+            </h1>
+            <blockquote class="text-xl text-gray-500 italic font-semibold text-center">
+                <p>Chúc mừng bạn đã vượt qua mọi khó khăn với điểm cao!</p>
+            </blockquote>
+        </div>
+        
+        <!-- Thống kê điểm số -->
+        <div class="card flex flex-col justify-content-center items-center">
+            <p-image class="mb-4" src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Quiz%2Fquiz-result.svg?alt=media&token=f3baf999-76c1-412b-9d33-253b35976677" alt="Image" width="250"></p-image>
+            <div class="flex flex-row justify-between items-center max-w-full px-3 py-3 bg-white border border-gray-200 rounded-lg shadow">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-10 activeIcon"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                <p class="w-48 font-semibold leading-none text-medium text-gray-900 uppercase">Số câu đúng</p>
+                <h5 class="text-xl font-bold tracking-tight text-gray-900">3</h5>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 p-4">
+                <button [ngStyle]="{ width: '9rem' }"
+                    class="inline-flex items-center text-white bg-[#3dd575] hover:bg-[#22c55e] focus:ring-4 focus:outline-none focus:ring-[#7fd59e] font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
+                    <i class="pi pi-replay text-white pr-2" style="font-size: large"></i>
+                    <p class="text-medium text-white font-customFont truncate">Thử lại</p>
+                </button>
+                <button [ngStyle]="{ width: '9rem' }"
+                    class="inline-flex items-center text-white bg-[#e64141] hover:bg-[#e61515] focus:ring-4 focus:outline-none focus:ring-[#e66666] font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-6 pr-2 text-white" fill="currentColor"
+                        viewBox="0 0 512 512">
+                        <path
+                            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+                    </svg>
+                    <p class="text-medium text-white font-customFont truncate">Kết thúc</p>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom component: Thông tin chi tiết từng câu hỏi -->
+    <div class="review-answer-container">
+        <div *ngFor="let currentItems of userFlashcard.items"
+            class="flex flex-col max-w-full p-5 mb-3 bg-white border border-gray-200 rounded-lg">
+            <!-- Câu hỏi -->
+            <div class="mb-6">
+                <p class="text-2xl text-justify font-medium font-customFont text-gray-900">
+                    {{ currentItems.question }}
+                </p>
+            </div>
+            <div class="mb-4">
+                <ng-container *ngIf="currentItems.userCorrect; else wrongAnswer">  
+                    <p class="max-w-lg text-xl font-semibold leading-relaxed text-green-500">Bạn làm rất tốt!</p>
+                </ng-container>
+                <ng-template #wrongAnswer>
+                    <p class="max-w-lg text-xl font-semibold leading-relaxed text-red-500">Cố gắng hơn ở lần sau nhé!</p>
+                </ng-template>
+            </div>
+            <!-- Đáp án -->
+            <div class="grid grid-cols-2 gap-4 place-content-between mb-2">
+                <div *ngFor="let item of currentItems.answer; let i = index"
+                    class="overflow-hidden relative cursor-pointer rounded-lg hover:border-green-200">
+                    <!-- Khung hiển thị đáp án -->
+                    <div class="min-h-28 flex flex-rows items-center max-w-full px-3 py-5 mb-3 rounded-lg"
+                        [ngClass]="{
+                            'correct-answer': item.rightAnswer,
+                            'wrong-answer': item.isChoiced && !item.rightAnswer,
+                            'disable-answer': !item.isChoiced && !item.rightAnswer,
+                        }">
+                        <div class="basis-1/12">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="w-10 h-10 sm:h-8 sm:w-8"
+                                [ngClass]="{
+                                    'icon-answer': item.rightAnswer || item.isChoiced,
+                                    'icon-disable-answer': !item.isChoiced && !item.rightAnswer,
+                                }"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="basis-11/12">
+                            <p class="text-lg text-justify font-sm font-customFont"
+                            [ngClass]="{
+                                'text-answer': item.rightAnswer || item.isChoiced,
+                                'text-disable-answer': !item.isChoiced && !item.rightAnswer,
+                            }">
+                                {{ item.content }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

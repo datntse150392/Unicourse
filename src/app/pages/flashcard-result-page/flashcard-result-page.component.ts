@@ -1,37 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared';
-import { FooterComponent, HeaderComponent } from '../../shared/components';
+import { HeaderComponent } from '../../shared/components';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
 
 interface Flashcard {
   _id: number;
   title: string;
   numberItems: string;
   items: any[];
-}
-
-interface CurrentItem {
-  _id: number;
-  question: string;
-  answer: [
-    {
-      _id: number;
-      content: string;
-      isChoiced: boolean;
-      rightAnswer: boolean;
-    }
-  ];
-  rightAnswer: string[];
 }
 
 interface UserflashcardAnwers {
@@ -51,43 +29,17 @@ interface UserItemAnwer {
 }
 
 @Component({
-  selector: 'app-flashcard-detail-page',
+  selector: 'app-flashcard-result-page',
   standalone: true,
   imports: [HeaderComponent, SharedModule],
-  templateUrl: './flashcard-detail-page.component.html',
-  styleUrl: './flashcard-detail-page.component.scss',
-  animations: [
-    trigger('fadeInOut', [
-      state(
-        'void',
-        style({
-          opacity: 0,
-        })
-      ),
-      transition('void <=> *', animate(500)),
-    ]),
-  ],
+  templateUrl: './flashcard-result-page.component.html',
+  styleUrl: './flashcard-result-page.component.scss'
 })
-export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
-  originFlashcard: Flashcard = {} as Flashcard;
+
+export class FlashcardResultPageComponent implements OnInit, OnDestroy {
+  value: number = 50;
+  isShowDropdown: boolean = true;
   userFlashcard: Flashcard = {} as Flashcard;
-
-  isShowRightAnswer: boolean = false;
-  finalScore: number = 0;
-  currentIndex: number = 0;
-  currentItems: CurrentItem = {} as CurrentItem;
-  isShowDropdown: boolean = false;
-
-  userflashcardAnwers: UserflashcardAnwers = {
-    userItemAnwer: new Map<number, UserItemAnwer>(),
-  } as UserflashcardAnwers;
-
-  isActive: boolean[] = [];
-  isDisabledPrevios: boolean = true;
-  isDisabledNext: boolean = false;
-  filter: string = '';
-  progressValue: number = 20;
-  faCircleXmark = faCircleXmark;
 
   private subscriptions: Subscription[] = [];
 
@@ -103,7 +55,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.originFlashcard = {
+    this.userFlashcard = {
       _id: 1,
       title: 'MKT208c',
       numberItems: '5 câu hỏi',
@@ -112,12 +64,13 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
           _id: 1,
           question: 'Which is a good starting point for writing a blog?',
           type: 'single',
+          userCorrect: true,
           answer: [
             {
               _id: 1,
               content:
                 'Our target audience is so overwhelmed with much information, so you can start with a filter and focus blog',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: true,
             },
             {
@@ -155,11 +108,12 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
           question:
             'Display ads, magazine ads, acquisition programs, endorsements, affiliate program, pay-per-click, banner ads are examples of',
           type: 'single',
+          userCorrect: false,
           answer: [
             {
               _id: 1,
               content: 'owned media',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: false,
             },
             {
@@ -193,6 +147,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
           question:
             'In Social marketing budget, there are four areas as follows, except:',
           type: 'single',
+          userCorrect: true,
           answer: [
             {
               _id: 1,
@@ -215,7 +170,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
             {
               _id: 4,
               content: 'Production',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: true,
             },
           ],
@@ -231,17 +186,18 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
           question:
             'Which of the following are tools for Search Analytics? Check all that apply.',
           type: 'multiple',
+          userCorrect: true,
           answer: [
             {
               _id: 1,
               content: 'Google Trends',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: true,
             },
             {
               _id: 2,
               content: 'Keyhole.co',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: true,
             },
             {
@@ -253,7 +209,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
             {
               _id: 4,
               content: 'Answer the Public',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: true,
             },
           ],
@@ -277,6 +233,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
           question:
             'If you want to develop a great blog, you should avoid .......',
           type: 'single',
+          userCorrect: false,
           answer: [
             {
               _id: 1,
@@ -293,7 +250,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
             {
               _id: 3,
               content: 'using images',
-              isChoiced: false,
+              isChoiced: true,
               rightAnswer: false,
             },
             {
@@ -312,114 +269,10 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
         },
       ],
     };
-    this.userFlashcard = this.originFlashcard;
-    this.currentIndex = 0;
-    this.currentItems = this.userFlashcard.items[this.currentIndex];
-    // this.currentItems.answer.forEach(_ => this.isActive.push(false));// Khởi tạo mảng isActive với giá trị false
   }
 
-  toggleActive(item: any, currentItems: any) {
-    this.updateUserAnswer(item, currentItems);
-    
-  }
-
-  nextQuestion() {
-    if (this.currentIndex < this.userFlashcard.items.length - 1) {
-      this.currentIndex++;
-      this.currentItems = this.userFlashcard.items[this.currentIndex];
-      this.handleToggleDisabledButton();
-    }
-  }
-
-  prevQuestion() {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.currentItems = this.userFlashcard.items[this.currentIndex];
-      this.handleToggleDisabledButton();
-    }
-  }
-
-  // Update câu trả lời của user: userflashcardAnwers
-  updateUserAnswer(item: any, currentItems: any) {
-    // Kiểm tra câu trả hỏi có phải là multiple choice hay không?
-    switch (currentItems.type) {
-      case 'single':
-        this.updateWithSingleChoice(item, currentItems);
-        break;
-      case 'multiple':
-        this.updateWithMultipleChoice(item, currentItems);
-        break;
-      default:
-        break;
-    }
-  }
-
-  updateWithSingleChoice(item: any, currentItems: any) {
-    this.userFlashcard.items.map((x) => {
-      if (x._id === currentItems._id) {
-        x.answer.map((y: any) => {
-          if (y.content === item.content && y.isChoiced) {
-            y.isChoiced = false;
-          } else if (y.content === item.content && !y.isChoiced) {
-            y.isChoiced = true;
-          } else {
-            y.isChoiced = false;
-          }
-        });
-      }
-    });
-  }
-
-  updateWithMultipleChoice(item: any, currentItems: any) {
-    this.userFlashcard.items.map((x) => {
-      if (x._id === currentItems._id) {
-        x.answer.map((y: any) => {
-          if (y.content === item.content && y.isChoiced) {
-            y.isChoiced = false;
-          } else if (y.content === item.content && !y.isChoiced) {
-            y.isChoiced = true;
-          }
-        });
-      }
-    });
-  }
-
-  onCalculateScore() {}
-
-  resetValues() {
-    this.finalScore = 0;
-    this.currentIndex = 0;
-    this.currentItems = this.userFlashcard.items[this.currentIndex];
-    this.isShowRightAnswer = false;
-    this.isActive = [];
-    this.currentItems.answer.forEach((_) => this.isActive.push(false));
-  }
-
-  handleToggleDisabledButton() {
-    if (this.currentIndex === 0) {
-      this.isDisabledPrevios = true;
-    } else {
-      this.isDisabledPrevios = false;
-    }
-
-    if (this.currentIndex === this.userFlashcard.items.length - 1) {
-      this.isDisabledNext = true;
-    } else {
-      this.isDisabledNext = false;
-    }
-
-    this.progressValue = ((this.currentIndex + 1) / (this.userFlashcard.items.length) * 100);
-  }
-
-  handleMouseInOut(isHovering: boolean) {
-    this.isShowDropdown = isHovering;
-    console.log(this.isShowDropdown);
-  }
-
-  finishQuiz() {}
-
-  onChangeMode(filter: string) {
-    this.filter = filter;
+  toggleDropdown() {
+    this.isShowDropdown = !this.isShowDropdown;
   }
 
   ngOnDestroy(): void {

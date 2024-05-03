@@ -40,6 +40,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { MegaMenuModule } from 'primeng/megamenu';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { KnobModule } from 'primeng/knob';
 
 @NgModule({
   imports: [
@@ -84,7 +86,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CheckboxModule,
     MegaMenuModule,
     InputSwitchModule,
-    RadioButtonModule
+    RadioButtonModule,
+    FontAwesomeModule,
+    KnobModule
   ],
   declarations: [],
   exports: [
@@ -127,7 +131,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CheckboxModule,
     MegaMenuModule,
     InputSwitchModule,
-    RadioButtonModule
+    RadioButtonModule,
+    FontAwesomeModule,
+    KnobModule,
+    ImageModule
   ],
   providers: [GlobalDialogHandlerService],
 })

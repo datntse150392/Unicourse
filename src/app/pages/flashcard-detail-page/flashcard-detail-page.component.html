@@ -2,7 +2,7 @@
 <div class="container">
   <div class="body-container">
     <!-- Toggle mode hiển thị đáp án đúng -->
-    <div class="flex justify-between mb-2">
+    <div class="flex justify-between items-center mb-2">
       <div class="flex flex-rows">
         <p-inputSwitch [(ngModel)]="isShowRightAnswer"></p-inputSwitch>
         <p
@@ -13,19 +13,14 @@
       </div>
       <div class="flex flex-rows items-center">
         <!-- Icon tooltip -->
-        <i
-          data-tooltip-target="tooltip-light"
-          data-tooltip-style="light"
-          class="pi pi-question-circle text-gray-900 mr-4 cursor-pointer"
-          style="font-size: 1.5rem"
-        ></i>
-        <div
-          id="tooltip-light"
-          role="tooltip"
-          class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip"
-        >
-          Chọn hình thức học của bạn
-          <div class="tooltip-arrow" data-popper-arrow></div>
+        <div>
+          <i [pTooltip]="tooltipContent" tooltipPosition="bottom" class="pi pi-question-circle text-gray-900 mr-4 cursor-pointer"
+            style="font-size: 1.5rem"></i>
+          <ng-template #tooltipContent>
+            <div class="flex align-items-center">
+                <span>Chọn hình thức học</span>
+            </div>
+            </ng-template>
         </div>
         <!-- Group button -->
         <button
@@ -44,6 +39,17 @@
         >
           Trắc nghiệm
         </button>
+        <button [ngStyle]="{ width: '8rem' }"
+          class="flex flex-rows items-center border border-gray-300 font-medium rounded-lg text-medium px-4 py-2 justify-self-end exitBtn">
+          <p class="tracking-tighter w-12 text-gray-900 text-lg font-medium font-customFont textExit">
+            Thoát
+          </p>
+        
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-6 text-gray-900 iconExit" fill="currentColor" viewBox="0 0 512 512">
+            <path
+              d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+          </svg>
+        </button>
       </div>
     </div>
 
@@ -55,6 +61,8 @@
       >
         <!-- Câu hỏi -->
         <div class="mb-6">
+          <h3 class="text-3xl font-bold text-gray-900">{{ userFlashcard.title }}</h3>
+          <p-divider type="solid"></p-divider>
           <p
             class="text-2xl text-justify font-medium font-customFont text-gray-900"
           >
@@ -67,38 +75,26 @@
             *ngFor="let item of currentItems.answer; let i = index"
             class="overflow-hidden relative cursor-pointer rounded-lg hover:border-green-200"
           >
-            <!-- Hiển thị right answer -->
+            <!-- Khung hiển thị đáp án -->
             <div
-              *ngIf="isShowRightAnswer && item && item.rightAnswer"
-              [@fadeInOut]
-              class="absolute top-0 right-0 text-white rounded-bl-lg block"
-              style="background-color: #22c55e; text-align: -webkit-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                ></path>
-              </svg>
-            </div>
-            <div
-              [class.active]="item.isChoiced"
               (click)="toggleActive(item, currentItems)"
-              class="animation-color min-h-28 flex flex-rows items-center max-w-full px-3 py-5 mb-3 bg-white rounded-lg"
+              class="animation-color min-h-28 flex flex-rows items-center max-w-full px-3 py-5 mb-3 rounded-lg"
+              [ngClass]="{
+                'active': item && item.isChoiced,
+                'isShowRightAnswer bg-[#2cff79]': isShowRightAnswer && item && item.rightAnswer && !item.isChoiced,
+                'isShowRightAnswer bg-[#00f359]': isShowRightAnswer && item && item.rightAnswer && item.isChoiced,
+              }"
             >
               <div class="basis-1/12">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="w-10 h-10 text-gray-400 sm:h-8 sm:w-8"
-                  [class.activeIcon]="item.isChoiced"
+                  [ngClass]="{
+                    'activeIcon': item && item.isChoiced && !isShowRightAnswer,
+                    'text-white': isShowRightAnswer && item && item.rightAnswer,
+                    'activeIconAndModeRightAnswerAndWrongAnswer': item && item.isChoiced && isShowRightAnswer && !item.rightAnswer,
+                  }"
+                  
                   viewBox="0 0 20 20"
                   fill="currentColor"
                 >
@@ -111,9 +107,11 @@
               </div>
               <div class="basis-11/12">
                 <p
-                [class.activeText]="item.isChoiced"
-                  class="text-lg text-justify font-sm font-customFont text-gray-900"
-                >
+                  [ngClass]="{
+                    'activeText': item && item.isChoiced,
+                    'textRightAnswer text-white font-medium': isShowRightAnswer && item && item.rightAnswer,
+                  }"
+                  class="text-lg text-justify font-sm font-customFont text-gray-900">
                   {{ item.content }}
                 </p>
               </div>
@@ -122,12 +120,16 @@
         </div>
         <!-- Tiến trình câu hỏi, chuyển câu -->
         <div class="flex flex-rows justify-between items-center">
-          <div>
-            <p
-              class="text-2xl text-justify font-medium font-customFont text-gray-900"
-            >
-              {{ currentIndex + 1 }}/{{ userFlashcard.items.length }}
-            </p>
+          <div class="flex flex-rows items-end">
+            <svg xmlns="http://www.w3.org/2000/svg" class="text-yellow-400 h-auto mr-2" [ngStyle]="{ width: '2rem' }" fill="currentColor" viewBox="0 0 448 512">
+              <path d="M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-13.6 22.9-8.9 35.3S50.7 288 64 288H175.5L98.6 467.4c-5.9 13.7-1.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 13.6-22.9 8.9-35.3s-16.6-20.7-30-20.7H272.5L349.4 44.6z"/>
+            </svg>
+            <div>
+              <p class="text-lg text-justify font-medium font-customFont text-gray-900">
+                Tiến độ của bạn: {{ currentIndex + 1 }}/{{ userFlashcard.items.length }}
+              </p>
+              <p-progressBar [value]="progressValue" [showValue]="false" class="block w-80 mr-4" color="#25a8ff"></p-progressBar>
+            </div>
           </div>
           <div class="flex flex-rows">
             <button
@@ -165,6 +167,7 @@
                 <p
                   [ngStyle]="{ width: '6.8rem' }"
                   class="text-sm text-center font-medium font-customFont text-white"
+                  [routerLink]="['/flashcard/', userFlashcard._id, 'result']"
                 >
                   Kiểm tra điểm
                 </p>
