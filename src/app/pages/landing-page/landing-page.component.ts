@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 import { CheckingDailyEventService } from '../../cores/services/checking-daily-event.service';
 import { switchMap } from 'rxjs/operators';
+import { PayOSService } from '../../cores/services/payOS.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -57,7 +58,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private readonly checkingDailyEventService: CheckingDailyEventService,
     private readonly coinService: CoinService,
     private readonly sharedService: SharedService,
-    private readonly scheduleMeetingService: ScheduleMeetingService
+    private readonly scheduleMeetingService: ScheduleMeetingService,
+    private readonly payOSService: PayOSService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -173,6 +175,20 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           console.log(err);
         },
       });
+
+    // Lấy tổng số coin của user khi thay đổi
+    this.sharedService.isRefreshTotalCoin$.subscribe((res) => {
+      if (res && res === true) {
+        this.coinService.getTotalCoinByUserId().subscribe({
+          next: (res: any) => {
+            this.getTotalCoin = res.data;
+          },
+          error: (err: any) => {
+            console.log(err);
+          },
+        });
+      }
+    });
 
     // Lấy ra tất cả dữ liệu của lịch hẹn
     const getAllScheduleMeetingsSub$ = this.scheduleMeetingService
@@ -472,5 +488,40 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         });
       this.subscriptions.push(registerScheduleMeetingSub$);
     }
+  }
+
+  // Thực hiện gọi API để tạo link payment nạp point
+  handleCreatePaymentLink(): void {
+    this.isBlockUI = true;
+    // Tạo orderCode ngẫu nhiên không trùng lặp theo thời gian
+    const orderCode = new Date().getTime();
+    const data = {
+      orderCode: orderCode,
+      amount:
+        (this.scheduleData && this.scheduleData.price - this.getTotalCoin) || 0,
+      description: 'nap point',
+      items: [
+        {
+          name: 'Nạp point',
+          quantity: 1,
+          price: this.scheduleData?.price,
+          currency: 'VND',
+        },
+      ],
+    };
+
+    this.payOSService.createPaymentLink(data).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          // Chuyển thẳng sang trang thanh toán
+          window.location.href = res.data.checkoutUrl;
+          this.isBlockUI = false;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.isBlockUI = false;
+      },
+    });
   }
 }

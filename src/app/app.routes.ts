@@ -19,7 +19,6 @@ import { UniCoinPageComponent } from './pages/uni-coin-page/uni-coin-page.compon
 import { FlashcardPageComponent } from './pages/flashcard-page/flashcard-page.component';
 import { FlashcardDetailPageComponent } from './pages/flashcard-detail-page/flashcard-detail-page.component';
 import { CoinBankingComponent } from './pages/coin-banking/coin-banking.component';
-import { FlashcardResultPageComponent } from './pages/flashcard-result-page/flashcard-result-page.component';
 
 export const routes: Routes = [
   {
@@ -55,10 +54,6 @@ export const routes: Routes = [
       {
         path: 'flashcard/:id',
         component: FlashcardDetailPageComponent,
-      },
-      {
-        path: 'flashcard/:id/result',
-        component:FlashcardResultPageComponent,
       },
       {
         path: 'coin-banking',

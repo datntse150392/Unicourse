@@ -38,8 +38,12 @@ export class SharedService {
     progress: 0,
     uploadedBytes: 0,
     size: 0,
-    message: '' // Status: Uploading, Uploaded, Error
+    message: '', // Status: Uploading, Uploaded, Error
   });
+
+  // Dùng để hiển thị dialog đăng nhập
+  private isRefreshTotalCoin = new BehaviorSubject<boolean>(false);
+  isRefreshTotalCoin$ = this.isRefreshTotalCoin.asObservable();
 
   constructor() {}
 
@@ -87,5 +91,9 @@ export class SharedService {
   // Lấy thông tin progress upload file
   getFileStatus() {
     return this.fileStatus.asObservable();
+  }
+
+  refreshTotalCoin() {
+    this.isRefreshTotalCoin.next(true);
   }
 }

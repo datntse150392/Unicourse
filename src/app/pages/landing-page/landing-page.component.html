@@ -714,13 +714,14 @@
 
   <div class="modal-body">
     <p>
-      Rất tiếc, bạn cần {{ scheduleData && scheduleData.price }} Point để thực
-      hiện hành động này.
+      Rất tiếc, bạn cần thêm
+      {{ scheduleData && scheduleData.price - getTotalCoin }} Point để thực hiện
+      hành động này.
     </p>
 
     <div>
       <button
-        [routerLink]="['/coin-banking']"
+        (click)="handleCreatePaymentLink()"
         type="submit"
         class="w-full mt-2 text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >

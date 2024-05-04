@@ -82,6 +82,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
     // Check if url has query params
     if (window.location.href.includes('?vnp_Amount')) {
       this.getResponseFromVnPay();
+    } else if (window.location.href.includes('?code')) {
+      this.handleGetResponseFromPayOS();
     }
   }
 
@@ -306,12 +308,74 @@ export class DefaultComponent implements OnInit, OnDestroy {
     localStorage.removeItem('voucher_id');
     localStorage.removeItem('transaction_code');
     localStorage.removeItem('used_coin');
-    window.history.replaceState({}, document.title, 'http://localhost:4200/');
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.protocol + '//' + window.location.host
+    );
     this.dialogBroadcastService.broadcastDialog({
       header: header,
       message: message,
       type: 'info',
       display: true,
     });
+  }
+
+  // Xử lý việc get response từ payOS
+  handleGetResponseFromPayOS() {
+    const url = window.location.href;
+    // Convert url to object
+    const urlParams = new URLSearchParams(url);
+    this.blockedUI = true;
+    if (urlParams.get('id')) {
+      const orderCode = urlParams.get('orderCode') as string;
+      const createPaymentFromPayOSSub$ = this.transactionService
+        .createPaymentOS(parseInt(orderCode))
+        .subscribe({
+          next: (res: any) => {
+            if (res.status === 200) {
+              this.blockedUI = false;
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Nạp Point',
+                message: 'Nạp Point thành công',
+                type: 'info',
+                display: true,
+              });
+              window.history.replaceState(
+                {},
+                document.title,
+                window.location.protocol + '//' + window.location.host
+              );
+              this.sharedService.refreshTotalCoin();
+            }
+          },
+          error: (err: any) => {
+            setTimeout(() => {
+              this.blockedUI = false;
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Nạp Point',
+                message: 'Nạp Point thhất bại, mời thử lại sau',
+                type: 'info',
+                display: true,
+              });
+              window.history.replaceState(
+                {},
+                document.title,
+                window.location.protocol + '//' + window.location.host
+              );
+            }, 1000);
+          },
+        });
+    } else {
+      setTimeout(() => {
+        this.blockedUI = false;
+        this.dialogBroadcastService.broadcastDialog({
+          header: 'Nạp Point',
+          message: 'Nạp Point thất bại, mời thử lại sau',
+          type: 'info',
+          display: true,
+        });
+      }, 1000);
+    }
   }
 }

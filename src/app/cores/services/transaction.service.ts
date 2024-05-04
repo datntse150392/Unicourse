@@ -66,6 +66,16 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
+  // Thực hiện việc gọi API create-payment-from-payOS
+  createPaymentOS(orderCode: number) {
+    return this.httpClient
+      .post<any>(
+        `${environment.baseUrl}/api/transactions/create-payment-from-payOS/${orderCode}`,
+        {}
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   // Xử lí khi có lỗi
   private handleError(error: any) {
     // Handle the error appropriately here
