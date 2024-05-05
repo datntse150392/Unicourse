@@ -164,9 +164,7 @@
           <p
             class="mb-4 text-xl text-base font-customFont font-normal text-gray-900"
           >
-            Hiểu sâu hơn về cách Javascript hoạt động, tìm hiểu về IIFE,
-            closure, reference types, this keyword, bind, call, apply,
-            prototype,...
+            {{ courseDetail.subTitle }}
           </p>
           <div class="will-learn">
             <h3
@@ -176,107 +174,23 @@
             </h3>
             <div class="m-0">
               <!-- List content -->
-              <ul class="max-w-full space-y-5 text-gray-900 list-inside">
-                <li class="grid grid-cols-2 gap-x-5 m-0 mb-3 items-baseline">
-                  <div
-                    class="flex flex-row"
-                    [style]="{ 'alight-items': 'start' }"
-                  >
-                    <i
-                      class="pi pi-check mr-2"
-                      [style]="{
-                        'font-weight': '600',
-                        'padding-top': '5px'
-                      }"
-                    ></i>
-                    <span class="text-justify font-customFont"
-                      >Được học kiến thức miễn phí với nội dung chất lượng hơn
-                      mất phí</span
-                    >
-                  </div>
-                  <div
-                    class="flex flex-row"
-                    [style]="{ 'alight-items': 'start' }"
-                  >
-                    <i
-                      class="pi pi-check mr-2"
-                      [style]="{
-                        'font-weight': '600',
-                        'padding-top': '5px'
-                      }"
-                    ></i>
-                    <span class="text-justify font-customFont"
-                      >Hiểu được cách tư duy nâng cao của các lập trình viên có
-                      kinh nghiệm</span
-                    >
-                  </div>
-                </li>
-                <li class="grid grid-cols-2 gap-x-5 m-0 mb-3 items-baseline">
-                  <div
-                    class="flex flex-row"
-                    [style]="{ 'alight-items': 'start' }"
-                  >
-                    <i
-                      class="pi pi-check mr-2"
-                      [style]="{
-                        'font-weight': '600',
-                        'padding-top': '5px'
-                      }"
-                    ></i>
-                    <span class="text-justify font-customFont"
-                      >Có nền tảng Javascript vững chắc để làm việc với mọi thư
-                      viện, framework viết bởi Javascript</span
-                    >
-                  </div>
-                  <div
-                    class="flex flex-row"
-                    [style]="{ 'alight-items': 'start' }"
-                  >
-                    <i
-                      class="pi pi-check mr-2"
-                      [style]="{
-                        'font-weight': '600',
-                        'padding-top': '5px'
-                      }"
-                    ></i>
-                    <p class="text-justify font-customFont">
-                      Các kiến thức nâng cao của Javascript giúp code trở nên
-                      tối ưu hơn
-                    </p>
-                  </div>
-                </li>
-                <li class="grid grid-cols-2 gap-x-5 m-0 mb-3 items-baseline">
-                  <div class="flex flex-row items-start">
-                    <span
-                      ><i
-                        class="pi pi-check mr-2"
-                        [style]="{
-                          'font-weight': '600',
-                          'padding-top': '5px'
-                        }"
-                      ></i
-                    ></span>
-                    <p class="text-justify font-customFont">
-                      Hiểu được các khái niệm khó như từ khóa this, phương thức
-                      bind, call, apply & xử lý bất đồng bộ
-                    </p>
-                  </div>
-                  <div
-                    class="flex flex-row"
-                    [style]="{ 'alight-items': 'start' }"
-                  >
-                    <i
-                      class="pi pi-check mr-2"
-                      [style]="{
-                        'font-weight': '600',
-                        'padding-top': '5px'
-                      }"
-                    ></i>
-                    <p class="text-justify font-customFont">
-                      Nâng cao cơ hội thành công khi phỏng vấn xin việc nhờ kiến
-                      thức chuyên môn vững chắc
-                    </p>
-                  </div>
+              <ul
+                class="max-w-full grid grid-cols-12 space-y-5 text-gray-900 list-inside"
+              >
+                <li
+                  *ngFor="let content of courseDetail.subTitleDescription"
+                  class="gap-x-5 m-0 mb-3 items-baseline col-span-6"
+                >
+                  <i
+                    class="pi pi-check mr-2"
+                    [style]="{
+                      'font-weight': '600',
+                      'padding-top': '5px'
+                    }"
+                  ></i>
+                  <span class="text-justify font-customFont">{{
+                    content
+                  }}</span>
                 </li>
               </ul>
             </div>
@@ -316,22 +230,7 @@
             </h3>
             <div class="m-0 flex flex-column gap-2">
               <p class="text-[1.1rem]">
-                Bạn đang tìm hiểu về Lean Six Sigma và muốn trang bị mình với
-                kiến thức và kỹ năng cần thiết để giải quyết các vấn đề chất
-                lượng một cách hiệu quả? Khóa học 7 Công Cụ Chất Lượng cho Lean
-                Six Sigma Yellow Belt là lựa chọn hoàn hảo cho bạn,
-              </p>
-              <p class="text-[1.1rem]">
-                Bạn đang tìm hiểu về Lean Six Sigma và muốn trang bị mình với
-                kiến thức và kỹ năng cần thiết để giải quyết các vấn đề chất
-                lượng một cách hiệu quả? Khóa học 7 Công Cụ Chất Lượng cho Lean
-                Six Sigma Yellow Belt là lựa chọn hoàn hảo cho bạn,
-              </p>
-              <p class="text-[1.1rem]">
-                Bạn đang tìm hiểu về Lean Six Sigma và muốn trang bị mình với
-                kiến thức và kỹ năng cần thiết để giải quyết các vấn đề chất
-                lượng một cách hiệu quả? Khóa học 7 Công Cụ Chất Lượng cho Lean
-                Six Sigma Yellow Belt là lựa chọn hoàn hảo cho bạn,
+                {{ courseDetail.titleDescription }}
               </p>
             </div>
           </div>
@@ -345,42 +244,61 @@
             </h3>
             <div class="m-0 flex flex-column gap-2">
               <div class="main-info mt-2">
-                <p class="font-bold text-xl">Nguyễn Thành Đạt</p>
-                <span class="text-[#6a6f73] text-xl"
-                  >Embedded Software Engineer / Instructor / Blogger</span
-                >
+                <p class="font-bold text-xl">
+                  {{ courseDetail.lecture.fullName }}
+                </p>
+                <span class="text-[#6a6f73] text-xl">{{
+                  courseDetail.lecture.profileName
+                }}</span>
                 <div class="avt-info flex flex-row align-start gap-3 mt-4">
                   <img
                     class="avt"
-                    src="https://img-b.udemycdn.com/user/200_H/14162320_c201.jpg"
+                    src="{{ courseDetail.lecture.profile_image }}"
                   />
                   <div class="flex flex-column gap-3">
                     <div class="flex flex-row items-center gap-2">
                       <i class="pi pi-star-fill" style="font-size: 1.2rem"></i>
-                      <p class="text-[1.1rem]">3,8 xếp hạng giảng viên</p>
+                      <p class="text-[1.1rem]">
+                        {{
+                          courseDetail.lecture.lecture_info.feedback.length ||
+                            "5,00"
+                        }}
+                        xếp hạng
+                      </p>
                     </div>
                     <div class="flex flex-row items-center gap-2">
                       <i class="pi pi-verified" style="font-size: 1.2rem"></i>
-                      <p class="text-[1.1rem]">638 đánh giá</p>
+                      <p class="text-[1.1rem]">
+                        {{ courseDetail.lecture.lecture_info.feedback.length }}
+                        đánh giá
+                      </p>
                     </div>
                     <div class="flex flex-row items-center gap-2">
                       <i class="pi pi-users" style="font-size: 1.2rem"></i>
-                      <p class="text-[1.1rem]">3,8 xếp hạng giảng viên</p>
+                      <p class="text-[1.1rem]">
+                        {{
+                          courseDetail.lecture.lecture_info.feedback.length ||
+                            999
+                        }}
+                        học viên
+                      </p>
                     </div>
                     <div class="flex flex-row items-center gap-2">
                       <i class="pi pi-video" style="font-size: 1.2rem"></i>
-                      <p class="text-[1.1rem]">2 khóa học</p>
+                      <p class="text-[1.1rem]">
+                        {{
+                          courseDetail.lecture.lecture_info.my_course.length ||
+                            99
+                        }}
+                        khóa học
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="mt-2">
                 <p class="text-[1.1rem]">
-                  Đạt là Embdded Software Engineer với hơn 5 năm kinh nghiệm,
-                  trong đó hơn 2 năm đầu làm việc ở Việt Nam và 3 năm, hiện nay,
-                  ở Singapore. Công việc chính của mình là nghiên cứu và phát
-                  triển các dự án Embedded viết bằng C/C++ và một số ngôn ngữ
-                  khác.
+                  {{ courseDetail.lecture.lecture_info.description }}
                 </p>
               </div>
             </div>

@@ -1,3 +1,5 @@
+import { User } from './user.model';
+
 export interface TrackStep {
   _id: string;
   title: string;
@@ -27,7 +29,7 @@ export interface Course {
   amount: number;
   thumbnail: string;
   createAt: Date;
-  userId: string;
+  lecture: User;
   tracks: Track[];
   semester_number: number;
 }

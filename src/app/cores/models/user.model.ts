@@ -16,6 +16,8 @@ export interface User {
   published_at: string;
   class: string;
   coins: Array<Coin>;
+  profileName: string;
+  lecture_info: LectureInfo;
 }
 
 export interface EnrollCourses {
@@ -28,4 +30,12 @@ export interface EnrollCourses {
   };
   completed: boolean;
   enrollDate: Date;
+}
+
+export interface LectureInfo {
+  _id: string;
+  description: string;
+  my_course: Array<string>;
+  my_schedule: Array<string>;
+  feedback: Array<string>;
 }
