@@ -199,17 +199,18 @@
                     [binary]="true"
                     inputId="binary"
                   ></p-checkbox>
-                  <div class="flex flex-row justify-between items-center gap-1">
-                    <img
-                      [ngStyle]="{ width: '20px', height: '20px' }"
-                      src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/coins/75efaf1b556a8e2fac6ab9383e95d4e3.png"
-                    />
-                    <span class="text-sm">Point</span>
-                  </div>
 
                   <span class="text-sm text-gray-500"
-                    >Dùng {{ totalCoin }} Point</span
+                    >Dùng {{ totalCoin | number : "1.0-0" }}</span
                   >
+                  <div class="flex flex-row justify-between items-center gap-1">
+                    <img
+                      width="20"
+                      height="20"
+                      src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
+                      alt="coins"
+                    />
+                  </div>
                 </div>
                 <span class="text-sm text-gray-500">{{
                   isUseCoin ? " - " + (totalCoin | currency : "VND") : 0
