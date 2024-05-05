@@ -4,7 +4,7 @@
     class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
   >
     <div
-      class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+      class="py-4 px-4 mb-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
     >
       <h1
         class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
@@ -19,36 +19,72 @@
     </div>
   </section>
 
-  <div class="coin-banking-contaienr w-full flex flex-row gird grid-cols-12">
-    <div class="coin-banking-left w-full col-span-6">
-      <div class="bank-info">
-        <p>CHỦ TÀI KHOẢN: <span>NGUYEN THANH DAT</span></p>
-        <p>SỐ TK: <span>070098425924</span></p>
-        <p>NGÂN HÀNG: <span>SACOMBANK</span></p>
-        <p>NỘI DUNG CHUYỂN: NAP UNIPOINT</p>
+  <div
+    class="w-full max-w-[50rem] bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700"
+  >
+    <form class="space-y-6" action="#">
+      <h5 class="text-xl font-medium text-gray-900 dark:text-white">
+        Mời bạn nhập thông tin để nạp Point
+      </h5>
+      <div>
+        <label
+          for="point"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Số Point cần nạp
+        </label>
+        <input
+          type="point"
+          name="point"
+          id="point"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          placeholder="99,000"
+          required
+        />
       </div>
-
-      <div class="point-info">
-        <p>Mệnh giá Point</p>
-        <span>1.000 Point = 1.000 VNĐ</span>
+      <div>
+        <label
+          for="note"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Ghi chú (nếu có)</label
+        >
+        <input
+          type="text"
+          name="note"
+          id="note"
+          placeholder="Nhập nội dung ghi chú"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          required
+        />
       </div>
-
-      <div class="note">
-        Vui lòng chuyển đúng nội dung chuyển tiền để tránh trường hợp không nhận
-        được Point, nếu chuyển sai nội dung vui lòng liên hệ với
-        <a>ADMIN</a> để được hỗ trợ kịp thời.
+      <div class="flex items-start">
+        <div class="flex items-start">
+          <div class="flex items-center h-5">
+            <input
+              id="remember"
+              type="checkbox"
+              value=""
+              class="w-[1rem] h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+              required
+            />
+          </div>
+          <label
+            for="remember"
+            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >Đồng ý điều khoản</label
+          >
+        </div>
+        <a
+          href="#"
+          class="ms-auto text-sm text-blue-700 hover:underline dark:text-blue-500"
+          >1,000 Point ~ 1,000đ</a
+        >
       </div>
-
-      <p [ngStyle]="{ 'margin-top': '2rem' }">
-        Sau khi chuyển tiền thành công, vui lòng chờ ít nhất 1 phút để hệ thống
-        xử lý.
-      </p>
-    </div>
-    <div class="coin-banking-right w-full col-span-6 flex justify-center">
-      <img
-        class="w-[25rem]"
-        src="https://img.vietqr.io/image/sacombank-070098425924-compact.jpg"
-      />
-    </div>
+      <button
+        type="submit"
+        class="w-full text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
+        Nạp Point ngay
+      </button>
+    </form>
   </div>
 </div>

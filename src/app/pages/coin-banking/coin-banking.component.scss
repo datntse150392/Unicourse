@@ -1,45 +1,7 @@
 .container {
   padding: 2% 10%;
-  .coin-banking-contaienr {
-    padding: 2.5% 10%;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    .coin-banking-left {
-      align-self: flex-start;
-      .bank-info {
-        margin-top: 2rem;
-        font-size: 1rem;
-        font-weight: 600;
-        p {
-          line-height: 1.5;
-        }
-        span {
-          color: rgb(226, 80, 65);
-        }
-      }
-      .point-info {
-        margin-top: 2rem;
-        font-size: 1rem;
-        font-weight: 600;
-        p {
-          line-height: 1.5;
-        }
-        span {
-          color: rgb(226, 80, 65);
-        }
-      }
-
-      .note {
-        margin-top: 1rem;
-        font-size: 1rem;
-        a {
-          color: rgb(226, 80, 65);
-          font-weight: 600;
-        }
-      }
-    }
-    .coin-banking-right {
-      align-self: flex-end;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
