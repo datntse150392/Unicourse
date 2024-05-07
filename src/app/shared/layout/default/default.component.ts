@@ -8,6 +8,7 @@ import { Subscription, filter, map, of, switchMap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../cores/models/index';
 import { DialogComponent } from './dialog/dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {
   AngularFireAuthModule,
   AngularFireAuth,
@@ -34,6 +35,7 @@ import { TransactionService } from '../../../cores/services/transaction.service'
     SharedModule,
     AngularFireAuthModule,
     DialogComponent,
+    ConfirmDialogComponent
   ],
   providers: [AuthService],
   templateUrl: './default.component.html',
@@ -83,6 +85,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('UserInfo') || '{}');
 
     this.initForm();
+    
+    // Kiểm tra local storage có tồn tại thông tin thanh toán cũ hay không? -> Nếu có thì remove
+    if (localStorage.getItem('cart_id')) {
+      this.clearLocalStorage();
+    }
+
     // Check if url has query params
     if (window.location.href.includes('?vnp_Amount')) {
       this.getResponseFromVnPay();
@@ -476,5 +484,14 @@ export class DefaultComponent implements OnInit, OnDestroy {
     );
     localStorage.removeItem('isPaymentCart');
     localStorage.removeItem('isDepositPoint');
+  }
+
+  clearLocalStorage() {
+    localStorage.removeItem('cart_id');
+    localStorage.removeItem('payment_method');
+    localStorage.removeItem('total_new_amount');
+    localStorage.removeItem('voucher_id');
+    localStorage.removeItem('transaction_code');
+    localStorage.removeItem('used_coin');
   }
 }

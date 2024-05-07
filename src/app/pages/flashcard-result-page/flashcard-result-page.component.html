@@ -3,43 +3,42 @@
   <div class="body-container">
     <section class="bg-white bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]">
         <!-- Top component: Btn thử lại || Tiêu đề || Btn kết thúc -->
-        <div class="flex justify-between items-center">
-            <!-- Group left component -->
-            <div>
-                <div class="text-center">
-                    <button (click)="toggleDropdown()" [class.dropdownButtonActive]="isShowDropdown" class="dropdownButton border border-gray-300 text-gray-900 font-medium rounded-lg text-medium font-medium px-5 py-2.5 text-center inline-flex items-center"
-                        type="button">Đáp án của bạn<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    
-                    <!-- Dropdown menu -->
-                    <div [class.hidden]="!isShowDropdown" style="width: 168px; overflow: auto;" class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow">
-                        <ul class="py-2 max-h-80 scroll-auto text-sm font-medium text-gray-900">
-                            <li *ngFor="let item of userFlashcard.items; let i = index" class="flex flex-row items-center justify-content-center py-2 hover:bg-gray-300 cursor-pointer">
-                                <ng-container *ngIf="item.userCorrect; else wrongItem">
-                                    <i class="pi pi-check" style="color: green"></i>
-                                    <a class="block px-4">Câu số {{i + 1}}</a>
-                                </ng-container>
-                                <ng-template #wrongItem>
-                                    <i class="pi pi-times" style="color: red"></i>
-                                    <a class="block px-4">Câu số {{i + 1}}</a>
-                                </ng-template>
-                            </li>
-                        </ul>
-                    </div>
+        <div>
+            <div class="text-center dropdown-button-container">
+                <button (click)="toggleDropdown()" [class.dropdownButtonActive]="isShowDropdown"
+                    class="dropdownButton border border-gray-300 text-gray-900 font-medium rounded-lg text-medium font-medium px-5 py-2.5 text-center inline-flex items-center"
+                    type="button">Đáp án của bạn<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+        
+                <!-- Dropdown menu -->
+                <div [class.hidden]="!isShowDropdown" style="width: 175px; overflow: auto;"
+                    class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow">
+                    <ul class="py-2 max-h-[10.7rem] scroll-auto text-sm font-medium text-gray-900">
+                        <li *ngFor="let item of userFlashcard.items; let i = index" (click)="scrollToItem(item._id)"
+                            class="flex flex-row items-center justify-content-center py-2 hover:bg-gray-300 cursor-pointer">
+                            <ng-container *ngIf="item.userCorrect; else wrongItem">
+                                <i class="pi pi-check" style="color: green"></i>
+                                <a class="block px-4">Câu số {{i + 1}}</a>
+                            </ng-container>
+                            <ng-template #wrongItem>
+                                <i class="pi pi-times" style="color: red"></i>
+                                <a class="block px-4">Câu số {{i + 1}}</a>
+                            </ng-template>
+                        </li>
+                    </ul>
                 </div>
             </div>
-    
+        </div>
+        
+        <div class="w-full" style="text-align-last: center;">
             <!-- Group center component -->
             <div class="text-center">
                 <h3 class="text-3xl font-bold text-gray-900">3 / 5</h3>
                 <p class="text-2xl text-justify font-medium font-customFont text-gray-900">MKT208c</p>
-            </div>
-    
-            <!-- Group right component -->
-            <div [ngStyle]="{ width: '11rem' }">
             </div>
         </div>
 
@@ -55,7 +54,79 @@
         
         <!-- Thống kê điểm số -->
         <div class="card flex flex-col justify-content-center items-center">
-            <p-image class="mb-4" src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Quiz%2Fquiz-result.svg?alt=media&token=f3baf999-76c1-412b-9d33-253b35976677" alt="Image" width="250"></p-image>
+            <div class="mb-4">
+                <svg width="265" height="246" viewBox="0 0 265 246" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M219.373 107.749H42.9727V241.772H219.373V107.749Z" fill="url(#paint0_linear_3495_34597)" />
+                    <path d="M215.63 111.052V238.469H46.7315V111.052H215.63ZM223.147 104.446H39.2148V245.075H223.147V104.446Z"
+                        fill="#F0EBE6" />
+                    <path d="M46.7305 174.76H179.023" stroke="#1A1F71" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path d="M189.19 3.07535L3 74.974L22.3274 113.633L208.517 41.7341L189.19 3.07535Z"
+                        fill="url(#paint1_linear_3495_34597)" stroke="#F0EBE6" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path
+                        d="M215.141 206.509C235.092 206.509 251.265 192.295 251.265 174.76C251.265 157.226 235.092 143.012 215.141 143.012C195.189 143.012 179.016 157.226 179.016 174.76C179.016 192.295 195.189 206.509 215.141 206.509Z"
+                        fill="#F0EBE6" stroke="url(#paint2_linear_3495_34597)" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path d="M215.141 158.8V190.721" stroke="#25D366" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path d="M233.304 174.76H196.969" stroke="#25D366" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path
+                        d="M95.5798 147.57C100.09 151.534 110.012 174.76 110.012 174.76C110.012 174.76 83.6284 166.08 79.0733 162.077C77.9875 161.123 77.1262 159.99 76.5385 158.743C75.9509 157.496 75.6484 156.16 75.6484 154.81C75.6484 153.461 75.9509 152.124 76.5385 150.877C77.1262 149.631 77.9875 148.498 79.0733 147.544C81.2662 145.616 84.2404 144.534 87.3416 144.534C88.8771 144.534 90.3977 144.799 91.8163 145.316C93.235 145.832 94.5241 146.589 95.6099 147.544L95.5798 147.57Z"
+                        stroke="#1A1F71" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path
+                        d="M124.444 147.57C119.934 151.534 110.012 174.76 110.012 174.76C110.012 174.76 136.395 166.08 140.95 162.077C142.036 161.123 142.897 159.99 143.485 158.743C144.073 157.496 144.375 156.16 144.375 154.81C144.375 153.461 144.073 152.124 143.485 150.877C142.897 149.631 142.036 148.498 140.95 147.544C139.864 146.589 138.575 145.832 137.157 145.316C135.738 144.799 134.217 144.534 132.682 144.534C131.146 144.534 129.626 144.799 128.207 145.316C126.788 145.832 125.499 146.589 124.414 147.544L124.444 147.57Z"
+                        stroke="#1A1F71" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path d="M95.1289 202.797L110.012 174.76" stroke="#1A1F71" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path d="M124.895 202.797L110.012 174.76" stroke="#1A1F71" stroke-width="4.125" stroke-miterlimit="10" />
+                    <path
+                        d="M237.807 101.433L235.357 113.483C235.278 113.794 235.081 114.073 234.798 114.272C234.516 114.472 234.164 114.581 233.801 114.581C233.438 114.581 233.086 114.472 232.803 114.272C232.52 114.073 232.323 113.794 232.245 113.483L229.388 101.499C228.757 98.4998 227.155 95.724 224.774 93.5047C222.393 91.2855 219.334 89.717 215.964 88.9875L202.75 86.464C202.431 86.3743 202.153 86.1981 201.956 85.9606C201.759 85.7231 201.652 85.4367 201.652 85.1428C201.652 84.8488 201.759 84.5624 201.956 84.3249C202.153 84.0874 202.431 83.9112 202.75 83.8215L215.874 80.9545C219.217 80.1323 222.22 78.4795 224.521 76.1945C226.823 73.9096 228.325 71.0895 228.847 68.0727L231.298 56.0365C231.376 55.7251 231.573 55.4465 231.856 55.2469C232.139 55.0472 232.491 54.9384 232.854 54.9384C233.216 54.9384 233.568 55.0472 233.851 55.2469C234.134 55.4465 234.331 55.7251 234.41 56.0365L237.266 68.0199C237.894 71.0218 239.495 73.8005 241.877 76.0222C244.258 78.244 247.319 79.8144 250.691 80.5449L263.905 83.0552C264.223 83.1449 264.501 83.3212 264.699 83.5586C264.896 83.7961 265.002 84.0825 265.002 84.3765C265.002 84.6704 264.896 84.9568 264.699 85.1943C264.501 85.4318 264.223 85.608 263.905 85.6977L250.781 88.5779C247.441 89.3982 244.441 91.047 242.14 93.327C239.84 95.6069 238.335 98.4213 237.807 101.433Z"
+                        fill="url(#paint3_linear_3495_34597)" />
+                    <defs>
+                        <linearGradient id="paint0_linear_3495_34597" x1="96.3557" y1="258.842" x2="151.624" y2="86.0652"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#1A1F71" />
+                            <stop offset="0.06" stop-color="#313A85" />
+                            <stop offset="0.14" stop-color="#51609F" />
+                            <stop offset="0.24" stop-color="#6D80B7" />
+                            <stop offset="0.34" stop-color="#839AC9" />
+                            <stop offset="0.46" stop-color="#95AFD8" />
+                            <stop offset="0.59" stop-color="#A1BDE2" />
+                            <stop offset="0.74" stop-color="#A8C5E8" />
+                            <stop offset="1" stop-color="#AAC8EA" />
+                        </linearGradient>
+                        <linearGradient id="paint1_linear_3495_34597" x1="92.479" y1="124.511" x2="113.127" y2="-8.70997"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#1A1F71" />
+                            <stop offset="0.06" stop-color="#313A85" />
+                            <stop offset="0.14" stop-color="#51609F" />
+                            <stop offset="0.24" stop-color="#6D80B7" />
+                            <stop offset="0.34" stop-color="#839AC9" />
+                            <stop offset="0.46" stop-color="#95AFD8" />
+                            <stop offset="0.59" stop-color="#A1BDE2" />
+                            <stop offset="0.74" stop-color="#A8C5E8" />
+                            <stop offset="1" stop-color="#AAC8EA" />
+                        </linearGradient>
+                        <linearGradient id="paint2_linear_3495_34597" x1="208.225" y1="209.284" x2="218.993" y2="139.761"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#1F8654" />
+                            <stop offset="0.02" stop-color="#1F8C55" />
+                            <stop offset="0.16" stop-color="#21A65B" />
+                            <stop offset="0.3" stop-color="#23BA60" />
+                            <stop offset="0.47" stop-color="#24C863" />
+                            <stop offset="0.67" stop-color="#25D065" />
+                            <stop offset="1" stop-color="#25D366" />
+                        </linearGradient>
+                        <linearGradient id="paint3_linear_3495_34597" x1="227.494" y1="113.668" x2="236.532" y2="55.4112"
+                            gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#1F8654" />
+                            <stop offset="0.02" stop-color="#1F8C55" />
+                            <stop offset="0.16" stop-color="#21A65B" />
+                            <stop offset="0.3" stop-color="#23BA60" />
+                            <stop offset="0.47" stop-color="#24C863" />
+                            <stop offset="0.67" stop-color="#25D065" />
+                            <stop offset="1" stop-color="#25D366" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
             <div class="flex flex-row justify-between items-center max-w-full px-3 py-3 bg-white border border-gray-200 rounded-lg shadow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -75,12 +146,12 @@
 
             <div class="grid grid-cols-2 gap-4 p-4">
                 <button [ngStyle]="{ width: '9rem' }"
-                    class="inline-flex items-center text-white bg-[#3dd575] hover:bg-[#22c55e] focus:ring-4 focus:outline-none focus:ring-[#7fd59e] font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
+                    class="inline-flex items-center text-white bg-[#00b944] hover:bg-[#199245] focus:ring-4 focus:outline-none focus:ring-[#7fd59e] font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
                     <i class="pi pi-replay text-white pr-2" style="font-size: large"></i>
                     <p class="text-medium text-white font-customFont truncate">Thử lại</p>
                 </button>
                 <button [ngStyle]="{ width: '9rem' }"
-                    class="inline-flex items-center text-white bg-[#e64141] hover:bg-[#e61515] focus:ring-4 focus:outline-none focus:ring-[#e66666] font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
+                    class="inline-flex items-center text-white bg-[#e61618] hover:bg-[#b31112] focus:ring-4 focus:outline-none focus:ring-[#e66666] font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-6 pr-2 text-white" fill="currentColor"
                         viewBox="0 0 512 512">
                         <path
@@ -95,6 +166,7 @@
     <!-- Bottom component: Thông tin chi tiết từng câu hỏi -->
     <div class="review-answer-container">
         <div *ngFor="let currentItems of userFlashcard.items"
+            id="{{ currentItems._id }}"
             class="flex flex-col max-w-full p-5 mb-3 bg-white border border-gray-200 rounded-lg">
             <!-- Câu hỏi -->
             <div class="mb-6">
@@ -104,15 +176,15 @@
             </div>
             <div class="mb-4">
                 <ng-container *ngIf="currentItems.userCorrect; else wrongAnswer">  
-                    <p class="max-w-lg text-xl font-semibold leading-relaxed text-green-500">Bạn làm rất tốt!</p>
+                    <p class="max-w-lg text-xl font-semibold leading-relaxed text-[#00b944]">Bạn làm rất tốt!</p>
                 </ng-container>
                 <ng-template #wrongAnswer>
-                    <p class="max-w-lg text-xl font-semibold leading-relaxed text-red-500">Cố gắng hơn ở lần sau nhé!</p>
+                    <p class="max-w-lg text-xl font-semibold leading-relaxed text-[#e61618]">Cố gắng hơn ở lần sau nhé!</p>
                 </ng-template>
             </div>
             <!-- Đáp án -->
             <div class="grid grid-cols-2 gap-4 place-content-between mb-2">
-                <div *ngFor="let item of currentItems.answer; let i = index"
+                <div *ngFor="let item of currentItems.answer; let i = index"z
                     class="overflow-hidden relative cursor-pointer rounded-lg hover:border-green-200">
                     <!-- Khung hiển thị đáp án -->
                     <div class="min-h-28 flex flex-rows items-center max-w-full px-3 py-5 mb-3 rounded-lg"

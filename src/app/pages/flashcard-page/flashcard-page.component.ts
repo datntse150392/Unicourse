@@ -4,6 +4,18 @@ import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { QuizService } from '../../cores/services';
+import { Quiz } from '../../cores/models';
+import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
+
+interface Filter {
+  title: String | undefined;
+  newest: Boolean | undefined;
+  topView: Boolean | undefined;
+  category: String | undefined;
+  pageNumber: number;
+  limit: number;
+}
 
 @Component({
   selector: 'app-flashcard-page',
@@ -35,19 +47,32 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   ],
 })
 export class FlashcardPageComponent implements OnInit, OnDestroy {
+  // Biến dành cho flashcard page
+  originalFlashcards: Quiz[] = [];
+  filter: string = 'default'; // newest, mostView, default
+  filterObject: Filter = {} as Filter;
+  totalPages: number = 1;
+
+  // Biến behavior của flashcard page
+  isShowDropdown: boolean = false;
+
+  // Biến cục bộ
+  private subscriptions: Subscription[] = [];
+  private userId: string = '';
+  public blockedUI: boolean = true;
+  search: string = '';
+  emptySearchResult: boolean = false;
+  categoryText: string = 'Chuyên ngành'
+  
   flashcards: any[] = [];
   first: number = 0;
   rows: number = 6;
-  // isLike: boolean = false;
-  ingredient!: string;
-  filter: string = 'none';
-  isShowDropdown: boolean = false;
-
-  private subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private quizService: QuizService,
+    private dialogBroadcastService: DialogBroadcastService,
   ) {
     // Thiết lập title cho trang
     window.document.title = 'Tổng hợp các bộ quiz tại Unicourse';
@@ -58,101 +83,102 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
   }
-
   initForm() {
-    this.flashcards = [
-      {
-        _id: 1,
-        title: 'MKT208c',
-        numberItems: '5 Câu hỏi',
-        author: 'Nguyễn Huy Khải',
-        role: 'Giảng viên',
-        thumbnail: 'https://apollo.primeng.org/assets/demo/images/blog/blog-1.png',
-        picture: 'https://firebasestorage.googleapis.com/v0/b/nha-trang-ntne.appspot.com/o/Unicourse%20Project%2Fuser5.jpg?alt=media&token=cfaa77cb-0586-4271-84ad-3ecd9a4f4dd4',
-        createdDate: 430,
-        viewer: 100,
-        isLike: false,
-      },
-      {
-        _id: 2,
-        title: 'CSD301',
-        numberItems: '102 Câu hỏi',
-        author: 'Đinh Gia Bảo',
-        role: 'Thành viên',
-        thumbnail: 'https://apollo.primeng.org/assets/demo/images/blog/blog-2.png',
-        picture: 'https://randomuser.me/api/portraits/men/43.jpg',
-        createdDate: 40,
-        viewer: 198,
-        isLike: false,
-      },
-      {
-        _id: 3,
-        title: 'PMG201c',
-        numberItems: '102 Câu hỏi',
-        author: 'Nguyễn Trung Kiên',
-        role: 'Thành viên',
-        thumbnail: 'https://apollo.primeng.org/assets/demo/images/blog/blog-3.png',
-        picture: 'https://randomuser.me/api/portraits/men/62.jpg',
-        createDate: 15,
-        viewer: 202,
-        isLike: false,
-      },
-      {
-        _id: 4,
-        title: 'SSL101c',
-        numberItems: '299 Câu hỏi',
-        author: 'Nguyễn Thành Đạt',
-        role: 'Giảng viên',
-        thumbnail: 'https://apollo.primeng.org/assets/demo/images/blog/blog-2.png',
-        picture: 'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/images%2Fdownload.jpg?alt=media&token=27ffa58c-b776-4f6a-9492-9e48bb71e008',
-        createDate: 2,
-        viewer: 300,
-        isLike: false,
-      },
-      {
-        _id: 5,
-        title: 'EXE101c',
-        numberItems: '100 Câu hỏi',
-        author: 'Đinh Gia Bảo',
-        role: 'Thành viên',
-        thumbnail: 'https://apollo.primeng.org/assets/demo/images/blog/blog-3.png',
-        picture: 'https://randomuser.me/api/portraits/men/43.jpg',
-        createDate: 31,
-        viewer: 100,
-        isLike: false,
-      },
-      {
-        _id: 6,
-        title: 'EXE201c',
-        numberItems: '30 Câu hỏi',
-        author: 'Nguyễn Thành Đạt',
-        role: 'Giảng viên',
-        thumbnail: 'https://apollo.primeng.org/assets/demo/images/blog/blog-1.png',
-        picture: 'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/images%2Fdownload.jpg?alt=media&token=27ffa58c-b776-4f6a-9492-9e48bb71e008',
-        createDate: 78,
-        viewer: 145,
-        isLike: false,
-      }
-    ];
+    this.userId = JSON.parse(localStorage.getItem('UserInfo') || '{}')._id;
+    const originalFlashcards$ = this.quizService
+      .getQuiz(this.userId, this.filterObject)
+      .subscribe({
+        next: (res: any) => {
+          if (res.status === 200) {
+            //Convert Date to Number of day to now: Ex: 2024-05-04T05:54:52.828Z -> 1 day ago
+            const convertData = res.data.quizzes.map((quiz: Quiz) => {
+              const dateToNow = Math.floor((new Date().getTime() - new Date(quiz.created_at).getTime()) / (1000 * 3600 * 24));
+              return { ...quiz, date_to_now: dateToNow };
+            });
+            this.originalFlashcards.push(...convertData);
+            this.totalPages = res.data.totalPages;
+            this.originalFlashcards.length === 0 ? this.emptySearchResult = true : this.emptySearchResult = false;
+            this.blockedUI = false;
+          }
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.blockedUI = false;
+        }
+      })
+
+    this.subscriptions.push(originalFlashcards$);
   }
 
   onPageChange() {}
 
   onFilterChange(filter: string) {
+    switch(filter) {
+      case 'newest':
+        this.filterObject.newest = true;
+        this.filterObject.topView = false;
+        break;
+      case 'mostView':
+        this.filterObject.newest = false;
+        this.filterObject.topView = true;
+        break;
+      default:
+        this.filterObject.newest = false;
+        this.filterObject.topView = false;
+        this.filterObject.category = undefined;
+        this.filterObject.title = undefined;
+        this.categoryText = 'Chuyên ngành';
+        break;
+    }
+    this.originalFlashcards = [];
+    this.initForm();
     this.filter = filter;
+  }
+
+  onChangeSearch(event: any) {
+    this.filterObject.title = event.target.value.trim();
+  }
+
+  onSearch() {
+    this.originalFlashcards = [];
+    this.initForm();
+  }
+
+  onSearchByCategory(category: string, categoryText: string) {
+    this.filterObject.category = category;
+    this.categoryText = categoryText;
+    this.originalFlashcards = [];
+    this.initForm();
   }
 
   handleMouseInOut(isHovering: boolean) {
     this.isShowDropdown = isHovering;
   }
-  
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+
+  toggleLike(_id: any) {
+    const quizInteresting$ = this.quizService
+      .toggleFavoriteQuiz(_id)
+      .subscribe({
+        next: (res: any) => {
+          if (res.status === 200) {
+            const index = this.originalFlashcards.findIndex((quiz: Quiz) => quiz._id === _id);
+            this.originalFlashcards[index].isQuizInterest = !this.originalFlashcards[index].isQuizInterest;
+          }
+        },
+        error: (err: any) => {
+          this.dialogBroadcastService.broadcastDialog({
+            header: 'Thông báo',
+            message: 'Thay đổi trạng thái yêu thích thất bại! Vui lòng thử lại sau!',
+            type: 'error',
+            display: true,
+          });
+        }
+      });
+      this.subscriptions.push(quizInteresting$);
   }
 
-  toggleLike(_id: string) {
-    const index = this.flashcards.findIndex((flashcard) => flashcard._id === _id);
-    this.flashcards[index].isLike = !this.flashcards[index].isLike;
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
 }

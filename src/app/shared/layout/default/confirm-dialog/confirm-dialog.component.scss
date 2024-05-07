@@ -1,0 +1,43 @@
+.hidden {
+    display: none;
+}
+
+.errBtn {
+    background-color: #f44336;
+    &:hover {
+        background-color: #d32f2f;
+    }
+    &:focus {
+        outline: 5px solid #fb8282;
+    }
+}
+
+.infoBtn {
+    background-color: #2196f3;
+    &:hover {
+        background-color: #1976d2;
+    }
+    &:focus {
+        outline: 5px solid #56a3f0;
+    }
+}
+
+.warningBtn {
+    background-color: #ffb700;
+    &:hover {
+        background-color: #fbc02d;
+    }
+    &:focus {
+        outline: 5px solid #fbc02d;
+    }
+}
+
+.successBtn {
+    background-color: #00b944;
+    &:hover {
+        background-color: #199245;
+    }
+    &:focus {
+        outline: 5px solid #3cbc6b;
+    }
+}

@@ -37,7 +37,7 @@
       <!-- Left side: Chứa danh sách item giỏ hàng -->
       <div class="left-side basis-7/12 mr-4">
         <ng-container
-          *ngIf="cart !== undefined && cart.items !== undefined; else emptyCart"
+          *ngIf="cart !== undefined && cart.items !== undefined && cart.items.length > 0; else emptyCart"
         >
           <div class="cart-item mb-4" *ngFor="let cartItem of cart?.items">
             <app-cart-item

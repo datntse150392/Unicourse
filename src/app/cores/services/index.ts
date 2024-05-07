@@ -10,3 +10,4 @@ export * from './new-feed.service';
 export * from './coin.service';
 export * from './checking-daily-event.service';
 export * from './schedule-meeting.service';
+export * from './quiz.service';

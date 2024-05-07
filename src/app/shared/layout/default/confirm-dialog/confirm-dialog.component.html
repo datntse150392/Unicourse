@@ -1,0 +1,94 @@
+<ng-container *ngIf="display">
+    <p-blockUI [blocked]="display">
+        <div class="flex justify-center">
+            <div
+                class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-3 border-b rounded-t">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                {{ header }}
+                            </h3>
+                            <button type="button"
+                                (click)="handleConfirmBtn(false)"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-1 h-8 ms-auto inline-flex justify-end items-center"
+                                data-modal-hide="static-modal">
+                                <svg class="w-full h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="pt-3 pb-5 px-5 text-center">
+                            <!-- Info icon -->
+                            <ng-template [ngIf]="type === 'info'">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 text-[#2196f3] w-12 h-12"
+                                    viewBox="0 0 512 512" style="padding-bottom: 4px" fill="currentColor">
+                                    <path
+                                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                                </svg>
+                            </ng-template>
+
+                            <!-- Success icon -->
+                            <ng-template [ngIf]="type === 'success'">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 text-[#00b944] w-12 h-12"
+                                    viewBox="0 0 20 20" style="padding-bottom: 4px" fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </ng-template>
+
+                            <!-- Warning icon -->
+                            <ng-template [ngIf]="type === 'warning'">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 text-[#ffb700] w-12 h-12"
+                                    viewBox="0 0 512 512" style="padding-bottom: 4px" fill="currentColor">
+                                    <path
+                                        d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                                </svg>
+                            </ng-template>
+
+                            <!-- Error icon -->
+                            <ng-template [ngIf]="type === 'error'">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4 text-[#f44336] w-12 h-12"
+                                    viewBox="0 0 512 512" style="padding-bottom: 4px" fill="currentColor">
+                                    <path
+                                        d="M459.1 52.4L442.6 6.5C440.7 2.6 436.5 0 432.1 0s-8.5 2.6-10.4 6.5L405.2 52.4l-46 16.8c-4.3 1.6-7.3 5.9-7.2 10.4c0 4.5 3 8.7 7.2 10.2l45.7 16.8 16.8 45.8c1.5 4.4 5.8 7.5 10.4 7.5s8.9-3.1 10.4-7.5l16.5-45.8 45.7-16.8c4.2-1.5 7.2-5.7 7.2-10.2c0-4.6-3-8.9-7.2-10.4L459.1 52.4zm-132.4 53c-12.5-12.5-32.8-12.5-45.3 0l-2.9 2.9C256.5 100.3 232.7 96 208 96C93.1 96 0 189.1 0 304S93.1 512 208 512s208-93.1 208-208c0-24.7-4.3-48.5-12.2-70.5l2.9-2.9c12.5-12.5 12.5-32.8 0-45.3l-80-80zM200 192c-57.4 0-104 46.6-104 104v8c0 8.8-7.2 16-16 16s-16-7.2-16-16v-8c0-75.1 60.9-136 136-136h8c8.8 0 16 7.2 16 16s-7.2 16-16 16h-8z" />
+                                </svg>
+                            </ng-template>
+
+                            <h3 class="mb-5 text-gray-900 text-lg font-bold">{{ message }}</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <ng-container *ngIf="numberBtn === 1; else defaultBtn">
+                                    <div></div>
+                                    <button type="button" (click)="handleConfirmBtn(false)"
+                                        class="text-white font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center place-content-center"
+                                        [class.errBtn]="type === 'error'" [class.warningBtn]="type === 'warning'"
+                                        [class.successBtn]="type === 'success'" [class.infoBtn]="type === 'info'">
+                                        Đã hiểu
+                                    </button>
+                                </ng-container>
+                                <ng-template #defaultBtn>
+                                    <button type="button" (click)="handleConfirmBtn(false)"
+                                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 place-content-center">
+                                        Không
+                                    </button>
+                                    <button type="button" (click)="handleConfirmBtn(true)"
+                                        class="text-white font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center place-content-center"
+                                        [class.errBtn]="type === 'error'" [class.warningBtn]="type === 'warning'"
+                                        [class.successBtn]="type === 'success'" [class.infoBtn]="type === 'info'">
+                                        Có
+                                    </button>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-blockUI>
+</ng-container>

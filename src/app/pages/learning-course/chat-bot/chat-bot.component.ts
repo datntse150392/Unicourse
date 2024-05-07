@@ -5,13 +5,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { environment } from '../../../../environments/environment.development';
+import { MarkdownModule } from 'ngx-markdown';
 @Component({
   selector: 'app-chat-bot',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, MarkdownModule],
   templateUrl: './chat-bot.component.html',
-  styleUrl: './chat-bot.component.scss'
+  styleUrl: './chat-bot.component.scss',
 })
 export class ChatBotComponent {
   questionText: string = '';
@@ -19,14 +20,11 @@ export class ChatBotComponent {
   currentIndex: number = 0;
   i = 0;
   speed = 10;
+  public LOGO = environment.LOGO;
+
   private subscriptions: Subscription[] = [];
 
-  constructor(
-    private chatbotService: ChatBotService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private sanitizer: DomSanitizer,
-  ) {}
+  constructor(private chatbotService: ChatBotService) {}
 
   ngOnInit() {}
 
@@ -47,7 +45,7 @@ export class ChatBotComponent {
     if (this.questionText.trim() === '') {
       return;
     }
-    this.displayText = 'Unicourse Assitant đang suy nghĩ...'
+    this.displayText = 'Trợ lý Unicourse đang tìm câu trả lời...';
     const sendMessageSubs$ = this.chatbotService
       .askQuestion(this.questionText)
       .subscribe({
@@ -56,11 +54,12 @@ export class ChatBotComponent {
           this.typeWriter(res.data.response.text);
         },
         error: (err) => {
-          this.displayText = 'Xin lỗi, Unicourse Assistant hiện đang bận. Vui lòng thử lại sau!';
+          this.displayText =
+            'Xin lỗi, Unicourse Assistant hiện đang bận. Vui lòng thử lại sau!';
         },
-        complete: () => {}
+        complete: () => {},
       });
-      this.subscriptions.push(sendMessageSubs$);
+    this.subscriptions.push(sendMessageSubs$);
   }
 
   // Some event or function to trigger typing animation

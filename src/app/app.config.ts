@@ -21,6 +21,7 @@ import { errorInterceptor } from './cores/interceptors/error.interceptor';
 // Setting Firebase Storage
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { MarkdownModule } from 'ngx-markdown';
 
 // Paypayl config
 
@@ -43,7 +44,8 @@ export const appConfig: ApplicationConfig = {
       MessageService,
       BrowserAnimationsModule,
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
-      provideStorage(() => getStorage())
+      provideStorage(() => getStorage()),
+      MarkdownModule.forRoot()
     ),
   ],
 };

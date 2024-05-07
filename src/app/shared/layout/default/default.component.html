@@ -17,7 +17,7 @@
         <i class="pi pi-times p-2 close-btn" (click)="closeDialogSignIn()"></i>
         <img src="{{ Logo }}" />
 
-        <div class="flex flex-column align-items-center text-center">
+        <div class="flex flex-column align-items-app-dialogcenter text-center items-center">
           <p>Chào mừng đến với Unicourse</p>
           <span class="m-3"
             >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
@@ -159,6 +159,7 @@
   </p-dialog>
 </div>
 <app-dialog></app-dialog>
+<app-confirm-dialog></app-confirm-dialog>
 
 <!-- Nút tạo blog -->
 <div routerLink="new-post" pTooltip="Tạo bài viết mới" class="group-btn-top">

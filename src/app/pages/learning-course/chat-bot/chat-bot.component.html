@@ -3,45 +3,30 @@
   <p-overlayPanel #op>
     <div
       [ngStyle]="{ padding: '1rem' }"
-      class="max-w-lg bg-white rounded-lg shadow overscroll-auto"
+      class="max-w-lg overscroll-auto w-[35rem] h-[40rem]"
     >
       <!-- Header -->
-      <div class="flex flow-row items-center justify-around">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/ongbutdicode.appspot.com/o/README%2FLogo%20UniCourse.svg?alt=media&token=d05b64f7-5f30-49ea-a4ae-f553a5196e38"
-          class="avatar p-1 bg-white rounded-full shadow shadow-gray-900 flex-none"
-          alt="Avatar"
-        />
-        <h5
-          class="mb-2 mr-4 uppercase font-customFont text-xl font-bold tracking-tight text-gray-900"
-        >
-          Unicourse Assistant
-        </h5>
-        <i
-          class="pi pi-minus p-2 mr-2 close-btn cursor-pointer rounded-full bg-slate-200"
-          (click)="op.toggle($event)"
-        ></i>
-        <i
-          class="pi pi-times p-2 close-btn cursor-pointer rounded-full bg-slate-200"
-          (click)="toggleOverlay(op, $event)"
-        ></i>
+      <div class="flex flow-row items-center justify-content-center">
+        <div class="flex w-full justify-end mb-4">
+          <i
+            class="pi pi-minus p-2 mr-2 close-btn cursor-pointer rounded-full bg-slate-200"
+            (click)="op.toggle($event)"
+          ></i>
+          <i
+            class="pi pi-times p-2 close-btn cursor-pointer rounded-full bg-slate-200"
+            (click)="toggleOverlay(op, $event)"
+          ></i>
+        </div>
       </div>
 
-      <hr class="h-px my-1 bg-gray-200 border-0 dark:bg-gray-700" />
-
       <!-- Khung hỏi -->
-      <label
-        for="message"
-        class="block m-2 text-sm font-medium font-customFont text-gray-900"
-        >Nội dung</label
-      >
       <textarea
         autofocus
         id="message"
         [(ngModel)]="questionText"
         rows="4"
         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-        placeholder="Nhập câu hỏi hoặc đoạn văn..."
+        placeholder="Nhập câu hỏi của bạn tại đây..."
       ></textarea>
 
       <!-- Hỏi Button -->
@@ -49,7 +34,7 @@
         <button
           type="button"
           (click)="askQuestion()"
-          class="py-2.5 px-5 me-2 m-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+          class="py-2.5 px-5 me-2 my-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
         >
           <i class="pi pi-question-circle mr-2"></i>
           <span>Hỏi</span>
@@ -57,7 +42,7 @@
         <button
           type="button"
           (click)="clearForm()"
-          class="py-2.5 px-5 me-2 m-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+          class="py-2.5 px-5 me-2 my-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
         >
           <i class="pi pi-eraser mr-2"></i>
           <span>Làm mới</span>
@@ -67,18 +52,19 @@
       <!-- Khung AI trả lời -->
       <label
         for="message"
-        class="block m-2 mt-0 text-sm font-medium font-customFont text-gray-900"
-        >Trả lời của AI</label
-      >
-      <textarea
+        class="block mb-2 mt-0 text-sm font-medium font-customFont text-gray-900"
+        >Phản hồi từ AI
+      </label>
+
+      <markdown
         id="message"
-        [(ngModel)]="displayText"
-        rows="6"
-        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-      ></textarea>
+        class="block p-2.5 w-full h-[22rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+        [data]="displayText"
+        style="overflow-y: auto"
+      ></markdown>
 
       <!-- Khung seeding -->
-      <div>
+      <!-- <div>
         <div
           class="seeding w-full h-[88px] py-3 mt-4 bg-neutral-100 rounded-2xl justify-start items-center inline-flex"
         >
@@ -93,17 +79,14 @@
             <span> 🚀</span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </p-overlayPanel>
 
   <!-- Button chatbot -->
   <button (click)="op.toggle($event)" type="button">
-    <div class="chat-bot" pTooltip="Chat với AI">
-      <img
-        [ngStyle]="{ width: '4rem', height: '4rem' }"
-        src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Logo%2Fchatbot.svg?alt=media&token=eaf2ab54-5688-432f-9510-a4058e729e0c"
-      />
+    <div class="chat-bot" pTooltip="Hỏi trợ lý Unicourse">
+      <img [ngStyle]="{ width: '2.5rem', height: '3rem' }" src="{{ LOGO }}" />
     </div>
 
     <span class="sr-only">Icon description</span>

@@ -275,6 +275,13 @@ export class FlashcardResultPageComponent implements OnInit, OnDestroy {
     this.isShowDropdown = !this.isShowDropdown;
   }
 
+  scrollToItem(item: string) {
+    const el = document.getElementById(item);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }

@@ -4,6 +4,10 @@ import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { QuizService } from '../../cores/services';
+import { Quiz, UserQuiz, UserQuestion } from '../../cores/models';
+import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
+import * as _ from 'lodash';
 
 import {
   trigger,
@@ -12,43 +16,6 @@ import {
   animate,
   transition,
 } from '@angular/animations';
-
-interface Flashcard {
-  _id: number;
-  title: string;
-  numberItems: string;
-  items: any[];
-}
-
-interface CurrentItem {
-  _id: number;
-  question: string;
-  answer: [
-    {
-      _id: number;
-      content: string;
-      isChoiced: boolean;
-      rightAnswer: boolean;
-    }
-  ];
-  rightAnswer: string[];
-}
-
-interface UserflashcardAnwers {
-  userItemAnwer: Map<number, UserItemAnwer>;
-}
-
-interface UserItemAnwer {
-  _id: number;
-  answer: [
-    {
-      _id: number;
-      content: string;
-      isChoiced: boolean;
-      rightAnswer: boolean;
-    }
-  ];
-}
 
 @Component({
   selector: 'app-flashcard-detail-page',
@@ -69,19 +36,16 @@ interface UserItemAnwer {
   ],
 })
 export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
-  originFlashcard: Flashcard = {} as Flashcard;
-  userFlashcard: Flashcard = {} as Flashcard;
+  // Biến dành cho trang chi tiết flashcard
+  originalFlashcards: Quiz[] = [];
+  quizId: string | null = null;
+  userFlashcard: UserQuiz = {} as UserQuiz;
+  currentItems: UserQuestion = {} as UserQuestion;
 
+  // Biến behavior của flashcard detail page
   isShowRightAnswer: boolean = false;
-  finalScore: number = 0;
   currentIndex: number = 0;
-  currentItems: CurrentItem = {} as CurrentItem;
   isShowDropdown: boolean = false;
-
-  userflashcardAnwers: UserflashcardAnwers = {
-    userItemAnwer: new Map<number, UserItemAnwer>(),
-  } as UserflashcardAnwers;
-
   isActive: boolean[] = [];
   isDisabledPrevios: boolean = true;
   isDisabledNext: boolean = false;
@@ -89,9 +53,17 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   progressValue: number = 20;
   faCircleXmark = faCircleXmark;
 
+  // Biến cục bộ
   private subscriptions: Subscription[] = [];
+  public blockedUI: boolean = true;
+  private UserInfo: any = localStorage.getItem('UserInfo');
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private quizService: QuizService,
+    private dialogBroadcastService: DialogBroadcastService
+  ) {
     // Thiết lập title cho trang
     window.document.title = 'Chi tiết flashcard';
     // Scroll smooth to top lên đầu trang
@@ -103,230 +75,55 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.originFlashcard = {
-      _id: 1,
-      title: 'MKT208c',
-      numberItems: '5 câu hỏi',
-      items: [
-        {
-          _id: 1,
-          question: 'Which is a good starting point for writing a blog?',
-          type: 'single',
-          answer: [
-            {
-              _id: 1,
-              content:
-                'Our target audience is so overwhelmed with much information, so you can start with a filter and focus blog',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-            {
-              _id: 2,
-              content:
-                'Our target audience is very demanding, so you should be genius to impress them',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 3,
-              content:
-                'Our target audience is very smart, so try to be smarter than them',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content:
-                'Writing blog is too traditional, it is not relevant in social marketing',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 1,
-              content:
-                'Our target audience is so overwhelmed with much information, so you can start with a filter and focus blog',
-            },
-          ],
-        },
-        {
-          _id: 2,
-          question:
-            'Display ads, magazine ads, acquisition programs, endorsements, affiliate program, pay-per-click, banner ads are examples of',
-          type: 'single',
-          answer: [
-            {
-              _id: 1,
-              content: 'owned media',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 2,
-              content: 'paid media',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-            {
-              _id: 3,
-              content: 'earned media',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'traditional media',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 2,
-              content: 'paid media',
-            },
-          ],
-        },
-        {
-          _id: 3,
-          question:
-            'In Social marketing budget, there are four areas as follows, except:',
-          type: 'single',
-          answer: [
-            {
-              _id: 1,
-              content: 'Empowering',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 2,
-              content: 'Technology',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 3,
-              content: 'Marketing program',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'Production',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 4,
-              content: 'Production',
-            },
-          ],
-        },
-        {
-          _id: 4,
-          question:
-            'Which of the following are tools for Search Analytics? Check all that apply.',
-          type: 'multiple',
-          answer: [
-            {
-              _id: 1,
-              content: 'Google Trends',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-            {
-              _id: 2,
-              content: 'Keyhole.co',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-            {
-              _id: 3,
-              content: 'Boardreader',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'Answer the Public',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 1,
-              content: 'Google Trends',
-            },
-            {
-              _id: 2,
-              content: 'Keyhole.co',
-            },
-            {
-              _id: 4,
-              content: 'Answer the Public',
-            },
-          ],
-        },
-        {
-          _id: 5,
-          question:
-            'If you want to develop a great blog, you should avoid .......',
-          type: 'single',
-          answer: [
-            {
-              _id: 1,
-              content: 'Using Google Suggest for finding suitable topics',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 2,
-              content: 'having a great headline',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 3,
-              content: 'using images',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'writing a lot of long paragraphs',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 4,
-              content: 'writing a lot of long paragraphs',
-            },
-          ],
-        },
-      ],
-    };
-    this.userFlashcard = this.originFlashcard;
+    this.blockedUI = true;
+    this.route.paramMap.subscribe((params) => {
+      this.quizId = params.get('id');
+      if (this.quizId) {
+        this.getQuizByQuizId(this.quizId);
+      }
+    });
     this.currentIndex = 0;
-    this.currentItems = this.userFlashcard.items[this.currentIndex];
-    // this.currentItems.answer.forEach(_ => this.isActive.push(false));// Khởi tạo mảng isActive với giá trị false
+  }
+
+  // Call Api get quiz by quizId
+  getQuizByQuizId(quizId: string) {
+    // Call API here
+    const getQuizDetailSub$ = this.quizService.getQuizById(quizId).subscribe({
+      next: (res: any) => {
+        //Convert Date to Number of day to now: Ex: 2024-05-04T05:54:52.828Z -> 1 day ago
+        const convertData = res.data.map((quiz: Quiz) => {
+          const dateToNow = Math.floor((new Date().getTime() - new Date(quiz.created_at).getTime()) / (1000 * 3600 * 24));
+          return { ...quiz, date_to_now: dateToNow };
+        });
+        this.originalFlashcards.push(...convertData);
+
+        // Init userFlashcard: Lưu vào tiến trình trả lời câu hỏi của user
+        let clonedObject: any = _.cloneDeep(this.originalFlashcards[0]);
+        clonedObject.questions.map((x: any) => {
+          x.answer.map((y: any) => {
+            y.is_checked = false;
+          });
+        });
+        this.userFlashcard = clonedObject;
+        this.currentItems = this.userFlashcard.questions[this.currentIndex];
+        this.blockedUI = false;
+      },
+      error: (err:  Error) => {
+        console.log(err);
+        this.blockedUI = false;
+      }
+    });
+    this.subscriptions.push(getQuizDetailSub$);
   }
 
   toggleActive(item: any, currentItems: any) {
     this.updateUserAnswer(item, currentItems);
-    
   }
 
   nextQuestion() {
-    if (this.currentIndex < this.userFlashcard.items.length - 1) {
+    if (this.currentIndex < this.userFlashcard.questions.length - 1) {
       this.currentIndex++;
-      this.currentItems = this.userFlashcard.items[this.currentIndex];
+      this.currentItems = this.userFlashcard.questions[this.currentIndex];
       this.handleToggleDisabledButton();
     }
   }
@@ -334,7 +131,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   prevQuestion() {
     if (this.currentIndex > 0) {
       this.currentIndex--;
-      this.currentItems = this.userFlashcard.items[this.currentIndex];
+      this.currentItems = this.userFlashcard.questions[this.currentIndex];
       this.handleToggleDisabledButton();
     }
   }
@@ -355,15 +152,15 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   updateWithSingleChoice(item: any, currentItems: any) {
-    this.userFlashcard.items.map((x) => {
+    this.userFlashcard.questions.map((x) => {
       if (x._id === currentItems._id) {
         x.answer.map((y: any) => {
-          if (y.content === item.content && y.isChoiced) {
-            y.isChoiced = false;
-          } else if (y.content === item.content && !y.isChoiced) {
-            y.isChoiced = true;
+          if (y.answer_text === item.answer_text && y.is_checked) {
+            y.is_checked = false;
+          } else if (y.answer_text === item.answer_text && !y.is_checked) {
+            y.is_checked = true;
           } else {
-            y.isChoiced = false;
+            y.is_checked = false;
           }
         });
       }
@@ -371,13 +168,13 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   updateWithMultipleChoice(item: any, currentItems: any) {
-    this.userFlashcard.items.map((x) => {
+    this.userFlashcard.questions.map((x) => {
       if (x._id === currentItems._id) {
         x.answer.map((y: any) => {
-          if (y.content === item.content && y.isChoiced) {
-            y.isChoiced = false;
-          } else if (y.content === item.content && !y.isChoiced) {
-            y.isChoiced = true;
+          if (y.answer_text === item.answer_text && y.is_checked) {
+            y.is_checked = false;
+          } else if (y.answer_text === item.answer_text && !y.is_checked) {
+            y.is_checked = true;
           }
         });
       }
@@ -386,15 +183,6 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
 
   onCalculateScore() {}
 
-  resetValues() {
-    this.finalScore = 0;
-    this.currentIndex = 0;
-    this.currentItems = this.userFlashcard.items[this.currentIndex];
-    this.isShowRightAnswer = false;
-    this.isActive = [];
-    this.currentItems.answer.forEach((_) => this.isActive.push(false));
-  }
-
   handleToggleDisabledButton() {
     if (this.currentIndex === 0) {
       this.isDisabledPrevios = true;
@@ -402,18 +190,17 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
       this.isDisabledPrevios = false;
     }
 
-    if (this.currentIndex === this.userFlashcard.items.length - 1) {
+    if (this.currentIndex === this.userFlashcard.questions.length - 1) {
       this.isDisabledNext = true;
     } else {
       this.isDisabledNext = false;
     }
 
-    this.progressValue = ((this.currentIndex + 1) / (this.userFlashcard.items.length) * 100);
+    this.progressValue = ((this.currentIndex + 1) / (this.userFlashcard.questions.length) * 100);
   }
 
   handleMouseInOut(isHovering: boolean) {
     this.isShowDropdown = isHovering;
-    console.log(this.isShowDropdown);
   }
 
   finishQuiz() {}
@@ -422,7 +209,66 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     this.filter = filter;
   }
 
+  handleExistFlashcard(behavior: String) {
+    // Check nếu có thông tin user flashcard thì hiển thị dialog thông báo
+    if (this.UserInfo) {
+      this.handleDisplayConfirmDialog();
+      switch (behavior) { // Nếu behavior la exitBtn thì chuyển hướng về trang flashcard // Nếu behavior là ngOnDestroy thì không làm gì cả
+          case 'ngOnDestroy':
+            break;
+          case 'exitBtn':
+            this.router.navigate(['/flashcard']);
+            break;
+      };
+    } else {
+      this.router.navigate(['/flashcard']);
+    }
+  }
+
+  handleDisplayConfirmDialog() {
+    // Hiển thị dialog thông báo
+    this.dialogBroadcastService.broadcastConfirmationDialog({
+      header: 'Thông báo',
+      message: 'Bạn có muốn lưu lại tiến trình hiện tại không?',
+      type: 'info',
+      return: true,
+      numberBtn: 2
+    });
+
+    // Lắng nghe giá trị trả về của confirm dialog
+    this.dialogBroadcastService.getDialogConfirm().subscribe((confirm) => {
+      if (confirm) {
+        // Call API here
+        const saveUserQuiz$ = this.quizService.saveUserQuiz(this.userFlashcard).subscribe({
+          next: (res: any) => {
+            if (res.status === 201) {
+              this.dialogBroadcastService.broadcastConfirmationDialog({
+                header: 'Thông báo',
+                message: 'Lưu tiến trình thành công!',
+                type: 'success',
+                return: false,
+                numberBtn: 1
+              });
+            }
+          },
+          error: (err: any) => {
+            console.log(err);
+            this.dialogBroadcastService.broadcastConfirmationDialog({
+              header: 'Thông báo',
+              message: 'Lưu tiến trình thất bại!',
+              type: 'error',
+              return: false,
+              numberBtn: 1
+            });
+          }
+        });
+        this.subscriptions.push(saveUserQuiz$);
+      }
+    });
+  }
+
   ngOnDestroy(): void {
+    this.handleExistFlashcard('ngOnDestroy');
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }
