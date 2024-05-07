@@ -151,10 +151,22 @@ export class NavigateComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    const cartSub$ = this.cartService.getCart().subscribe({
+    this.retrieveUserCart();
+
+    // Lắng nghe sự kiện cập nhật cart
+    this.sharedService.isRetrieveCart$.subscribe({
+      next: (res: boolean) => {
+        if (res === true) {
+          this.retrieveUserCart();
+        }
+      },
+    });
+  }
+
+  retrieveUserCart() {
+    const retrieveUserCartSub$ = this.cartService.getCart().subscribe({
       next: (res: any) => {
         this.cart = res.data;
-
         if (this.cart) {
           this.lengthOfCartItems = this.cart.items ? this.cart.items.length : 0;
         }
@@ -163,7 +175,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
         console.log(err);
       },
     });
-    this.subscriptions.push(cartSub$);
+    this.subscriptions.push(retrieveUserCartSub$);
   }
 
   configItemMenu() {

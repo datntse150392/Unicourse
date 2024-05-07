@@ -32,6 +32,29 @@
       </li>
     </ol>
   </nav>
+
+  <section
+    class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+  >
+    <div
+      class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+    >
+      <h1
+        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+      >
+        Nơi chia sẻ kiến thức
+      </h1>
+      <blockquote
+        class="text-xl text-gray-500 italic font-semibold text-center"
+      >
+        <p>Cộng đồng IT</p>
+        <p>
+          "Tham khảo tài liệu tại đây để nâng cao hiệu suất học tập và tiếp thu
+          kiến thức mới nhất."
+        </p>
+      </blockquote>
+    </div>
+  </section>
   <!-- Bài đăng gần đây -->
   <div class="blog-current">
     <!-- <h2>Bài đăng gần đây</h2> -->
@@ -157,8 +180,9 @@
     </div>
 
     <!-- Paginator -->
-    <div class="card flex justify-content-center">
+    <div class="card flex justify-content-center mb-4">
       <p-paginator
+        class="w-[20rem]"
         [first]="first"
         [rows]="rows"
         [totalRecords]="blogs && blogs.length"
@@ -168,8 +192,7 @@
   </div>
 
   <!-- Quảng cáo dịch vụ -->
-  <div class="intro-services">
-    <!-- Title -->
+  <!-- <div class="intro-services">
     <div class="title">
       <p>Cộng đồng IT</p>
       <h2>Nơi chia sẻ kiến thức</h2>
@@ -178,7 +201,6 @@
         chatbot vào ứng dụng của bạn.
       </span>
 
-      <!-- Button Sub -->
       <div class="btn-subscribe">
         <div class="card flex justify-content-center gap-3">
           <span class="p-float-label">
@@ -198,5 +220,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

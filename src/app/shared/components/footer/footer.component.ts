@@ -8,5 +8,5 @@ import { environment } from '../../../../environments/environment.development';
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-  public Logo = environment.LOGO;
+  public Logo = environment.LOGO_FOOTER;
 }

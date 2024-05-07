@@ -41,9 +41,13 @@ export class SharedService {
     message: '', // Status: Uploading, Uploaded, Error
   });
 
-  // Dùng để hiển thị dialog đăng nhập
+  // Dùng để gửi thông báo refresh tổng số coin
   private isRefreshTotalCoin = new BehaviorSubject<boolean>(false);
   isRefreshTotalCoin$ = this.isRefreshTotalCoin.asObservable();
+
+  // Dùng để gửi thông báo là retrieve cart
+  private isRetrieveCart = new BehaviorSubject<boolean>(false);
+  readonly isRetrieveCart$ = this.isRetrieveCart.asObservable();
 
   constructor() {}
 
@@ -95,5 +99,9 @@ export class SharedService {
 
   refreshTotalCoin() {
     this.isRefreshTotalCoin.next(true);
+  }
+
+  retrieveCart() {
+    this.isRetrieveCart.next(true);
   }
 }

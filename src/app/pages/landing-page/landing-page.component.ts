@@ -219,14 +219,21 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       {
         id: '1',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F4.jpg?alt=media&token=d03dbd88-97a9-4dcc-a0c3-ac33621ddbe1',
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
         title: 'Học từ những chuyên gia',
         description: 'Học từ những chuyên gia hàng đầu',
       },
       {
         id: '2',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F5.jpg?alt=media&token=62fbec8d-eedd-4375-80ed-05e27347d65f',
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F4.png?alt=media&token=0a4d4bd1-30e9-4f4d-ae41-75ab527432fb',
+        title: 'Học từ những chuyên gia',
+        description: 'Học từ những chuyên gia hàng đầu',
+      },
+      {
+        id: '3',
+        image:
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F5.png?alt=media&token=dfac0831-73b6-481a-a11e-499f76313054',
         title: 'Học từ những chuyên gia',
         description: 'Học từ những chuyên gia hàng đầu',
       },
@@ -513,6 +520,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.payOSService.createPaymentLink(data).subscribe({
       next: (res: any) => {
         if (res.status === 200) {
+          // Lưu vào localStorage trạng thái nạp point
+          localStorage.setItem('isDepositPoint', 'true');
           // Chuyển thẳng sang trang thanh toán
           window.location.href = res.data.checkoutUrl;
           this.isBlockUI = false;

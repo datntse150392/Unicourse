@@ -1,10 +1,10 @@
 <app-header></app-header>
 <div class="container">
   <section
-    class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+    class="bg-white w-full dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
   >
     <div
-      class="py-4 px-4 mb-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+      class="py-7 px-4 mb-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
     >
       <h1
         class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
@@ -34,14 +34,15 @@
         </label>
         <input
           type="point"
-          name="point"
+          name="pointDeposit"
+          [(ngModel)]="pointDeposit"
           id="point"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           placeholder="99,000"
           required
         />
       </div>
-      <div>
+      <!-- <div>
         <label
           for="note"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -55,7 +56,7 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
           required
         />
-      </div>
+      </div> -->
       <div class="flex items-start">
         <div class="flex items-start">
           <div class="flex items-center h-5">
@@ -64,7 +65,6 @@
               type="checkbox"
               value=""
               class="w-[1rem] h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-              required
             />
           </div>
           <label
@@ -80,6 +80,7 @@
         >
       </div>
       <button
+        (click)="handleCreatePaymentLink()"
         type="submit"
         class="w-full text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >

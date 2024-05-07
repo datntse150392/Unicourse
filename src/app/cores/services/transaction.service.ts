@@ -76,6 +76,33 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
+  // Thực hiện việc gọi API get-payment-status-from-vietqr
+  getPaymentStatusVietQR(
+    user_id: string,
+    orderCode: number,
+    payment_method: string,
+    cart_id: string,
+    used_coin: string,
+    transaction_code: string,
+    voucher_id?: string
+  ) {
+    const body = {
+      user_id,
+      orderCode,
+      payment_method,
+      cart_id,
+      used_coin,
+      transaction_code,
+      voucher_id: voucher_id ? voucher_id : null,
+    };
+    return this.httpClient
+      .post<any>(
+        `${environment.baseUrl}/api/transactions/create-payment-from-vietqr`,
+        body
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   // Xử lí khi có lỗi
   private handleError(error: any) {
     // Handle the error appropriately here

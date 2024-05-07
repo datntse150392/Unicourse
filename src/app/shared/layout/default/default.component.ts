@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent, HeaderComponent } from '../../components';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
-import { Subscription } from 'rxjs';
+import { Subscription, filter, map, of, switchMap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../../../cores/models/index';
 import { DialogComponent } from './dialog/dialog.component';
@@ -12,14 +12,15 @@ import {
   AngularFireAuthModule,
   AngularFireAuth,
 } from '@angular/fire/compat/auth';
-import { AuthService, NewFeedService } from '../../../cores/services';
+import {
+  AuthService,
+  CartService,
+  NewFeedService,
+} from '../../../cores/services';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 import { environment } from '../../../../environments/environment.development';
 import { NewFeed } from '../../../cores/models/new-feed.model';
-import {
-  PaymentMethod,
-  StatusOfPayment,
-} from '../../../cores/models/transaction.model';
+import { StatusOfPayment } from '../../../cores/models/transaction.model';
 import { TransactionService } from '../../../cores/services/transaction.service';
 
 @Component({
@@ -78,12 +79,23 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.subScriptions.push(turnOnSignUpSub);
     this.subScriptions.push(turnOnSignInSub);
 
+    // Lấy thông tin user
+    this.user = JSON.parse(localStorage.getItem('UserInfo') || '{}');
+
     this.initForm();
     // Check if url has query params
     if (window.location.href.includes('?vnp_Amount')) {
       this.getResponseFromVnPay();
     } else if (window.location.href.includes('?code')) {
-      this.handleGetResponseFromPayOS();
+      const isPaymentCart = localStorage.getItem('isPaymentCart');
+      const isDepositPoint = localStorage.getItem('isDepositPoint');
+      if (isPaymentCart) {
+        this.getPaymentStatusVietQR();
+      } else if (isDepositPoint) {
+        this.handleGetResponseFromPayOS();
+      } else {
+        this.handleErrorPayment();
+      }
     }
   }
 
@@ -335,26 +347,31 @@ export class DefaultComponent implements OnInit, OnDestroy {
           next: (res: any) => {
             if (res.status === 200) {
               this.blockedUI = false;
-              this.dialogBroadcastService.broadcastDialog({
-                header: 'Nạp Point',
-                message: 'Nạp Point thành công',
-                type: 'info',
-                display: true,
-              });
+              setTimeout(() => {
+                this.dialogBroadcastService.broadcastDialog({
+                  header: 'Nạp Point',
+                  message: 'Nạp Point thành công',
+                  type: 'info',
+                  display: true,
+                });
+              }, 1000);
               window.history.replaceState(
                 {},
                 document.title,
                 window.location.protocol + '//' + window.location.host
               );
               this.sharedService.refreshTotalCoin();
+              localStorage.removeItem('isDepositPoint');
             }
+            this.subScriptions.push(createPaymentFromPayOSSub$);
           },
+
           error: (err: any) => {
             setTimeout(() => {
               this.blockedUI = false;
               this.dialogBroadcastService.broadcastDialog({
                 header: 'Nạp Point',
-                message: 'Nạp Point thhất bại, mời thử lại sau',
+                message: 'Nạp Point thất bại, mời thử lại sau',
                 type: 'info',
                 display: true,
               });
@@ -377,5 +394,87 @@ export class DefaultComponent implements OnInit, OnDestroy {
         });
       }, 1000);
     }
+  }
+
+  // Xử lý việc get payment status từ VietQR
+  getPaymentStatusVietQR() {
+    const url = window.location.href;
+    const urlParams = new URLSearchParams(url);
+    const orderCode = urlParams.get('orderCode');
+    const infoPaymentVietQR = JSON.parse(
+      localStorage.getItem('infoPaymentVietQR') || ''
+    );
+
+    const getPaymentStatusVietQRSub$ = this.transactionService
+      .getPaymentStatusVietQR(
+        this.user && this.user._id,
+        parseInt(orderCode || ''),
+        infoPaymentVietQR.payment_method,
+        infoPaymentVietQR.cart_id,
+        infoPaymentVietQR.used_coin,
+        infoPaymentVietQR.transaction_code,
+        infoPaymentVietQR.voucher_id
+      )
+      .subscribe({
+        next: (res: any) => {
+          if (res && res.status === 200) {
+            setTimeout(() => {
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Thanh toán',
+                message: 'Thanh toán thành công',
+                type: 'info',
+                display: true,
+              });
+            }, 1000);
+            window.history.replaceState(
+              {},
+              document.title,
+              window.location.protocol + '//' + window.location.host
+            );
+            this.sharedService.refreshTotalCoin();
+            this.sharedService.retrieveCart();
+            localStorage.removeItem('infoPaymentVietQR');
+            localStorage.removeItem('isPaymentCart');
+          }
+        },
+        error: (err: any) => {
+          setTimeout(() => {
+            this.dialogBroadcastService.broadcastDialog({
+              header: 'Thanh toán',
+              message: 'Thanh toán thất bại',
+              type: 'error',
+              display: true,
+            });
+          }, 1000);
+          window.history.replaceState(
+            {},
+            document.title,
+            window.location.protocol + '//' + window.location.host
+          );
+          localStorage.removeItem('infoPaymentVietQR');
+          localStorage.removeItem('isPaymentCart');
+        },
+      });
+
+    this.subScriptions.push(getPaymentStatusVietQRSub$);
+  }
+
+  // Xử lý việc thanh toán thất bại
+  handleErrorPayment() {
+    setTimeout(() => {
+      this.dialogBroadcastService.broadcastDialog({
+        header: 'Thanh toán',
+        message: 'Hóa đơn thanh toán không tồn tại hoặc đã thanh toán',
+        type: 'error',
+        display: true,
+      });
+    }, 1000);
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.protocol + '//' + window.location.host
+    );
+    localStorage.removeItem('isPaymentCart');
+    localStorage.removeItem('isDepositPoint');
   }
 }

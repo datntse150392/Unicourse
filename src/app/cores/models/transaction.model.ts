@@ -6,6 +6,7 @@ export const PaymentMethod = {
   PAYPAL: 'paypal',
   CASH: 'cash',
   VNPAY: 'vnpay',
+  VIETQR: 'vietqr',
 };
 
 export const StatusOfPayment = {

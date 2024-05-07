@@ -25,6 +25,7 @@ import {
   PaymentMethod,
   StatusOfPayment,
 } from '../../cores/models/transaction.model';
+import { PayOSService } from '../../cores/services/payOS.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -65,7 +66,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
     private dialogBroadcastService: DialogBroadcastService,
     private voucherService: VoucherService,
     private readonly transactionService: TransactionService,
-    private readonly coinService: CoinService
+    private readonly coinService: CoinService,
+    private readonly payOSService: PayOSService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -492,5 +494,61 @@ export class CartPageComponent implements OnInit, OnDestroy {
         display: true,
       });
     }
+  }
+
+  // Thực hiện gọi API để tạo link payment nạp point
+  handleCreatePaymentLink(): void {
+    const itemsTemp: any = [];
+    if (this.cart && this.cart.items) {
+      this.cart.items.forEach((item: any) => {
+        itemsTemp.push({
+          name: item.title,
+          quantity: 1,
+          price: parseInt(item.amount),
+        });
+      });
+    }
+    this.blockedUI = true;
+    // Tạo orderCode ngẫu nhiên không trùng lặp theo thời gian
+    const orderCode = new Date().getTime();
+    const data = {
+      orderCode: orderCode,
+      amount: this.totalAmountBeforeApplyVoucher,
+      description: 'Thanh toán đơn hàng',
+      items: [
+        // lop qua itemsTemp
+        ...itemsTemp,
+      ],
+    };
+
+    // Thiết lập local storage chứa các thông tin để sử dụng sau khi thanh toán, thành một dạng object
+    const transactionCodeLength = Math.floor(Math.random() * 3) + 8; // Độ dài ngẫu nhiên từ 8 đến 10
+    const transactionCode = this.generateTransactionCode(transactionCodeLength);
+    const infoPaymentVietQR = {
+      cart_id: this.cart && this.cart._id,
+      voucher_id: this.voucherDetail ? this.voucherDetail._id : null,
+      used_coin: this.isUseCoin,
+      payment_method: PaymentMethod.VIETQR,
+      transactionCode: transactionCode,
+    };
+    localStorage.setItem('isPaymentCart', 'true');
+    localStorage.setItem(
+      'infoPaymentVietQR',
+      JSON.stringify(infoPaymentVietQR)
+    );
+
+    this.payOSService.createPaymentLink(data).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          // Chuyển thẳng sang trang thanh toán
+          window.location.href = res.data.checkoutUrl;
+          this.blockedUI = false;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.blockedUI = false;
+      },
+    });
   }
 }
