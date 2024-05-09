@@ -1,16 +1,7 @@
 <div class="card">
   <header>
     <div class="nav-left">
-      <i
-        [routerLink]="['/']"
-        class="pi pi-angle-left"
-        style="
-          font-size: 2rem;
-          color: #fff;
-          margin-right: 1rem;
-          cursor: pointer;
-        "
-      ></i>
+      <img [routerLink]="['/']" class="pi pi-angle-left" src="{{ LOGO }}" />
       <div class="logo-title">
         <p *ngIf="course">{{ course.title }}</p>
       </div>
@@ -21,7 +12,7 @@
           class="pi pi-file"
           style="
             font-size: 1rem;
-            color: #fff;
+            color: #45494f;
             margin-right: 0.5rem;
             cursor: pointer;
           "
@@ -33,7 +24,7 @@
           class="pi pi-info-circle"
           style="
             font-size: 1rem;
-            color: #fff;
+            color: #45494f;
             margin-right: 0.5rem;
             cursor: pointer;
           "
@@ -45,7 +36,7 @@
           class="pi pi-chart-pie"
           style="
             font-size: 1.2rem;
-            color: #fff;
+            color: #45494f;
             margin-right: 0.5rem;
             cursor: pointer;
           "
@@ -85,15 +76,13 @@
       </p>
       <li>
         Fanpage:
-        <a>https://www.facebook.com/unicourse/</a>
+        <a href="https://www.facebook.com/profile.php?id=61559287804624"
+          >https://www.facebook.com/unicourse/</a
+        >
       </li>
       <li>
         Group:
         <a>https://www.facebook.com/unicourse-group/</a>
-      </li>
-      <li>
-        Facebook giảng viên:
-        <a>https://www.facebook.com/ngdat2001/</a>
       </li>
     </div>
   </div>
@@ -107,7 +96,7 @@
         class="pi pi-angle-left"
         style="
           font-size: 1.5rem;
-          color: #404040;
+          color: #0093fc;
           margin-right: 0.5rem;
           cursor: pointer;
         "
@@ -115,28 +104,29 @@
       <p>BÀI TRƯỚC</p>
     </div>
     <!-- Btn Next Lesson -->
+
     <div
       *ngIf="this.trackSteps.length - 1 > this.indexLesson"
       [routerLink]="['/learning-course/', this.courseId, this.nextLesson]"
-      class="btn-right"
+      class="btn-right bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl"
     >
       <p>BÀI TIẾP THEO</p>
       <i
         class="pi pi-angle-right"
         style="
           font-size: 1.5rem;
-          color: #f05123;
+          color: #0093fc;
           margin-right: 0.5rem;
           cursor: pointer;
         "
       ></i>
     </div>
-    <div class="btn-sidebar">
-      <i
-        (click)="toggleSidebar()"
+    <div (click)="toggleSidebar()" class="btn-sidebar">
+      <img
         class="pi pi-align-justify"
-        style="font-size: 1.5rem"
-      ></i>
+        style="font-size: 2rem"
+        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxNiAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMTI1IDEuMDYyNUMwLjEyNSAwLjc4MTI1IDAuMzcxMDk0IDAuNSAwLjY4NzUgMC41SDE1LjMxMjVDMTUuNTkzOCAwLjUgMTUuODc1IDAuNzgxMjUgMTUuODc1IDEuMDYyNUMxNS44NzUgMS4zNzg5MSAxNS41OTM4IDEuNjI1IDE1LjMxMjUgMS42MjVIMC42ODc1QzAuMzcxMDk0IDEuNjI1IDAuMTI1IDEuMzc4OTEgMC4xMjUgMS4wNjI1Wk0wLjEyNSA2LjY4NzVDMC4xMjUgNi40MDYyNSAwLjM3MTA5NCA2LjEyNSAwLjY4NzUgNi4xMjVIMTUuMzEyNUMxNS41OTM4IDYuMTI1IDE1Ljg3NSA2LjQwNjI1IDE1Ljg3NSA2LjY4NzVDMTUuODc1IDcuMDAzOTEgMTUuNTkzOCA3LjI1IDE1LjMxMjUgNy4yNUgwLjY4NzVDMC4zNzEwOTQgNy4yNSAwLjEyNSA3LjAwMzkxIDAuMTI1IDYuNjg3NVpNMTUuMzEyNSAxMi44NzVIMC42ODc1QzAuMzcxMDk0IDEyLjg3NSAwLjEyNSAxMi42Mjg5IDAuMTI1IDEyLjMxMjVDMC4xMjUgMTIuMDMxMiAwLjM3MTA5NCAxMS43NSAwLjY4NzUgMTEuNzVIMTUuMzEyNUMxNS41OTM4IDExLjc1IDE1Ljg3NSAxMi4wMzEyIDE1Ljg3NSAxMi4zMTI1QzE1Ljg3NSAxMi42Mjg5IDE1LjU5MzggMTIuODc1IDE1LjMxMjUgMTIuODc1WiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXzY1Ml8xNzc1KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzY1Ml8xNzc1IiB4MT0iLTQiIHkxPSItNSIgeDI9Ii00IiB5Mj0iMTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzVFQkJGRiIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNBMTc0RkYiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
+      />
       <!-- <p *ngIf="track">{{ track.chapterTitle }}</p> -->
     </div>
     <app-chat-bot class="absolute right-3 bottom-20"></app-chat-bot>
@@ -174,8 +164,8 @@
                 <div
                   [ngStyle]="
                     this.conntent_url == step.content_url
-                      ? { 'background-color': 'rgb(252, 220, 211)' }
-                      : { 'background-color': '#e7e7e7' }
+                      ? { 'background-color': '#B3E0FF', }
+                      : { 'background-color': '#e7e7e7', color: '#808B9A' }
                   "
                   class="step-track w-full"
                 >

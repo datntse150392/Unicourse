@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Course, Track, TrackStep } from '../../cores/models';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-learning-course',
@@ -31,6 +32,7 @@ export class LearningCourseComponent implements OnDestroy {
   previousLesson: string = '';
   indexLesson!: number;
   videoUrl!: any;
+  public LOGO = environment.LOGO;
 
   private subScriptions: Subscription[] = [];
   constructor(

@@ -50,6 +50,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
   public totalAmountBeforeApplyVoucher = 0;
   public payPalConfig?: IPayPalConfig;
   public totalCoin: number = 0;
+  public totalDiscount: number = 0;
 
   public isProgressSpinner: boolean = false;
   public blockedUI: boolean = true;
@@ -323,6 +324,15 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   applyVoucher(code: string) {
+    if (this.totalAmountBeforeApplyVoucher === 0) {
+      this.dialogBroadcastService.broadcastDialog({
+        header: 'Thông báo',
+        message: 'Không thể sử dụng voucher vì tổng giá trị giỏ hàng bằng 0',
+        type: 'info',
+        display: true,
+      });
+      return;
+    }
     if (this.cart && this.cart?.items && this.cart.items.length > 0) {
       this.isProgressSpinner = true;
       const applyVoucherSub$ = this.voucherService
@@ -343,7 +353,18 @@ export class CartPageComponent implements OnInit, OnDestroy {
                 this.configPaypal(this.totalAmountBeforeApplyVoucher);
 
                 if (this.isUseCoin) {
-                  this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+                  if (this.totalCoin > this.totalAmountBeforeApplyVoucher) {
+                    this.totalAmountBeforeApplyVoucher = 0;
+                    this.totalDiscount = this.cart.amount;
+                  } else if (
+                    this.totalCoin < this.totalAmountBeforeApplyVoucher
+                  ) {
+                    this.totalDiscount =
+                      this.totalCoin + this.voucherDetail.discount_amount;
+                    this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+                  }
+                } else {
+                  this.totalDiscount = this.voucherDetail.discount_amount;
                 }
               }
             }
@@ -375,9 +396,8 @@ export class CartPageComponent implements OnInit, OnDestroy {
       this.voucherCode = '';
       this.totalAmountBeforeApplyVoucher = this.cart.amount || 0;
       this.voucherDetail = undefined;
-      if (this.isUseCoin) {
-        this.totalAmountBeforeApplyVoucher -= this.totalCoin;
-      }
+      this.isUseCoin = false;
+      this.totalDiscount = 0;
     }
   }
 
@@ -400,6 +420,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
                     display: true,
                   });
                   this.sharedService.isUpdateCartItem();
+                  this.removeVoucher();
                   this.initForm();
                 }
               },
@@ -466,7 +487,17 @@ export class CartPageComponent implements OnInit, OnDestroy {
   // Hàm xử lý thanh toán bằng coin
   applyCoin() {
     if (this.cart && this.cart.items && this.cart.items.length > 0) {
-      this.isUseCoin = !this.isUseCoin;
+      if (this.totalAmountBeforeApplyVoucher === 0 && this.voucherDetail) {
+        this.dialogBroadcastService.broadcastDialog({
+          header: 'Thông báo',
+          message: 'Không thể sử dụng coin vì tổng giá trị giỏ hàng bằng 0',
+          type: 'info',
+          display: true,
+        });
+        return;
+      } else {
+        this.isUseCoin = !this.isUseCoin;
+      }
       if (
         this.isUseCoin &&
         this.totalCoin > 0 &&
@@ -479,12 +510,23 @@ export class CartPageComponent implements OnInit, OnDestroy {
         this.totalCoin < this.totalAmountBeforeApplyVoucher
       ) {
         this.totalAmountBeforeApplyVoucher -= this.totalCoin;
+        this.totalDiscount =
+          this.totalCoin +
+          (this.voucherDetail ? this.voucherDetail.discount_amount : 0);
       } else if (
         !this.isUseCoin &&
         this.totalCoin > 0 &&
         this.totalCoin < this.totalAmountBeforeApplyVoucher
       ) {
-        this.totalAmountBeforeApplyVoucher += this.totalCoin;
+        this.totalAmountBeforeApplyVoucher =
+          this.totalAmountBeforeApplyVoucher + this.totalCoin;
+        this.totalDiscount -= this.totalCoin;
+      } else if (
+        !this.isUseCoin &&
+        this.totalCoin > 0 &&
+        this.totalCoin > this.totalAmountBeforeApplyVoucher
+      ) {
+        this.totalAmountBeforeApplyVoucher = this.cart.amount;
       }
     } else {
       this.dialogBroadcastService.broadcastDialog({

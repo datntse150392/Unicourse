@@ -37,7 +37,12 @@
       <!-- Left side: Chứa danh sách item giỏ hàng -->
       <div class="left-side basis-7/12 mr-4">
         <ng-container
-          *ngIf="cart !== undefined && cart.items !== undefined && cart.items.length > 0; else emptyCart"
+          *ngIf="
+            cart !== undefined &&
+              cart.items !== undefined &&
+              cart.items.length > 0;
+            else emptyCart
+          "
         >
           <div class="cart-item mb-4" *ngFor="let cartItem of cart?.items">
             <app-cart-item
@@ -213,7 +218,13 @@
                   </div>
                 </div>
                 <span class="text-sm text-gray-500">{{
-                  isUseCoin ? " - " + (totalCoin | currency : "VND") : 0
+                  isUseCoin
+                    ? " - " +
+                      ((cart && totalCoin >= cart.amount
+                        ? cart.amount
+                        : totalCoin
+                      ) | currency : "VND")
+                    : 0
                 }}</span>
               </span>
 
@@ -239,9 +250,7 @@
                     >{{
                       voucherDetail || isUseCoin
                         ? "(Đã giảm " +
-                          ((voucherDetail ? voucherDetail.discount_amount : 0) +
-                            (isUseCoin ? this.totalCoin : 0)
-                            | currency : "VND") +
+                          (totalDiscount | currency : "VND") +
                           " trên giá gốc)"
                         : 0
                     }}</span
