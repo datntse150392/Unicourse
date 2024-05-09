@@ -183,12 +183,24 @@
                                     </span>
                                 </div>
                             </div>
-                            <button
-                                [routerLink]="['/flashcard/', flashcard._id]"
-                                [ngStyle]="{ width: '7rem' }"
-                                class="text-white bg-custom-700 hover:bg-custom-800 focus:ring-4 focus:outline-none focus:ring-custom-300 font-medium rounded-lg text-medium px-4 py-3 justify-self-end">Bắt
-                                đầu
-                            </button>
+                            <ng-container *ngIf="flashcard.isInProgress; else startNewQuiz">
+                                <div class="flex flex-row">
+                                    <button (click)="onResetQuiz(flashcard._id)" [ngStyle]="{ width: '8rem' }"
+                                        class="text-white bg-custom-700 hover:bg-custom-800 focus:ring-4 focus:outline-none focus:ring-custom-300 font-medium rounded-lg text-medium px-4 py-3 mr-4 justify-self-end">
+                                        Bắt đầu lại
+                                    </button>
+                                    <button [routerLink]="['/flashcard/', flashcard._id]" [ngStyle]="{ width: '7rem' }"
+                                        class="text-white bg-custom-700 hover:bg-custom-800 focus:ring-4 focus:outline-none focus:ring-custom-300 font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
+                                        Tiếp tục
+                                    </button>
+                                </div>
+                            </ng-container>
+                            <ng-template #startNewQuiz>
+                                <button [routerLink]="['/flashcard/', flashcard._id]" [ngStyle]="{ width: '7rem' }"
+                                    class="text-white bg-custom-700 hover:bg-custom-800 focus:ring-4 focus:outline-none focus:ring-custom-300 font-medium rounded-lg text-medium px-4 py-3 justify-self-end">
+                                    Bắt đầu
+                                </button>
+                            </ng-template>
                         </div>
                     </div>
                 </div>
@@ -224,7 +236,6 @@
                 <p-paginator [first]="first" [rows]="rows" [totalRecords]="totalPages"
                     (onPageChange)="onPageChange()"></p-paginator>
             </div>
-
         </div>
     </div>
 </div>

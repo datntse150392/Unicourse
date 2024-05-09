@@ -4,7 +4,7 @@ import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { QuizService } from '../../cores/services';
+import { QuizService, UserService } from '../../cores/services';
 import { Quiz, UserQuiz, UserQuestion } from '../../cores/models';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 import * as _ from 'lodash';
@@ -57,12 +57,15 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public blockedUI: boolean = true;
   private UserInfo: any = localStorage.getItem('UserInfo');
+  private userId = JSON.parse(localStorage.getItem('UserInfo') || '{}')._id;
+  private skipDisplayConfirmDialog: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private quizService: QuizService,
-    private dialogBroadcastService: DialogBroadcastService
+    private dialogBroadcastService: DialogBroadcastService,
+    private userService: UserService
   ) {
     // Thiết lập title cho trang
     window.document.title = 'Chi tiết flashcard';
@@ -79,10 +82,37 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     this.route.paramMap.subscribe((params) => {
       this.quizId = params.get('id');
       if (this.quizId) {
-        this.getQuizByQuizId(this.quizId);
+        this.findQuizWithUserProgress(this.quizId);
       }
     });
     this.currentIndex = 0;
+    this.filter = 'quiz'
+  }
+
+  findQuizWithUserProgress(quizId: string) {
+    // Nếu không có thông tin user thì lấy quiz từ API
+    if (!this.userId) {
+      this.getQuizByQuizId(quizId);
+      return;
+    }
+
+    const userProgress$ = this.userService.getUser(this.userId).subscribe({
+      next: (res: any) => {
+        if (res.data.quiz_process.length > 0) {
+          this.userFlashcard = res.data.quiz_process.find((x: any) => x._id === quizId);
+          if (!this.userFlashcard) { // Nếu không tìm thấy quizId trong quiz_process thì lấy quiz từ API
+            this.getQuizByQuizId(quizId);
+          } else { // Nếu tìm thấy quizId trong quiz_process thì lấy quiz từ quiz_process
+            this.currentItems = this.userFlashcard.questions[this.currentIndex];
+            this.blockedUI = false;
+          }
+        } else {
+          this.getQuizByQuizId(quizId);
+        }
+      }
+    });
+
+    this.subscriptions.push(userProgress$);
   }
 
   // Call Api get quiz by quizId
@@ -116,6 +146,10 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(getQuizDetailSub$);
   }
 
+  mappingQuizProgress(quizProgress: any) {
+
+  }
+
   toggleActive(item: any, currentItems: any) {
     this.updateUserAnswer(item, currentItems);
   }
@@ -125,6 +159,8 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
       this.currentIndex++;
       this.currentItems = this.userFlashcard.questions[this.currentIndex];
       this.handleToggleDisabledButton();
+      // Scroll smooth to top lên đầu trang
+      this.scrollToTitle();
     }
   }
 
@@ -133,6 +169,17 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
       this.currentIndex--;
       this.currentItems = this.userFlashcard.questions[this.currentIndex];
       this.handleToggleDisabledButton();
+      // Scroll smooth to top lên đầu trang
+      this.scrollToTitle();
+    }
+  }
+
+  // Scroll smooth to top tới title của câu hỏi
+  scrollToTitle() {
+    const el = document.getElementById('titleScroll');
+    console.log(el);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -203,10 +250,18 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     this.isShowDropdown = isHovering;
   }
 
-  finishQuiz() {}
-
   onChangeMode(filter: string) {
-    this.filter = filter;
+    if (filter === 'flashcard') {
+      this.dialogBroadcastService.broadcastConfirmationDialog({
+        header: 'Thông báo',
+        message: 'Tính năng này đang được phát triển!',
+        type: 'info',
+        return: false,
+        numberBtn: 1
+      });
+    } else {
+      this.filter = filter;
+    }
   }
 
   handleExistFlashcard(behavior: String) {
@@ -214,18 +269,40 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     if (this.UserInfo) {
       this.handleDisplayConfirmDialog();
       switch (behavior) { // Nếu behavior la exitBtn thì chuyển hướng về trang flashcard // Nếu behavior là ngOnDestroy thì không làm gì cả
-          case 'ngOnDestroy':
-            break;
-          case 'exitBtn':
-            this.router.navigate(['/flashcard']);
-            break;
+        case 'ngOnDestroy':
+          break;
+        case 'exitBtn':
+          this.router.navigate(['/flashcard']);
+          break;
+        case 'finishQuiz':
+          this.router.navigate([`/flashcard/${this.quizId}/result`], { state: { data: this.userFlashcard } });
+          break;
+        default:
+          this.router.navigate(['/flashcard']);
+          break;
+
       };
     } else {
-      this.router.navigate(['/flashcard']);
+      switch (behavior) { // Nếu behavior la exitBtn thì chuyển hướng về trang flashcard // Nếu behavior là ngOnDestroy thì không làm gì cả
+        case 'ngOnDestroy':
+          break;
+        case 'exitBtn':
+          this.router.navigate(['/flashcard']);
+          break;
+        case 'finishQuiz':
+          this.router.navigate([`/flashcard/${this.quizId}/result`], { state: { data: this.userFlashcard } });
+          break;
+        default:
+          this.router.navigate(['/flashcard']);
+          break;
+      };
     }
   }
 
   handleDisplayConfirmDialog() {
+    if (this.skipDisplayConfirmDialog) {
+      return;
+    }
     // Hiển thị dialog thông báo
     this.dialogBroadcastService.broadcastConfirmationDialog({
       header: 'Thông báo',
@@ -265,6 +342,12 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
         this.subscriptions.push(saveUserQuiz$);
       }
     });
+  }
+
+  finishQuiz() {
+    // Navigate to result page with data userFlashcard
+    this.skipDisplayConfirmDialog = true;
+    this.handleExistFlashcard('finishQuiz');
   }
 
   ngOnDestroy(): void {

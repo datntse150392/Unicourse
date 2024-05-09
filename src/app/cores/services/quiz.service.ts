@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { Quiz, UserQuiz } from '../models';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 interface Filter {
@@ -75,6 +75,32 @@ export class QuizService {
                     },
                 }
             )
+            .pipe(catchError(this.handleError));
+    }
+
+    // Call api tính toán flashcard result
+    calculateResult(userFlashcard: any) {
+        let body = userFlashcard;
+        const user_id = localStorage.getItem('user_id');
+        if (user_id) {
+            body.user_id = user_id;
+        }
+        return this.httpClient
+            .post<any>(`${environment.baseUrl}/api/quiz/result/${body._id}`,
+                body
+            )
+            .pipe(catchError(this.handleError));
+    }
+
+    // Reset quiz progress của user
+    resetQuiz(quiz_id: any) {
+        return this.httpClient
+            .post<any>(`${environment.baseUrl}/api/quiz/edit/${quiz_id}/reset-progress`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+                    },
+                })
             .pipe(catchError(this.handleError));
     }
 

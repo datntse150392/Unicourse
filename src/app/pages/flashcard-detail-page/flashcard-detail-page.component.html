@@ -26,16 +26,16 @@
         <!-- Group button -->
         <button
           [ngStyle]="{ width: '11rem' }"
-          [class.activeButton]="filter === 'quiz'"
-          (click)="onChangeMode('quiz')"
+          [class.activeButton]="filter === 'flashcard'"
+          (click)="onChangeMode('flashcard')"
           class="text-gray-900 border border-gray-300 hover:bg-[#28c060] hover:text-white font-medium rounded-lg text-medium px-4 py-2 mr-4 justify-self-end"
         >
           Thẻ ghi nhớ
         </button>
         <button
           [ngStyle]="{ width: '11rem' }"
-          [class.activeButton]="filter === 'flashcard'"
-          (click)="onChangeMode('flashcard')"
+          [class.activeButton]="filter === 'quiz'"
+          (click)="onChangeMode('quiz')"
           class="text-gray-900 border border-gray-300 hover:bg-[#28c060] hover:text-white font-medium rounded-lg text-medium px-4 py-2 mr-4 justify-self-end"
         >
           Trắc nghiệm
@@ -64,7 +64,7 @@
       >
         <!-- Câu hỏi -->
         <div class="mb-6">
-          <h3 class="text-3xl font-bold text-gray-900">{{ userFlashcard.title }}</h3>
+          <h3 id="titleScroll" class="text-3xl font-bold text-gray-900">{{ userFlashcard.title }}</h3>
           <p-divider type="solid"></p-divider>
           <p
             class="text-2xl text-justify font-medium font-customFont text-gray-900"
@@ -170,7 +170,7 @@
                 <p
                   [ngStyle]="{ width: '6.8rem' }"
                   class="text-sm text-center font-medium font-customFont text-white"
-                  [routerLink]="['/flashcard/', userFlashcard._id, 'result']"
+                  (click)="finishQuiz()"
                 >
                   Kiểm tra điểm
                 </p>

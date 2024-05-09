@@ -35,7 +35,7 @@ import { TransactionService } from '../../../cores/services/transaction.service'
     SharedModule,
     AngularFireAuthModule,
     DialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
   ],
   providers: [AuthService],
   templateUrl: './default.component.html',
@@ -85,7 +85,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.user = JSON.parse(localStorage.getItem('UserInfo') || '{}');
 
     this.initForm();
-    
+
     // Kiểm tra local storage có tồn tại thông tin thanh toán cũ hay không? -> Nếu có thì remove
     if (localStorage.getItem('cart_id')) {
       this.clearLocalStorage();
@@ -356,11 +356,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
             if (res.status === 200) {
               this.blockedUI = false;
               setTimeout(() => {
-                this.dialogBroadcastService.broadcastDialog({
-                  header: 'Nạp Point',
+                this.dialogBroadcastService.broadcastConfirmationDialog({
+                  header: 'Thông báo',
                   message: 'Nạp Point thành công',
-                  type: 'info',
-                  display: true,
+                  type: 'success',
+                  return: false,
+                  numberBtn: 1,
                 });
               }, 1000);
               window.history.replaceState(
@@ -470,11 +471,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
   // Xử lý việc thanh toán thất bại
   handleErrorPayment() {
     setTimeout(() => {
-      this.dialogBroadcastService.broadcastDialog({
-        header: 'Thanh toán',
+      this.dialogBroadcastService.broadcastConfirmationDialog({
+        header: 'Thông báo',
         message: 'Hóa đơn thanh toán không tồn tại hoặc đã thanh toán',
         type: 'error',
-        display: true,
+        return: false,
+        numberBtn: 1,
       });
     }, 1000);
     window.history.replaceState(

@@ -3,6 +3,10 @@ import { SharedModule } from '../../shared';
 import { HeaderComponent } from '../../shared/components';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserQuizResult, UserQuiz } from '../../cores/models';
+import { cloneDeep } from 'lodash';
+import { QuizService } from '../../cores/services';
+import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 
 
 interface Flashcard {
@@ -10,22 +14,6 @@ interface Flashcard {
   title: string;
   numberItems: string;
   items: any[];
-}
-
-interface UserflashcardAnwers {
-  userItemAnwer: Map<number, UserItemAnwer>;
-}
-
-interface UserItemAnwer {
-  _id: number;
-  answer: [
-    {
-      _id: number;
-      content: string;
-      isChoiced: boolean;
-      rightAnswer: boolean;
-    }
-  ];
 }
 
 @Component({
@@ -37,13 +25,27 @@ interface UserItemAnwer {
 })
 
 export class FlashcardResultPageComponent implements OnInit, OnDestroy {
+  // Biến dành cho trang chi tiết flashcard
+  flashcardResult: UserQuizResult = {} as UserQuizResult;
+  userFlashcardAnswers: any;
+  markRate: number = 0;
+
+  // Biến behavior của flashcard detail page
   value: number = 50;
   isShowDropdown: boolean = true;
-  userFlashcard: Flashcard = {} as Flashcard;
 
+  // userFlashcard: Flashcard = {} as Flashcard;
+  blockedUI: boolean = false;
+
+  // Biến cục bộ
   private subscriptions: Subscription[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private router: Router,
+    private quizService: QuizService,
+    private dialogBroadcastService: DialogBroadcastService
+  ) {
     // Thiết lập title cho trang
     window.document.title = 'Chi tiết flashcard';
     // Scroll smooth to top lên đầu trang
@@ -55,220 +57,67 @@ export class FlashcardResultPageComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.userFlashcard = {
-      _id: 1,
-      title: 'MKT208c',
-      numberItems: '5 câu hỏi',
-      items: [
-        {
-          _id: 1,
-          question: 'Which is a good starting point for writing a blog?',
-          type: 'single',
-          userCorrect: true,
-          answer: [
-            {
-              _id: 1,
-              content:
-                'Our target audience is so overwhelmed with much information, so you can start with a filter and focus blog',
-              isChoiced: true,
-              rightAnswer: true,
-            },
-            {
-              _id: 2,
-              content:
-                'Our target audience is very demanding, so you should be genius to impress them',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 3,
-              content:
-                'Our target audience is very smart, so try to be smarter than them',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content:
-                'Writing blog is too traditional, it is not relevant in social marketing',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 1,
-              content:
-                'Our target audience is so overwhelmed with much information, so you can start with a filter and focus blog',
-            },
-          ],
-        },
-        {
-          _id: 2,
-          question:
-            'Display ads, magazine ads, acquisition programs, endorsements, affiliate program, pay-per-click, banner ads are examples of',
-          type: 'single',
-          userCorrect: false,
-          answer: [
-            {
-              _id: 1,
-              content: 'owned media',
-              isChoiced: true,
-              rightAnswer: false,
-            },
-            {
-              _id: 2,
-              content: 'paid media',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-            {
-              _id: 3,
-              content: 'earned media',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'traditional media',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 2,
-              content: 'paid media',
-            },
-          ],
-        },
-        {
-          _id: 3,
-          question:
-            'In Social marketing budget, there are four areas as follows, except:',
-          type: 'single',
-          userCorrect: true,
-          answer: [
-            {
-              _id: 1,
-              content: 'Empowering',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 2,
-              content: 'Technology',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 3,
-              content: 'Marketing program',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'Production',
-              isChoiced: true,
-              rightAnswer: true,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 4,
-              content: 'Production',
-            },
-          ],
-        },
-        {
-          _id: 4,
-          question:
-            'Which of the following are tools for Search Analytics? Check all that apply.',
-          type: 'multiple',
-          userCorrect: true,
-          answer: [
-            {
-              _id: 1,
-              content: 'Google Trends',
-              isChoiced: true,
-              rightAnswer: true,
-            },
-            {
-              _id: 2,
-              content: 'Keyhole.co',
-              isChoiced: true,
-              rightAnswer: true,
-            },
-            {
-              _id: 3,
-              content: 'Boardreader',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'Answer the Public',
-              isChoiced: true,
-              rightAnswer: true,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 1,
-              content: 'Google Trends',
-            },
-            {
-              _id: 2,
-              content: 'Keyhole.co',
-            },
-            {
-              _id: 4,
-              content: 'Answer the Public',
-            },
-          ],
-        },
-        {
-          _id: 5,
-          question:
-            'If you want to develop a great blog, you should avoid .......',
-          type: 'single',
-          userCorrect: false,
-          answer: [
-            {
-              _id: 1,
-              content: 'Using Google Suggest for finding suitable topics',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 2,
-              content: 'having a great headline',
-              isChoiced: false,
-              rightAnswer: false,
-            },
-            {
-              _id: 3,
-              content: 'using images',
-              isChoiced: true,
-              rightAnswer: false,
-            },
-            {
-              _id: 4,
-              content: 'writing a lot of long paragraphs',
-              isChoiced: false,
-              rightAnswer: true,
-            },
-          ],
-          rightAnswer: [
-            {
-              _id: 4,
-              content: 'writing a lot of long paragraphs',
-            },
-          ],
-        },
-      ],
-    };
+    this.blockedUI = true;
+    // Lấy data từ route
+    this.activeRoute.paramMap.subscribe(params => {
+      const state = history.state;
+      if (state && state.data) {
+        this.userFlashcardAnswers = state.data;
+        this.quizService.calculateResult(this.userFlashcardAnswers).subscribe({
+          next: (res: any) => {
+            if (res && res.status === 200) {
+              this.blockedUI = false;
+              this.flashcardResult = res.data;
+              this.calculateMarkRate(res.data); // Tính trả lời đúng
+              history.replaceState(null, ''); // Clear history state
+            } else {
+              this.blockedUI = false;
+              this.dialogBroadcastService.broadcastConfirmationDialog({
+                header: 'Lỗi',
+                message: 'Không thể tính toán kết quả flashcard',
+                type: 'error',
+                return: false,
+                numberBtn: 1
+              })
+              history.replaceState(null, ''); // Clear history state
+              this.router.navigate(['/flashcard']);
+            }
+          },
+          error: (error) => {
+            this.blockedUI = false;
+            this.dialogBroadcastService.broadcastConfirmationDialog({
+              header: 'Lỗi',
+              message: 'Không thể tính toán kết quả flashcard',
+              type: 'error',
+              return: false,
+              numberBtn: 1
+            })
+            history.replaceState(null, ''); // Clear history state
+            this.router.navigate(['/flashcard']);
+          }
+        })
+      } else {
+        this.blockedUI = false;
+        this.dialogBroadcastService.broadcastConfirmationDialog({
+          header: 'Lỗi',
+          message: 'Không thể tính toán kết quả flashcard',
+          type: 'error',
+          return: false,
+          numberBtn: 1
+        })
+        // Clear history state
+        history.replaceState(null, '');
+        this.router.navigate(['/flashcard']);
+      }
+    });
+  }
+
+  // Tính tỉ lệ đúng
+  calculateMarkRate(flashcardResult: UserQuizResult) {
+    if (flashcardResult && flashcardResult.number_right_answer && flashcardResult.questions.length) {
+      const total = flashcardResult.number_right_answer / flashcardResult.questions.length;
+      this.markRate = Math.round(total * 100);
+    }
   }
 
   toggleDropdown() {

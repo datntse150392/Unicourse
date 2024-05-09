@@ -4,8 +4,8 @@ import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { QuizService } from '../../cores/services';
-import { Quiz } from '../../cores/models';
+import { QuizService, UserService } from '../../cores/services';
+import { Quiz, UserQuiz } from '../../cores/models';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 
 interface Filter {
@@ -52,6 +52,7 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   filter: string = 'default'; // newest, mostView, default
   filterObject: Filter = {} as Filter;
   totalPages: number = 1;
+  userFlashcardProgress: UserQuiz[] = [];
 
   // Biến behavior của flashcard page
   isShowDropdown: boolean = false;
@@ -73,6 +74,7 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
     private router: Router,
     private quizService: QuizService,
     private dialogBroadcastService: DialogBroadcastService,
+    private userService: UserService
   ) {
     // Thiết lập title cho trang
     window.document.title = 'Tổng hợp các bộ quiz tại Unicourse';
@@ -98,7 +100,7 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
             this.originalFlashcards.push(...convertData);
             this.totalPages = res.data.totalPages;
             this.originalFlashcards.length === 0 ? this.emptySearchResult = true : this.emptySearchResult = false;
-            this.blockedUI = false;
+            this.userId ? this.blockedUI = true : this.blockedUI = false;
           }
         },
         error: (err: any) => {
@@ -107,7 +109,27 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
         }
       })
 
+    const userProgress$ = this.userService.getUser(this.userId).subscribe({
+      next: (res: any) => {
+        if (res.status === 200) {
+          if (res.data.quiz_process.length > 0) {
+            this.mappingQuizProgress(this.originalFlashcards, res.data.quiz_process);
+            this.blockedUI = false;
+          } else {
+            this.blockedUI = false
+          }
+        } else {
+          this.blockedUI = false;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+        this.blockedUI = false
+      }
+    });
+
     this.subscriptions.push(originalFlashcards$);
+    this.userId ? this.subscriptions.push(userProgress$) : this.blockedUI = false;
   }
 
   onPageChange() {}
@@ -135,6 +157,50 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
     this.filter = filter;
   }
 
+  mappingQuizProgress(quiz: Quiz[], userProgress: any) {
+    this.userFlashcardProgress = userProgress;
+    quiz.map((quiz: Quiz) => {
+      userProgress.findIndex((progress: any) => {
+        if (quiz._id === progress._id) {
+          quiz.isInProgress = true;
+        } else {
+          quiz.isInProgress = false;
+        }
+      });
+    });
+  }
+
+  onResetQuiz(quiz_id: String) {
+    this.blockedUI = true;
+    this.quizService.resetQuiz(quiz_id).subscribe({
+      next: (res: any) => {
+        if (res.status === 201) {
+          this.blockedUI = false;
+          this.router.navigate(['/flashcard/' + quiz_id]);
+        } else {
+          this.blockedUI = false;
+          this.dialogBroadcastService.broadcastConfirmationDialog({
+            header: 'Thông báo',
+            message: 'Reset bộ quiz thất bại! Vui lòng thử lại sau!',
+            type: 'error',
+            return: false,
+            numberBtn: 1
+          });
+          this.router.navigate(['/flashcard/' + quiz_id]);
+      }},
+      error: (err: any) => {
+        this.blockedUI = false;
+        this.dialogBroadcastService.broadcastConfirmationDialog({
+          header: 'Thông báo',
+          message: 'Reset bộ quiz thất bại! Vui lòng thử lại sau!',
+          type: 'error',
+          return: false,
+          numberBtn: 1
+        });
+        this.router.navigate(['/flashcard/' + quiz_id]);
+    }});
+  }
+
   onChangeSearch(event: any) {
     this.filterObject.title = event.target.value.trim();
   }
@@ -156,6 +222,16 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   }
 
   toggleLike(_id: any) {
+    if (!this.userId) {
+      this.dialogBroadcastService.broadcastConfirmationDialog({
+        header: 'Thông báo',
+        message: 'Vui lòng đăng nhập để thực hiện chức năng này!',
+        type: 'error',
+        return: false,
+        numberBtn: 1
+      });
+      return;
+    }
     const quizInteresting$ = this.quizService
       .toggleFavoriteQuiz(_id)
       .subscribe({
@@ -166,11 +242,12 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
           }
         },
         error: (err: any) => {
-          this.dialogBroadcastService.broadcastDialog({
+          this.dialogBroadcastService.broadcastConfirmationDialog({
             header: 'Thông báo',
-            message: 'Thay đổi trạng thái yêu thích thất bại! Vui lòng thử lại sau!',
+            message: 'Có lỗi xảy ra! Vui lòng thử lại sau!',
             type: 'error',
-            display: true,
+            return: false,
+            numberBtn: 1
           });
         }
       });

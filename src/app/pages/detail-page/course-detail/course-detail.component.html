@@ -1,89 +1,129 @@
 <div
-  class="course-detail border border-gray-200 shadow dark:border-gray-700 mx-4 p-3"
+  class="course-detail border border-gray-200 shadow dark:border-gray-700 p-3"
 >
   <a href="#">
     <img class="w-full h-auto" [src]="course.thumbnail" [alt]="course.title" />
   </a>
-  <div class="px-5 py-2">
-    <div class="flex items-center mt-2.5 mb-5">
-      <div class="border-round-right">
-        <ul class="list-none space-y-4">
-          <li class="flex flex-row gap-2 items-center">
-            <i class="pi pi-desktop" style="font-size: 1.2rem"></i>
-            <span class="text-gray-900 font-customFont"
-              >3 giờ 5 phút theo yêu cầu</span
-            >
-          </li>
-          <li class="flex flex-row gap-2 items-center">
-            <i class="pi pi-sync" style="font-size: 1.2rem"></i>
-            <span class="text-gray-900 font-customFont"
-              >Quyền truy cập đầy đủ suốt đời</span
-            >
-          </li>
-
-          <li class="flex flex-row gap-2 items-center">
-            <i class="pi pi-mobile" style="font-size: 1.2rem"></i>
-            <span class="text-gray-900 font-customFont"
-              >Truy cập trên thiết bị di động và TV</span
-            >
-          </li>
-          <li class="flex flex-row gap-2 items-center">
-            <i class="pi pi-verified" style="font-size: 1.2rem"></i>
-            <span class="text-gray-900 font-customFont"
-              >Giấy chứng nhận hoàn thành</span
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="flex items-center justify-between">
-      <span>
-        <p class="font-semibold text-3xl text-gray-900 font-customFont">
-          <span class="font-bold text-gray-900 font-customFont">
-            {{
-              course.amount === 0
-                ? "Miễn phí"
-                : (course.amount | currency : "VND")
-            }}
-          </span>
-        </p>
+  <div class="px-2 py-2 flex items-center flex flex-col">
+    <p
+      class="w-full font-semibold text-5xl text-gray-900 font-customFont mt-4 mb-4"
+    >
+      <span class="font-bold text-gray-900 font-customFont">
+        {{
+          course.amount === 0 ? "Miễn phí" : (course.amount | currency : "VND")
+        }}
       </span>
-      <span>
-        <!-- Kiểm tra course có giá tiền -->
-        <ng-template [ngIf]="course !== undefined && course.type !== 'free'">
-          <!-- Kiểm tra nếu course đã tồn tại trong giỏ hàng -->
-          <ng-template [ngIf]="isExistedCourseInsideCart">
+    </p>
+    <div class="flex flex-col items-center w-full mb-4">
+      <!-- Kiểm tra course có giá tiền -->
+      <ng-template [ngIf]="course !== undefined && course.type !== 'free'">
+        <!-- Kiểm tra nếu course đã tồn tại trong giỏ hàng -->
+        <ng-template [ngIf]="isExistedCourseInsideCart">
+          <div class="w-full flex flex-row gap-2 mb-2">
             <button
               (click)="handleRemoveFromCart(course._id)"
               type="button"
-              class="ffont-customFont focus:outline-none text-black bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-3 me-2"
+              [ngStyle]="{ width: '80%' }"
+              class="font-customFont focus:outline-none text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-bold px-4 py-3"
             >
               Bỏ khỏi giỏ hàng
             </button>
-          </ng-template>
-          <!-- Kiểm tra nếu course chưa tồn tại trong giỏ hàng -->
-          <ng-template [ngIf]="!isExistedCourseInsideCart">
+            <button
+              [ngStyle]="{ width: '20%' }"
+              (click)="handleAddToCart(course._id)"
+              type="button"
+              class="font-customFont border text-black font-bold text-md px-4 py-3"
+            >
+              <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+            </button>
+          </div>
+          <button
+            type="button"
+            class="w-full font-customFont border text-black font-bold text-md px-4 py-3"
+          >
+            Mua ngay
+          </button>
+        </ng-template>
+        <!-- Kiểm tra nếu course chưa tồn tại trong giỏ hàng -->
+        <ng-template [ngIf]="!isExistedCourseInsideCart">
+          <div class="w-full flex flex-row gap-2 mb-2">
             <button
               (click)="handleAddToCart(course._id)"
               type="button"
-              class="font-customFont focus:outline-none text-black bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-3 py-3 me-2"
+              [ngStyle]="{ width: '80%' }"
+              class="font-customFont focus:outline-none text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-bold text-[1.1rem] px-4 py-3 me-2"
             >
               Thêm vào giỏ hàng
             </button>
-          </ng-template>
-        </ng-template>
-
-        <!-- Kiểm tra nếu course free-->
-        <ng-template [ngIf]="course !== undefined && course.type === 'free'">
+            <button
+              [ngStyle]="{ width: '20%' }"
+              type="button"
+              class="font-customFont border text-black font-bold text-md px-4 py-3"
+            >
+              <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+            </button>
+          </div>
           <button
-            (click)="handleEnrollCoures(course._id)"
             type="button"
-            class="font-customFont focus:outline-none text-black bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-3 me-2"
+            class="w-full font-customFont border text-black font-bold text-md px-4 py-3"
           >
-            Đăng ký ngay
+            Mua ngay
           </button>
         </ng-template>
-      </span>
+      </ng-template>
+
+      <!-- Kiểm tra nếu course free-->
+      <ng-template [ngIf]="course !== undefined && course.type === 'free'">
+        <button
+          (click)="handleEnrollCoures(course._id)"
+          type="button"
+          [ngStyle]="{ width: '80%' }"
+          class="font-customFont focus:outline-none text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-bold text-[1.1rem] px-4 py-3 me-2"
+        >
+          Đăng ký ngay
+        </button>
+        <button
+          [ngStyle]="{ width: '20%' }"
+          type="button"
+          class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
+        >
+          <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+        </button>
+      </ng-template>
+
+      <span class="mt-2 text-sm">Đảm bảo hoàn tiền trong 30 ngày</span>
     </div>
+    <!-- <div class="w-full">
+      <p class="font-semibold text-xl text-gray-900 mb-2">
+        Khóa học này bao gồm:
+      </p>
+      <ul class="list-none space-y-3 mb-4 w-full">
+        <li class="flex flex-row gap-2 items-center">
+          <i class="pi pi-desktop" style="font-size: 1rem"></i>
+          <span class="text-gray-900 text-md font-customFont"
+            >3 giờ 5 phút theo yêu cầu</span
+          >
+        </li>
+        <li class="flex flex-row gap-2 items-center">
+          <i class="pi pi-sync" style="font-size: 1rem"></i>
+          <span class="text-gray-900 text-md font-customFont"
+            >Quyền truy cập đầy đủ suốt đời</span
+          >
+        </li>
+
+        <li class="flex flex-row gap-2 items-center">
+          <i class="pi pi-mobile" style="font-size: 1rem"></i>
+          <span class="text-gray-900 text-md font-customFont"
+            >Truy cập trên thiết bị di động và TV</span
+          >
+        </li>
+        <li class="flex flex-row gap-2 items-center">
+          <i class="pi pi-verified" style="font-size: 1rem"></i>
+          <span class="text-gray-900 text-md font-customFont"
+            >Giấy chứng nhận hoàn thành</span
+          >
+        </li>
+      </ul>
+    </div> -->
   </div>
 </div>

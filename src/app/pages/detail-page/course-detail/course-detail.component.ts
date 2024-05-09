@@ -106,11 +106,12 @@ export class CourseDetailComponent implements OnDestroy {
           const addtoCartSub$ = this.cartService.addToCart(courseId).subscribe({
             next: (res: any) => {
               if (res.status === 201) {
-                this.dialogBroadcastService.broadcastDialog({
-                  header: 'Giỏ hàng',
-                  message: 'Thêm khóa học vào giỏ hàng thành công',
+                this.dialogBroadcastService.broadcastConfirmationDialog({
+                  header: 'Thông báo',
+                  message: 'Đã thêm khóa học vào giỏ hàng',
                   type: 'success',
-                  display: true,
+                  return: false,
+                  numberBtn: 1,
                 });
                 this.sharedService.isUpdateCartItem();
                 this.initForm();
@@ -142,11 +143,12 @@ export class CourseDetailComponent implements OnDestroy {
             .subscribe({
               next: (res: any) => {
                 if (res.status === 201) {
-                  this.dialogBroadcastService.broadcastDialog({
-                    header: 'Giỏ hàng',
-                    message: 'Xóa khóa học thành công',
+                  this.dialogBroadcastService.broadcastConfirmationDialog({
+                    header: 'Thông báo',
+                    message: 'Đã xóa khóa học khỏi giỏ hàng',
                     type: 'success',
-                    display: true,
+                    return: false,
+                    numberBtn: 1,
                   });
                   this.sharedService.isUpdateCartItem();
                   this.initForm();

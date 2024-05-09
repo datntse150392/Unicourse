@@ -1,4 +1,13 @@
+// Khai báo biến
+$bg-color: #2d2f31;
+
 .container {
+  .title-description {
+    padding: 2% 10%;
+    background-color: $bg-color;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 2rem;
+  }
   max-width: 100%;
   .body-container {
     padding: 0% 10%;
@@ -19,14 +28,15 @@
       border: 1px solid #e0e0e0;
     }
     .course-info-right {
-      position: fixed;
+      position: absolute;
+      top: 18%;
       right: 7%;
       width: 30%;
     }
     .main-info {
       .avt {
-        width: 12rem;
-        height: 12rem;
+        width: 10rem;
+        height: 10rem;
         border-radius: 100%;
       }
     }

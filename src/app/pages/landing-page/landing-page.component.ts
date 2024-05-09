@@ -368,11 +368,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
               this.getTotalCoin = results.totalCoinReponse.data;
 
               // Hiển thị thông báo
-              this.dialogBroadcastService.broadcastDialog({
+              this.dialogBroadcastService.broadcastConfirmationDialog({
                 header: 'Thông báo',
-                message: 'Chúc mừng bạn đã nhận được phần thưởng',
+                message: 'Chúc mừng bạn đã nhận được phần thưởng!',
                 type: 'success',
-                display: true,
+                return: false,
+                numberBtn: 1,
               });
 
               this.isBlockUI = false;
@@ -466,11 +467,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
               this.getTotalCoin = results.totalCoinReponse.data;
 
               // Hiển thị thông báo
-              this.dialogBroadcastService.broadcastDialog({
+              this.dialogBroadcastService.broadcastConfirmationDialog({
                 header: 'Thông báo',
-                message: 'Đăng ký lịch hẹn thành công',
+                message: 'Đăng ký lịch hẹn thành công!',
                 type: 'success',
-                display: true,
+                return: false,
+                numberBtn: 1,
               });
 
               this.isToggleRegisterScheduleMeeting = false;

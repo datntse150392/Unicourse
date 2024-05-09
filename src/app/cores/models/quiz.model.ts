@@ -15,6 +15,7 @@ export interface Quiz {
   created_at: Date;
   date_to_now: Number;
   isQuizInterest: Boolean;
+  isInProgress: Boolean | undefined;
 }
 
 export interface QuizResult {
@@ -85,4 +86,33 @@ export interface UserAnswer {
   answer_text: String;
   is_correct: Boolean;
   is_checked: Boolean;
+}
+
+export interface UserQuizResult {
+  _id: string;
+  user_id: string | undefined;
+  number_right_answer: number | undefined;
+  title: string;
+  description: string;
+  questions: UserQuestionResult[];
+  course_id: string;
+  max_attemps: number;
+  picture: string;
+  viewer: number;
+  passing_score: number;
+  status: string;
+  category: string;
+  creator_id: Creator;
+  creator_role: string;
+  created_at: Date;
+  date_to_now: number;
+}
+
+export interface UserQuestionResult {
+  _id: string;
+  title: string;
+  user_correct: Boolean;
+  type: string;
+  answer: UserAnswer[];
+  status: Boolean;
 }

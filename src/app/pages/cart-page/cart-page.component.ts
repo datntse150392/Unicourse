@@ -279,11 +279,12 @@ export class CartPageComponent implements OnInit, OnDestroy {
                     if (res.status === 201) {
                       // Unblock UI
                       this.blockedUI = false;
-                      this.dialogBroadcastService.broadcastDialog({
-                        header: 'Thanh toán',
-                        message: 'Thanh toán thành công',
+                      this.dialogBroadcastService.broadcastConfirmationDialog({
+                        header: 'Thông báo',
+                        message: 'Thanh toán thành công!',
                         type: 'success',
-                        display: true,
+                        return: false,
+                        numberBtn: 1,
                       });
                       // Redirect to home page
                       this.router.navigate(['/']);
@@ -325,11 +326,12 @@ export class CartPageComponent implements OnInit, OnDestroy {
 
   applyVoucher(code: string) {
     if (this.totalAmountBeforeApplyVoucher === 0) {
-      this.dialogBroadcastService.broadcastDialog({
+      this.dialogBroadcastService.broadcastConfirmationDialog({
         header: 'Thông báo',
         message: 'Không thể sử dụng voucher vì tổng giá trị giỏ hàng bằng 0',
-        type: 'info',
-        display: true,
+        type: 'error',
+        return: false,
+        numberBtn: 1,
       });
       return;
     }
@@ -381,11 +383,12 @@ export class CartPageComponent implements OnInit, OnDestroy {
         });
       this.subscriptions.push(applyVoucherSub$);
     } else {
-      this.dialogBroadcastService.broadcastDialog({
-        header: 'Giỏ hàng',
-        message: 'Giỏ hàng của bạn đang trống',
+      this.dialogBroadcastService.broadcastConfirmationDialog({
+        header: 'Thông báo',
+        message: 'Giỏ hàng của bạn đang trống!',
         type: 'info',
-        display: true,
+        return: false,
+        numberBtn: 1,
       });
     }
   }
@@ -413,11 +416,12 @@ export class CartPageComponent implements OnInit, OnDestroy {
             .subscribe({
               next: (res: any) => {
                 if (res.status === 201) {
-                  this.dialogBroadcastService.broadcastDialog({
-                    header: 'Giỏ hàng',
-                    message: 'Xóa khóa học thành công',
+                  this.dialogBroadcastService.broadcastConfirmationDialog({
+                    header: 'Thông báo',
+                    message: 'Đã xóa khóa học khỏi giỏ hàng!',
                     type: 'success',
-                    display: true,
+                    return: false,
+                    numberBtn: 1,
                   });
                   this.sharedService.isUpdateCartItem();
                   this.removeVoucher();
