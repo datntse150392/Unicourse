@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { FooterComponent, HeaderComponent } from '../../shared/components';
-import { Subscription } from 'rxjs';
+import { Subscription, forkJoin, Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { QuizService, UserService } from '../../cores/services';
 import { Quiz, UserQuiz } from '../../cores/models';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
+import { catchError } from 'rxjs/operators';
 
 interface Filter {
   title: String | undefined;
@@ -15,6 +16,13 @@ interface Filter {
   category: String | undefined;
   pageNumber: number;
   limit: number;
+}
+
+interface PageEvent {
+  first: number;
+  rows: number;
+  page: number;
+  pageCount: number;
 }
 
 @Component({
@@ -56,6 +64,9 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
 
   // Biến behavior của flashcard page
   isShowDropdown: boolean = false;
+  first: number = 0;
+  rows: number = 6;
+  totalRecords: number = 0;
 
   // Biến cục bộ
   private subscriptions: Subscription[] = [];
@@ -66,8 +77,6 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   categoryText: string = 'Chuyên ngành'
   
   flashcards: any[] = [];
-  first: number = 0;
-  rows: number = 6;
 
   constructor(
     private route: ActivatedRoute,
@@ -84,55 +93,76 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
+    const listener$ = this.quizService.getRefreshQuiz().subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.initForm();
+        }
+      }
+    });
+    this.subscriptions.push(listener$);
   }
+
   initForm() {
     this.userId = JSON.parse(localStorage.getItem('UserInfo') || '{}')._id;
-    const originalFlashcards$ = this.quizService
-      .getQuiz(this.userId, this.filterObject)
-      .subscribe({
-        next: (res: any) => {
-          if (res.status === 200) {
-            //Convert Date to Number of day to now: Ex: 2024-05-04T05:54:52.828Z -> 1 day ago
-            const convertData = res.data.quizzes.map((quiz: Quiz) => {
-              const dateToNow = Math.floor((new Date().getTime() - new Date(quiz.created_at).getTime()) / (1000 * 3600 * 24));
-              return { ...quiz, date_to_now: dateToNow };
-            });
-            this.originalFlashcards.push(...convertData);
-            this.totalPages = res.data.totalPages;
-            this.originalFlashcards.length === 0 ? this.emptySearchResult = true : this.emptySearchResult = false;
-            this.userId ? this.blockedUI = true : this.blockedUI = false;
-          }
-        },
-        error: (err: any) => {
-          console.log(err);
-          this.blockedUI = false;
-        }
-      })
 
-    const userProgress$ = this.userService.getUser(this.userId).subscribe({
-      next: (res: any) => {
-        if (res.status === 200) {
-          if (res.data.quiz_process.length > 0) {
-            this.mappingQuizProgress(this.originalFlashcards, res.data.quiz_process);
-            this.blockedUI = false;
-          } else {
-            this.blockedUI = false
-          }
-        } else {
-          this.blockedUI = false;
-        }
-      },
-      error: (err: any) => {
-        console.log(err);
-        this.blockedUI = false
+    const forkJoinSubscription = forkJoin([
+      this.quizService.getQuiz(this.userId, this.filterObject).pipe(
+        catchError(error => {
+          // Handle error from getQuiz()
+          return of(null); // Emit null to continue with forkJoin
+        })
+      ),
+      this.userService.getUser(this.userId).pipe(
+        catchError(error => {
+          // Handle error from getUser()
+          return of(null); // Emit null to continue with forkJoin
+        })
+      )
+    ]).subscribe(results => {
+      // results will contain either the quiz and user data, or null if an error occurred
+      if (results[0] !== null
+        && results[1] !== null
+        && results[0].status === 200
+        && results[1].status === 200
+      ) {
+        this.originalFlashcards = [];
+        //Convert Date to Number of day to now: Ex: 2024-05-04T05:54:52.828Z -> 1 day ago
+        const convertData = results[0].data.quizzes.map((quiz: Quiz) => {
+          const dateToNow = Math.floor((new Date().getTime() - new Date(quiz.created_at).getTime()) / (1000 * 3600 * 24));
+          return { ...quiz, date_to_now: dateToNow };
+        });
+        this.originalFlashcards.push(...convertData);
+        this.totalPages = results[0].data.totalPages;
+        this.totalRecords = results[0].data.totalRecords;
+        this.originalFlashcards.length === 0 ? this.emptySearchResult = true : this.emptySearchResult = false;
+        this.mappingQuizProgress(this.originalFlashcards, results[1].data.quiz_process);
+        this.blockedUI = false;
+      } else if (results[0] !== null && results[1] === null && results[0].status === 200) {
+        this.originalFlashcards = [];
+        //Convert Date to Number of day to now: Ex: 2024-05-04T05:54:52.828Z -> 1 day ago
+        const convertData = results[0].data.quizzes.map((quiz: Quiz) => {
+          const dateToNow = Math.floor((new Date().getTime() - new Date(quiz.created_at).getTime()) / (1000 * 3600 * 24));
+          return { ...quiz, date_to_now: dateToNow };
+        });
+        this.originalFlashcards.push(...convertData);
+        this.totalPages = results[0].data.totalPages;
+        this.totalRecords = results[0].data.totalRecords;
+        this.originalFlashcards.length === 0 ? this.emptySearchResult = true : this.emptySearchResult = false;
+        this.blockedUI = false;
+      } else {
+        this.emptySearchResult = true;
+        this.blockedUI = false;
       }
     });
 
-    this.subscriptions.push(originalFlashcards$);
-    this.userId ? this.subscriptions.push(userProgress$) : this.blockedUI = false;
+    this.subscriptions.push(forkJoinSubscription);
   }
 
-  onPageChange() {}
+  onPageChange(event: any) {
+    this.filterObject.pageNumber = event.page + 1;
+    this.initForm();
+  }
 
   onFilterChange(filter: string) {
     switch(filter) {
@@ -160,11 +190,9 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   mappingQuizProgress(quiz: Quiz[], userProgress: any) {
     this.userFlashcardProgress = userProgress;
     quiz.map((quiz: Quiz) => {
-      userProgress.findIndex((progress: any) => {
+      userProgress.map((progress: any) => {
         if (quiz._id === progress._id) {
           quiz.isInProgress = true;
-        } else {
-          quiz.isInProgress = false;
         }
       });
     });

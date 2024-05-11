@@ -78,6 +78,7 @@ export interface UserQuestion {
   _id: String;
   title: String;
   type: String;
+  is_answered: boolean;
   answer: UserAnswer[];
   status: Boolean;
 }

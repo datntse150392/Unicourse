@@ -74,21 +74,23 @@
 
       <!-- Kiểm tra nếu course free-->
       <ng-template [ngIf]="course !== undefined && course.type === 'free'">
-        <button
-          (click)="handleEnrollCoures(course._id)"
-          type="button"
-          [ngStyle]="{ width: '80%' }"
-          class="font-customFont focus:outline-none text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-bold text-[1.1rem] px-4 py-3 me-2"
-        >
-          Đăng ký ngay
-        </button>
-        <button
-          [ngStyle]="{ width: '20%' }"
-          type="button"
-          class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
-        >
-          <i class="pi pi-heart" style="font-size: 1.2rem"></i>
-        </button>
+        <div class="w-full flex flex-row gap-2 mb-2">
+          <button
+            (click)="handleEnrollCoures(course._id)"
+            type="button"
+            [ngStyle]="{ width: '80%' }"
+            class="font-customFont focus:outline-none text-white bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl focus:ring-4 focus:ring-yellow-300 font-bold text-[1.1rem] px-4 py-3 me-2"
+          >
+            Đăng ký ngay
+          </button>
+          <button
+            [ngStyle]="{ width: '20%' }"
+            type="button"
+            class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
+          >
+            <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+          </button>
+        </div>
       </ng-template>
 
       <span class="mt-2 text-sm">Đảm bảo hoàn tiền trong 30 ngày</span>

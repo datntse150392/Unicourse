@@ -233,8 +233,13 @@
 
             <!-- Paginator -->
             <div class="card flex justify-content-center">
-                <p-paginator [first]="first" [rows]="rows" [totalRecords]="totalPages"
-                    (onPageChange)="onPageChange()"></p-paginator>
+                <p-paginator
+                    [first]="first"
+                    [rows]="rows"
+                    [totalRecords]="totalRecords" 
+                    (onPageChange)="onPageChange($event)"
+                >
+                </p-paginator>
             </div>
         </div>
     </div>

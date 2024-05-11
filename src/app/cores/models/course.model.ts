@@ -15,6 +15,9 @@ export interface Track {
   position: number;
   chapterTitle: string;
   track_steps: TrackStep[];
+
+  // Phục vụ cho mục đích hiển thị
+  showBody: boolean;
 }
 
 export interface Course {

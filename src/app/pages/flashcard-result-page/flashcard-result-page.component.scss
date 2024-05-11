@@ -42,7 +42,7 @@
             margin-top: 2%;
             .correct-answer {
                 background-color: #00b944;
-                border: 2px solid #22c55e;
+                border: 1px solid #22c55e;
                 .text-answer {
                     color: white;
                     font-weight: 500;
@@ -52,7 +52,7 @@
                 }
             }
             .wrong-answer {
-                border: 2px solid #eb1c20;
+                border: 1px solid #eb1c20;
                 background-color: #e61618;
                 .text-answer {
                     color: white;
@@ -63,7 +63,7 @@
                 }
             }
             .disable-answer {
-                border: 2px solid #bdbdbd;
+                border: 1px solid #bdbdbd;
                 .text-disable-answer {
                     color: #bdbdbd;
                     font-weight: 500;

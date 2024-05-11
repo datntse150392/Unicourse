@@ -11,13 +11,15 @@ export interface User {
   is_blocked: boolean;
   is_chat_blocked: boolean;
   profile_image: string;
-  create_at: string;
-  update_at: string;
+  created_at: Date;
+  updated_at: Date;
   published_at: string;
   class: string;
   coins: Array<Coin>;
   profileName: string;
   lecture_info: LectureInfo;
+  quiz_interest: Array<string>;
+  quiz_process: Array<any>;
 }
 
 export interface EnrollCourses {
@@ -37,5 +39,16 @@ export interface LectureInfo {
   description: string;
   my_course: Array<string>;
   my_schedule: Array<string>;
-  feedback: Array<string>;
+  feedback: Array<Feedback>;
+}
+
+export interface Feedback {
+  _id: string;
+  content: string;
+  rating: number;
+  course_id: string;
+  user_id: User;
+  status: string;
+  created_at: Date;
+  updated_at: Date;
 }

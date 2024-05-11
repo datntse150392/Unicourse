@@ -7,24 +7,24 @@
   padding-bottom: 2%;
   .body-container {
     height: 100%;
-    padding: 0% 2%;
+    padding: 0% 5%;
     margin: auto;
     .animation-color {
       color: #708090; // Default color
       font-size: larger;
       transition: 0.5s ease; // Smooth transition for color change
-      border: 2px solid #708090; // Default border
-      min-height: 9rem;
+      border: 1px solid #708090; // Default border
+      min-height: 7rem;
     }
     .animation-color:hover {
       color: #bbf7d0;
-      border: 2px solid #bbf7d0;
+      border: 1px solid #bbf7d0;
       cursor: pointer;
-      min-height: 9rem;
+      min-height: 7rem;
     }
     .active {
       transition: 0.5s ease; // Smooth transition for color change
-      border: 2px solid #00b944;
+      border: 1px solid #00b944;
     }
     .disabled {
       background-color: #97d5fe;

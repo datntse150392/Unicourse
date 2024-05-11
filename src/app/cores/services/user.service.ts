@@ -4,14 +4,21 @@ import { environment } from '../../../environments/environment.development';
 import { User } from '../models';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+interface UserResponse {
+  status: number,
+  message: string,
+  data: User
+}
+
 @Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(private httpClient: HttpClient) {}
 
   // Lấy thông tin người dùng theo userId
-  getUser(userId: string): Observable<User> {
+  getUser(userId: string): Observable<UserResponse> {
     return this.httpClient
-      .get<User>(`${environment.baseUrl}/api/user/${userId}`, {
+      .get<UserResponse>(`${environment.baseUrl}/api/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },

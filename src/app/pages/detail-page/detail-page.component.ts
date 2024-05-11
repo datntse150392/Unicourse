@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { SharedModule } from '../../shared';
 import { TreeNode } from 'primeng/api';
@@ -10,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription, filter, switchMap } from 'rxjs';
 import { ListTrackComponent } from './list-track/list-track.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-page',
@@ -30,7 +37,9 @@ import { CourseDetailComponent } from './course-detail/course-detail.component';
 export class DetailPageComponent implements OnInit, OnDestroy {
   constructor(
     private courseService: CourseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    private el: ElementRef
   ) {
     // Scroll smooth lên đầu trang
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -46,6 +55,11 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   public courseSemester1: Course[] = [];
   public coursePro: Course[] = [];
   public blockedUI: boolean = true;
+  public showCount: number = 6;
+  public visible: boolean = false;
+  public videoUrl: any = '';
+  public totalTime: number = 0;
+  public avgRating: any = 0;
 
   private subscription = new Subscription();
 
@@ -104,6 +118,32 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     const courseDetailSub$ = this.courseService.getCourseDetail(_id).subscribe({
       next: async (res: any) => {
         this.courseDetail = res.data;
+        // Sắp xếp track theo position
+        this.courseDetail.tracks = this.courseDetail.tracks.sort(
+          (a, b) => a.position - b.position
+        );
+        // Và thêm thuộc tính showBody cho mỗi track và tính tổng thời gian các track
+        this.courseDetail.tracks.forEach((track) => {
+          track.showBody = false;
+          // Tính tổng thời gian các track
+          this.totalTime += track.track_steps.reduce(
+            (acc, cur) => acc + cur.duration,
+            0
+          );
+        });
+        // Tính trung bình rating (tổng rating / số lượng rating) lecture.lecture_info.feedback.rating
+        this.avgRating =
+          this.courseDetail.lecture.lecture_info.feedback.reduce(
+            (acc, cur) => acc + cur.rating,
+            0
+          ) / this.courseDetail.lecture.lecture_info.feedback.length;
+
+        // Sẽ lấy các feedback có trạng thái là 'active'
+        this.courseDetail.lecture.lecture_info.feedback =
+          this.courseDetail.lecture.lecture_info.feedback.filter(
+            (feedback) => feedback.status === 'active'
+          );
+
         window.document.title = this.courseDetail.title;
         if (this.courseDetail && this.courseDetail?.tracks?.length > 0) {
           this.files = await this.mapToTreeNode(this.courseDetail.tracks);
@@ -174,4 +214,59 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
     return Promise.resolve(array);
   };
+
+  // Hàm chuyển đổi giá trị sáng giờ
+  // Ví dụ 71 phút sẽ là 1 giờ 11 phút
+  convertToHour = (duration: number): string => {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+    return `${hours} giờ ${minutes} phút`;
+  };
+
+  showDialog(trackStep: TrackStep) {
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      `https://www.youtube.com/embed/${trackStep.content_url}`
+    );
+    this.visible = true;
+  }
+
+  scrollToFeedback() {
+    const feedbackSection =
+      this.el.nativeElement.querySelector('#feedback-section');
+    if (feedbackSection) {
+      feedbackSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  scrollToLecture() {
+    const lectureSection =
+      this.el.nativeElement.querySelector('#lecture-section');
+    if (lectureSection) {
+      lectureSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Hàm xử lý hiển thị thời gian từ ngày tham gia hệ thống
+  publishedAtString(published_at: Date): string {
+    const publishedAt: Date = new Date(published_at);
+    const currentTime: Date = new Date();
+    const timeDifference: number =
+      currentTime.getTime() - publishedAt.getTime();
+    const days: number = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours: number = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes: number = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    if (days > 0) {
+      return `${days} ngày trước`;
+    } else if (hours > 0) {
+      return `${hours} giờ trước`;
+    } else if (minutes > 0) {
+      return `${minutes} phút trước`;
+    } else {
+      return `vài phút trước`;
+    }
+  }
 }

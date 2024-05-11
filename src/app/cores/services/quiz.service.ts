@@ -12,14 +12,27 @@ interface Filter {
     category: String | undefined;
     pageNumber: number;
     limit: number;
-  }
+}
+
+
+interface QuizResponse {
+    status: number,
+    message: string,
+    data: {
+        quizzes: Quiz[],
+        totalPages: number,
+        totalRecords: number
+    }
+}
 
 @Injectable({ providedIn: 'root' })
 export class QuizService {
+    private refreshQuiz = new BehaviorSubject<boolean>(false);
+
     constructor(private httpClient: HttpClient) { }
 
     // Lấy danh sách quiz của flashcard
-    getQuiz(userId: any, filter: Filter): Observable<Quiz> {
+    getQuiz(userId: any, filter: Filter): Observable<QuizResponse> {
         let baseUrl = environment.baseUrl + `/api/quiz/pagination/title?`;
 
         // Implement logic attribute filter !== undefined thì thêm vào url
@@ -46,7 +59,7 @@ export class QuizService {
         }
         
         return this.httpClient
-            .get<Quiz>(`${baseUrl}`)
+            .get<QuizResponse>(`${baseUrl}`)
             .pipe(catchError(this.handleError));
     }
 
@@ -102,6 +115,16 @@ export class QuizService {
                     },
                 })
             .pipe(catchError(this.handleError));
+    }
+
+    // Update trạng thái refresh quiz
+    setRefreshQuiz(value: boolean) {
+        this.refreshQuiz.next(value);
+    }
+
+    // Lấy thông tin trạng thái refresh quiz
+    getRefreshQuiz(): Observable<boolean> {
+        return this.refreshQuiz.asObservable();
     }
 
     private handleError(error: any) {

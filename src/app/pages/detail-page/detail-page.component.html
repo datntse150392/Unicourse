@@ -222,13 +222,28 @@
               />
             </svg>
           </div>
-          <span class="text-white">(19 đánh giá)</span>
-          <span class="text-white">239 học viên</span>
+          <span class="text-white"
+            ><a
+              class="text-blue-600 dark:text-blue-500 hover:underline"
+              (click)="scrollToFeedback()"
+              >({{ courseDetail.lecture.lecture_info.feedback.length }} xếp
+              hạng)
+            </a></span
+          >
+          <span class="text-white"
+            >{{ courseDetail.enrollmentCount }} học viên</span
+          >
         </div>
         <div class="mb-3">
           <span class="text-white"
-            >Được tạo bởi {{ courseDetail.lecture.fullName }}</span
-          >
+            >Được tạo bởi
+            <a
+              class="text-blue-600 dark:text-blue-500 hover:underline"
+              (click)="scrollToLecture()"
+            >
+              {{ courseDetail.lecture.fullName }}</a
+            >
+          </span>
         </div>
       </div>
       <div class="body-container flex flex-row pb-4">
@@ -282,14 +297,119 @@
               chương<span class="text-gray-900 font-extrabold"> • </span>
               <span class="text-gray-900 font-bold">{{ numberLesson }}</span>
               bài học •
-              <span class="text-gray-900 font-bold">3 giờ 5 phút </span> tổng
-              thời lượng
+              <span class="text-gray-900 font-bold">{{
+                convertToHour(totalTime)
+              }}</span>
+              tổng thời lượng
             </p>
-            <div class="card flex justify-content-center">
-              <app-list-track
-                class="w-full"
-                [tracks]="courseDetail.tracks"
-              ></app-list-track>
+            <div
+              data-active-classes="bg-blue-100 dark:bg-gray-800 text-blue-600 dark:text-white"
+            >
+              <ng-container
+                *ngFor="
+                  let track of courseDetail.tracks.slice(0, showCount);
+                  let isFirst = first
+                "
+              >
+                <ng-container *ngIf="isFirst">
+                  <h2 id="accordion-color-heading-{{ track._id }}">
+                    <button
+                      type="button"
+                      class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 border border-b-0 border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3"
+                      [attr.data-accordion-target]="
+                        '#accordion-color-body-' + track._id
+                      "
+                      aria-expanded="false"
+                      [attr.aria-controls]="'accordion-color-body-' + track._id"
+                      (click)="track.showBody = !track.showBody"
+                    >
+                      <span>{{ track.chapterTitle }}</span>
+                      <ng-container *ngIf="track.showBody">
+                        <i class="pi pi-angle-up" style="font-size: 1rem"></i>
+                      </ng-container>
+                      <ng-container *ngIf="!track.showBody">
+                        <i class="pi pi-angle-down" style="font-size: 1rem"></i>
+                      </ng-container>
+                    </button>
+                  </h2>
+                  <div
+                    *ngIf="track.showBody"
+                    id="accordion-color-body-{{ track._id }}"
+                  >
+                    <div
+                      class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                    >
+                      <div
+                        *ngFor="let trackStep of track.track_steps"
+                        class="mb-2 text-gray-900 dark:text-gray-400 flex flex-row items-center gap-2 justify-between"
+                      >
+                        <div class="flex flex-row items-center gap-2">
+                          <i class="pi pi-youtube" style="font-size: 1rem"></i>
+                          {{ trackStep.title }}
+                          <a
+                            (click)="showDialog(trackStep)"
+                            class="cursor-pointer text-blue-600 dark:text-blue-500 hover:underline"
+                            >(Xem trước)
+                          </a>
+                        </div>
+                        <p>{{ convertToHour(trackStep.duration) }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!isFirst">
+                  <h2 id="accordion-color-heading-{{ track._id }}">
+                    <button
+                      type="button"
+                      class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3"
+                      [attr.data-accordion-target]="
+                        '#accordion-color-body-' + track._id
+                      "
+                      aria-expanded="false"
+                      [attr.aria-controls]="'accordion-color-body-' + track._id"
+                      (click)="track.showBody = !track.showBody"
+                    >
+                      <span>{{ track.chapterTitle }}</span>
+                      <ng-container *ngIf="track.showBody">
+                        <i class="pi pi-angle-up" style="font-size: 1rem"></i>
+                      </ng-container>
+                      <ng-container *ngIf="!track.showBody">
+                        <i class="pi pi-angle-down" style="font-size: 1rem"></i>
+                      </ng-container>
+                    </button>
+                  </h2>
+                  <div
+                    *ngIf="track.showBody"
+                    id="accordion-color-body-{{ track._id }}"
+                  >
+                    <div
+                      class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                    >
+                      <div
+                        *ngFor="let trackStep of track.track_steps"
+                        class="mb-2 text-gray-900 dark:text-gray-400 flex flex-row items-center gap-2 justify-between"
+                      >
+                        <div class="flex flex-row items-center gap-2">
+                          <i class="pi pi-youtube" style="font-size: 1rem"></i>
+                          {{ trackStep.title }}
+                        </div>
+                        <p>{{ convertToHour(trackStep.duration) }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <button
+                *ngIf="showCount < courseDetail.tracks.length"
+                type="button"
+                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-900 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3"
+              >
+                <span
+                  class="w-full"
+                  (click)="showCount = courseDetail.tracks.length"
+                  >Xem tất cả các phần</span
+                >
+              </button>
             </div>
           </div>
 
@@ -308,7 +428,7 @@
           </div>
 
           <!-- Lecture Info -->
-          <div class="lecture-info mt-10">
+          <div id="lecture-section" class="lecture-info mt-10">
             <h3
               class="mb-2 text-3xl font-customFont font-bold leading-none tracking-tight text-gray-900 dark:text-white"
             >
@@ -316,7 +436,10 @@
             </h3>
             <div class="m-0 flex flex-column gap-2">
               <div class="main-info mt-2">
-                <a href="#" class="font-medium text-xl text-[#5624D0]">
+                <a
+                  href="#"
+                  class="text-blue-600 dark:text-blue-500 hover:underline"
+                >
                   {{ courseDetail.lecture.fullName }}
                 </a>
                 <span class="text-[#6a6f73] text-xl">{{
@@ -375,6 +498,155 @@
               </div>
             </div>
           </div>
+
+          <!-- Đánh giá giảng viên -->
+          <div id="feedback-section" class="feecback w-full mt-10">
+            <p class="font-bold text-xl flex flex-row items-center gap-2">
+              <svg
+                class="h-4 text-yellow-300"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 22 20"
+              >
+                <path
+                  d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                />
+              </svg>
+              {{ avgRating }} xếp hạng khóa học •
+              {{ courseDetail.lecture.lecture_info.feedback.length }} xếp hạng
+            </p>
+
+            <div class="grid grid-cols-12 mt-2 gap-5">
+              <ng-container
+                *ngFor="
+                  let feedback of courseDetail.lecture.lecture_info.feedback.slice(
+                    0,
+                    4
+                  )
+                "
+              >
+                <div class="col-span-6 border p-4">
+                  <article>
+                    <div class="flex flex-col">
+                      <p class="font-bold">{{ feedback.user_id.fullName }}</p>
+                      <time
+                        datetime="2014-08-16 19:00"
+                        class="block text-sm text-gray-500 dark:text-gray-400"
+                        >Thành viên của Unicourse từ
+                        {{
+                          publishedAtString(feedback.user_id.created_at)
+                        }}</time
+                      >
+                    </div>
+                    <div
+                      class="flex items-center mb-1 space-x-1 rtl:space-x-reverse w-[5rem]"
+                    >
+                      <svg
+                        class="w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                        />
+                      </svg>
+                      <svg
+                        class="w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                        />
+                      </svg>
+                      <svg
+                        class="w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                        />
+                      </svg>
+                      <svg
+                        class="w-4 h-4 text-yellow-300"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                        />
+                      </svg>
+                      <svg
+                        class="w-4 h-4 text-gray-300 dark:text-gray-500"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 22 20"
+                      >
+                        <path
+                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                        />
+                      </svg>
+                    </div>
+                    <footer
+                      class="mb-5 text-sm text-gray-500 dark:text-gray-400"
+                    >
+                      <p>
+                        Đã đánh giá
+                        {{ courseDetail.title }}
+                        <time datetime="2017-03-03 19:00"
+                          >,
+                          {{ feedback.created_at | date : "dd/MM/yyyy" }}</time
+                        >
+                      </p>
+                    </footer>
+                    <p class="mb-2 text-gray-900 dark:text-gray-400">
+                      {{ feedback.content }}
+                    </p>
+
+                    <a
+                      class="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+                      >Xem thêm</a
+                    >
+                    <aside>
+                      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        19 người đã thấy đánh giá này hữu ích
+                      </p>
+                      <div class="flex items-center mt-3">
+                        <a
+                          href="#"
+                          class="px-2 py-1.5 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                          >Hữu ích</a
+                        >
+                        <a
+                          href="#"
+                          class="ps-4 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 border-gray-200 ms-4 border-s md:mb-0 dark:border-gray-600"
+                          >Báo cáo</a
+                        >
+                      </div>
+                    </aside>
+                  </article>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <button
+            *ngIf="showCount < courseDetail.tracks.length"
+            type="button"
+            class="ml-[-7px] mt-2 flex items-center justify-between p-2 font-medium rtl:text-right text-gray-900 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3"
+          >
+            <span>Xem tất cả đánh giá</span>
+          </button>
         </div>
 
         <div class="col-4 course-info-right">
@@ -417,3 +689,23 @@
     </ng-template>
   </div>
 </div>
+
+<p-dialog
+  *ngIf="courseDetail"
+  header="{{ courseDetail.title }}"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '70rem' }"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [maximizable]="true"
+>
+  <div class="container">
+    <iframe
+      width="100%"
+      [ngStyle]="{ height: '40rem' }"
+      [src]="videoUrl"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+</p-dialog>

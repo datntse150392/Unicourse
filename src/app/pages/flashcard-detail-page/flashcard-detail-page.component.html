@@ -64,10 +64,9 @@
       >
         <!-- Câu hỏi -->
         <div class="mb-6">
-          <h3 id="titleScroll" class="text-3xl font-bold text-gray-900">{{ userFlashcard.title }}</h3>
-          <p-divider type="solid"></p-divider>
+          <h3 id="titleScroll" class="text-xl font-bold text-gray-900">{{ userFlashcard.title }}</h3>
           <p
-            class="text-2xl text-justify font-medium font-customFont text-gray-900"
+            class="text-lg text-justify font-medium font-customFont text-gray-900"
           >
             {{ currentItems.title }}
           </p>
@@ -109,14 +108,14 @@
                 </svg>
               </div>
               <div class="basis-11/12">
-                <p
+                <h2
                   [ngClass]="{
                     'activeText': item && item.is_checked,
-                    'textRightAnswer text-white font-medium': isShowRightAnswer && item && item.is_correct,
+                    'textRightAnswer text-white': isShowRightAnswer && item && item.is_correct,
                   }"
-                  class="text-lg text-justify font-medium font-customFont text-gray-900">
+                  class="font-medium text-sm text-justify text-gray-900">
                   {{ item.answer_text }}
-                </p>
+                </h2>
               </div>
             </div>
           </div>

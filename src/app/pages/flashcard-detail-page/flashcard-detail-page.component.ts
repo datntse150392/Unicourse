@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { QuizService, UserService } from '../../cores/services';
-import { Quiz, UserQuiz, UserQuestion } from '../../cores/models';
+import { Quiz, UserQuiz, UserQuestion, CorrectAnswer, UserAnswer } from '../../cores/models';
 import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.service';
 import * as _ from 'lodash';
 
@@ -103,7 +103,14 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
           if (!this.userFlashcard) { // Nếu không tìm thấy quizId trong quiz_process thì lấy quiz từ API
             this.getQuizByQuizId(quizId);
           } else { // Nếu tìm thấy quizId trong quiz_process thì lấy quiz từ quiz_process
-            this.currentItems = this.userFlashcard.questions[this.currentIndex];
+            const unansweredQuestion = this.userFlashcard.questions.find((x: UserQuestion) => !x.is_answered);
+            if (unansweredQuestion) {
+              this.currentItems = unansweredQuestion;
+              this.currentIndex = this.userFlashcard.questions.indexOf(unansweredQuestion);
+              this.currentIndex > 0 ? this.isDisabledPrevios = false : this.isDisabledPrevios = true;
+              this.currentIndex < this.userFlashcard.questions.length - 1 ? this.isDisabledNext = false : this.isDisabledNext = true;
+              this.progressValue = ((this.currentIndex + 1) / this.userFlashcard.questions.length) * 100;
+            }
             this.blockedUI = false;
           }
         } else {
@@ -132,6 +139,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
         clonedObject.questions.map((x: any) => {
           x.answer.map((y: any) => {
             y.is_checked = false;
+            y.is_answered = false;
           });
         });
         this.userFlashcard = clonedObject;
@@ -146,31 +154,25 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(getQuizDetailSub$);
   }
 
-  mappingQuizProgress(quizProgress: any) {
-
-  }
-
   toggleActive(item: any, currentItems: any) {
     this.updateUserAnswer(item, currentItems);
   }
 
   nextQuestion() {
     if (this.currentIndex < this.userFlashcard.questions.length - 1) {
+      this.userFlashcard.questions[this.currentIndex].is_answered = !this.currentItems.answer.every((x: any) => x.is_checked === false) // Kiểm tra xem câu hỏi có trả lời không
       this.currentIndex++;
       this.currentItems = this.userFlashcard.questions[this.currentIndex];
       this.handleToggleDisabledButton();
-      // Scroll smooth to top lên đầu trang
-      this.scrollToTitle();
     }
   }
 
   prevQuestion() {
     if (this.currentIndex > 0) {
+      this.userFlashcard.questions[this.currentIndex].is_answered = !this.currentItems.answer.every((x: any) => x.is_checked === false) // Kiểm tra xem câu hỏi có trả lời không
       this.currentIndex--;
       this.currentItems = this.userFlashcard.questions[this.currentIndex];
       this.handleToggleDisabledButton();
-      // Scroll smooth to top lên đầu trang
-      this.scrollToTitle();
     }
   }
 
@@ -196,6 +198,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
       default:
         break;
     }
+    this.userFlashcard.questions[this.currentIndex].is_answered = !this.currentItems.answer.every((x: any) => x.is_checked === false) // Kiểm tra xem câu hỏi có trả lời không
   }
 
   updateWithSingleChoice(item: any, currentItems: any) {
@@ -326,6 +329,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
                 return: false,
                 numberBtn: 1
               });
+              this.quizService.setRefreshQuiz(true);
             }
           },
           error: (err: any) => {
@@ -345,6 +349,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   finishQuiz() {
+    this.userFlashcard.questions[this.currentIndex].is_answered = !this.currentItems.answer.every((x: any) => x.is_checked === false) // Kiểm tra xem câu hỏi có trả lời không
     // Navigate to result page with data userFlashcard
     this.skipDisplayConfirmDialog = true;
     this.handleExistFlashcard('finishQuiz');
