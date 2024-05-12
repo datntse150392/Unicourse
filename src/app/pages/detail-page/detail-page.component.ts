@@ -42,7 +42,7 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     private el: ElementRef
   ) {
     // Scroll smooth lên đầu trang
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0 });
   }
   courseId!: string;
   numberLesson: number = 0;

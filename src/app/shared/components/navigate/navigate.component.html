@@ -62,13 +62,111 @@
         ></i>
 
         <p-avatar
-          (click)="menu.toggle($event)"
+          (click)="op.toggle($event)"
           image="{{ user.profile_image }}"
           styleClass="mr-2 mt-1"
           [ngStyle]="{ cursor: 'pointer',  }"
           size="normal"
           shape="circle"
         ></p-avatar>
+        <p-overlayPanel #op>
+          <div class="flex flex-column w-15rem avt-group">
+            <!-- Avatar Infor -->
+            <div class="flex flex-row items-center gap-2 pb-3 border-b">
+              <img
+                [ngStyle]="{
+                  width: '3rem',
+                  height: '3rem',
+                  'border-radius': '100%'
+                }"
+                src="{{ user.profile_image }}"
+              />
+              <div class="flex flex-col">
+                <p class="text-gray-900 m-0">{{ user.fullName }}</p>
+                <span class="text-gray-500 text-sm m-0">{{ user.email }}</span>
+              </div>
+            </div>
+
+            <!-- Point -->
+            <div
+              class="point flex flex-col items-cennter justify-between py-3 border-b"
+            >
+              <div class="flex flex-row items-cennter justify-between">
+                <p class="text-gray-700 text-sm">Point</p>
+                <div class="flex flex-row items-center gap-1">
+                  <p class="text-gray-700 text-sm">
+                    {{ totalCoin | number : "1.0-0" }}
+                  </p>
+                  <img
+                    width="20"
+                    height="20"
+                    src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
+                    alt="coins"
+                  />
+                </div>
+              </div>
+              <button
+                (click)="this.redirectToDepositPoint()"
+                type="button"
+                class="text-center items-center mt-2 px-4 py-2 text-sm font-medium text-gray-900 bg-transparent border border-gray-900 rounded-lg hover:bg-gray-900 hover:text-white focus:z-10 focus:ring-2 focus:ring-gray-500 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700"
+              >
+                Nạp Point tại đây
+              </button>
+            </div>
+
+            <!-- Profile -->
+            <div class="py-3 border-b">
+              <p
+                (click)="this.redirectToProfile()"
+                class="text-gray-700 text-md hover:font-bold hover:text-gray-900 cursor-pointer"
+              >
+                Trang cá nhân
+              </p>
+            </div>
+
+            <!-- Blog -->
+            <div class="py-3 border-b">
+              <p
+                (click)="this.redirectToWriteBlog()"
+                class="text-gray-700 text-md hover:font-bold hover:text-gray-900 cursor-pointer"
+              >
+                Viết Blog
+              </p>
+            </div>
+
+            <!-- History Point -->
+            <div class="py-3 border-b">
+              <p
+                (click)="this.redirectToCart()"
+                class="text-gray-700 text-md mb-3 hover:font-bold hover:text-gray-900 cursor-pointer"
+              >
+                Giỏ hàng
+              </p>
+              <p
+                (click)="redirectToHistoryPoint()"
+                class="text-gray-700 text-md hover:font-bold hover:text-gray-900 cursor-pointer"
+              >
+                Lịch sử nhận Point
+              </p>
+            </div>
+
+            <!-- Setting -->
+            <div class="py-3">
+              <p
+                (click)="this.redirectToSettingPersonal()"
+                class="text-gray-700 text-md mb-3 hover:font-bold hover:text-gray-900 cursor-pointer"
+              >
+                Cài đặt
+              </p>
+              <p
+                (click)="this.logout()"
+                class="text-gray-700 text-md hover:font-bold hover:text-gray-900 cursor-pointer"
+              >
+                Đăng xuất
+              </p>
+            </div>
+          </div>
+        </p-overlayPanel>
 
         <p-menu #menu [model]="items" [popup]="true"></p-menu>
       </ng-container>

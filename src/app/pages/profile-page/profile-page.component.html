@@ -1,8 +1,5 @@
-<div class="container relative">
-  <div
-    *ngIf="userDetail"
-    class="info-container header-background bg-white shadow"
-  >
+<div *ngIf="userDetail; else emptyUser" class="container relative">
+  <div class="info-container header-background bg-white shadow">
     <div
       routerLink="/"
       routerLinkActive="active"
@@ -74,7 +71,7 @@
   </div>
 
   <!-- Group Body -->
-  <div *ngIf="userDetail" class="body-container py-6">
+  <div class="body-container py-6">
     <div class="flex flex-row">
       <div class="basis-4/12 md:basis-5/12">
         <!-- Giới thiệu Card -->
@@ -155,3 +152,15 @@
     </div>
   </div>
 </div>
+<ng-template #emptyUser>
+  <!-- CSS Loading component -->
+  <div class="w-full h-[100rem] bg-white">
+    <p-blockUI [blocked]="blockUI">
+      <div
+        class="flex flex-row justify-center items-cennter align-items-center w-full h-full bg-white"
+      >
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    </p-blockUI>
+  </div>
+</ng-template>

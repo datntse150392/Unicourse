@@ -16,13 +16,6 @@
       class="btn-view-demo p-button-success"
       (click)="handleCreateBlog()"
     ></button>
-    <p-avatar
-      image="{{ user.profile_image }}"
-      shape="circle"
-      [ngStyle]="{ cursor: 'pointer' }"
-      (click)="menu.toggle($event)"
-    />
-    <p-menu #menu [model]="items" [popup]="true"></p-menu>
   </div>
 </header>
 

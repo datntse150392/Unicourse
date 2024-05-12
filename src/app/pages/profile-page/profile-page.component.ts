@@ -17,6 +17,15 @@ import { DialogBroadcastService } from '../../cores/services/dialog-broadcast.se
   styleUrl: './profile-page.component.scss',
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
+  public userDetail!: User;
+  public userId!: string;
+  public userInfo!: User;
+  public myCourses!: any;
+  public userCreatedTime!: string;
+  public blockUI: boolean = true;
+
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
@@ -29,13 +38,6 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     // Scroll smooth lên đầu trang
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  public userDetail!: User;
-  public userId!: string;
-  public userInfo!: User;
-  public myCourses!: any;
-  private subscriptions: Subscription[] = [];
-  public userCreatedTime!: string;
 
   ngOnInit(): void {
     //Sử dụng switchMap để lấy giá trị của tham số 'id' từ paramMap
@@ -68,6 +70,10 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.getMyCourses();
     }
     this.subscriptions.push(userSub$);
+
+    setTimeout(() => {
+      this.blockUI = false;
+    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -116,9 +122,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   // hanleGetCourseDetail
   hanleGetCourseDetail(courseId: string): void {
     if (this.myCourses) {
-      var course = this.myCourses.find(
-        (item: any) => item._id === courseId
-      );
+      var course = this.myCourses.find((item: any) => item._id === courseId);
       if (course) {
         if (course.trackProgress[0]) {
           this.router.navigate([

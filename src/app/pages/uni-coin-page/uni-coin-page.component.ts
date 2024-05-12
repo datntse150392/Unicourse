@@ -16,6 +16,7 @@ export class UniCoinPageComponent {
   public listCoinsUsed: Coin[] = [];
   public listCounsActived: Coin[] = [];
   public totalCoin: number = 0;
+  public selectedTabIndex: number = 0; // Mặc định chọn tab đầu tiên
 
   public isBlockUI: boolean = false;
 

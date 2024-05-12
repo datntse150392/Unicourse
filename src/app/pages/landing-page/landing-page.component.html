@@ -203,7 +203,7 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coin-text">{{ getTotalCoin }}</p>
+          <p class="coin-text">{{ getTotalCoin | number : "1.0-0" }}</p>
           <i
             routerLink="/uni-coins"
             class="pi pi-angle-right"

@@ -321,7 +321,10 @@
               </ng-template>
 
               <ng-container
-                *ngIf="userInfo._id == comment.commentator._id; else NotAuthor"
+                *ngIf="
+                  userInfo && userInfo._id == comment.commentator._id;
+                  else NotAuthor
+                "
               >
                 <p
                   (click)="toggleEditorReplyCommentFunc(i, '')"
@@ -351,7 +354,7 @@
                 <div class="dropdown-content">
                   <ng-container
                     *ngIf="
-                      userInfo._id === comment.commentator._id;
+                      userInfo && userInfo._id === comment.commentator._id;
                       else ReportCommentBtn
                     "
                   >
@@ -505,17 +508,17 @@
                   <p class="mr-2 font-normal text-[#999999]">
                     {{ publishedAtString(reply.created_at) }}
                   </p>
-                  <p class="mr-2 p-custome">Thích</p>
+                  <!-- <p class="mr-2 p-custome">Thích</p> -->
                   <ng-container
                     *ngIf="
-                      userInfo._id == comment.commentator._id;
+                      userInfo && userInfo._id == comment.commentator._id;
                       else NotAuthor
                     "
                   >
                     <p class="mr-2 p-custome">Phản hồi</p>
                   </ng-container>
                   <ng-template #NotAuthor>
-                    <p class="mr-2 p-custome">Phản hồi</p>
+                    <!-- <p class="mr-2 p-custome">Phản hồi</p> -->
                   </ng-template>
 
                   <div class="dropdown ml-2">
@@ -523,7 +526,7 @@
                     <div class="dropdown-content">
                       <ng-container
                         *ngIf="
-                          userInfo._id === comment.commentator._id;
+                          userInfo && userInfo._id === comment.commentator._id;
                           else ReportCommentBtn
                         "
                       >

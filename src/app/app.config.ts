@@ -22,6 +22,7 @@ import { errorInterceptor } from './cores/interceptors/error.interceptor';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { MarkdownModule } from 'ngx-markdown';
+import { IMAGE_CONFIG } from '@angular/common';
 
 // Paypayl config
 
@@ -47,5 +48,12 @@ export const appConfig: ApplicationConfig = {
       provideStorage(() => getStorage()),
       MarkdownModule.forRoot()
     ),
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true,
+      },
+    },
   ],
 };

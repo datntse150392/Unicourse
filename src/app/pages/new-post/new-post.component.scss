@@ -12,7 +12,7 @@ header {
     flex-direction: row;
     align-items: center;
     img {
-      width: 6rem;
+      width: 3rem;
     }
     gap: 0.25rem;
     .back-home {
@@ -32,10 +32,10 @@ header {
     align-items: center;
     gap: 1rem;
     .btn-view-demo {
-      background-color: rgb(244, 62, 6);
+      background: linear-gradient(to right bottom, #d8efff, #97d5fe);
       padding: 0.5rem 1rem;
-      color: #fff;
-      border-radius: 10rem;
+      color: #333333;
+      border-radius: 5px;
       font-size: 12px;
     }
     p {
@@ -64,10 +64,10 @@ header {
     display: flex;
     justify-content: end;
     margin-top: 1rem;
-    background-color: rgb(244, 62, 6);
+    background: linear-gradient(to right bottom, #d8efff, #97d5fe);
     padding: 0.5rem 1rem;
-    color: #fff;
-    border-radius: 10px;
+    color: #333333;
+    border-radius: 5px;
     font-size: 12px;
   }
 }

@@ -17,15 +17,25 @@
             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
             alt="coins"
           />
-          <p class="coins-text">{{ totalCoin }} Point đang có</p>
+          <p class="coins-text">
+            {{ totalCoin | number : "1.0-0" }} Point đang có
+          </p>
         </div>
         <div class="get-coins" routerLink="/coin-banking">
           <p class="coins-text">Nạp thêm Point</p>
         </div>
       </header>
       <div class="tab-view-history">
-        <p-tabView>
-          <p-tabPanel header="Tất cả lịch sử">
+        <p-tabView [(activeIndex)]="selectedTabIndex">
+          <p-tabPanel>
+            <ng-template pTemplate="header">
+              <p
+                [ngClass]="{ 'active-tab': selectedTabIndex === 0 }"
+                class="flex align-items-center gap-2"
+              >
+                Lịch sử nhận thưởng
+              </p>
+            </ng-template>
             <ng-container *ngFor="let item of this.coins">
               <ng-container *ngIf="item.status === 'active'; else notActive">
                 <div class="history">
@@ -45,9 +55,7 @@
                       </p>
                     </div>
                   </div>
-                  <p class="his-right">
-                    {{ "+" + item.coin }}
-                  </p>
+                  <p class="his-right">+{{ +item.coin | number : "1.0-0" }}</p>
                 </div>
               </ng-container>
               <ng-template #notActive>
@@ -69,13 +77,21 @@
                     </div>
                   </div>
                   <p class="his-right" [ngStyle]="{ color: 'red' }">
-                    {{ item.coin }}
+                    {{ item.coin | number : "1.0-0" }}
                   </p>
                 </div>
               </ng-template>
             </ng-container>
           </p-tabPanel>
-          <p-tabPanel header="Nhận Point">
+          <p-tabPanel>
+            <ng-template pTemplate="header">
+              <p
+                [ngClass]="{ 'active-tab': selectedTabIndex === 1 }"
+                class="flex align-items-center gap-2"
+              >
+                Nhận Point
+              </p>
+            </ng-template>
             <div *ngFor="let item of this.listCounsActived" class="history">
               <div class="his-left">
                 <img
@@ -90,10 +106,18 @@
                   </p>
                 </div>
               </div>
-              <p class="his-right">+{{ item.coin }}</p>
+              <p class="his-right">+{{ item.coin | number : "1.0-0" }}</p>
             </div>
           </p-tabPanel>
-          <p-tabPanel header="Dùng Point">
+          <p-tabPanel>
+            <ng-template pTemplate="header">
+              <p
+                [ngClass]="{ 'active-tab': selectedTabIndex === 2 }"
+                class="flex align-items-center gap-2"
+              >
+                Dùng Point
+              </p>
+            </ng-template>
             <div *ngFor="let item of this.listCoinsUsed" class="history">
               <div class="his-left">
                 <img

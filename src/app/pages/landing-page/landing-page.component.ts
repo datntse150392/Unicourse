@@ -219,21 +219,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       {
         id: '1',
         image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
-        title: 'Học từ những chuyên gia',
-        description: 'Học từ những chuyên gia hàng đầu',
-      },
-      {
-        id: '2',
-        image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F4.png?alt=media&token=0a4d4bd1-30e9-4f4d-ae41-75ab527432fb',
-        title: 'Học từ những chuyên gia',
-        description: 'Học từ những chuyên gia hàng đầu',
-      },
-      {
-        id: '3',
-        image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F5.png?alt=media&token=dfac0831-73b6-481a-a11e-499f76313054',
+          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FTo%CC%82%CC%89ng%20ho%CC%9B%CC%A3p%20thie%CC%82%CC%81t%20ke%CC%82%CC%81%20banner.jpg?alt=media&token=c9d4ee1a-1ecf-4fa0-a397-0a6c041bf62chttps://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
+      
         title: 'Học từ những chuyên gia',
         description: 'Học từ những chuyên gia hàng đầu',
       },

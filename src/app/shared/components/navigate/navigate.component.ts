@@ -8,6 +8,7 @@ import { MegaMenuItem, MenuItem, MessageService } from 'primeng/api';
 import {
   AuthService,
   CartService,
+  CoinService,
   CourseService,
 } from '../../../cores/services';
 import { Router } from '@angular/router';
@@ -32,6 +33,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
   public cart!: Cart;
   public updateCartSub$: Subscription | undefined;
   items1: MegaMenuItem[] | undefined;
+  public totalCoin: number = 0;
 
   constructor(
     private sharedService: SharedService,
@@ -41,7 +43,8 @@ export class NavigateComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private chatRoomService: ChatRoomService,
     private readonly dialogBroadcastService: DialogBroadcastService,
-    private readonly courseService: CourseService
+    private readonly courseService: CourseService,
+    private readonly coinService: CoinService
   ) {}
 
   ngOnInit(): void {
@@ -161,6 +164,16 @@ export class NavigateComponent implements OnInit, OnDestroy {
         }
       },
     });
+
+    // Lấy tổng số coin
+    const getTotalCoinSub$ = this.coinService.getTotalCoinByUserId().subscribe({
+      next: (res: any) => {
+        if (res && res.status === 200) {
+          this.totalCoin = res.data;
+        }
+      },
+    });
+    this.subscriptions.push(getTotalCoinSub$);
   }
 
   retrieveUserCart() {
@@ -285,6 +298,17 @@ export class NavigateComponent implements OnInit, OnDestroy {
     this.router.navigate([`flashcard`]);
   }
 
+  redirectToDepositPoint() {
+    this.router.navigate(['coin-banking']);
+  }
+
+  redirectToWriteBlog() {
+    this.router.navigate(['new-post']);
+  }
+
+  redirectToHistoryPoint() {
+    this.router.navigate(['uni-coins']);
+  }
   // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io
   joinRoom(roomId: string) {
     if (roomId && this.user) {

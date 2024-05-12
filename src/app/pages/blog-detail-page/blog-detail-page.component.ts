@@ -150,6 +150,10 @@ export class BlogDetailPageComponent {
 
   // Gửi comment
   sendComment() {
+    if (!this.userInfo) {
+      this.sharedService.turnOnSignInDialog();
+      return;
+    }
     if (this.editorContentComment && this.userInfo) {
       const createCommentSubs$ = this.commentService
         .createComment(this.blogId || '', this.editorContentComment)
@@ -183,6 +187,10 @@ export class BlogDetailPageComponent {
 
   // Like bình luận
   likeorUnLikeComment(commentId: any) {
+    if (!this.userInfo) {
+      this.sharedService.turnOnSignInDialog();
+      return;
+    }
     try {
       const likeCommentSubs$ = this.commentService
         .likeOrUnLikeComment(commentId)
@@ -197,6 +205,7 @@ export class BlogDetailPageComponent {
             }
           },
         });
+      this.subscriptions.push(likeCommentSubs$);
     } catch (error) {}
 
     // this.dialogBroadcastService.broadcastDialog({
@@ -342,6 +351,10 @@ export class BlogDetailPageComponent {
 
   // Gửi phản hồi bình luận
   sendReplyComment(commentId: any, currentComment: any) {
+    if (!this.userInfo) {
+      this.sharedService.turnOnSignInDialog();
+      return;
+    }
     if (this.editorReplyComment && this.userInfo) {
       const createReplyCommentSubs$ = this.commentService
         .replyComment(commentId, this.editorReplyComment)

@@ -51,6 +51,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
   public listNewFeeds: NewFeed[] = [];
   public blockedUI: boolean = false;
 
+  public isComponentLoaded: boolean = false;
+
   private subScriptions: Subscription[] = [];
   constructor(
     private sharedService: SharedService,
@@ -61,6 +63,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
     private readonly transactionService: TransactionService
   ) {}
   ngOnInit(): void {
+    this.initForm();
+
     // Đăng ký nhận thông báo hiển thị dialog đăng ký
     const turnOnSignInSub = this.sharedService.turnOnSignIn$.subscribe({
       next: (res: boolean) => {
@@ -80,11 +84,6 @@ export class DefaultComponent implements OnInit, OnDestroy {
     // Lưu các subscription vào mảng để unsubscribe
     this.subScriptions.push(turnOnSignUpSub);
     this.subScriptions.push(turnOnSignInSub);
-
-    // Lấy thông tin user
-    this.user = JSON.parse(localStorage.getItem('UserInfo') || '{}');
-
-    this.initForm();
 
     // Kiểm tra local storage có tồn tại thông tin thanh toán cũ hay không? -> Nếu có thì remove
     if (localStorage.getItem('cart_id')) {
@@ -113,6 +112,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
+    // Lấy thông tin user
+    this.user = JSON.parse(localStorage.getItem('UserInfo') || '{}');
+
     const getListNewFeedsSubs$ = this.newFeedService
       .getAllNewFeeds()
       .subscribe({
