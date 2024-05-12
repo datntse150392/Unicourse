@@ -422,13 +422,34 @@
             >
           </button>
           <h3
-            class="mb-1 mt-1 text-lg"
+            class="mb-1 mt-1 text-xl"
             [ngStyle]="{
               color: '#292929'
             }"
           >
             {{ course.title }}
           </h3>
+          <ng-container *ngIf="this.course.amount > 0; else courseFree">
+            <h3
+              class="mb-1 mt-1 text-lg"
+              [ngStyle]="{
+                color: '#F05123'
+              }"
+            >
+              {{ course.amount | currency : "VND" }}
+            </h3>
+          </ng-container>
+          <ng-template #courseFree>
+            <h3
+              class="mb-1 mt-1 text-lg"
+              [ngStyle]="{
+                color: '#F05123'
+              }"
+            >
+              Miễn phí
+            </h3>
+          </ng-template>
+
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>
             <span>{{ course.enrollmentCount }} người đã tham gia</span>
@@ -486,6 +507,26 @@
           >
             {{ course.title }}
           </h3>
+          <ng-container *ngIf="this.course.amount > 0; else courseFree">
+            <h3
+              class="mb-1 mt-1 text-lg"
+              [ngStyle]="{
+                color: '#F05123'
+              }"
+            >
+              {{ course.amount | currency : "VND" }}
+            </h3>
+          </ng-container>
+          <ng-template #courseFree>
+            <h3
+              class="mb-1 mt-1 text-lg"
+              [ngStyle]="{
+                color: '#F05123'
+              }"
+            >
+              Miễn phí
+            </h3>
+          </ng-template>
           <div class="flex flex-row gap-2 align-items-center">
             <i class="pi pi-users" style="color: #708090"></i>
             <span>{{ course.enrollmentCount }} người đã tham gia</span>

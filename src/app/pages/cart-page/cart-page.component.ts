@@ -507,6 +507,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
         this.totalCoin > 0 &&
         this.totalCoin > this.totalAmountBeforeApplyVoucher
       ) {
+        this.totalDiscount = this.totalAmountBeforeApplyVoucher;
         this.totalAmountBeforeApplyVoucher = 0;
       } else if (
         this.isUseCoin &&
