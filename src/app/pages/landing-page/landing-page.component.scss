@@ -136,70 +136,6 @@
       }
     }
   }
-  .edu-program {
-    height: 100%;
-    background-color: white;
-    padding: 3%;
-
-    .title {
-      h3 {
-        text-align: center;
-        font-size: 38px;
-        color: #12265a;
-        margin: 0;
-      }
-      p {
-        text-align: center;
-        width: 40rem;
-        color: #626472bd;
-      }
-    }
-    .detail {
-      padding: 0% 20%;
-      .detail-item-1 {
-        height: 25rem;
-        background-color: #00afff;
-        border-radius: 35px;
-        h3 {
-          color: #fff3f3;
-          font-size: 28px;
-          font-weight: bold;
-          margin-bottom: 0;
-        }
-        p {
-          color: #ffffffc2;
-        }
-      }
-      .detail-item-2 {
-        height: 25rem;
-        background-color: #695ffe;
-        border-radius: 35px;
-        h3 {
-          color: #fff3f3;
-          font-size: 28px;
-          font-weight: bold;
-          margin-bottom: 0;
-        }
-        p {
-          color: #ffffffc2;
-        }
-      }
-      .detail-item-3 {
-        height: 25rem;
-        background-color: #f42478;
-        border-radius: 35px;
-        h3 {
-          color: #fff3f3;
-          font-size: 28px;
-          font-weight: bold;
-          margin-bottom: 0;
-        }
-        p {
-          color: #ffffffc2;
-        }
-      }
-    }
-  }
 
   .semester {
     margin-top: 3%;
@@ -255,10 +191,10 @@
       position: relative;
       padding: 1%;
       img {
-        height: 15rem;
+        height: 12rem;
         width: 100%;
         border-radius: 10px;
-        object-fit: fill;
+        object-fit: cover;
       }
       h3 {
         font-size: 14px;
@@ -269,16 +205,6 @@
         font-size: 16px;
         color: #f05123;
         font-weight: 600;
-      }
-      .register-button {
-        display: none;
-        position: absolute;
-        margin-left: auto;
-        margin-right: auto;
-        left: 0;
-        right: 0;
-        top: 32%;
-        text-align: center;
       }
     }
     .course:hover {

@@ -31,10 +31,11 @@ export interface Course {
   type: string;
   amount: number;
   thumbnail: string;
-  createAt: Date;
   lecture: User;
   tracks: Track[];
   semester_number: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface FileStatus {

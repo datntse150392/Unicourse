@@ -26,14 +26,14 @@
             <img
               src="{{ product.image }}"
               [alt]="product.name"
-              class="w-full p-0 h-[32rem]"
+              class="w-full p-0 h-[35rem]"
             />
           </ng-template>
         </p-carousel>
 
         <!-- Hiển thị lịch booking -->
         <div
-          class="h-[32rem] header-right-content col-span-4 bg-[#D8EFFF] rounded-lg dark:bg-gray-800 dark:border-gray-700"
+          class="h-[35rem] header-right-content col-span-4 bg-[#D8EFFF] rounded-lg dark:bg-gray-800 dark:border-gray-700"
         >
           <!-- Hiển thị thời gian -->
           <div class="clock-time w-full h-2/5">
@@ -316,71 +316,6 @@
     </ng-template>
   </div>
 
-  <!-- Educational Programs -->
-  <!-- <div class="edu-program">
-    <div class="title flex flex-column align-items-center justify-center">
-      <h3 class="mt-0 font-bold">Chương trình giảng dạy</h3>
-      <p class="mb-6">
-        Sứ mệnh của chúng tôi là đảm bảo rằng tất cả sinh viên đều được cung cấp
-        các dịch vụ hỗ trợ và các khóa học chất lượng cao, với mức giá phải
-        chăng
-      </p>
-    </div>
-    <div class="detail gird flex flex-row justify-content-center gap-4">
-      <div
-        class="col-4 detail-item-1 flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          width="100"
-          height="100"
-          src="https://img.icons8.com/bubbles/100/education.png"
-          alt="education"
-        />
-        <div class="text-center">
-          <h3>Giáo Dục</h3>
-          <p class="p-2">
-            Cung cấp các khóa học chất lượng cao, với độ ngũ mentor có nhiều năm
-            kinh nghiệm giảng dạy
-          </p>
-        </div>
-      </div>
-      <div
-        class="col-4 detail-item-2 flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          width="100"
-          height="100"
-          src="https://img.icons8.com/bubbles/100/define-location.png"
-          alt="define-location"
-        />
-        <div class="text-center">
-          <h3>Mục Tiêu</h3>
-          <p class="p-2">
-            Mong muốn sẽ giúp hơn 1000 sinh viên IT trường ĐH FPT sẽ có nhiều
-            kiến thức, kinh nghiệm
-          </p>
-        </div>
-      </div>
-      <div
-        class="col-4 detail-item-3 flex flex-column justify-content-center align-items-center"
-      >
-        <img
-          width="100"
-          height="100"
-          src="https://img.icons8.com/bubbles/100/cyber-security.png"
-          alt="cyber-security"
-        />
-        <div class="text-center">
-          <h3>Bảo Mật</h3>
-          <p class="p-2">
-            Chúng tôi cam kết rằng hệ thống sẽ bảo mật thông tin người dùng một
-            cách an toàn nhất
-          </p>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
   <!-- Các khóa học có phí-->
   <ng-container *ngIf="this.listCourseFee && this.listCourseFee.length > 0">
     <div class="semester">
@@ -402,20 +337,60 @@
 
       <div class="flex flex-wrap align-items-center justify-content-start">
         <div *ngFor="let course of listCourseFee" class="course col-3">
-          <img src="{{ course.thumbnail }}" />
-          <button
-            class="register-button flipup animation-duration-300"
-            [style]="{
-              'border-radius': '10px'
-            }"
-          >
-            <span
-              (click)="hanleGetCourseDetail(course._id)"
-              class="font-bold bg-gradient-to-br from-[#5edff5] to-[#9f80f8] p-3"
-              [style]="{ color: '#ffffff', 'border-radius': '10px' }"
-              >Xem khóa học</span
-            >
-          </button>
+          <img
+            (mouseenter)="op.show($event)"
+            (mouseleave)="op.hide()"
+            src="{{ course.thumbnail }}"
+            [ngStyle]="{ cursor: 'pointer' }"
+            (click)="hanleGetCourseDetail(course._id)"
+          />
+          <p-overlayPanel #op>
+            <div class="flex flex-column gap-3 w-35rem px-2">
+              <div class="intro-info-course flex flex-col">
+                <span class="font-bold text-2xl text-gray-900 block mb-1">{{
+                  course.title
+                }}</span>
+                <span class="text-[#1E6054] font-normal text-sm my-1"
+                  >Cập nhật gần nhất
+                  {{ course.updated_at | date : "dd/MM/yyy" }}</span
+                >
+                <span class="text-gray-700 text-sm my-2"
+                  >Tổng số {{ course.tracks.length }} bài học • Tất cả trình
+                  độ</span
+                >
+                <div>
+                  <p class="text-xl font-bold text-gray-900">
+                    Bạn sẽ học được gì ?
+                  </p>
+                  <ul
+                    class="space-y-1 text-left text-gray-500 dark:text-gray-400"
+                  >
+                    <li
+                      *ngFor="let item of course.subTitleDescription"
+                      class="flex items-center m-1 rtl:space-x-reverse"
+                    >
+                      <svg
+                        class="flex-shrink-0 mr-1 w-3.5 h-3.5 text-green-700 dark:text-green-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 16 12"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M1 5.917 5.724 10.5 15 1.5"
+                        />
+                      </svg>
+                      <span class="text-gray-700">{{ item }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </p-overlayPanel>
           <h3 class="m-0 text-xl text-black">
             {{ course.title }}
           </h3>
@@ -525,21 +500,61 @@
       </div>
 
       <div class="flex flex-wrap align-items-center justify-content-start">
-        <div *ngFor="let course of listCourseFree" class="course col-3">
-          <img class="img-course" src="{{ course.thumbnail }}" />
-          <button
-            class="register-button flipup animation-duration-300"
-            [style]="{
-              'border-radius': '10px'
-            }"
-          >
-            <span
-              (click)="hanleGetCourseDetail(course._id)"
-              class="font-bold bg-gradient-to-br from-[#5edff5] to-[#9f80f8] p-3"
-              [style]="{ color: '#ffffff', 'border-radius': '10px' }"
-              >Xem khóa học</span
-            >
-          </button>
+        <div *ngFor="let course of listCourseFee" class="course col-3">
+          <img
+            (mouseenter)="op.show($event)"
+            (mouseleave)="op.hide()"
+            src="{{ course.thumbnail }}"
+            [ngStyle]="{ cursor: 'pointer' }"
+            (click)="hanleGetCourseDetail(course._id)"
+          />
+          <p-overlayPanel #op>
+            <div class="flex flex-column gap-3 w-35rem px-2">
+              <div class="intro-info-course flex flex-col">
+                <span class="font-bold text-2xl text-gray-900 block mb-1">{{
+                  course.title
+                }}</span>
+                <span class="text-[#1E6054] font-normal text-sm my-1"
+                  >Cập nhật gần nhất
+                  {{ course.updated_at | date : "dd/MM/yyy" }}</span
+                >
+                <span class="text-gray-700 text-sm my-2"
+                  >Tổng số {{ course.tracks.length }} bài học • Tất cả trình
+                  độ</span
+                >
+                <div>
+                  <p class="text-xl font-bold text-gray-900">
+                    Bạn sẽ học được gì ?
+                  </p>
+                  <ul
+                    class="space-y-1 text-left text-gray-500 dark:text-gray-400"
+                  >
+                    <li
+                      *ngFor="let item of course.subTitleDescription"
+                      class="flex items-center m-1 rtl:space-x-reverse"
+                    >
+                      <svg
+                        class="flex-shrink-0 mr-1 w-3.5 h-3.5 text-green-700 dark:text-green-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 16 12"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M1 5.917 5.724 10.5 15 1.5"
+                        />
+                      </svg>
+                      <span class="text-gray-700">{{ item }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </p-overlayPanel>
           <h3 class="m-0 text-xl text-black">
             {{ course.title }}
           </h3>
