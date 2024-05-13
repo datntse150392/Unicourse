@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { Quiz, UserQuiz } from '../models';
+import { Quiz, User, UserQuiz } from '../models';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -94,7 +94,8 @@ export class QuizService {
     // Call api tính toán flashcard result
     calculateResult(userFlashcard: any) {
         let body = userFlashcard;
-        const user_id = localStorage.getItem('user_id');
+        const UserInfo: User = JSON.parse(localStorage.getItem('UserInfo') || '');
+        const user_id = UserInfo._id;
         if (user_id) {
             body.user_id = user_id;
         }

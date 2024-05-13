@@ -59,6 +59,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   private UserInfo: any = localStorage.getItem('UserInfo');
   private userId = JSON.parse(localStorage.getItem('UserInfo') || '{}')._id;
   private skipDisplayConfirmDialog: boolean = false;
+  private isUpdate: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -270,7 +271,6 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   handleExistFlashcard(behavior: String) {
     // Check nếu có thông tin user flashcard thì hiển thị dialog thông báo
     if (this.UserInfo) {
-      this.handleDisplayConfirmDialog();
       switch (behavior) { // Nếu behavior la exitBtn thì chuyển hướng về trang flashcard // Nếu behavior là ngOnDestroy thì không làm gì cả
         case 'ngOnDestroy':
           break;
@@ -317,7 +317,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
 
     // Lắng nghe giá trị trả về của confirm dialog
     this.dialogBroadcastService.getDialogConfirm().subscribe((confirm) => {
-      if (confirm) {
+      if (confirm && !this.isUpdate) {
         // Call API here
         const saveUserQuiz$ = this.quizService.saveUserQuiz(this.userFlashcard).subscribe({
           next: (res: any) => {
@@ -329,6 +329,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
                 return: false,
                 numberBtn: 1
               });
+              this.isUpdate = true;
               this.quizService.setRefreshQuiz(true);
             }
           },
@@ -356,6 +357,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.handleDisplayConfirmDialog();
     this.handleExistFlashcard('ngOnDestroy');
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }

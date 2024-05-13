@@ -125,12 +125,6 @@
               font-weight: bold;
               color: #171414;
             }
-            .duration {
-              .time-start {
-              }
-              .time-end {
-              }
-            }
           }
         }
         .view-all {
@@ -264,7 +258,7 @@
         height: 15rem;
         width: 100%;
         border-radius: 10px;
-        object-fit: contain;
+        object-fit: fill;
       }
       h3 {
         font-size: 14px;
@@ -283,7 +277,7 @@
         margin-right: auto;
         left: 0;
         right: 0;
-        top: 35%;
+        top: 32%;
         text-align: center;
       }
     }

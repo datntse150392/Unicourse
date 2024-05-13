@@ -124,14 +124,14 @@
       <div class="col-8">
         <div class="will-learn">
           <h3
-            class="mb-4 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900"
+            class="mb-4 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900"
           >
-            Nội dung bài học
+            Bạn sẽ học được gì ?
           </h3>
           <div class="m-0">
             <!-- List content -->
             <ul
-              class="max-w-full grid grid-cols-12 space-y-5 text-gray-900 list-inside"
+              class="max-w-full grid grid-cols-12 space-y-5 text-gray-700 list-inside"
             >
               <li
                 *ngFor="let content of courseDetail.subTitleDescription"
@@ -157,18 +157,18 @@
         <!-- Source video course -->
         <div class="mt-10">
           <h3
-            class="mb-2 text-2xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-2xl dark:text-white"
+            class="mb-2 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 md:text-xl lg:text-xl dark:text-white"
           >
             Nội dung khóa học
           </h3>
           <p
-            class="mb-4 text-base font-customFont font-normal text-gray-900 lg:text-base dark:text-gray-900"
+            class="mb-4 text-base font-customFont font-normal text-gray-700 lg:text-base dark:text-gray-700"
           >
-            <span class="text-gray-900 font-bold">{{ numberChapter }}</span>
-            chương<span class="text-gray-900 font-extrabold"> • </span>
-            <span class="text-gray-900 font-bold">{{ numberLesson }}</span>
+            <span class="text-gray-700 font-bold">{{ numberChapter }}</span>
+            chương<span class="text-gray-700 font-extrabold"> • </span>
+            <span class="text-gray-700 font-bold">{{ numberLesson }}</span>
             bài học •
-            <span class="text-gray-900 font-bold">{{
+            <span class="text-gray-700 font-bold">{{
               convertToHour(totalTime)
             }}</span>
             tổng thời lượng
@@ -287,21 +287,50 @@
         <!-- Require Course -->
         <div class="require-course mt-10">
           <h3
-            class="mb-2 text-3xl font-customFont font-bold leading-none tracking-tight text-gray-900 dark:text-white"
+            class="mb-2 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 dark:text-white"
           >
-            Mô tả
+            Yêu cầu
           </h3>
           <div class="m-0 flex flex-column gap-2">
-            <p class="text-[1.1rem]">
-              {{ courseDetail.titleDescription }}
-            </p>
+            <ul class="space-y-1 text-gray-700 list-inside dark:text-gray-400">
+              <li class="flex items-center">
+                <svg
+                  class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"
+                  />
+                </svg>
+                Ý thức cao, trách nhiệm cao trong việc tự học. Thực hành lại sau
+                mỗi bài học
+              </li>
+              <li class="flex items-center">
+                <svg
+                  class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 flex-shrink-0"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"
+                  />
+                </svg>
+                Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn
+                những gì bạn cần phải biết
+              </li>
+            </ul>
           </div>
         </div>
 
         <!-- Lecture Info -->
         <div id="lecture-section" class="lecture-info mt-10">
           <h3
-            class="mb-2 text-3xl font-customFont font-bold leading-none tracking-tight text-gray-900 dark:text-white"
+            class="mb-0 text-xl font-customFont font-bold leading-none tracking-tight text-gray-900 dark:text-white"
           >
             Giảng viên
           </h3>
@@ -361,7 +390,7 @@
               </div>
             </div>
             <div class="mt-2">
-              <p class="text-[1.1rem]">
+              <p class="text-[1.1rem] text-gray-700">
                 {{ courseDetail.lecture.lecture_info.description }}
               </p>
             </div>

@@ -73,6 +73,13 @@ export class CourseService {
       .pipe(catchError(this.handleError));
   }
 
+  // Lấy danh sách tất cả các khoá học có phí
+  getCoursesFee(): Observable<Course[]> {
+    return this.httpClient
+      .get<Course[]>(`${environment.baseUrl}/api/course/get-all-course-fee`)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

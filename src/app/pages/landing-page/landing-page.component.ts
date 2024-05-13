@@ -44,6 +44,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public dataBanner: any[] = [];
   public responsiveOptions: any[] | undefined;
   public scheduleData: ScheduleMeeting | undefined;
+  public listCourseFree: Course[] = [];
+  public listCourseFee: Course[] = [];
 
   public isToggleRegisterScheduleMeeting: boolean = false;
   public isToggleDepositPoint: boolean = false;
@@ -122,30 +124,51 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     //     },
     //   });
 
-    // Lấy danh sách khóa học của học kỳ 1
-    const semester1Sub$ = this.courseService.getCoursebySemester(1).subscribe({
+    // // Lấy danh sách khóa học của học kỳ 1
+    // const semester1Sub$ = this.courseService.getCoursebySemester(1).subscribe({
+    //   next: (res: any) => {
+    //     this.semester1 = res.data;
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //   },
+    // });
+
+    // // Lấy danh sách khóa học của học kỳ 2
+    // const semester2Sub$ = this.courseService.getCoursebySemester(2).subscribe({
+    //   next: (res: any) => {
+    //     this.semester2 = res.data;
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //   },
+    // });
+
+    // // Lấy danh sách khóa học của học kỳ 3
+    // const semester3Sub$ = this.courseService.getCoursebySemester(3).subscribe({
+    //   next: (res: any) => {
+    //     this.semester3 = res.data;
+    //   },
+    //   error: (err: any) => {
+    //     console.log(err);
+    //   },
+    // });
+
+    // Lấy danh sách khoá học miễn phí
+    const getListCourseFreeSub$ = this.courseService.getCourseFree().subscribe({
       next: (res: any) => {
-        this.semester1 = res.data;
+        this.listCourseFree = res.data;
       },
       error: (err: any) => {
         console.log(err);
       },
     });
 
-    // Lấy danh sách khóa học của học kỳ 2
-    const semester2Sub$ = this.courseService.getCoursebySemester(2).subscribe({
+    // Lấy danh sách khoá học có phí
+    const getListCourseFeeSub$ = this.courseService.getCoursesFee().subscribe({
       next: (res: any) => {
-        this.semester2 = res.data;
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-    });
-
-    // Lấy danh sách khóa học của học kỳ 3
-    const semester3Sub$ = this.courseService.getCoursebySemester(3).subscribe({
-      next: (res: any) => {
-        this.semester3 = res.data;
+        this.listCourseFee = res.data;
+        console.log(this.listCourseFee);
       },
       error: (err: any) => {
         console.log(err);
@@ -220,7 +243,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         id: '1',
         image:
           'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FTo%CC%82%CC%89ng%20ho%CC%9B%CC%A3p%20thie%CC%82%CC%81t%20ke%CC%82%CC%81%20banner.jpg?alt=media&token=c9d4ee1a-1ecf-4fa0-a397-0a6c041bf62chttps://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
-      
+
         title: 'Học từ những chuyên gia',
         description: 'Học từ những chuyên gia hàng đầu',
       },
@@ -232,10 +255,11 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
     this.subscriptions.push(getAllScheduleMeetingsSub$);
-    this.subscriptions.push(semester1Sub$);
-    this.subscriptions.push(semester2Sub$);
-    this.subscriptions.push(semester3Sub$);
-
+    // this.subscriptions.push(semester1Sub$);
+    // this.subscriptions.push(semester2Sub$);
+    // this.subscriptions.push(semester3Sub$);
+    this.subscriptions.push(getListCourseFeeSub$);
+    this.subscriptions.push(getListCourseFreeSub$);
     this.isBlockUI = false;
   }
 

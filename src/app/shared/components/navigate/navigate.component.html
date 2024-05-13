@@ -25,6 +25,8 @@
       <div
         class="nav-items flex flex-row justify-content-center align-items-center text-center"
       >
+        <p (click)="navigateToHome()" class="nav-item">Trang chủ</p>
+
         <p
           routerLink="/blog"
           [queryParams]="{ page: 1 }"
@@ -37,17 +39,20 @@
 
         <p (click)="redirectToFlashcard()" class="nav-item">Ôn bài</p>
 
-        <p (click)="joinRoom('65ebe4d2d0cb58ef9cb250cc')" class="nav-item">
+        <!-- <p (click)="joinRoom('65ebe4d2d0cb58ef9cb250cc')" class="nav-item">
           Cộng đồng
-        </p>
-        <p-megaMenu [model]="items1" styleClass="flex flex-row"> </p-megaMenu>
-      </div>
+        </p> -->
+        <!-- <p-megaMenu [model]="items1" styleClass="flex flex-row"> </p-megaMenu> -->
 
-      <div class="flex flex-row items-center gap-2">
-        <span class="search p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input placeholder="Tìm kiếm khóa học" type="text" pInputText />
-        </span>
+        <div
+          [ngStyle]="{ padding: '0% 3%' }"
+          class="flex flex-row items-center gap-2"
+        >
+          <span class="search p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input placeholder="Tìm kiếm khóa học" type="text" pInputText />
+          </span>
+        </div>
       </div>
     </div>
     <div class="nav-right flex flex-row gap-2">
