@@ -1,11 +1,12 @@
 $background-color: rgba(246, 247, 249, 0.8);
-$p-color: #45494f;
+$p-color: black;
 
 :host ::ng-deep .p-sidebar .p-sidebar-header .p-sidebar-content {
   overflow-x: hidden !important;
 }
 .card {
   header {
+    height: 7vh;
     background-color: $background-color;
     display: flex;
     flex-direction: row;
@@ -24,7 +25,7 @@ $p-color: #45494f;
         align-items: center;
         p {
           color: $p-color;
-          font-size: 1.2rem;
+          font-size: 1rem;
           font-style: normal;
           font-weight: 700;
         }
@@ -62,7 +63,7 @@ $p-color: #45494f;
     }
   }
   .learning-video {
-    height: 40rem;
+    height: 93vh;
     overflow-y: hidden;
     padding: 0;
     margin: 0;
@@ -70,9 +71,17 @@ $p-color: #45494f;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 12rem;
       background-color: #000;
+
       .container {
+        height: 100%;
+        position: relative;
+        iframe {
+          padding: 0% 5rem;
+
+          top: 0;
+          position: absolute;
+        }
         img {
           width: 100%;
           background-color: #000;
@@ -81,12 +90,15 @@ $p-color: #45494f;
     }
     .sidebar {
       overflow-y: scroll;
-      height: 100%;
       p {
         padding: 1.5rem 1rem;
         padding-bottom: 0;
         font-size: 1.2rem;
       }
+    }
+
+    .course-sidebar {
+      overflow-y: scroll;
     }
   }
   .detail-info {
@@ -133,44 +145,48 @@ $p-color: #45494f;
     bottom: 0;
     width: 100%;
     padding: 0.8rem 1rem;
-    background-color: $background-color;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 2rem;
-    z-index: 1000;
-    .btn-left {
-      cursor: pointer;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      p {
-        color: #0093fc;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
+    z-index: 100;
+
+    .group-btn {
+      position: absolute;
+      right: 55%;
+      bottom: 80%;
+      .btn-left {
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        p {
+          color: #0093fc;
+          font-size: 1rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
       }
-    }
-    .btn-right {
-      cursor: pointer;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      border: 3px solid transparent;
-      border-color: #97d5fe;
-      border-radius: 10px;
-      p {
-        color: #0093fc;
-        text-align: right;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
+      .btn-right {
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border: 3px solid transparent;
+        border-color: #97d5fe;
+        border-radius: 10px;
+        p {
+          color: #0093fc;
+          text-align: right;
+          font-size: 1rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+        }
       }
     }
 

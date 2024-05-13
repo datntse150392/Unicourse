@@ -23,7 +23,6 @@ export class LearningCourseComponent implements OnDestroy {
   course!: Course;
   conntent_url!: string;
   files!: TreeNode[];
-  sidebar: boolean = false;
   sizes!: any[];
   selectedSize: any = '';
   track: Track | undefined;
@@ -146,28 +145,11 @@ export class LearningCourseComponent implements OnDestroy {
     }
   }
 
-  // Bật tắt sidebar
-  toggleSidebar() {
-    this.sidebar = !this.sidebar;
-    this.activeIndex = this.course.tracks.map(
-      (track: Track) => track.position - 1
-    );
-  }
-
-  convertToHHMMSS(minutes: number): string {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    const remainingSeconds = Math.floor(remainingMinutes * 60);
-
-    const hoursStr = hours < 10 ? `0${hours}` : `${hours}`;
-    const minutesStr =
-      remainingMinutes < 10 ? `0${remainingMinutes}` : `${remainingMinutes}`;
-    let secondsStr =
-      remainingSeconds < 10 ? `0${remainingSeconds}` : `${remainingSeconds}`;
-
-    // Ensure secondsStr is always two digits or defaults to '00'
-    secondsStr = secondsStr.length === 0 ? '00' : secondsStr.padStart(2, '0');
-
-    return `${hoursStr}:${minutesStr}:00`;
-  }
+  // Hàm chuyển đổi giá trị sáng giờ
+  // Ví dụ 71 phút sẽ là 1 giờ 11 phút
+  convertToHour = (duration: number): string => {
+    const hours = Math.floor(duration / 60);
+    const minutes = duration % 60;
+    return `${hours} giờ ${minutes} phút`;
+  };
 }

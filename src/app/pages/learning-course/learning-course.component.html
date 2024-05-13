@@ -1,199 +1,230 @@
 <div class="card">
-  <header>
-    <div class="nav-left">
-      <img [routerLink]="['/']" class="pi pi-angle-left" src="{{ LOGO }}" />
-      <div class="logo-title">
-        <p *ngIf="course">{{ course.title }}</p>
+  <div class="w-full h-full">
+    <header>
+      <div class="nav-left">
+        <img [routerLink]="['/']" class="pi pi-angle-left" src="{{ LOGO }}" />
+        <div class="logo-title">
+          <p *ngIf="course">{{ course.title }}</p>
+        </div>
       </div>
-    </div>
-    <div class="nav-right">
-      <div class="container">
-        <i
-          class="pi pi-file"
-          style="
-            font-size: 1rem;
-            color: #45494f;
-            margin-right: 0.5rem;
-            cursor: pointer;
-          "
-        ></i>
-        <p>Ghi chú</p>
+      <div class="nav-right">
+        <div class="container">
+          <i
+            class="pi pi-file"
+            style="
+              font-size: 1rem;
+              color: #45494f;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>Ghi chú</p>
+        </div>
+        <div class="container">
+          <i
+            class="pi pi-info-circle"
+            style="
+              font-size: 1rem;
+              color: #45494f;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>Hỗ trợ</p>
+        </div>
+        <div class="container">
+          <i
+            class="pi pi-chart-pie"
+            style="
+              font-size: 1.2rem;
+              color: #45494f;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>0/{{ course && course.tracks.length }} chương</p>
+        </div>
       </div>
-      <div class="container">
-        <i
-          class="pi pi-info-circle"
-          style="
-            font-size: 1rem;
-            color: #45494f;
-            margin-right: 0.5rem;
-            cursor: pointer;
-          "
-        ></i>
-        <p>Hỗ trợ</p>
+    </header>
+    <div class="learning-video grid grid-cols-12 gap-2">
+      <div class="video col-span-9">
+        <div class="container">
+          <iframe
+            width="100%"
+            [ngStyle]="{ height: '85vh' }"
+            [src]="videoUrl"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
       </div>
-      <div class="container">
-        <i
-          class="pi pi-chart-pie"
-          style="
-            font-size: 1.2rem;
-            color: #45494f;
-            margin-right: 0.5rem;
-            cursor: pointer;
-          "
-        ></i>
-        <p>0/{{ course && course.tracks.length }} chương</p>
-      </div>
-    </div>
-  </header>
-  <div class="learning-video grid grid-cols-6 gap-2">
-    <div class="video col-span-6">
-      <div class="container">
-        <iframe
-          width="100%"
-          [ngStyle]="{ height: '40rem' }"
-          [src]="videoUrl"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-      </div>
-    </div>
-  </div>
-  <div class="detail-info">
-    <div class="lecturer">
-      <p>
-        <strong>Giảng viên:</strong>
-        {{ course.lecture.fullName }}
-      </p>
-    </div>
-    <div class="title">
-      <h2>{{ course && course.title }}</h2>
-      <span>Cập nhật tháng 1 năm 2024</span>
-    </div>
-    <div class="community">
-      <p>
-        Tham gia cộng đồng Unicoure ngay để cập nhật các thông tin ưu đãi mới
-        nhất
-      </p>
-      <li>
-        Fanpage:
-        <a href="https://www.facebook.com/profile.php?id=61559287804624"
-          >https://www.facebook.com/unicourse/</a
+      <div class="course-sidebar col-span-3">
+        <div
+          class="sidebar-container"
+          id="accordion-collapse"
+          data-accordion="collapse"
         >
-      </li>
-      <li>
-        Group:
-        <a>https://www.facebook.com/unicourse-group/</a>
-      </li>
-    </div>
-  </div>
-  <footer>
-    <div
-      *ngIf="this.indexLesson > 0"
-      [routerLink]="['/learning-course/', this.courseId, this.previousLesson]"
-      class="btn-left"
-    >
-      <i
-        class="pi pi-angle-left"
-        style="
-          font-size: 1.5rem;
-          color: #0093fc;
-          margin-right: 0.5rem;
-          cursor: pointer;
-        "
-      ></i>
-      <p>BÀI TRƯỚC</p>
-    </div>
-    <!-- Btn Next Lesson -->
-
-    <div
-      *ngIf="this.trackSteps.length - 1 > this.indexLesson"
-      [routerLink]="['/learning-course/', this.courseId, this.nextLesson]"
-      class="btn-right bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl"
-    >
-      <p>BÀI TIẾP THEO</p>
-      <i
-        class="pi pi-angle-right"
-        style="
-          font-size: 1.5rem;
-          color: #0093fc;
-          margin-right: 0.5rem;
-          cursor: pointer;
-        "
-      ></i>
-    </div>
-    <div (click)="toggleSidebar()" class="btn-sidebar">
-      <img
-        class="pi pi-align-justify"
-        style="font-size: 2rem"
-        src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxNiAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTAuMTI1IDEuMDYyNUMwLjEyNSAwLjc4MTI1IDAuMzcxMDk0IDAuNSAwLjY4NzUgMC41SDE1LjMxMjVDMTUuNTkzOCAwLjUgMTUuODc1IDAuNzgxMjUgMTUuODc1IDEuMDYyNUMxNS44NzUgMS4zNzg5MSAxNS41OTM4IDEuNjI1IDE1LjMxMjUgMS42MjVIMC42ODc1QzAuMzcxMDk0IDEuNjI1IDAuMTI1IDEuMzc4OTEgMC4xMjUgMS4wNjI1Wk0wLjEyNSA2LjY4NzVDMC4xMjUgNi40MDYyNSAwLjM3MTA5NCA2LjEyNSAwLjY4NzUgNi4xMjVIMTUuMzEyNUMxNS41OTM4IDYuMTI1IDE1Ljg3NSA2LjQwNjI1IDE1Ljg3NSA2LjY4NzVDMTUuODc1IDcuMDAzOTEgMTUuNTkzOCA3LjI1IDE1LjMxMjUgNy4yNUgwLjY4NzVDMC4zNzEwOTQgNy4yNSAwLjEyNSA3LjAwMzkxIDAuMTI1IDYuNjg3NVpNMTUuMzEyNSAxMi44NzVIMC42ODc1QzAuMzcxMDk0IDEyLjg3NSAwLjEyNSAxMi42Mjg5IDAuMTI1IDEyLjMxMjVDMC4xMjUgMTIuMDMxMiAwLjM3MTA5NCAxMS43NSAwLjY4NzUgMTEuNzVIMTUuMzEyNUMxNS41OTM4IDExLjc1IDE1Ljg3NSAxMi4wMzEyIDE1Ljg3NSAxMi4zMTI1QzE1Ljg3NSAxMi42Mjg5IDE1LjU5MzggMTIuODc1IDE1LjMxMjUgMTIuODc1WiIgZmlsbD0idXJsKCNwYWludDBfbGluZWFyXzY1Ml8xNzc1KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJwYWludDBfbGluZWFyXzY1Ml8xNzc1IiB4MT0iLTQiIHkxPSItNSIgeDI9Ii00IiB5Mj0iMTkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4KPHN0b3Agc3RvcC1jb2xvcj0iIzVFQkJGRiIvPgo8c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNBMTc0RkYiLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8L3N2Zz4K"
-      />
-      <!-- <p *ngIf="track">{{ track.chapterTitle }}</p> -->
-    </div>
-    <app-chat-bot class="absolute right-3 bottom-20"></app-chat-bot>
-  </footer>
-</div>
-
-<!-- Sidebar Learning -->
-<div class="card flex flex-wrap justify-content-center gap-2">
-  <p-sidebar [(visible)]="sidebar" styleClass="set-width" position="left">
-    <div class="card flex flex-col justify-content-center">
-      <h2>Nội dung khóa học</h2>
-
-      <p-accordion
-        [multiple]="true"
-        [activeIndex]="activeIndex"
-        class="w-full accordion-tab"
-      >
-        <ng-container *ngIf="this.course">
-          <p-accordionTab
-            [ngStyle]="{ padding: 0 }"
-            *ngFor="let track of this.course.tracks"
-          >
-            <ng-template class="p-0" pTemplate="header">
-              <span class="flex align-items-center gap-2 w-full">
-                <div>
-                  <p class="font-bold white-space-nowrap">
-                    {{ track.position }}. {{ track.chapterTitle }}
-                  </p>
-                  <span>0/{{ track.track_steps.length }} | 11:21</span>
-                </div>
-              </span>
-            </ng-template>
-            <ng-container>
-              <div *ngFor="let step of track.track_steps">
-                <div
-                  [ngStyle]="
-                    this.conntent_url == step.content_url
-                      ? { 'background-color': '#B3E0FF', }
-                      : { 'background-color': '#e7e7e7', color: '#808B9A' }
-                  "
-                  class="step-track w-full"
+          <div *ngFor="let track of course.tracks">
+            <h2 id="accordion-color-heading-{{ track._id }}">
+              <button
+                type="button"
+                class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                data-accordion-target="#accordion-collapse-body-1"
+                aria-expanded="true"
+                aria-controls="accordion-collapse-body-1"
+                [attr.data-accordion-target]="
+                  '#accordion-color-body-' + track._id
+                "
+                aria-expanded="false"
+                [attr.aria-controls]="'accordion-color-body-' + track._id"
+                (click)="track.showBody = !track.showBody"
+              >
+                <span class="text-black">{{ track.chapterTitle }}</span>
+                <svg
+                  data-accordion-icon
+                  class="w-2 h-2 rotate-180 shrink-0 text-black"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
                 >
-                  <p
-                    [routerLink]="[
-                      '/learning-course/',
-                      this.course._id,
-                      step.content_url
-                    ]"
-                    [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }"
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5 5 1 1 5"
+                  />
+                </svg>
+              </button>
+            </h2>
+            <div
+              *ngIf="track.showBody"
+              id="accordion-color-body-{{ track._id }}"
+            >
+              <div
+                class="border border border-gray-100 dark:border-gray-700 dark:bg-gray-900"
+              >
+                <ng-container *ngFor="let step of track.track_steps">
+                  <div
+                    *ngIf="this.conntent_url == step.content_url"
+                    class="step-track w-full p-5 flex flex-column gap-2 bg-[#B3E0FF]"
                   >
-                    {{ step.position }}. {{ step.title }}
-                  </p>
-                  <div class="duration">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://img.icons8.com/nolan/64/circled-play.png"
-                      alt="circled-play"
-                    />
-                    <span>{{ convertToHHMMSS(step.duration) }}</span>
+                    <p
+                      [routerLink]="[
+                        '/learning-course/',
+                        this.course._id,
+                        step.content_url
+                      ]"
+                      [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }"
+                      class="font-bold"
+                    >
+                      {{ step.position }}. {{ step.title }}
+                    </p>
+                    <div class="duration flex flex-row items-center gap-2">
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="compact-disc"
+                        class="h-5 rotate-180 shrink-0 text-green"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          [ngStyle]="{ color: 'rgba(240,81,35,.8)' }"
+                          fill="currentColor"
+                          d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM80.72 256H79.63c-9.078 0-16.4-8.011-15.56-17.34C72.36 146 146.5 72.06 239.3 64.06C248.3 63.28 256 70.75 256 80.09c0 8.35-6.215 15.28-14.27 15.99C164.7 102.9 103.1 164.3 96.15 241.4C95.4 249.6 88.77 256 80.72 256zM256 351.1c-53.02 0-96-43-96-95.1s42.98-96 96-96s96 43 96 96S309 351.1 256 351.1zM256 224C238.3 224 224 238.2 224 256s14.3 32 32 32c17.7 0 32-14.25 32-32S273.7 224 256 224z"
+                        ></path>
+                      </svg>
+                      <span>{{ convertToHour(step.duration) }}</span>
+                    </div>
                   </div>
-                </div>
+                  <div
+                    *ngIf="this.conntent_url != step.content_url"
+                    class="step-track w-full p-5 flex flex-column gap-2 bg-[#e7e7e7]"
+                  >
+                    <p
+                      [routerLink]="[
+                        '/learning-course/',
+                        this.course._id,
+                        step.content_url
+                      ]"
+                      [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }"
+                      class="font-bold"
+                    >
+                      {{ step.position }}. {{ step.title }}
+                    </p>
+                    <div class="duration flex flex-row items-center gap-2">
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        data-prefix="fas"
+                        data-icon="compact-disc"
+                        class="h-5 rotate-180 shrink-0"
+                        role="img"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM80.72 256H79.63c-9.078 0-16.4-8.011-15.56-17.34C72.36 146 146.5 72.06 239.3 64.06C248.3 63.28 256 70.75 256 80.09c0 8.35-6.215 15.28-14.27 15.99C164.7 102.9 103.1 164.3 96.15 241.4C95.4 249.6 88.77 256 80.72 256zM256 351.1c-53.02 0-96-43-96-95.1s42.98-96 96-96s96 43 96 96S309 351.1 256 351.1zM256 224C238.3 224 224 238.2 224 256s14.3 32 32 32c17.7 0 32-14.25 32-32S273.7 224 256 224z"
+                        ></path>
+                      </svg>
+                      <span>{{ convertToHour(step.duration) }}</span>
+                    </div>
+                  </div>
+                </ng-container>
               </div>
-            </ng-container>
-          </p-accordionTab>
-        </ng-container>
-      </p-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </p-sidebar>
+    <footer>
+      <div class="group-btn flex flex-row gap-4">
+        <div
+          *ngIf="this.indexLesson > 0"
+          [routerLink]="[
+            '/learning-course/',
+            this.courseId,
+            this.previousLesson
+          ]"
+          class="btn-left"
+        >
+          <i
+            class="pi pi-angle-left"
+            style="
+              font-size: 1.5rem;
+              color: #0093fc;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>BÀI TRƯỚC</p>
+        </div>
+        <!-- Btn Next Lesson -->
+
+        <div
+          *ngIf="this.trackSteps.length - 1 > this.indexLesson"
+          [routerLink]="['/learning-course/', this.courseId, this.nextLesson]"
+          class="btn-right bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl"
+        >
+          <p>BÀI TIẾP THEO</p>
+          <i
+            class="pi pi-angle-right"
+            style="
+              font-size: 1.5rem;
+              color: #0093fc;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+        </div>
+      </div>
+
+      <app-chat-bot class="absolute left-3 bottom-5"></app-chat-bot>
+    </footer>
+  </div>
 </div>
