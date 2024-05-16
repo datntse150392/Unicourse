@@ -1,14 +1,5 @@
 <p-toast [life]="1000"></p-toast>
 <div class="nav-info">
-  <!-- <div class="group-logo flex flex-row items-center justify-content-end">
-    <div class="flex flex-row items-center gap-2">
-      <div class="group-contact flex flex-row items-center">
-        <p>Hỗ trợ</p>
-        <p>Liên hệ</p>
-        <p>Trở thành giảng viên</p>
-      </div>
-    </div>
-  </div> -->
   <div
     [ngStyle]="{ 'background-color': '#fff' }"
     class="w-full flex flex-row items-center"
@@ -50,8 +41,91 @@
         >
           <span class="search p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input placeholder="Tìm kiếm khóa học" type="text" pInputText />
+            <input
+              (input)="toggleOverlayForSearch($event)"
+              placeholder="Tìm kiếm khóa học"
+              type="text"
+              pInputText
+              [(ngModel)]="searchText"
+            />
           </span>
+          <p-overlayPanel #searchForm>
+            <div class="w-[28rem] pr-2 pl-2">
+              <ng-container
+                *ngIf="
+                  this.dataSearch &&
+                    (dataSearch.blog.length > 0 ||
+                      dataSearch.course.length > 0 ||
+                      dataSearch.quiz.length > 0);
+                  else EmptyDataSearch
+                "
+              >
+                <div class="flex flex-col">
+                  <div class="flex flex-row items-center gap-2 text-gray-500">
+                    <i class="pi pi-search" style="font-size: 1rem"></i>
+                    <p>Kết quả cho '{{ searchText }}'</p>
+                  </div>
+                  <!-- Display Course -->
+                  <div
+                    *ngIf="dataSearch.course.length > 0"
+                    class="flex flex-col"
+                  >
+                    <div
+                      class="flex flex-row justify-between items-center border-b border-gray-200 pb-2 mt-2"
+                    >
+                      <p class="font-bold">Khoá học</p>
+                      <p
+                        class="text-sm text-gray-500 hover:text-blue-700 cursor-pointer"
+                      >
+                        Xem thêm
+                      </p>
+                    </div>
+                    <div
+                      class="mt-3 flex flex-row items-center gap-2 cursor-pointer"
+                      *ngFor="let course of dataSearch.course"
+                      (click)="goToCourse(course._id)"
+                    >
+                      <img
+                        class="w-[10rem] rounded-lg"
+                        src="{{ course.thumbnail }}"
+                      />
+                      <p class="font-bold text-md">{{ course.title }}</p>
+                    </div>
+                  </div>
+                  <!-- Display Blog -->
+                  <div *ngIf="dataSearch.blog.length > 0" class="flex flex-col">
+                    <div
+                      class="flex flex-row justify-between items-center border-b border-gray-200 pb-2 mt-2"
+                    >
+                      <p class="font-bold">Bài viết</p>
+                      <p
+                        class="text-sm text-gray-500 hover:text-blue-700 cursor-pointer"
+                      >
+                        Xem thêm
+                      </p>
+                    </div>
+                    <div
+                      class="mt-3 flex flex-row items-center gap-2 cursor-pointer"
+                      *ngFor="let blog of dataSearch.blog.slice(0, 3)"
+                      (click)="goToBlogDetail(blog._id)"
+                    >
+                      <img
+                        class="w-[10rem] rounded-lg"
+                        src="{{ blog.thumbnail_url }}"
+                      />
+                      <p class="font-bold text-md">{{ blog.title }}</p>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #EmptyDataSearch>
+                <div class="flex flex-row items-center gap-2 text-gray-500">
+                  <i class="pi pi-search" style="font-size: 1rem"></i>
+                  <p>Không có kết quả cho '{{ searchText }}'</p>
+                </div>
+              </ng-template>
+            </div>
+          </p-overlayPanel>
         </div>
       </div>
     </div>

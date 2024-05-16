@@ -259,7 +259,7 @@
               </span>
             </div>
             <!-- Group select hình thức thanh toán -->
-            <ng-container *ngIf="this.cart">
+            <ng-container *ngIf="cart !== undefined && cart.items !== undefined && cart.items.length > 0">
               <h5 class="m-3 text-xl font-medium text-gray-900 font-customFont">
                 Hình thức thanh toán
               </h5>

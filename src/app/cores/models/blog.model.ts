@@ -18,7 +18,7 @@ export interface Comment {
   interactions: Array<String>;
 }
 export interface Blog {
-  _id: String;
+  _id: string;
   title: String;
   description: String;
   min_read: Number;

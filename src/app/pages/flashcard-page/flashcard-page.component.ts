@@ -40,7 +40,7 @@ interface PageEvent {
         transform: 'scale(1)', // Example animation: return to normal size
       })),
       transition('liked <=> unliked', [
-        animate('0.5s ease-in') // Adjust the duration and easing as needed
+        animate('0.1s ease-in') // Adjust the duration and easing as needed
       ]),
     ]),
     trigger('fadeInOut', [

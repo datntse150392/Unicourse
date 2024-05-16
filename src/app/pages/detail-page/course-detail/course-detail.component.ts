@@ -81,12 +81,22 @@ export class CourseDetailComponent implements OnDestroy {
             .subscribe({
               next: (res: any) => {
                 if (res.status === 201) {
-                  this.router.navigate([
-                    `/learning-course`,
-                    courseId,
-                    res.data.trackProgress[0].subTrackProgress[0].subTrackId
-                      .content_url,
-                  ]);
+                  if (res.data.trackProgress[0] && res.data.trackProgress[0].subTrackProgress[0]) {
+                    this.router.navigate([
+                      `/learning-course`,
+                      courseId,
+                      res.data.trackProgress[0].subTrackProgress[0].subTrackId
+                        .content_url,
+                    ]);
+                  } else {
+                    this.dialogBroadcastService.broadcastConfirmationDialog({
+                      header: 'Lỗi',
+                      message: 'Thêm khóa học không thành công',
+                      type: 'error',
+                      return: false,
+                      numberBtn: 1,
+                    });
+                  }
                 }
               },
             });

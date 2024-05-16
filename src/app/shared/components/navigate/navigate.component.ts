@@ -1,20 +1,29 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
-import { Cart, User } from '../../../cores/models';
+import { Blog, Cart, Course, Quiz, User } from '../../../cores/models';
 import { Subscription } from 'rxjs';
 import { MegaMenuItem, MenuItem, MessageService } from 'primeng/api';
 import {
   AuthService,
   CartService,
   CoinService,
+  CommonService,
   CourseService,
 } from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { ChatRoomService } from '../../../cores/services/chatRoom.service';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
+
+interface DataSearch {
+  course: [Course];
+  quiz: [Quiz];
+  blog: [Blog];
+}
+
 @Component({
   selector: 'app-navigate',
   standalone: true,
@@ -24,16 +33,22 @@ import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast
   providers: [MessageService],
 })
 export class NavigateComponent implements OnInit, OnDestroy {
-  Logo: string = environment.LOGO;
-  items: MenuItem[] | undefined;
-  user: User | undefined;
-  toggleMenu: boolean = false;
-  subscriptions: Subscription[] = [];
+  @ViewChild('searchForm') searchForm!: OverlayPanel;
+
+  public Logo: string = environment.LOGO;
+  public items: MenuItem[] | undefined;
+  public user: User | undefined;
+  public toggleMenu: boolean = false;
+  public subscriptions: Subscription[] = [];
   public lengthOfCartItems = 0;
   public cart!: Cart;
   public updateCartSub$: Subscription | undefined;
-  items1: MegaMenuItem[] | undefined;
+  public items1: MegaMenuItem[] | undefined;
   public totalCoin: number = 0;
+  public searchText: string = '';
+  public dataSearch!: DataSearch;
+
+  public isToggle: boolean = false;
 
   constructor(
     private sharedService: SharedService,
@@ -42,9 +57,8 @@ export class NavigateComponent implements OnInit, OnDestroy {
     private router: Router,
     private cartService: CartService,
     private chatRoomService: ChatRoomService,
-    private readonly dialogBroadcastService: DialogBroadcastService,
-    private readonly courseService: CourseService,
-    private readonly coinService: CoinService
+    private readonly coinService: CoinService,
+    private readonly commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -59,91 +73,6 @@ export class NavigateComponent implements OnInit, OnDestroy {
         }
       }
     );
-
-    this.items1 = [
-      {
-        label: 'Danh mục',
-        items: [
-          [
-            {
-              label: 'Chuyên Ngành 1',
-              items: [
-                { label: 'CSI104', command: () => this.goToCourse('CSI104') },
-                { label: 'PRF192', command: () => this.goToCourse('PRF192') },
-                { label: 'MAE101', command: () => this.goToCourse('MAE101') },
-                { label: 'CEA201', command: () => this.goToCourse('CEA201') },
-              ],
-            },
-            {
-              label: 'Chuyên Ngành 2',
-              items: [
-                { label: 'PRO192', command: () => this.goToCourse('PRO192') },
-                { label: 'MAD101', command: () => this.goToCourse('MAD101') },
-                { label: 'OSG202', command: () => this.goToCourse('OSG202') },
-                { label: 'SSG104', command: () => this.goToCourse('SSG104') },
-              ],
-            },
-            {
-              label: 'Chuyên Ngành 3',
-              items: [
-                { label: 'JPD113', command: () => this.goToCourse('JPD113') },
-                { label: 'CSD201', command: () => this.goToCourse('CSD201') },
-                { label: 'DBI202', command: () => this.goToCourse('DBI202') },
-                { label: 'LAB211', command: () => this.goToCourse('LAB211') },
-              ],
-            },
-          ],
-          [
-            {
-              label: 'Chuyên Ngành 4',
-              items: [
-                { label: 'JPD123', command: () => this.goToCourse('JPD123') },
-                { label: 'IOT102', command: () => this.goToCourse('IOT102') },
-                { label: 'PRJ301', command: () => this.goToCourse('PRJ301') },
-                { label: 'MAS291', command: () => this.goToCourse('MAS291') },
-              ],
-            },
-            {
-              label: 'Chuyên Ngành 5',
-              items: [
-                { label: 'SWR302', command: () => this.goToCourse('SWR302') },
-                { label: 'SWT301', command: () => this.goToCourse('SWT301') },
-                { label: 'PRJ301', command: () => this.goToCourse('PRJ301') },
-                { label: 'SWP391', command: () => this.goToCourse('SWP391') },
-              ],
-            },
-            {
-              label: 'Chuyên Ngành 7',
-              items: [
-                { label: 'SWD392', command: () => this.goToCourse('SWD392') },
-                { label: 'ISC301', command: () => this.goToCourse('ISC301') },
-                { label: 'PRM392', command: () => this.goToCourse('PRM392') },
-                { label: 'SDN301m', command: () => this.goToCourse('SDN301') },
-              ],
-            },
-          ],
-          [
-            {
-              label: 'Chuyên Ngành 8',
-              items: [
-                { label: 'MLN111', command: () => this.goToCourse('MLN111') },
-                { label: 'MLN122', command: () => this.goToCourse('MLN122') },
-                { label: 'PMG201c', command: () => this.goToCourse('PMG201c') },
-                { label: 'MMA301', command: () => this.goToCourse('MMA301') },
-              ],
-            },
-            {
-              label: 'Chuyên Ngành 9',
-              items: [
-                { label: 'HCM202', command: () => this.goToCourse('HCM202') },
-                { label: 'MLN131', command: () => this.goToCourse('MLN131') },
-                { label: 'VNR202', command: () => this.goToCourse('VNR202') },
-              ],
-            },
-          ],
-        ],
-      },
-    ];
   }
 
   ngOnDestroy(): void {
@@ -344,30 +273,34 @@ export class NavigateComponent implements OnInit, OnDestroy {
   }
 
   // Chuyển trang đến khóa học
-  goToCourse(title: string): void {
-    const getCourseByTitleSub$ = this.courseService
-      .getCourseByTitle(title)
+  goToCourse(id: string): void {
+    this.router.navigate([`/course`, id]);
+  }
+
+  // Chuyển trang đến khóa học
+  goToBlogDetail(id: string): void {
+    this.router.navigate([`/blog`, id]);
+  }
+
+  toggleOverlayForSearch(event: Event) {
+    if (this.searchText === '') {
+      this.searchForm.toggle(event);
+    } else if (!this.searchForm.overlayVisible) {
+      this.searchForm.show(event);
+    }
+
+    const searchAllSub$ = this.commonService
+      .searchAll(this.searchText)
       .subscribe({
         next: (res: any) => {
-          const result = res.data;
-          if (res.status === 200 && result && result._id) {
-            // Check user nếu đã đăng ký khóa học thì chuyển trang đến khóa học
-            if (this.user && this.user._id) {
-            }
-            this.router.navigate([`/course`, result._id]);
+          if (res && res.status === 200) {
+            this.dataSearch = res.data;
           }
         },
-        error: (err: any) => {
+        error: (err: Error) => {
           console.log(err);
-          this.dialogBroadcastService.broadcastDialog({
-            header: 'Thông báo',
-            message:
-              'Khóa học đang trong quá trình phát triển, vui lòng quay lại sau!',
-            type: 'info',
-            display: true,
-          });
         },
       });
-    this.subscriptions.push(getCourseByTitleSub$);
+    this.subscriptions.push(searchAllSub$);
   }
 }
