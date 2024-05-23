@@ -7,6 +7,7 @@ import {
   CourseService,
   ScheduleMeetingService,
   SharedService,
+  UserService,
 } from '../../cores/services';
 import {
   CheckingDailyEvent,
@@ -56,7 +57,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private readonly coinService: CoinService,
     private readonly sharedService: SharedService,
     private readonly scheduleMeetingService: ScheduleMeetingService,
-    private readonly payOSService: PayOSService
+    private readonly payOSService: PayOSService,
+    private readonly userService: UserService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -177,6 +179,18 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         description: 'Học từ những chuyên gia hàng đầu',
       },
     ];
+
+    // Thiết lập local để lưu my_wish_list
+    if (this.userInfo) {
+      const getMyWishListSub$ = this.userService.getMyWishList().subscribe({
+        next: (res: any) => {
+          if (res) {
+            localStorage.setItem('my_wish_list', JSON.stringify(res.data));
+          }
+        },
+      });
+      this.subscriptions.push(getMyWishListSub$);
+    }
 
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
