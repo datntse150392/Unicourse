@@ -1,10 +1,11 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { SharedModule } from '../../../shared';
-import { Cart, CartItem, Course } from '../../../cores/models';
+import { Cart, CartItem, Course, User } from '../../../cores/models';
 import {
   CourseService,
   SharedService,
   CartService,
+  UserService,
 } from '../../../cores/services';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,6 +25,7 @@ export class CourseDetailComponent implements OnDestroy {
   public courseId!: string | null;
   public isExistedCourseInsideCart: boolean = false;
   public blockedUI: boolean = true;
+  public userInfo!: User;
 
   private subscriptions: Subscription[] = [];
 
@@ -33,7 +35,8 @@ export class CourseDetailComponent implements OnDestroy {
     private router: Router,
     private activeRouter: ActivatedRoute,
     private sharedService: SharedService,
-    private dialogBroadcastService: DialogBroadcastService
+    private dialogBroadcastService: DialogBroadcastService,
+    private readonly userService: UserService
   ) {}
   ngOnInit(): void {
     this.initForm();
@@ -48,6 +51,13 @@ export class CourseDetailComponent implements OnDestroy {
 
   // Config on init
   initForm(): void {
+    // Kiểm tra nếu user đăng nhập vào thì lấy thông tin user
+    if (localStorage !== undefined) {
+      if (localStorage.getItem('isLogin')) {
+        this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
+      }
+    }
+
     const cartSub$ = this.cartService.getCart().subscribe({
       next: (res: any) => {
         this.cart = res.data;
@@ -81,7 +91,10 @@ export class CourseDetailComponent implements OnDestroy {
             .subscribe({
               next: (res: any) => {
                 if (res.status === 201) {
-                  if (res.data.trackProgress[0] && res.data.trackProgress[0].subTrackProgress[0]) {
+                  if (
+                    res.data.trackProgress[0] &&
+                    res.data.trackProgress[0].subTrackProgress[0]
+                  ) {
                     this.router.navigate([
                       `/learning-course`,
                       courseId,
@@ -174,6 +187,151 @@ export class CourseDetailComponent implements OnDestroy {
               },
             });
           this.subscriptions.push(deleteItemCartSub$);
+        }
+      }
+    }
+  }
+
+  checkCourseInWishList(): boolean {
+    if (typeof localStorage !== 'undefined') {
+      const wishListString = localStorage.getItem('my_wish_list');
+      if (wishListString) {
+        try {
+          const myWishList = JSON.parse(wishListString) as Array<{
+            _id: string;
+          }>;
+          if (
+            Array.isArray(myWishList) &&
+            myWishList.some((course) => course._id === this.course._id)
+          ) {
+            return true;
+          }
+        } catch (e) {
+          console.error('Error parsing my_wish_list from localStorage', e);
+        }
+      }
+    }
+    return false;
+  }
+
+  addCourseInWishList() {
+    if (!localStorage.getItem('isLogin')) {
+      this.sharedService.turnOnSignInDialog();
+    } else {
+      const addWishListSub$ = this.userService
+        .addCourseInWishList(this.course._id)
+        .subscribe({
+          next: (res: any) => {
+            if (res.status === 200) {
+              this.dialogBroadcastService.broadcastConfirmationDialog({
+                header: 'Thông báo',
+                message: 'Đã thêm khóa học vào danh sách yêu thích',
+                type: 'success',
+                return: false,
+                numberBtn: 1,
+              });
+              const getWishListSub$ = this.userService
+                .getMyWishList()
+                .subscribe({
+                  next: (res: any) => {
+                    localStorage.setItem(
+                      'my_wish_list',
+                      JSON.stringify(res.data)
+                    );
+                    this.initForm();
+                  },
+                });
+              this.subscriptions.push(getWishListSub$);
+            }
+          },
+          error: (err: any) => {
+            this.dialogBroadcastService.broadcastDialog({
+              header: 'thông báo',
+              message:
+                'Thêm khoá học vào danh sách yêu thích thất bại, mời bạn thử lại',
+              type: 'error',
+              display: true,
+            });
+          },
+        });
+      this.subscriptions.push(addWishListSub$);
+    }
+  }
+
+  removeCourseInWishList() {
+    if (!localStorage.getItem('isLogin')) {
+      this.sharedService.turnOnSignInDialog();
+    } else {
+      const addWishListSub$ = this.userService
+        .removeCourseOutWishList(this.course._id)
+        .subscribe({
+          next: (res: any) => {
+            if (res.status === 200) {
+              this.dialogBroadcastService.broadcastConfirmationDialog({
+                header: 'Thông báo',
+                message: 'Đã gỡ khóa học ra khỏi danh sách yêu thích',
+                type: 'success',
+                return: false,
+                numberBtn: 1,
+              });
+              const getWishListSub$ = this.userService
+                .getMyWishList()
+                .subscribe({
+                  next: (res: any) => {
+                    localStorage.setItem(
+                      'my_wish_list',
+                      JSON.stringify(res.data)
+                    );
+                    this.initForm();
+                  },
+                });
+              this.subscriptions.push(getWishListSub$);
+            }
+          },
+          error: (err: any) => {
+            this.dialogBroadcastService.broadcastDialog({
+              header: 'thông báo',
+              message: 'Thêm gỡ khoá học thất bại, mời bạn thử lại',
+              type: 'error',
+              display: true,
+            });
+          },
+        });
+      this.subscriptions.push(addWishListSub$);
+    }
+  }
+
+  redirectToCart() {
+    if (!localStorage.getItem('isLogin')) {
+      this.sharedService.turnOnSignInDialog();
+    }
+    this.router.navigate([`/profile/${this.userInfo._id}/cart`]);
+  }
+
+  handleAddToCartAndRedirectCart(courseId: string) {
+    if (localStorage !== undefined) {
+      if (!localStorage.getItem('isLogin')) {
+        this.sharedService.turnOnSignInDialog();
+      } else {
+        if (courseId) {
+          const addtoCartSub$ = this.cartService.addToCart(courseId).subscribe({
+            next: (res: any) => {
+              if (res.status === 201) {
+                this.sharedService.isUpdateCartItem();
+                this.initForm();
+                this.redirectToCart();
+              }
+            },
+            error: (err: any) => {
+              this.dialogBroadcastService.broadcastDialog({
+                header: 'Giỏ hàng',
+                message: 'Thêm khóa học vào giỏ hàng thất bại',
+                type: 'error',
+                display: true,
+              });
+            },
+          });
+          this.subscriptions.push(addtoCartSub$);
         }
       }
     }

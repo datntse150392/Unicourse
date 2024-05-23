@@ -28,16 +28,31 @@
             >
               Bỏ khỏi giỏ hàng
             </button>
-            <button
-              [ngStyle]="{ width: '20%' }"
-              (click)="handleAddToCart(course._id)"
-              type="button"
-              class="font-customFont border text-black font-bold text-md px-4 py-3"
-            >
-              <i class="pi pi-heart" style="font-size: 1.2rem"></i>
-            </button>
+            <ng-container *ngIf="checkCourseInWishList(); else notInWishList">
+              <button
+                [ngStyle]="{ width: '20%' }"
+                type="button"
+                class="font-customFont border text-black font-bold text-md px-4 py-3"
+              >
+                <i
+                  class="pi pi-heart"
+                  style="font-size: 1.2rem; color: red"
+                ></i>
+              </button>
+            </ng-container>
+            <ng-template #notInWishList>
+              <button
+                (click)="addCourseInWishList()"
+                [ngStyle]="{ width: '20%' }"
+                type="button"
+                class="font-customFont border text-black font-bold text-md px-4 py-3"
+              >
+                <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+              </button>
+            </ng-template>
           </div>
           <button
+            (click)="redirectToCart()"
             type="button"
             class="w-full font-customFont border text-black font-bold text-md px-4 py-3"
           >
@@ -55,15 +70,32 @@
             >
               Thêm vào giỏ hàng
             </button>
-            <button
-              [ngStyle]="{ width: '20%' }"
-              type="button"
-              class="font-customFont border text-black font-bold text-md px-4 py-3"
-            >
-              <i class="pi pi-heart" style="font-size: 1.2rem"></i>
-            </button>
+            <ng-container *ngIf="checkCourseInWishList(); else notInWishList">
+              <button
+                (click)="removeCourseInWishList()"
+                [ngStyle]="{ width: '20%' }"
+                type="button"
+                class="font-customFont border text-black font-bold text-md px-4 py-3"
+              >
+                <i
+                  class="pi pi-heart"
+                  style="font-size: 1.2rem; color: red"
+                ></i>
+              </button>
+            </ng-container>
+            <ng-template #notInWishList>
+              <button
+                (click)="addCourseInWishList()"
+                [ngStyle]="{ width: '20%' }"
+                type="button"
+                class="font-customFont border text-black font-bold text-md px-4 py-3"
+              >
+                <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+              </button>
+            </ng-template>
           </div>
           <button
+            (click)="handleAddToCartAndRedirectCart(course._id)"
             type="button"
             class="w-full font-customFont border text-black font-bold text-md px-4 py-3"
           >
@@ -83,13 +115,26 @@
           >
             Đăng ký ngay
           </button>
-          <button
-            [ngStyle]="{ width: '20%' }"
-            type="button"
-            class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
-          >
-            <i class="pi pi-heart" style="font-size: 1.2rem"></i>
-          </button>
+          <ng-container *ngIf="checkCourseInWishList(); else notInWishList">
+            <button
+              (click)="removeCourseInWishList()"
+              [ngStyle]="{ width: '20%' }"
+              type="button"
+              class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
+            >
+              <i class="pi pi-heart" style="font-size: 1.2rem; color: red"></i>
+            </button>
+          </ng-container>
+          <ng-template #notInWishList>
+            <button
+              (click)="addCourseInWishList()"
+              [ngStyle]="{ width: '20%' }"
+              type="button"
+              class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
+            >
+              <i class="pi pi-heart" style="font-size: 1.2rem"></i>
+            </button>
+          </ng-template>
         </div>
       </ng-template>
 

@@ -4,25 +4,21 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent, HeaderComponent } from '../../components';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
-import { Subscription, filter, map, of, switchMap } from 'rxjs';
+import { Subscription, forkJoin } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { User } from '../../../cores/models/index';
 import { DialogComponent } from './dialog/dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import {
   AngularFireAuthModule,
   AngularFireAuth,
 } from '@angular/fire/compat/auth';
-import {
-  AuthService,
-  CartService,
-  NewFeedService,
-} from '../../../cores/services';
+import { AuthService, NewFeedService } from '../../../cores/services';
 import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
 import { environment } from '../../../../environments/environment.development';
 import { NewFeed } from '../../../cores/models/new-feed.model';
 import { StatusOfPayment } from '../../../cores/models/transaction.model';
 import { TransactionService } from '../../../cores/services/transaction.service';
+import { User } from '../../../cores/models';
 
 @Component({
   selector: 'app-default',
@@ -160,6 +156,11 @@ export class DefaultComponent implements OnInit, OnDestroy {
                   localStorage.setItem('access_token', token);
                   localStorage.setItem('isLogin', 'true');
                   localStorage.setItem('UserInfo', JSON.stringify(this.user));
+                  localStorage.setItem(
+                    'my_wish_list',
+                    JSON.stringify(this.user.wish_list)
+                  );
+
                   window.location.reload();
                   this.sharedService.settingLocalStorage();
                   this.closeDialogSignIn();

@@ -126,7 +126,7 @@
             <div class="basis-4/12 max-w-full">
               <figure class="max-w-lg">
                 <img
-                  class="h-auto max-w-full rounded-lg"
+                  class="h-[12rem] w-full rounded-lg cursor-pointer"
                   [src]="course.courseId.thumbnail"
                   [alt]="course.courseId.title"
                 />
@@ -143,6 +143,46 @@
                   class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont"
                 >
                   {{ course.courseId.titleDescription }}
+                </h5>
+              </div>
+            </div>
+          </a>
+        </a>
+        <a
+          class="block max-w-full py-3 px-5 bg-white border border-gray-200 rounded-lg shadow mb-4"
+        >
+          <h5
+            class="mb-0 text-xl font-bold tracking-tight text-gray-900 dark:text-white font-customFont"
+          >
+            Danh sách khoá học yêu thích
+          </h5>
+          <!-- List Course -->
+          <a
+            *ngFor="let course of myWishList"
+            (click)="hanleGetCourseDetail(course._id)"
+            ariaCurrentWhenActive="page"
+            class="block max-w-full bg-white mt-3 pb-4 flex flex-row border-b-2 border-gray-200"
+          >
+            <div class="basis-4/12 max-w-full">
+              <figure class="max-w-lg">
+                <img
+                  class="h-[12rem] w-full rounded-lg cursor-pointer"
+                  [src]="course.thumbnail"
+                  [alt]="course.title"
+                />
+              </figure>
+            </div>
+            <div class="basis-8/12 max-w-full max-h-full">
+              <div class="ml-4 flex flex-col max-h-full">
+                <h5
+                  class="basic-5/12 text-xl font-semibold tracking-tight text-gray-900 dark:text-white font-customFont mb-2"
+                >
+                  {{ course.title }}
+                </h5>
+                <h5
+                  class="basic-7/12 text-justify text-base font-normal tracking-tight text-gray-900 dark:text-white font-customFont"
+                >
+                  {{ course.titleDescription }}
                 </h5>
               </div>
             </div>

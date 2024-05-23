@@ -20,6 +20,7 @@ export interface User {
   lecture_info: LectureInfo;
   quiz_interest: Array<string>;
   quiz_process: Array<any>;
+  wish_list: Array<string>;
 }
 
 export interface EnrollCourses {

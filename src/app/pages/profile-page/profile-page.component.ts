@@ -3,7 +3,7 @@ import { SharedModule } from '../../shared';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../../shared/components';
 import { UserService } from '../../cores/services/user.service';
-import { User } from '../../cores/models';
+import { Course, User } from '../../cores/models';
 import { Subscription, filter, switchMap } from 'rxjs';
 import { CourseService } from '../../cores/services';
 import { Router } from '@angular/router';
@@ -23,6 +23,7 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
   public myCourses!: any;
   public userCreatedTime!: string;
   public blockUI: boolean = true;
+  public myWishList: Course[] = [];
 
   private subscriptions: Subscription[] = [];
 
@@ -70,6 +71,8 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.getMyCourses();
     }
     this.subscriptions.push(userSub$);
+
+    this.getMyWishList();
 
     setTimeout(() => {
       this.blockUI = false;
@@ -145,5 +148,20 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate([`/course`, courseId]);
     }
+  }
+
+  // Thực hiện lấy danh sách các khoá học yêu thích
+  getMyWishList() {
+    const getMyWishListSub$ = this.userService.getMyWishList().subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.myWishList = res.data;
+        }
+      },
+      error: (err: Error) => {
+        console.log(err);
+      },
+    });
+    this.subscriptions.push(getMyWishListSub$);
   }
 }

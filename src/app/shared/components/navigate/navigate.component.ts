@@ -10,12 +10,11 @@ import {
   CartService,
   CoinService,
   CommonService,
-  CourseService,
 } from '../../../cores/services';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { ChatRoomService } from '../../../cores/services/chatRoom.service';
-import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast.service';
+
 import { OverlayPanel } from 'primeng/overlaypanel';
 
 interface DataSearch {
@@ -170,6 +169,7 @@ export class NavigateComponent implements OnInit, OnDestroy {
     // Đăng xuất thì xóa hết dữ liệu trong localStorage
     localStorage.clear();
     this.user = undefined;
+    this.router.navigate(['/']);
     window.location.reload();
   }
 

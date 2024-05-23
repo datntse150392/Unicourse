@@ -89,6 +89,7 @@ export class SettingComponent {
     this.authService.doLogout();
     // Đăng xuất thì xóa hết dữ liệu trong localStorage
     localStorage.clear();
+    this.router.navigate(['/']);
     window.location.reload();
   }
 
