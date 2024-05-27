@@ -259,12 +259,18 @@
               </span>
             </div>
             <!-- Group select hình thức thanh toán -->
-            <ng-container *ngIf="cart !== undefined && cart.items !== undefined && cart.items.length > 0">
+            <ng-container
+              *ngIf="
+                cart !== undefined &&
+                cart.items !== undefined &&
+                cart.items.length > 0
+              "
+            >
               <h5 class="m-3 text-xl font-medium text-gray-900 font-customFont">
                 Hình thức thanh toán
               </h5>
               <!-- Credit Cards button -->
-              <div class="px-3 pb-2">
+              <!-- <div class="px-3 pb-2">
                 <button
                   type="button"
                   (click)="handlePaymentVnpay()"
@@ -513,7 +519,7 @@
                     />
                   </svg>
                 </button>
-              </div>
+              </div> -->
               <div class="px-3 pb-2 pt-0">
                 <button
                   type="button"
@@ -526,9 +532,9 @@
                   />
                 </button>
               </div>
-              <div class="px-3 pb-3 pt-0">
+              <!-- <div class="px-3 pb-3 pt-0">
                 <ngx-paypal [config]="payPalConfig"></ngx-paypal>
-              </div>
+              </div> -->
             </ng-container>
           </div>
         </ng-container>

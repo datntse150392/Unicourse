@@ -156,6 +156,10 @@ export class DefaultComponent implements OnInit, OnDestroy {
                   localStorage.setItem('access_token', token);
                   localStorage.setItem('isLogin', 'true');
                   localStorage.setItem('UserInfo', JSON.stringify(this.user));
+                  localStorage.setItem(
+                    'my_wish_list',
+                    JSON.stringify(this.user.wish_list)
+                  );
 
                   window.location.reload();
                   this.sharedService.settingLocalStorage();

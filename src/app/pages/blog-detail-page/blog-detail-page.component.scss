@@ -1,9 +1,11 @@
 .container {
-  padding: 0% 20%;
+  padding: 0% 10%;
   .like_comment {
-    position: fixed;
-    top: 26%;
+    display: none;
+    // position: fixed;
+    top: 20%;
     left: 6%;
+    scroll-behavior: "smooth";
     .top {
       padding-bottom: 0.5rem;
       border-bottom: 1px solid #757575;

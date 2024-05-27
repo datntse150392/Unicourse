@@ -1,106 +1,153 @@
-<div class="header">
-  <app-header></app-header>
-</div>
-
-<div class="container relative">
-  <p-blockUI [blocked]="blockedUI"
-    ><p-progressSpinner></p-progressSpinner>
-  </p-blockUI>
-  <!-- Breachrum Group-->
-  <nav class="flex mb-4" aria-label="Breadcrumb">
-    <ol
-      class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
-    >
-      <li>
-        <div class="flex flex-row items-center">
-          <a
-            [routerLink]="['/']"
-            ariaCurrentWhenActive="page"
-            class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-            >Trang chủ</a
-          >
-        </div>
-      </li>
-      /
-      <li aria-current="page">
-        <div class="flex items-center">
-          <span
-            class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
-            >Bài viết</span
-          >
-        </div>
-      </li>
-    </ol>
-  </nav>
-
-  <section
-    class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
-  >
-    <div
-      class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
-    >
-      <h1
-        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
-      >
-        Nơi chia sẻ kiến thức
-      </h1>
-      <blockquote
-        class="text-xl text-gray-500 italic font-semibold text-center"
-      >
-        <p>Cộng đồng IT</p>
-        <p>
-          "Tham khảo tài liệu tại đây để nâng cao hiệu suất học tập và tiếp thu
-          kiến thức mới nhất."
-        </p>
-      </blockquote>
+<ng-container *ngIf="this.blogHighLight && blogsByPage; else EmptyBlog">
+  <ng-container *ngIf="!blockedUI">
+    <div class="header">
+      <app-header></app-header>
     </div>
-  </section>
-  <!-- Bài đăng gần đây -->
-  <div class="blog-current">
-    <!-- <h2>Bài đăng gần đây</h2> -->
-    <div class="flex flex-row">
-      <ng-container *ngIf="blogHighLight">
-        <div class="col-6 container-left">
-          <!-- Hình ảnh -->
-          <img src="{{ blogHighLight[0].thumbnail_url }}" />
-          <!-- Tác giả - ngày đăng - min read -->
-          <p>
-            {{ blogHighLight[0].userId.fullName }} •
-            {{ blogHighLight[0].created_at | date : "dd/MM/yyyy" }} •
-            {{ blogHighLight[0].min_read }} phút
-          </p>
-          <!-- Tiêu đề -->
+
+    <div class="container relative">
+      <!-- Breachrum Group-->
+      <nav class="flex mb-4" aria-label="Breadcrumb">
+        <ol
+          class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+        >
+          <li>
+            <div class="flex flex-row items-center">
+              <a
+                [routerLink]="['/']"
+                ariaCurrentWhenActive="page"
+                class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+                >Trang chủ</a
+              >
+            </div>
+          </li>
+          /
+          <li aria-current="page">
+            <div class="flex items-center">
+              <span
+                class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
+                >Bài viết</span
+              >
+            </div>
+          </li>
+        </ol>
+      </nav>
+
+      <section
+        class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+      >
+        <div
+          class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+        >
           <h1
-            [ngStyle]="{ cursor: 'pointer' }"
-            [routerLink]="['/blog/', blogHighLight[0]._id]"
+            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
           >
-            {{ blogHighLight[0].title }}
+            Nơi chia sẻ kiến thức
           </h1>
-          <!-- Tiêu đề phụ -->
-          <h3>
-            {{
-              blogHighLight[0].description.length > 100
-                ? (blogHighLight[0].description.toString() | slice : 0 : 100) +
-                  "..."
-                : blogHighLight[0].description
-            }}
-          </h3>
-          <!-- Các Tags -->
-          <div class="tags">
-            <p-tag
-              *ngFor="let tag of blogHighLight[0].tags"
-              value="{{ tag.name }}"
-              [style]="{ 'background-color': tag.color }"
-            ></p-tag>
-          </div>
-        </div>
-        <div class="col-6 container-right flex flex-col gap-3">
-          <div
-            *ngFor="let blog of blogHighLight.slice(1, blogHighLight.length)"
-            class="col-6 blog flex flex-row w-full gap-3"
+          <blockquote
+            class="text-xl text-gray-500 italic font-semibold text-center"
           >
-            <img src="{{ blog.thumbnail_url }}" alt="" />
-            <div class="blog-detail">
+            <p>Cộng đồng IT</p>
+            <p>
+              "Tham khảo tài liệu tại đây để nâng cao hiệu suất học tập và tiếp
+              thu kiến thức mới nhất."
+            </p>
+          </blockquote>
+        </div>
+      </section>
+      <!-- Bài đăng gần đây -->
+      <div class="blog-current">
+        <!-- <h2>Bài đăng gần đây</h2> -->
+        <div class="flex flex-row">
+          <ng-container *ngIf="blogHighLight">
+            <div class="col-6 h-auto container-left">
+              <!-- Hình ảnh -->
+              <img src="{{ blogHighLight[0].thumbnail_url }}" />
+              <!-- Tác giả - ngày đăng - min read -->
+              <p>
+                {{ blogHighLight[0].userId.fullName }} •
+                {{ blogHighLight[0].created_at | date : "dd/MM/yyyy" }} •
+                {{ blogHighLight[0].min_read }} phút
+              </p>
+              <!-- Tiêu đề -->
+              <h1
+                [ngStyle]="{ cursor: 'pointer' }"
+                [routerLink]="['/blog/', blogHighLight[0]._id]"
+              >
+                {{ blogHighLight[0].title }}
+              </h1>
+              <!-- Tiêu đề phụ -->
+              <h3>
+                {{
+                  blogHighLight[0].description.length > 100
+                    ? (blogHighLight[0].description.toString()
+                        | slice : 0 : 100) + "..."
+                    : blogHighLight[0].description
+                }}
+              </h3>
+              <!-- Các Tags -->
+              <div class="tags">
+                <p-tag
+                  *ngFor="let tag of blogHighLight[0].tags"
+                  value="{{ tag.name }}"
+                  [style]="{ 'background-color': tag.color }"
+                ></p-tag>
+              </div>
+            </div>
+            <div class="col-6 h-auto container-right flex flex-col gap-3">
+              <div
+                *ngFor="
+                  let blog of blogHighLight.slice(1, blogHighLight.length)
+                "
+                class="col-6 blog flex flex-row w-full gap-3"
+              >
+                <img src="{{ blog.thumbnail_url }}" alt="" />
+                <div class="blog-detail">
+                  <!-- Tác giả - ngày đăng - min read -->
+                  <p>
+                    {{ blog.userId.fullName }} •
+                    {{ blog.created_at | date : "dd/MM/yyyy" }} •
+                    {{ blog.min_read }} phút
+                  </p>
+                  <!-- Tiêu đề -->
+                  <h1
+                    [ngStyle]="{ cursor: 'pointer' }"
+                    [routerLink]="['/blog/', blog._id]"
+                  >
+                    {{ blog.title }}
+                  </h1>
+                  <!-- Tiêu đề phụ -->
+                  <h3>
+                    {{
+                      blog.description.length > 100
+                        ? (blog.description.toString() | slice : 0 : 100) +
+                          "..."
+                        : blog.description
+                    }}
+                  </h3>
+                  <!-- Các Tags -->
+                  <div class="tags">
+                    <p-tag
+                      *ngFor="let tag of blogHighLight[0].tags"
+                      value="{{ tag.name }}"
+                      [style]="{ 'background-color': tag.color }"
+                    ></p-tag>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Tất cả bài đăng -->
+      <div class="list-blog">
+        <h2>Tất cả bài đăng</h2>
+        <!-- Danh sách các bài đăng -->
+        <div class="grid flex flex-row">
+          <ng-container *ngIf="blogsByPage">
+            <div *ngFor="let blog of blogsByPage" class="col-4">
+              <!-- Hình ảnh -->
+              <img src="{{ blog.thumbnail_url }}" />
               <!-- Tác giả - ngày đăng - min read -->
               <p>
                 {{ blog.userId.fullName }} •
@@ -117,108 +164,78 @@
               <!-- Tiêu đề phụ -->
               <h3>
                 {{
-                  blog.description.length > 100
-                    ? (blog.description.toString() | slice : 0 : 100) + "..."
+                  blog.description.length > 50
+                    ? (blog.description.toString() | slice : 0 : 50) + "..."
                     : blog.description
                 }}
               </h3>
               <!-- Các Tags -->
               <div class="tags">
                 <p-tag
-                  *ngFor="let tag of blogHighLight[0].tags"
+                  *ngFor="let tag of blog.tags"
                   value="{{ tag.name }}"
                   [style]="{ 'background-color': tag.color }"
                 ></p-tag>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
-      </ng-container>
-    </div>
-  </div>
 
-  <!-- Tất cả bài đăng -->
-  <div class="list-blog">
-    <h2>Tất cả bài đăng</h2>
-    <!-- Danh sách các bài đăng -->
-    <div class="grid flex flex-row">
-      <ng-container *ngIf="blogsByPage">
-        <div *ngFor="let blog of blogsByPage" class="col-4">
-          <!-- Hình ảnh -->
-          <img src="{{ blog.thumbnail_url }}" />
-          <!-- Tác giả - ngày đăng - min read -->
-          <p>
-            {{ blog.userId.fullName }} •
-            {{ blog.created_at | date : "dd/MM/yyyy" }} •
-            {{ blog.min_read }} phút
-          </p>
-          <!-- Tiêu đề -->
-          <h1
-            [ngStyle]="{ cursor: 'pointer' }"
-            [routerLink]="['/blog/', blog._id]"
-          >
-            {{ blog.title }}
-          </h1>
-          <!-- Tiêu đề phụ -->
-          <h3>
-            {{
-              blog.description.length > 50
-                ? (blog.description.toString() | slice : 0 : 50) + "..."
-                : blog.description
-            }}
-          </h3>
-          <!-- Các Tags -->
-          <div class="tags">
-            <p-tag
-              *ngFor="let tag of blog.tags"
-              value="{{ tag.name }}"
-              [style]="{ 'background-color': tag.color }"
-            ></p-tag>
-          </div>
-        </div>
-      </ng-container>
-    </div>
-
-    <!-- Paginator -->
-    <div class="card flex justify-content-center mb-4">
-      <p-paginator
-        class="w-[20rem]"
-        [first]="first"
-        [rows]="rows"
-        [totalRecords]="blogs && blogs.length"
-        (onPageChange)="onPageChange($event)"
-      ></p-paginator>
-    </div>
-  </div>
-
-  <!-- Quảng cáo dịch vụ -->
-  <!-- <div class="intro-services">
-    <div class="title">
-      <p>Cộng đồng IT</p>
-      <h2>Nơi chia sẻ kiến thức</h2>
-      <span
-        >Đăng ký để nhận ngay ưu đãi về các khóa học mới, và tích hợp tính năng
-        chatbot vào ứng dụng của bạn.
-      </span>
-
-      <div class="btn-subscribe">
-        <div class="card flex justify-content-center gap-3">
-          <span class="p-float-label">
-            <input pInputText id="email" />
-            <label for="email">Mời bạn nhập email</label>
-            <p>
-              Chúng tôi luôn đề cao <strong>chính sách bảo mật</strong> dữ liệu
-              người dùng.
-            </p>
-          </span>
-          <button
-            pButton
-            pRipple
-            label="Đăng ký ngay"
-            class="p-button-success"
-          ></button>
+        <!-- Paginator -->
+        <div class="card flex justify-content-center mb-4">
+          <p-paginator
+            class="w-[20rem]"
+            [first]="first"
+            [rows]="rows"
+            [totalRecords]="blogs && blogs.length"
+            (onPageChange)="onPageChange($event)"
+          ></p-paginator>
         </div>
       </div>
+
+      <!-- Quảng cáo dịch vụ -->
+      <!-- <div class="intro-services">
+        <div class="title">
+          <p>Cộng đồng IT</p>
+          <h2>Nơi chia sẻ kiến thức</h2>
+          <span
+            >Đăng ký để nhận ngay ưu đãi về các khóa học mới, và tích hợp tính năng
+            chatbot vào ứng dụng của bạn.
+          </span>
+    
+          <div class="btn-subscribe">
+            <div class="card flex justify-content-center gap-3">
+              <span class="p-float-label">
+                <input pInputText id="email" />
+                <label for="email">Mời bạn nhập email</label>
+                <p>
+                  Chúng tôi luôn đề cao <strong>chính sách bảo mật</strong> dữ liệu
+                  người dùng.
+                </p>
+              </span>
+              <button
+                pButton
+                pRipple
+                label="Đăng ký ngay"
+                class="p-button-success"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div> -->
     </div>
-  </div> -->
-</div>
+  </ng-container>
+</ng-container>
+
+<ng-template #EmptyBlog>
+  <!-- CSS Loading component -->
+  <div class="w-full h-[100rem] bg-white">
+    <p-blockUI [blocked]="blockedUI">
+      <div
+        class="flex flex-row justify-center items-cennter align-items-center w-full h-full bg-white"
+      >
+        <p-progressSpinner></p-progressSpinner>
+      </div>
+    </p-blockUI>
+  </div>
+</ng-template>

@@ -68,14 +68,14 @@
       }
       img {
         width: 100%;
-        object-fit: cover;
+        object-fit: fill;
       }
     }
     .container-right {
       padding: 0 !important;
       padding-left: 1% !important;
       img {
-        width: 25rem;
+        width: 58%;
       }
       .blog {
         padding: 0 !important;
@@ -129,7 +129,7 @@
     }
     img {
       width: 100%;
-      height: 15rem;
+      height: 20rem;
     }
     .tags {
       padding-top: 2%;
