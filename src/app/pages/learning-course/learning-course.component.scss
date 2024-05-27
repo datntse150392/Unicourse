@@ -99,6 +99,10 @@ $p-color: black;
 
     .course-sidebar {
       overflow-y: scroll;
+      span {
+        font-size: 1rem;
+        text-align: left;
+      }
     }
   }
   .detail-info {
