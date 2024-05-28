@@ -278,10 +278,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
                   .pipe(
                     catchError((error: any) => {
                       // Xử lý lỗi nếu có
-                      console.error(
-                        'Error fetching data after attending event:',
-                        error
-                      );
+
                       // Trả về một giá trị Observable rỗng nếu có lỗi
                       return of(null);
                     })
@@ -330,6 +327,15 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           },
           error: (err: any) => {
             // Xử lý lỗi nếu có
+            // Hiển thị thông báo
+            this.dialogBroadcastService.broadcastConfirmationDialog({
+              header: 'Thông báo',
+              message: 'Hệ thống hiện tại có vấn đề, mời bạn thử lại',
+              type: 'error',
+              return: false,
+              numberBtn: 1,
+            });
+            this.isBlockUI = false;
             console.log(err);
           },
         });
