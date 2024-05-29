@@ -73,7 +73,7 @@ export class BlogPageComponent {
 
     this.subscriptions.push(blogHighLightSubs$);
     this.subscriptions.push(blogsSubs$);
-    
+
     setTimeout(() => {
       this.blockedUI = false;
     }, 1000);

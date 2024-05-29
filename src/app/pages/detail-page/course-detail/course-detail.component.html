@@ -1,6 +1,15 @@
 <div
   class="course-detail border border-gray-200 shadow dark:border-gray-700 p-3"
 >
+  <!-- Loading -->
+  <p-blockUI [blocked]="blockedUI">
+    <div
+      class="flex flex-row justify-center items-cennter align-items-center w-full h-full"
+    >
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </p-blockUI>
+
   <a href="#">
     <img class="w-full h-auto" [src]="course.thumbnail" [alt]="course.title" />
   </a>

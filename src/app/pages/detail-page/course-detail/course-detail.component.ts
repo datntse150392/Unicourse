@@ -24,7 +24,7 @@ export class CourseDetailComponent implements OnDestroy {
   cart: Cart | undefined;
   public courseId!: string | null;
   public isExistedCourseInsideCart: boolean = false;
-  public blockedUI: boolean = true;
+  public blockedUI: boolean = false;
   public userInfo!: User;
 
   private subscriptions: Subscription[] = [];
@@ -81,6 +81,7 @@ export class CourseDetailComponent implements OnDestroy {
 
   // Hàm xử lí click enroll khóa học
   handleEnrollCoures(courseId: string) {
+    this.blockedUI = true;
     if (localStorage !== undefined) {
       if (!localStorage.getItem('isLogin')) {
         this.sharedService.turnOnSignInDialog();
@@ -95,6 +96,7 @@ export class CourseDetailComponent implements OnDestroy {
                     res.data.trackProgress[0] &&
                     res.data.trackProgress[0].subTrackProgress[0]
                   ) {
+                    this.blockedUI = false;
                     this.router.navigate([
                       `/learning-course`,
                       courseId,
@@ -109,6 +111,7 @@ export class CourseDetailComponent implements OnDestroy {
                       return: false,
                       numberBtn: 1,
                     });
+                    this.blockedUI = false;
                   }
                 }
               },
