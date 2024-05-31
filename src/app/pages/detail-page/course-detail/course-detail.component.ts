@@ -81,12 +81,12 @@ export class CourseDetailComponent implements OnDestroy {
 
   // Hàm xử lí click enroll khóa học
   handleEnrollCoures(courseId: string) {
-    this.blockedUI = true;
     if (localStorage !== undefined) {
       if (!localStorage.getItem('isLogin')) {
         this.sharedService.turnOnSignInDialog();
       } else {
         if (courseId) {
+          this.blockedUI = true;
           const enrollCourseSub$ = this.courseService
             .enrollNewCourse(courseId)
             .subscribe({
