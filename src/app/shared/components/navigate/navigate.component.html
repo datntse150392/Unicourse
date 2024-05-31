@@ -30,10 +30,18 @@
 
         <p (click)="redirectToFlashcard()" class="nav-item">Ôn bài</p>
 
+        <p
+          (click)="redirectToWriteBlog()"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          class="nav-item"
+        >
+          Viết Blog
+        </p>
+
         <!-- <p (click)="joinRoom('65ebe4d2d0cb58ef9cb250cc')" class="nav-item">
           Cộng đồng
         </p> -->
-        <!-- <p-megaMenu [model]="items1" styleClass="flex flex-row"> </p-megaMenu> -->
 
         <div
           [ngStyle]="{ padding: '0% 3%' }"

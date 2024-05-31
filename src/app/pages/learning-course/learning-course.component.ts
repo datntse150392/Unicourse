@@ -5,7 +5,7 @@ import { CourseService } from '../../cores/services';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Course, Track, TrackStep } from '../../cores/models';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ChatBotComponent } from './chat-bot/chat-bot.component';
 import { environment } from '../../../environments/environment.development';
 
@@ -30,7 +30,7 @@ export class LearningCourseComponent implements OnDestroy {
   nextLesson: string = '';
   previousLesson: string = '';
   indexLesson!: number;
-  videoUrl!: any;
+  videoUrl!: SafeResourceUrl;
   public LOGO = environment.LOGO;
 
   private subScriptions: Subscription[] = [];

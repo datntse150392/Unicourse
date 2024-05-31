@@ -1,29 +1,38 @@
 <p-toast [life]="3000"></p-toast>
 <header>
   <div routerLink="/" class="header-left">
-    <img src="{{ Logo }}" />
     <div class="back-home">
-      <i class="pi pi-angle-left" style="font-size: 1rem"></i>
+      <i class="pi pi-angle-left" style="font-size: 1.2rem"></i>
       <p>QUAY LẠI</p>
     </div>
   </div>
   <div class="header-right flex flex-nowrap items-center">
     <button
-      *ngIf="editorContent && title"
+      *ngIf="editorContent && title; else isPublishable"
       pButton
       pRipple
       label="Xuất bản"
       class="btn-view-demo p-button-success"
       (click)="handleCreateBlog()"
     ></button>
+    <ng-template #isPublishable>
+      <button
+        pButton
+        pRipple
+        label="Xuất bản"
+        class="btn-view-demo p-button-success"
+        (click)="handleCreateBlog()"
+        [disabled]="true"
+      ></button>
+    </ng-template>
   </div>
 </header>
 
 <!-- Editor -->
 <div class="editor">
   <!-- Editor Text -->
-  <div>
-    <ng-container *ngIf="preview; else preViewBlog">
+  <div class="gird flex flex-row">
+    <div class="col-6">
       <input
         class="title w-full"
         [(ngModel)]="title"
@@ -36,31 +45,15 @@
         apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
         [init]="{ plugins: 'lists link image table code help wordcount' }"
       ></editor>
-
-      <button
-        *ngIf="editorContent"
-        (click)="togglePreview()"
-        pButton
-        pRipple
-        label="Xem trước"
-        class="btn-view-demo p-button-success"
-      ></button>
-    </ng-container>
-    <ng-template #preViewBlog>
+    </div>
+    <div class="col-6">
       <h1 class="mb-0" *ngIf="title">{{ title }}</h1>
       <div
+        [ngStyle]="{ 'word-break': 'break-word' }"
         class="w-full h-full"
         *ngIf="editorContent"
         [innerHTML]="sanitizeContent(editorContent)"
       ></div>
-
-      <button
-        (click)="togglePreview()"
-        pButton
-        pRipple
-        label="Trở về"
-        class="btn-view-demo p-button-success"
-      ></button>
-    </ng-template>
+    </div>
   </div>
 </div>

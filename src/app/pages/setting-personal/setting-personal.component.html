@@ -1,5 +1,9 @@
 <p-toast [life]="1000"></p-toast>
 <div *ngIf="user" class="container">
+  <!-- Thực hiện việc blockUI khi gọi các API  -->
+  <p-blockUI [blocked]="blockedUI"
+    ><p-progressSpinner></p-progressSpinner>
+  </p-blockUI>
   <h1>Thông tin cá nhân</h1>
   <!-- Name -->
   <div class="name mt-6">
@@ -88,7 +92,7 @@
   </div>
 
   <!-- Số điện thoại   -->
-  <div class="name mt-6">
+  <!-- <div class="name mt-6">
     <div class="flex flex-row align-items-center">
       <div class="info">
         <h3>Số điện thoại</h3>
@@ -96,5 +100,5 @@
       </div>
     </div>
     <p class="mt-3">Điện thoại liên kết với Unicourse.</p>
-  </div>
+  </div> -->
 </div>

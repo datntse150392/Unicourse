@@ -9,6 +9,7 @@ import {
   SharedService,
 } from '../../cores/services';
 import {
+  Banner,
   CheckingDailyEvent,
   Course,
   ScheduleMeeting,
@@ -20,6 +21,7 @@ import { CheckingDailyEventService } from '../../cores/services/checking-daily-e
 import { switchMap } from 'rxjs/operators';
 import { PayOSService } from '../../cores/services/payOS.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { BannerService } from '../../cores/services/banner.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -42,6 +44,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public listCourseFree: Course[] = [];
   public listCourseFee: Course[] = [];
   public hoveredImage: string | null = null; // Khởi tạo biến hoveredImage và gán giá trị ban đầu là null
+  public dataBanners: Banner[] = [];
 
   public isToggleRegisterScheduleMeeting: boolean = false;
   public isToggleDepositPoint: boolean = false;
@@ -59,7 +62,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private readonly scheduleMeetingService: ScheduleMeetingService,
     private readonly payOSService: PayOSService,
     private readonly meta: Meta,
-    private readonly titleService: Title
+    private readonly titleService: Title,
+    private readonly bannerService: BannerService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -205,22 +209,19 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         },
       });
 
-    // Lấy danh sách banner fake data
-    this.dataBanner = [
-      {
-        id: '1',
-        image:
-          'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FTo%CC%82%CC%89ng%20ho%CC%9B%CC%A3p%20thie%CC%82%CC%81t%20ke%CC%82%CC%81%20banner.jpg?alt=media&token=c9d4ee1a-1ecf-4fa0-a397-0a6c041bf62chttps://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
-
-        title: 'Học từ những chuyên gia',
-        description: 'Học từ những chuyên gia hàng đầu',
+    // Lấy danh sách banner
+    const getAllBannerSub$ = this.bannerService.getAllBanners().subscribe({
+      next: (res: any) => {
+        if (res && res.status === 200) {
+          this.dataBanner = res.data;
+        }
       },
-    ];
+    });
 
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
     this.subscriptions.push(getAllScheduleMeetingsSub$);
-
+    this.subscriptions.push(getAllBannerSub$);
     this.subscriptions.push(getListCourseFeeSub$);
     this.subscriptions.push(getListCourseFreeSub$);
     this.isBlockUI = false;

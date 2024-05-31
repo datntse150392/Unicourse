@@ -94,7 +94,10 @@ export class QuizService {
     // Call api tính toán flashcard result
     calculateResult(userFlashcard: any) {
         let body = userFlashcard;
-        const UserInfo: User = JSON.parse(localStorage.getItem('UserInfo') || '');
+        let UserInfo: User = {} as User;
+        if (localStorage && localStorage.getItem('UserInfo') !== null) {
+            UserInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
+        }
         const user_id = UserInfo._id;
         if (user_id) {
             body.user_id = user_id;

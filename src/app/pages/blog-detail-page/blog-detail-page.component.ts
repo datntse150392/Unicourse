@@ -37,6 +37,7 @@ export class BlogDetailPageComponent {
 
   public isLikeBlog: boolean = false;
   public isBlockUI: boolean = false;
+  public isInitBlock: boolean = false;
 
   closeCallback(e: any): void {
     this.sidebarRef.close(e);
@@ -163,7 +164,9 @@ export class BlogDetailPageComponent {
               this.getBlogByBlogId(this.blogId || '');
               this.editorContentComment = '';
               this.toggleEditor = false;
-              this.inItForm();
+              if (this.blogId) {
+                this.getBlogByBlogId(this.blogId);
+              }
             }
           },
           error: (err: Error) => {
@@ -197,9 +200,7 @@ export class BlogDetailPageComponent {
         .subscribe({
           next: (res: any) => {
             if (res && res.status === 200) {
-              console.log('Here');
               if (this.blogId) {
-                console.log('blogId', this.blogId);
                 this.getBlogByBlogId(this.blogId);
               }
             }
@@ -230,11 +231,13 @@ export class BlogDetailPageComponent {
   // Like bài viết
   likeBlog() {
     if (this.blogId && this.userInfo) {
+      this.isInitBlock = true;
       const likeBlogSubs$ = this.blogService.likeBlog(this.blogId).subscribe({
         next: (res: any) => {
           if (res && res.status === 200) {
-            console.log('Here');
-            this.inItForm();
+            if (this.blogId) {
+              this.getBlogByBlogId(this.blogId);
+            }
           }
         },
         error: (err: Error) => {
@@ -245,6 +248,7 @@ export class BlogDetailPageComponent {
     } else if (!this.userInfo) {
       this.sharedService.turnOnSignInDialog();
     }
+    this.isInitBlock = false;
   }
 
   // Unlike bài viết
@@ -256,7 +260,9 @@ export class BlogDetailPageComponent {
           next: (res: any) => {
             if (res && res.status === 200) {
               this.isLikeBlog = false;
-              this.inItForm();
+              if (this.blogId) {
+                this.getBlogByBlogId(this.blogId);
+              }
             }
           },
           error: (err: Error) => {
@@ -320,7 +326,9 @@ export class BlogDetailPageComponent {
                 detail: 'Cập nhật thành công',
                 life: 3000,
               });
-              this.inItForm();
+              if (this.blogId) {
+                this.getBlogByBlogId(this.blogId);
+              }
               this.toggleEditorUpdateCommentFunc(currentToggle, '');
             }
           },
@@ -367,9 +375,9 @@ export class BlogDetailPageComponent {
                 detail: 'Gửi phản hồi thành công',
                 life: 3000,
               });
-
-              console.log('here');
-              this.inItForm();
+              if (this.blogId) {
+                this.getBlogByBlogId(this.blogId);
+              }
               this.editorReplyComment = '';
               this.editorVisibleReplyComment[commentId] = false;
               this.toggleEditorReplyCommentFunc(currentComment, '');

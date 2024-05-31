@@ -3,6 +3,9 @@
     <app-header></app-header>
   </div>
   <div class="container" *ngIf="!isBlockUI">
+    <p-blockUI [blocked]="isInitBlock"
+      ><p-progressSpinner></p-progressSpinner>
+    </p-blockUI>
     <!-- Breachrum Group-->
     <nav class="flex mb-4" aria-label="Breadcrumb">
       <ol
@@ -514,13 +517,13 @@
                         else NotAuthor
                       "
                     >
-                      <p class="mr-2 p-custome">Phản hồi</p>
+                      <!-- <p class="mr-2 p-custome">Phản hồi</p> -->
                     </ng-container>
                     <ng-template #NotAuthor>
                       <!-- <p class="mr-2 p-custome">Phản hồi</p> -->
                     </ng-template>
 
-                    <div class="dropdown ml-2">
+                    <!-- <div class="dropdown ml-2">
                       <span class="pi pi-ellipsis-h dropbtn"></span>
                       <div class="dropdown-content">
                         <ng-container
@@ -549,7 +552,7 @@
                           <a (click)="reportComment()">Báo cáo bình luận</a>
                         </ng-template>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>

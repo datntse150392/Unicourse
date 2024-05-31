@@ -162,14 +162,14 @@
             <ng-container *ngIf="isDisabledNext; else nextButton">
               <button
                 type="button"
-                (click)="finishQuiz()"
+                (click)="handleDisplaySubmitDialog()"
                 [ngStyle]="{ width: '9.5rem' }"
                 class="w-auto text-white bg-[#22c55e] hover:bg-[#16a34a] focus:ring-4 focus:outline-none focus:ring-[#2cff79] font-medium rounded-lg text-sm px-2 py-2.5 text-center inline-flex items-center"
               >
                 <p
                   [ngStyle]="{ width: '6.8rem' }"
                   class="text-sm text-center font-medium font-customFont text-white"
-                  (click)="finishQuiz()"
+                  (click)="handleDisplaySubmitDialog()"
                 >
                   Kiểm tra điểm
                 </p>

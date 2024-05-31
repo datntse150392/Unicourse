@@ -24,6 +24,7 @@ export class SettingPersonalComponent {
   public isUpdate: boolean = false;
   public newFullName: string = '';
   public newUrlImage!: string;
+  public blockedUI: boolean = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -56,6 +57,7 @@ export class SettingPersonalComponent {
 
   handleOnClickUpdate() {
     if (this.isUpdate === true) {
+      this.blockedUI = true;
       if (this.user) {
         const Object = {
           fullName: this.newFullName,
@@ -73,6 +75,7 @@ export class SettingPersonalComponent {
                   summary: 'Thành công',
                   detail: 'Cập nhật thông tin thành công',
                 });
+                this.blockedUI = false;
               }
             },
           });
@@ -84,6 +87,7 @@ export class SettingPersonalComponent {
 
   storage = inject(Storage);
   async onUpload($event: FileUploadEvent) {
+    this.blockedUI = true;
     const storageRef = ref(this.storage, 'images/' + $event.files[0].name);
     const uploadTask = await uploadBytes(storageRef, $event.files[0]);
     const downloadUrl = await getDownloadURL(uploadTask.ref);
@@ -105,6 +109,7 @@ export class SettingPersonalComponent {
                 detail: 'Cập nhật thông tin thành công',
               });
               this.sharedService.isUpdateUserInfo();
+              this.blockedUI = false;
             }
           },
         });

@@ -349,6 +349,22 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  handleDisplaySubmitDialog() {
+    this.dialogBroadcastService.broadcastConfirmationDialog({
+      header: 'Thông báo',
+      message: 'Bạn có muốn nộp bài không?',
+      type: 'info',
+      return: true,
+      numberBtn: 2
+    });
+
+    this.dialogBroadcastService.getDialogConfirm().subscribe((confirm) => {
+      if (confirm && confirm === true) {
+        this.finishQuiz();
+      }
+    });
+  }
+
   finishQuiz() {
     this.userFlashcard.questions[this.currentIndex].is_answered = !this.currentItems.answer.every((x: any) => x.is_checked === false) // Kiểm tra xem câu hỏi có trả lời không
     // Navigate to result page with data userFlashcard

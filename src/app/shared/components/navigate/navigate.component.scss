@@ -55,7 +55,7 @@
     width: 30rem;
     padding: 0% 5%;
     margin: 1% 0%;
-    gap: 5px;
+    gap: 10px;
     .img-logo {
       width: 3rem;
       margin-right: 1rem;
@@ -72,7 +72,7 @@
       .nav-item {
         border-radius: 5px;
         position: relative; /* Cho phép absolute positioning bên trong .nav-item */
-        padding: 2% 3%;
+        padding: 1.5%;
         color: rgba(0, 0, 0, 0.7);
         font-weight: 700;
         cursor: pointer;

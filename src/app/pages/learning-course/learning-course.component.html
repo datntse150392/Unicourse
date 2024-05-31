@@ -7,7 +7,7 @@
           <p *ngIf="course">{{ course.title }}</p>
         </div>
       </div>
-      <div class="nav-right">
+      <!-- <div class="nav-right">
         <div class="container">
           <i
             class="pi pi-file"
@@ -44,7 +44,7 @@
           ></i>
           <p>0/{{ course && course.tracks.length }} chương</p>
         </div>
-      </div>
+      </div> -->
     </header>
     <div class="learning-video grid grid-cols-12 gap-2">
       <div class="video col-span-9">
@@ -55,6 +55,7 @@
             [src]="videoUrl"
             frameborder="0"
             allowfullscreen
+            style="border: none"
           ></iframe>
         </div>
       </div>

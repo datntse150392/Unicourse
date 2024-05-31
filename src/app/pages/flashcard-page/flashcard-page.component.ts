@@ -74,7 +74,7 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
   public blockedUI: boolean = true;
   search: string = '';
   emptySearchResult: boolean = false;
-  categoryText: string = 'Chuyên ngành'
+  categoryText: string = 'Học kỳ';
   
   flashcards: any[] = [];
 
@@ -179,7 +179,7 @@ export class FlashcardPageComponent implements OnInit, OnDestroy {
         this.filterObject.topView = false;
         this.filterObject.category = undefined;
         this.filterObject.title = undefined;
-        this.categoryText = 'Chuyên ngành';
+        this.categoryText = 'Học kỳ';
         break;
     }
     this.originalFlashcards = [];

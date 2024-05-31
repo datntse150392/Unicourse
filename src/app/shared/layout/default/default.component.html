@@ -35,7 +35,7 @@
         "
       >
         <i class="pi pi-times p-2 close-btn" (click)="closeDialogSignIn()"></i>
-        <img src="{{ Logo }}" />
+        <img class="logo" src="{{ Logo }}" />
 
         <div
           class="flex flex-column align-items-app-dialogcenter text-center items-center"
@@ -45,40 +45,60 @@
             >Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử
             dụng chung có thể sẽ bị khóa.</span
           >
-          <div class="list-buttons-icon px-2 pb-2">
+          <!-- <div class="list-buttons-icon px-2 pb-2">
             <div
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
-              <i class="pi pi-user" style="color: #708090"></i>
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/color/24/apple-phone.png"
+                alt="apple-phone"
+              />
               <p>Sử dụng email / số điện thoại</p>
             </div>
-          </div>
+          </div> -->
           <div class="list-buttons-icon px-2 pb-2">
             <div
               (click)="tryGoogleLogin()"
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
-              <i class="pi pi-google" style="color: #708090"></i>
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/color/24/google-logo.png"
+                alt="google-logo"
+              />
               <p>Đăng nhập với Google</p>
             </div>
           </div>
-          <div class="list-buttons-icon px-2 pb-2">
+          <!-- <div class="list-buttons-icon px-2 pb-2">
             <div
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
-              <i class="pi pi-facebook" style="color: #708090"></i>
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/color/24/facebook-new.png"
+                alt="facebook-new"
+              />
               <p>Đăng nhập với Facebook</p>
             </div>
-          </div>
-          <div class="list-buttons-icon px-2">
+          </div> -->
+          <!-- <div class="list-buttons-icon px-2">
             <div
               (click)="tryGibHubLogin()"
               class="button-icon p-3 flex flex-row text-center align-items-center"
             >
-              <i class="pi pi-github" style="color: #708090"></i>
+              <img
+                width="24"
+                height="24"
+                src="https://img.icons8.com/ios-filled/24/github.png"
+                alt="github"
+              />
               <p>Đăng nhập với GitHub</p>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="sign-in-footer text-center pb-6 pr-4 pl-4">
           <!-- <p>
