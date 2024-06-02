@@ -102,6 +102,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     ]);
     // Scroll smooth lên đầu trang
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Và kiểm tra xem nếu trên local có isTurnOnNewFeed
+    if (localStorage.getItem('isTurnOnNewFeed') !== 'true') {
+      this.sharedService.turnOnNewFeedDialog();
+      localStorage.setItem('isTurnOnNewFeed', 'true');
+    }
   }
 
   ngOnInit(): void {

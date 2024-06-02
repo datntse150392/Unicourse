@@ -100,6 +100,16 @@ export class DefaultComponent implements OnInit, OnDestroy {
         this.handleErrorPayment();
       }
     }
+
+    const turnOnNewFeedSub$ = this.sharedService.turnOnNewFeed$.subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.visibleDialogNewFeed = true;
+        }
+      },
+    });
+
+    this.subScriptions.push(turnOnNewFeedSub$);
   }
 
   ngOnDestroy(): void {
@@ -230,7 +240,7 @@ export class DefaultComponent implements OnInit, OnDestroy {
   }
 
   showDialog() {
-    this.visibleDialogNewFeed = true;
+    this.sharedService.turnOnNewFeedDialog();
   }
 
   // Hanle time since publication

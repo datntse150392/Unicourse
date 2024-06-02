@@ -20,6 +20,7 @@ import { FlashcardPageComponent } from './pages/flashcard-page/flashcard-page.co
 import { FlashcardDetailPageComponent } from './pages/flashcard-detail-page/flashcard-detail-page.component';
 import { CoinBankingComponent } from './pages/coin-banking/coin-banking.component';
 import { FlashcardResultPageComponent } from './pages/flashcard-result-page/flashcard-result-page.component';
+import { TransactionHistoryPageComponent } from './pages/transaction-history-page/transaction-history-page.component';
 
 export const routes: Routes = [
   {
@@ -58,11 +59,16 @@ export const routes: Routes = [
       },
       {
         path: 'flashcard/:id/result',
-        component:FlashcardResultPageComponent,
+        component: FlashcardResultPageComponent,
       },
       {
         path: 'coin-banking',
         component: CoinBankingComponent,
+        canActivate: [loginSystemGuard],
+      },
+      {
+        path: 'transaction-history',
+        component: TransactionHistoryPageComponent,
         canActivate: [loginSystemGuard],
       },
     ],

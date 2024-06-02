@@ -154,6 +154,18 @@
   }
 }
 
+.group-btn-cskh {
+  position: fixed;
+  bottom: 21%;
+  margin-left: 1.5rem;
+  border-radius: 8rem;
+  cursor: pointer;
+  img {
+    border-radius: 8rem;
+    z-index: 1;
+  }
+}
+
 @media only screen and (min-width: 600px) {
   .noti-responsive-web {
     display: none;

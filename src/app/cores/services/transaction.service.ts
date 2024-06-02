@@ -103,6 +103,13 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
+  // Lấy lịch sử giao dịch
+  getMyTransaction() {
+    return this.httpClient
+      .get<any>(`${environment.baseUrl}/api/transactions/user`)
+      .pipe(catchError(this.handleError));
+  }
+
   // Xử lí khi có lỗi
   private handleError(error: any) {
     // Handle the error appropriately here

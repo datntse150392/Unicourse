@@ -49,6 +49,10 @@ export class SharedService {
   private isRetrieveCart = new BehaviorSubject<boolean>(false);
   readonly isRetrieveCart$ = this.isRetrieveCart.asObservable();
 
+  // Dùng đẻ turn on bản tin khi người dùng lần đầu tiên vào page
+  private turnOnNewFeed = new BehaviorSubject<boolean>(false);
+  readonly turnOnNewFeed$ = this.turnOnNewFeed.asObservable();
+
   constructor() {}
 
   turnOnSignInDialog() {
@@ -103,5 +107,13 @@ export class SharedService {
 
   retrieveCart() {
     this.isRetrieveCart.next(true);
+  }
+
+  turnOnNewFeedDialog() {
+    this.turnOnNewFeed.next(true);
+  }
+
+  turnOffNewFeedDialog() {
+    this.turnOnNewFeed.next(false);
   }
 }

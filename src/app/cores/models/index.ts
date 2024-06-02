@@ -9,3 +9,4 @@ export * from './checking-daily-event.model';
 export * from './schedule-meeting.model';
 export * from './quiz.model';
 export * from './banner.model';
+export * from './transaction.model';
