@@ -132,6 +132,100 @@
     </section>
   </div>
 
+  <!-- My leanring unit -->
+  <div
+    *ngIf="myCourses && userInfo"
+    class="my-learning-unit bg-white rounded-lg shadow-md"
+  >
+    <h1 class="text-2xl font-bold mb-4">
+      {{ userInfo.fullName }} ơi, hãy bắt đầu học nào
+    </h1>
+    <div class="relative h-auto">
+      <div
+        class="flex space-x-4 h-full overflow-x-scroll no-scrollbar"
+        id="carousel"
+      >
+        <div
+          *ngFor="let enrollCourse of this.myCourses"
+          class="course-card h-auto bg-gray-100 p-4 rounded-lg shadow-md min-w-[300px] max-w-[300px]"
+        >
+          <div class="relative pb-16/9">
+            <img
+              class="absolute inset-0 w-full h-full object-cover rounded-lg"
+              [src]="enrollCourse.course.thumbnail"
+              alt="Course image"
+            />
+            <button
+              class="absolute inset-0 flex items-center justify-center text-white bg-black bg-opacity-50 rounded-lg"
+              routerLink="/course/{{ enrollCourse.course._id }}"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                class="h-10 w-10"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14.752 11.168l-5.197 3.029A1 1 0 019 13.369V6.631a1 1 0 011.555-.832l5.197 3.029a1 1 0 010 1.664z"
+                />
+              </svg>
+            </button>
+          </div>
+          <h2 class="mt-4 text-lg font-semibold">
+            {{ enrollCourse.course.title }}
+          </h2>
+          <p class="text-gray-500">
+            {{ enrollCourse.course.lecture.fullName }}
+          </p>
+        </div>
+      </div>
+      <button
+        *ngIf="myCourses.length >= 5"
+        class="carousel-button left"
+        (click)="scrollLeft()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="h-6 w-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+      <button
+        *ngIf="myCourses.length >= 5"
+        class="carousel-button right"
+        (click)="scrollRight()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          class="h-6 w-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <!-- Checking Daily -->
   <div class="checking-daily">
     <ng-container *ngIf="!userInfo; else userLogged">

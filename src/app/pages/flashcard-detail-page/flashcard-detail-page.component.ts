@@ -49,6 +49,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   isActive: boolean[] = [];
   isDisabledPrevios: boolean = true;
   isDisabledNext: boolean = false;
+  isSubmitQuiz: boolean = false;
   filter: string = '';
   progressValue: number = 20;
   faCircleXmark = faCircleXmark;
@@ -129,11 +130,8 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     const getQuizDetailSub$ = this.quizService.getQuizById(quizId).subscribe({
       next: (res: any) => {
         //Convert Date to Number of day to now: Ex: 2024-05-04T05:54:52.828Z -> 1 day ago
-        const convertData = res.data.map((quiz: Quiz) => {
-          const dateToNow = Math.floor((new Date().getTime() - new Date(quiz.created_at).getTime()) / (1000 * 3600 * 24));
-          return { ...quiz, date_to_now: dateToNow };
-        });
-        this.originalFlashcards.push(...convertData);
+        const dateToNow = Math.floor((new Date().getTime() - new Date(res.data.created_at).getTime()) / (1000 * 3600 * 24));
+        this.originalFlashcards.push({...res.data, date_to_now: dateToNow});
 
         // Init userFlashcard: Lưu vào tiến trình trả lời câu hỏi của user
         let clonedObject: any = _.cloneDeep(this.originalFlashcards[0]);
@@ -350,6 +348,8 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
   }
 
   handleDisplaySubmitDialog() {
+    this.isSubmitQuiz = true;
+    
     this.dialogBroadcastService.broadcastConfirmationDialog({
       header: 'Thông báo',
       message: 'Bạn có muốn nộp bài không?',
@@ -359,7 +359,7 @@ export class FlashcardDetailPageComponent implements OnInit, OnDestroy {
     });
 
     this.dialogBroadcastService.getDialogConfirm().subscribe((confirm) => {
-      if (confirm && confirm === true) {
+      if (confirm && confirm === true && this.isSubmitQuiz) {
         this.finishQuiz();
       }
     });

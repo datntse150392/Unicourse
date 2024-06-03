@@ -137,6 +137,10 @@
     }
   }
 
+  .my-learning-unit {
+    padding: 2% 5%;
+  }
+
   .semester {
     margin-top: 3%;
     padding: 0% 5%;
@@ -448,4 +452,84 @@
   50% {
     border-color: orange;
   }
+}
+
+/* Custom styles */
+.relative {
+  position: relative;
+}
+
+.pb-16\/9 {
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.min-w-\[300px\] {
+  min-width: 250px;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+button {
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carousel-button svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.carousel-button.left {
+  left: -1.5rem;
+}
+
+.carousel-button.right {
+  right: -1.5rem;
+}
+
+.carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }

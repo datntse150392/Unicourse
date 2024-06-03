@@ -522,4 +522,24 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  scrollLeft() {
+    const carousel = document.getElementById('carousel');
+    if (carousel) {
+      carousel.scrollBy({
+        left: -300, // Điều chỉnh giá trị này nếu cần
+        behavior: 'smooth',
+      });
+    }
+  }
+
+  scrollRight() {
+    const carousel = document.getElementById('carousel');
+    if (carousel) {
+      carousel.scrollBy({
+        left: 300, // Điều chỉnh giá trị này nếu cần
+        behavior: 'smooth',
+      });
+    }
+  }
 }
