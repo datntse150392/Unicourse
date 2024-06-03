@@ -336,10 +336,7 @@
           </h3>
           <div class="m-0 flex flex-column gap-2">
             <div class="main-info mt-2">
-              <a
-                href="#"
-                class="text-blue-600 dark:text-blue-500 hover:underline"
-              >
+              <a class="text-blue-600 dark:text-blue-500 hover:underline">
                 {{ courseDetail.lecture.fullName }}
               </a>
               <span class="text-[#6a6f73] text-xl">{{
@@ -401,7 +398,7 @@
         <ng-container
           *ngIf="this.courseDetail.lecture.lecture_info.feedback.length > 0"
         >
-          <div id="feedback-section" class="feecback w-full mt-10">
+          <div id="feedback-section" class="feedback w-full mt-10">
             <p class="font-bold text-xl flex flex-row items-center gap-2">
               <svg
                 class="h-4 text-yellow-300"
@@ -443,61 +440,21 @@
                     <div
                       class="flex items-center mb-1 space-x-1 rtl:space-x-reverse w-[5rem]"
                     >
-                      <svg
-                        class="w-4 h-4 text-yellow-300"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 22 20"
-                      >
-                        <path
-                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                        />
-                      </svg>
-                      <svg
-                        class="w-4 h-4 text-yellow-300"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 22 20"
-                      >
-                        <path
-                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                        />
-                      </svg>
-                      <svg
-                        class="w-4 h-4 text-yellow-300"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 22 20"
-                      >
-                        <path
-                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                        />
-                      </svg>
-                      <svg
-                        class="w-4 h-4 text-yellow-300"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 22 20"
-                      >
-                        <path
-                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                        />
-                      </svg>
-                      <svg
-                        class="w-4 h-4 text-gray-300 dark:text-gray-500"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 22 20"
-                      >
-                        <path
-                          d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
-                        />
-                      </svg>
+                      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+                        <svg
+                          class="w-4 h-4"
+                          [class.text-yellow-300]="star <= feedback.rating"
+                          [class.text-gray-300]="star > feedback.rating"
+                          aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor"
+                          viewBox="0 0 22 20"
+                        >
+                          <path
+                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                          />
+                        </svg>
+                      </ng-container>
                     </div>
                     <footer
                       class="mb-5 text-sm text-gray-500 dark:text-gray-400"
@@ -512,25 +469,23 @@
                       </p>
                     </footer>
                     <p class="mb-2 text-gray-900 dark:text-gray-400">
-                      {{ feedback.content }}
+                      {{ feedback.content | slice : 0 : 200
+                      }}<span *ngIf="feedback.content.length > 50">...</span>
                     </p>
 
                     <a
-                      class="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
-                      >Xem thêm</a
+                      *ngIf="feedback.content.length > 50"
+                      class="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer"
                     >
+                    </a>
+
                     <aside>
-                      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                        19 người đã thấy đánh giá này hữu ích
-                      </p>
                       <div class="flex items-center mt-3">
                         <a
-                          href="#"
                           class="px-2 py-1.5 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                           >Hữu ích</a
                         >
                         <a
-                          href="#"
                           class="ps-4 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 border-gray-200 ms-4 border-s md:mb-0 dark:border-gray-600"
                           >Báo cáo</a
                         >
@@ -542,6 +497,9 @@
             </div>
           </div>
           <button
+            (click)="
+              showDialogListFeedback(courseDetail.lecture.lecture_info.feedback)
+            "
             *ngIf="showCount < courseDetail.tracks.length"
             type="button"
             class="ml-[-7px] mt-2 flex items-center justify-between p-2 font-medium rtl:text-right text-gray-900 border border-gray-200 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800 gap-3"
@@ -590,5 +548,80 @@
       frameborder="0"
       allowfullscreen
     ></iframe>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Danh sách đánh giá khoá học"
+  [(visible)]="visibleDialogListFeedback"
+  [modal]="true"
+  [style]="{ width: '70rem' }"
+>
+  <div class="grid grid-cols-12 mt-2 gap-5">
+    <ng-container *ngFor="let feedback of listFeedback">
+      <div class="col-span-6 border p-4">
+        <article>
+          <div class="flex flex-col">
+            <p class="font-bold">{{ feedback.user_id.fullName }}</p>
+            <time
+              datetime="2014-08-16 19:00"
+              class="block text-sm text-gray-500 dark:text-gray-400"
+              >Thành viên của Unicourse từ
+              {{ publishedAtString(feedback.user_id.created_at) }}</time
+            >
+          </div>
+          <div
+            class="flex items-center mb-1 space-x-1 rtl:space-x-reverse w-[5rem]"
+          >
+            <ng-container *ngFor="let star of [1, 2, 3, 4, 5]">
+              <svg
+                class="w-4 h-4"
+                [class.text-yellow-300]="star <= feedback.rating"
+                [class.text-gray-300]="star > feedback.rating"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 22 20"
+              >
+                <path
+                  d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+                />
+              </svg>
+            </ng-container>
+          </div>
+          <footer class="mb-5 text-sm text-gray-500 dark:text-gray-400">
+            <p>
+              Đã đánh giá
+              {{ courseDetail.title }}
+              <time datetime="2017-03-03 19:00"
+                >, {{ feedback.created_at | date : "dd/MM/yyyy" }}</time
+              >
+            </p>
+          </footer>
+          <p class="mb-2 text-gray-900 dark:text-gray-400">
+            {{ feedback.content }}
+          </p>
+
+          <a
+            *ngIf="feedback.content.length > 50"
+            class="block mb-5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 cursor-pointer"
+          >
+          </a>
+
+          <aside>
+            <div class="flex items-center mt-3">
+              <a
+                class="px-2 py-1.5 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                >Hữu ích</a
+              >
+              <a
+                class="ps-4 text-sm font-medium text-blue-600 hover:underline dark:text-blue-500 border-gray-200 ms-4 border-s md:mb-0 dark:border-gray-600"
+                >Báo cáo</a
+              >
+            </div>
+          </aside>
+        </article>
+      </div>
+    </ng-container>
   </div>
 </p-dialog>

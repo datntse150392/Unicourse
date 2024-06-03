@@ -10,7 +10,7 @@ import { SharedModule } from '../../shared';
 import { TreeNode } from 'primeng/api';
 import { LecturerCardComponent } from './lecturer-card/lecturer-card.component';
 import { CourseListComponent } from './course-list/course-list.component';
-import { Course, Track, TrackStep } from '../../cores/models';
+import { Course, Feedback, Track, TrackStep } from '../../cores/models';
 import { CourseService } from '../../cores/services';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, filter, switchMap } from 'rxjs';
@@ -60,6 +60,8 @@ export class DetailPageComponent implements OnInit, OnDestroy {
   public videoUrl: any = '';
   public totalTime: number = 0;
   public avgRating: any = 0;
+  public listFeedback: Feedback[] = [];
+  public visibleDialogListFeedback: boolean = false;
 
   private subscription = new Subscription();
 
@@ -268,5 +270,12 @@ export class DetailPageComponent implements OnInit, OnDestroy {
     } else {
       return `vài phút trước`;
     }
+  }
+
+  showDialogListFeedback(listFeedback: Feedback[]) {
+    this.listFeedback = listFeedback;
+    console.log(this.listFeedback);
+
+    this.visibleDialogListFeedback = true;
   }
 }

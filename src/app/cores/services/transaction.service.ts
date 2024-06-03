@@ -110,6 +110,18 @@ export class TransactionService {
       .pipe(catchError(this.handleError));
   }
 
+  // Đánh giá khóa học
+  sendFeedback(transactionId: string, rating: number, content: string) {
+    const body = {
+      transactionId,
+      rating,
+      content,
+    };
+    return this.httpClient
+      .put<any>(`${environment.baseUrl}/api/transactions/send-feedback`, body)
+      .pipe(catchError(this.handleError));
+  }
+
   // Xử lí khi có lỗi
   private handleError(error: any) {
     // Handle the error appropriately here

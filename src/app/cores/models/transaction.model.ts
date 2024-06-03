@@ -21,6 +21,13 @@ export const TransactionType = {
   FREE_COURSE: 'free_course',
 };
 
+interface StatusOfPayment {
+  PENDING: 'pending';
+  SUCCESS: 'success';
+  FAILED: 'failed';
+  PAID: 'PAID';
+}
+
 interface ItemCheckout {
   _id: string;
   title: string;
