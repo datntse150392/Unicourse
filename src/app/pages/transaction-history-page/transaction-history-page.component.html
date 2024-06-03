@@ -1,28 +1,31 @@
 <div>
   <app-header></app-header>
 
-  <section
-    class="bg-white w-full dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+  <div
+    *ngIf="transactionData.length > 0; else emptyTransactionData"
+    class="container"
   >
-    <div
-      class="py-7 px-4 mb-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+    <section
+      class="bg-white w-full dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
     >
-      <h1
-        class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+      <div
+        class="py-7 px-4 mb-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
       >
-        Lịch sử giao dịch
-      </h1>
-      <blockquote
-        class="text-xl text-gray-500 italic font-semibold text-center"
-      >
-        <p>
-          "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm Point bạn
-          nhé!"
-        </p>
-      </blockquote>
-    </div>
-  </section>
-  <div class="container">
+        <h1
+          class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+        >
+          Lịch sử giao dịch
+        </h1>
+        <blockquote
+          class="text-xl text-gray-500 italic font-semibold text-center"
+        >
+          <p>
+            "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm Point
+            bạn nhé!"
+          </p>
+        </blockquote>
+      </div>
+    </section>
     <ng-container *ngFor="let data of transactionData">
       <ng-container *ngIf="data.status === 'PAID'; else failPayment">
         <div class="main-body p-3 bg-gray-100 rounded-md mb-3">
@@ -215,6 +218,30 @@
       </ng-template>
     </ng-container>
   </div>
+
+  <ng-template #emptyTransactionData>
+    <section
+      class="bg-white w-full h-[90vh] flex items-center dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+    >
+      <div
+        class="py-7 px-4 mb-[10rem] mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+      >
+        <h1
+          class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+        >
+          Giao dịch trống
+        </h1>
+        <blockquote
+          class="text-xl text-gray-500 italic font-semibold text-center"
+        >
+          <p>
+            "Giao dịch của bạn hiện đang trống. Mời bạn đăng ký khoá học để trải
+            nghiệm thêm!"
+          </p>
+        </blockquote>
+      </div>
+    </section>
+  </ng-template>
 
   <!-- <nav class="p-4 flex justify-center" aria-label="Page navigation example">
     <ul class="flex items-center -space-x-px h-10 text-base">

@@ -5,9 +5,31 @@
   <p-blockUI [blocked]="isBlockUI"
     ><p-progressSpinner></p-progressSpinner>
   </p-blockUI>
-  <div class="body">
-    <ng-container *ngIf="this.coins.length > 0; else emptyCoin">
-      <!-- Hiển thị Point -->
+
+  <ng-container *ngIf="this.coins.length > 0; else emptyCoin">
+    <section
+      class="bg-white w-full dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+    >
+      <div
+        class="py-7 px-4 mb-4 mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+      >
+        <h1
+          class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+        >
+          Lịch sử giao dịch
+        </h1>
+        <blockquote
+          class="text-xl text-gray-500 italic font-semibold text-center"
+        >
+          <p>
+            "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm Point
+            bạn nhé!"
+          </p>
+        </blockquote>
+      </div>
+    </section>
+    <!-- Hiển thị Point -->
+    <div class="body">
       <header>
         <div class="display-coins">
           <img
@@ -25,6 +47,7 @@
           <p class="coins-text">Nạp thêm Point</p>
         </div>
       </header>
+
       <div class="tab-view-history">
         <p-tabView [(activeIndex)]="selectedTabIndex">
           <p-tabPanel>
@@ -139,14 +162,26 @@
           </p-tabPanel>
         </p-tabView>
       </div>
-    </ng-container>
-    <ng-template #emptyCoin>
-      <div class="empty-coin">
-        <p class="empty-text">
-          Bạn chưa có Point nào. Hãy tham gia các hoạt động để nhận UNI Point
-          nhé!
-        </p>
+    </div>
+  </ng-container>
+  <ng-template #emptyCoin>
+    <section
+      class="bg-white w-full h-[90vh] flex items-center dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')]"
+    >
+      <div
+        class="py-7 px-4 mb-[10rem] mx-auto max-w-screen-xl text-center lg:py-16 z-0 relative"
+      >
+        <h1
+          class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
+        >
+          Point của bạn hiện đang là 0
+        </h1>
+        <blockquote
+          class="text-xl text-gray-500 italic font-semibold text-center"
+        >
+          <p>"Hãy tham gia các hoạt động để nhận thêm Point bạn nhé!"</p>
+        </blockquote>
       </div>
-    </ng-template>
-  </div>
+    </section>
+  </ng-template>
 </div>

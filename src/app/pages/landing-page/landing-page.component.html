@@ -134,7 +134,7 @@
 
   <!-- My leanring unit -->
   <div
-    *ngIf="myCourses && userInfo"
+    *ngIf="myCourses.length > 0 && userInfo"
     class="my-learning-unit bg-white rounded-lg shadow-md"
   >
     <h1 class="text-2xl font-bold mb-4">
