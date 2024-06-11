@@ -417,9 +417,7 @@
     *ngIf="dataRecommenCourses && dataRecommenCourses.length > 0"
     class="my-learning-unit bg-white rounded-lg shadow-md"
   >
-    <h1 class="text-2xl font-bold mb-4">
-      Đây là những khoá học mà bạn có thể quan tâm
-    </h1>
+    <h1 class="text-2xl font-bold mb-4">Được đề xuất cho bạn</h1>
     <div class="relative h-auto">
       <div
         class="flex space-x-4 h-full overflow-x-scroll no-scrollbar"
@@ -1004,7 +1002,7 @@
         </div>
         <div class="grid grid-cols-5 gap-4">
           <div
-            class="relative interest-card"
+            class="relative interest-card cursor-pointer"
             *ngFor="let interest of interests"
             (click)="toggleSelection(interest)"
             [class.selected]="interest.selected"

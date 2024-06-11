@@ -214,7 +214,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
         if (this.userInfo && this.userInfo.interests.length <= 0) {
           this.isToggleSetInterest = true;
-          this.getUserById(this.userInfo._id);
         } else {
           if (this.userInfo && this.userInfo.interests.length > 0) {
             this.getRecommendedCourses(this.userInfo.interests);
@@ -674,6 +673,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.dataRecommenCourses = res.data;
+          this.getUserById(this.userInfo._id);
           this.isToggleSetInterest = false;
           this.isBlockUI = false;
         },
