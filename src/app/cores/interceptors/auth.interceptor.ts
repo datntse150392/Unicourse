@@ -33,7 +33,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       window.location.reload();
       return next(req);
     }
+  } else {
+    localStorage.clear();
+    window.location.reload();
+    return next(req);
   }
-
-  return next(req);
 };
