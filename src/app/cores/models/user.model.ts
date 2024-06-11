@@ -14,13 +14,14 @@ export interface User {
   created_at: Date;
   updated_at: Date;
   published_at: string;
-  class: string;
   coins: Array<Coin>;
   profileName: string;
   lecture_info: LectureInfo;
   quiz_interest: Array<string>;
   quiz_process: Array<any>;
   wish_list: Array<string>;
+  interests: Array<string>;
+  recommended_courses: Array<string>;
 }
 
 export interface EnrollCourses {

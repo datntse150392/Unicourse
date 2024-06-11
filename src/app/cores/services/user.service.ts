@@ -60,6 +60,15 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  // GET RECOMMENDATION
+  getRecommendation(interests: string[]): Observable<any> {
+    return this.httpClient
+      .put<any>(`${environment.baseUrl}/api/user/get-recommendation`, {
+        interests,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

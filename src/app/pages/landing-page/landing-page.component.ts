@@ -7,6 +7,7 @@ import {
   CourseService,
   ScheduleMeetingService,
   SharedService,
+  UserService,
 } from '../../cores/services';
 import {
   Banner,
@@ -45,12 +46,97 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public listCourseFee: Course[] = [];
   public hoveredImage: string | null = null; // Khởi tạo biến hoveredImage và gán giá trị ban đầu là null
   public dataBanners: Banner[] = [];
+  public maxSelections = 5;
+  public selectedCount = 0;
+  public selectedInterests: string[] = [];
+  public dataRecommenCourses: Course[] = [];
 
   public isToggleRegisterScheduleMeeting: boolean = false;
   public isToggleDepositPoint: boolean = false;
   public isBlockUI: boolean = false;
+  public isToggleSetInterest: boolean = false;
 
   private subscriptions: Subscription[] = [];
+
+  interests = [
+    {
+      title: 'Javascript',
+      imgSrc: 'https://img.icons8.com/color/96/javascript--v1.png',
+      selected: false,
+    },
+    {
+      title: 'Typescript',
+      imgSrc: 'https://img.icons8.com/color/96/typescript.png',
+      selected: false,
+    },
+    {
+      title: 'Java',
+      imgSrc: 'https://img.icons8.com/color/96/java-coffee-cup-logo--v1.png',
+      selected: false,
+    },
+    {
+      title: 'Mathematics',
+      imgSrc: 'https://img.icons8.com/ios-glyphs/96/math.png',
+      selected: false,
+    },
+    {
+      title: 'HTML/CSS',
+      imgSrc: 'https://img.icons8.com/color/96/css3.png',
+      selected: false,
+    },
+    {
+      title: 'React/React Native',
+      imgSrc: 'https://img.icons8.com/plasticine/100/react.png',
+      selected: false,
+    },
+    {
+      title: 'MongoDB',
+      imgSrc: 'https://img.icons8.com/color/96/mongo-db.png',
+      selected: false,
+    },
+    {
+      title: 'SQL/MySQL',
+      imgSrc: 'https://img.icons8.com/color/96/microsoft-sql-server.png',
+      selected: false,
+    },
+    {
+      title: 'Node.js',
+      imgSrc: 'https://img.icons8.com/color/96/nodejs.png',
+      selected: false,
+    },
+    {
+      title: 'Android Studio',
+      imgSrc: 'https://img.icons8.com/color/96/android-studio--v3.png',
+      selected: false,
+    },
+    {
+      title: 'Back-end',
+      imgSrc: 'https://img.icons8.com/nolan/96/backend-development.png',
+      selected: false,
+    },
+    {
+      title: 'Japanese',
+      imgSrc: 'https://img.icons8.com/fluency/96/torii.png',
+      selected: false,
+    },
+    {
+      title: 'Fullstack',
+      imgSrc:
+        'https://img.icons8.com/external-flaticons-lineal-color-flat-icons/96/external-full-stack-web-development-flaticons-lineal-color-flat-icons-2.png',
+      selected: false,
+    },
+    {
+      title: 'Mobile',
+      imgSrc:
+        'https://img.icons8.com/external-smashingstocks-circular-smashing-stocks/96/external-mobile-app-raksha-bandhan-smashingstocks-circular-smashing-stocks.png',
+      selected: false,
+    },
+    {
+      title: 'Game',
+      imgSrc: 'https://img.icons8.com/bubbles/96/controller.png',
+      selected: false,
+    },
+  ];
 
   constructor(
     private courseService: CourseService,
@@ -63,7 +149,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private readonly payOSService: PayOSService,
     private readonly meta: Meta,
     private readonly titleService: Title,
-    private readonly bannerService: BannerService
+    private readonly bannerService: BannerService,
+    private readonly userService: UserService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -125,6 +212,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     if (localStorage !== undefined) {
       if (localStorage.getItem('isLogin')) {
         this.userInfo = JSON.parse(localStorage.getItem('UserInfo') || '');
+        if (this.userInfo && this.userInfo.interests.length <= 0) {
+          this.isToggleSetInterest = true;
+          this.getUserById(this.userInfo._id);
+        } else {
+          if (this.userInfo && this.userInfo.interests.length > 0) {
+            this.getRecommendedCourses(this.userInfo.interests);
+          }
+        }
         this.getMyCourses();
       }
     }
@@ -541,5 +636,75 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         behavior: 'smooth',
       });
     }
+  }
+
+  toggleSelection(interest: any) {
+    if (interest.selected) {
+      this.selectedInterests = this.selectedInterests.filter(
+        (item) => item !== interest.title
+      );
+      interest.selected = false;
+      this.selectedCount--;
+    } else if (this.selectedCount < this.maxSelections) {
+      this.selectedInterests.push(interest.title);
+      interest.selected = true;
+      this.selectedCount++;
+    }
+  }
+
+  selectMoreInterests() {
+    // Xử lý logic khi người dùng chọn thêm 5 mục và kiểm tra xem đã chọn đủ chưa
+    if (this.selectedCount < this.maxSelections) {
+      this.dialogBroadcastService.broadcastDialog({
+        header: 'Thông báo',
+        message: 'Vui lòng chọn đủ 5 mục quan tâm!',
+        type: 'info',
+        display: true,
+      });
+    } else {
+      this.isBlockUI = true;
+      this.getRecommendedCourses(this.selectedInterests);
+      this.isToggleSetInterest = false;
+    }
+  }
+
+  getRecommendedCourses(selectedInterests: string[]) {
+    const setInterestSub$ = this.userService
+      .getRecommendation(selectedInterests)
+      .subscribe({
+        next: (res: any) => {
+          this.dataRecommenCourses = res.data;
+          this.isToggleSetInterest = false;
+          this.isBlockUI = false;
+        },
+        error: (err: any) => {
+          // Thông báo lỗi
+          this.dialogBroadcastService.broadcastDialog({
+            header: 'Thông báo',
+            message: 'Có lỗi xảy ra, vui lòng thử lại sau!',
+            type: 'error',
+            display: true,
+          });
+          console.log(err);
+        },
+      });
+    this.subscriptions.push(setInterestSub$);
+  }
+
+  getRemainingSelections() {
+    return this.maxSelections - this.selectedCount;
+  }
+
+  getUserById(userId: string): void {
+    const getUserSub$ = this.userService.getUser(userId).subscribe({
+      next: (res: any) => {
+        //  và cập nhật thông tin user trên localStorage
+        localStorage.setItem('UserInfo', JSON.stringify(res.data));
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+    this.subscriptions.push(getUserSub$);
   }
 }
