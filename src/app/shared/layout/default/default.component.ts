@@ -170,6 +170,10 @@ export class DefaultComponent implements OnInit, OnDestroy {
                     'my_wish_list',
                     JSON.stringify(this.user.wish_list)
                   );
+                  localStorage.setItem(
+                    'recommended_courses',
+                    JSON.stringify(this.user.recommended_courses)
+                  );
 
                   window.location.reload();
                   this.sharedService.settingLocalStorage();

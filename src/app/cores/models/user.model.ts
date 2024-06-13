@@ -1,4 +1,5 @@
 import { Coin } from './coin.model';
+import { Course } from './course.model';
 
 export interface User {
   _id: string;
@@ -21,7 +22,7 @@ export interface User {
   quiz_process: Array<any>;
   wish_list: Array<string>;
   interests: Array<string>;
-  recommended_courses: Array<string>;
+  recommended_courses: Array<Course>;
 }
 
 export interface EnrollCourses {
