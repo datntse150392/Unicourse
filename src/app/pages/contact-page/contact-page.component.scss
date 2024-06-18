@@ -1,0 +1,23 @@
+.container {
+  .contact-page-container {
+    height: 92vh;
+
+    .fitst-body {
+      height: 55%;
+      margin-top: -4vh;
+      .title {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        line-height: 1rem;
+      }
+      .form-container {
+        width: 100%;
+        z-index: 1;
+      }
+    }
+    .maps {
+      height: 45%;
+    }
+  }
+}

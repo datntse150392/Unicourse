@@ -21,6 +21,7 @@ import { FlashcardDetailPageComponent } from './pages/flashcard-detail-page/flas
 import { CoinBankingComponent } from './pages/coin-banking/coin-banking.component';
 import { FlashcardResultPageComponent } from './pages/flashcard-result-page/flashcard-result-page.component';
 import { TransactionHistoryPageComponent } from './pages/transaction-history-page/transaction-history-page.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +72,10 @@ export const routes: Routes = [
         component: TransactionHistoryPageComponent,
         canActivate: [loginSystemGuard],
       },
+      {
+        path: 'contact-page',
+        component: ContactPageComponent,
+      },
     ],
   },
   {
@@ -94,5 +99,6 @@ export const routes: Routes = [
     component: ChatRoomPageComponent,
     canActivate: [loginSystemGuard],
   },
+
   { path: '**', component: PageNotFoundComponent },
 ];

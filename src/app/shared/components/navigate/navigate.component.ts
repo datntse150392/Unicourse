@@ -242,6 +242,11 @@ export class NavigateComponent implements OnInit, OnDestroy {
   redirectToTransactionHistory() {
     this.router.navigate(['transaction-history']);
   }
+
+  redirectToContactPage() {
+    this.router.navigate(['contact-page']);
+  }
+
   // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io
   joinRoom(roomId: string) {
     if (roomId && this.user) {

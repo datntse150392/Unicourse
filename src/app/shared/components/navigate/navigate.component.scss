@@ -68,13 +68,13 @@
       color: #111827;
     }
     .nav-items {
-      width: 60rem;
+      width: 70rem;
       .nav-item {
         border-radius: 5px;
         position: relative; /* Cho phép absolute positioning bên trong .nav-item */
         padding: 1.5%;
         color: rgba(0, 0, 0, 0.7);
-        font-weight: 700;
+        font-weight: 500;
         cursor: pointer;
         overflow: hidden; /* Giữ cho pseudo-element không vượt ra ngoài .nav-item */
         &:hover {
