@@ -217,7 +217,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           this.userInfo.interests &&
           this.userInfo.interests.length <= 0
         ) {
-          this.isToggleSetInterest = true;
+          // this.isToggleSetInterest = true;
         } else {
           if (
             this.userInfo &&
