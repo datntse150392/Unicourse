@@ -7,6 +7,10 @@ export interface TrackStep {
   duration: number;
   content_url: string;
   type: string;
+  platform: string; // youtube, vimeo, google-drive, ...
+
+  // Phục vụ cho mục đích hiển thị
+  isCompleted: boolean;
 }
 
 export interface Track {
@@ -18,6 +22,7 @@ export interface Track {
 
   // Phục vụ cho mục đích hiển thị
   showBody: boolean;
+  isCompleted: boolean;
 }
 
 export interface Course {
@@ -36,6 +41,41 @@ export interface Course {
   semester_number: number;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface EnrollCourse {
+  _id: string;
+  user: EnrollCourseUser;
+  course: Course;
+  progress: number;
+  enrolledDate: Date;
+  trackProgress: TrackProcess[];
+}
+
+export interface EnrollCourseUser {
+  _id: string;
+  email: string;
+  fullName: string;
+  profileName: string;
+  profile_image: string;
+}
+
+export interface TrackProcess {
+  _id: string;
+  courseId: string;
+  position: number;
+  chapterTitle: string;
+  subTrackProgress: TrackStepProcess[];
+  completed: boolean;
+
+  // Phục vụ cho mục đích hiển thị
+  showBody: boolean;
+}
+
+export interface TrackStepProcess {
+  subTrackId: TrackStep;
+  completed: boolean;
+  _id: string;
 }
 
 export interface FileStatus {

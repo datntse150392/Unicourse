@@ -44,7 +44,6 @@
       padding: 1rem;
       width: 100%;
       border-bottom: 1px solid #ffffff16;
-
       h2 {
         font-weight: 500;
         font-size: 1rem;
@@ -60,8 +59,10 @@
       }
     }
     .main-content {
+      width: 100%;
       margin: 0;
       .list-msg {
+        width: 100%;
         position: relative;
         margin: 0;
         .msg {
@@ -70,6 +71,7 @@
           height: 70vh;
           overflow-y: scroll;
           .msg-left {
+            width: 100%;
             .text {
               width: 10rem;
               position: relative;
@@ -81,7 +83,7 @@
           }
           .msg-right {
             width: 100%;
-            max-width: 100rem;
+            max-width: 75rem;
             .text {
               position: relative;
               font-size: 0.8 rem;
@@ -94,12 +96,12 @@
           }
         }
         .group-input {
+          position: relative;
           border-top: 1px solid #ffffff16;
           width: 100%;
+          max-width: 75rem;
           bottom: 0;
           z-index: 1;
-          position: relative;
-
           input {
             background-color: #101a33;
             padding: 1rem;
@@ -108,8 +110,7 @@
           .pi-send {
             position: absolute;
             top: 50%; /* position the top  edge of the element at the middle of the parent */
-            right: 5%; /* position the left edge of the element at the middle of the parent */
-
+            right: 3%; /* position the left edge of the element at the middle of the parent */
             transform: translate(-50%, -50%);
           }
         }
@@ -128,5 +129,26 @@
       border-radius: 5px;
       overflow-wrap: break-word;
     }
+  }
+  .group-input {
+    width: 100%;
+    max-width: 67rem !important;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1400px) {
+  .msg-right {
+    width: 100%;
+    max-width: 57rem !important;
+    .text {
+      position: relative;
+      font-size: 0.8 rem;
+      border-radius: 5px;
+      overflow-wrap: break-word;
+    }
+  }
+  .group-input {
+    width: 100%;
+    max-width: 57rem !important;
   }
 }

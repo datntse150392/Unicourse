@@ -143,11 +143,9 @@ export class ChatRoomPageComponent
 
   listenForMessages(): void {
     this.socketService.getMessages().subscribe((data: any) => {
-      setTimeout(() => {
-        this.chatRoomDetail.messages = data.listMessage.messages;
-        this.isScrollBottom = true;
-        this.cdr.markForCheck();
-      }, 100);
+      this.chatRoomDetail.messages = data.listMessage.messages;
+      this.isScrollBottom = true;
+      this.cdr.markForCheck();
     });
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { User } from '../models';
+import { EnrollCourse, User } from '../models';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -68,6 +68,26 @@ export class UserService {
       })
       .pipe(catchError(this.handleError));
   }
+
+  // Update tiến độ học tập khóa học của user
+  updateLearningProgress(courseId: string, data: any): Observable<any> {
+    return this.httpClient
+      .put<any>(
+        `${environment.baseUrl}/api/user/update-learning-progress/${courseId}`,
+        data
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  // Lấy danh sách enroll course của user
+  getEnrolledCourse(userId: string): Observable<any> {
+    return this.httpClient
+      .get<any>(
+        `${environment.baseUrl}/api/user/${userId}/get-enrolled-course`
+      )
+      .pipe(catchError(this.handleError));
+  }
+  
 
   private handleError(error: any) {
     // Handle the error appropriately here

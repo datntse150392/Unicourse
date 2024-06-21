@@ -116,10 +116,7 @@
       </div>
       <div class="main-content grid">
         <div class="list-msg p-4 pb-0 grid-cols-4 flex flex-col">
-          <div
-            class="msg col-span-3 flex flex-col items-start gap-3"
-            #chatContainer
-          >
+          <div class="msg flex flex-col items-start gap-3" #chatContainer>
             <ng-container
               *ngFor="
                 let message of chatRoomDetail.messages;
@@ -139,7 +136,7 @@
                 <div>
                   <p class="text-white text-sm">{{ message.user.fullName }}</p>
                   <p
-                    class="break-words min-w-[10rem] max-w-[40%] p-2 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
+                    class="break-words min-w-[10rem] max-w-[4%] p-2 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
                   >
                     {{ message.message }}
                   </p>
@@ -150,7 +147,7 @@
                 class="msg-right flex flex-row items-center justify-end pr-4 mb-2"
               >
                 <p
-                  class="break-words min-w-[10rem] max-w-[40%] p-2 border-gray-200 bg-gray-100 rounded-xl rounded-tr-none dark:bg-gray-700"
+                  class="break-words min-w-[10rem] max-w-[50%] p-2 border-gray-200 bg-gray-100 rounded-xl rounded-tr-none dark:bg-gray-700"
                 >
                   {{ message.message }}
                 </p>
