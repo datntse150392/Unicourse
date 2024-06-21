@@ -67,7 +67,6 @@ export class ChatRoomPageComponent {
       if (this.chatRoomId && this.userInfo) {
         this.getChatRoomByChatRoomId(this.chatRoomId);
         this.listenForMessages();
-        this.blockedUI = false;
       }
     });
     this.setupRoom();
@@ -81,6 +80,7 @@ export class ChatRoomPageComponent {
 
   // Lấy thông tin chat room theo id
   getChatRoomByChatRoomId(id: string) {
+    this.blockedUI = true;
     const getChatRoomDetailSubs$ = this.chatRoomService
       .getChatRoomById(id)
       .subscribe((res) => {
@@ -91,6 +91,7 @@ export class ChatRoomPageComponent {
         }
       });
     this.subscriptions.push(getChatRoomDetailSubs$);
+    this.blockedUI = false;
   }
 
   // Gửi tin nhắn trong chat room

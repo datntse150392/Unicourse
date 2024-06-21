@@ -115,4 +115,8 @@ export class TransactionHistoryPageComponent implements OnInit, OnDestroy {
     this.visibleFeedback = false;
     this.subscriptions.push(sendFeebackSub$);
   }
+
+  openLink(link: string): void {
+    window.open(`${link}`, '_blank');
+  }
 }

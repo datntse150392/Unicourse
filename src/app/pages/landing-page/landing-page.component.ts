@@ -231,7 +231,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
             } else {
               this.dataRecommenCourses = [];
             }
-            this.getRecommendedCourses(this.userInfo.interests);
+            // this.getRecommendedCourses(this.userInfo.interests);
           }
         }
         this.getMyCourses();
@@ -677,7 +677,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       });
     } else {
       this.isBlockUI = true;
-      this.getRecommendedCourses(this.selectedInterests);
+      // this.getRecommendedCourses(this.selectedInterests);
       this.isToggleSetInterest = false;
     }
   }

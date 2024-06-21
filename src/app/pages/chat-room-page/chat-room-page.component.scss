@@ -1,8 +1,13 @@
 .main {
+  padding: 4rem 8rem;
   margin: 0;
   height: 100vh;
+  background-image: url("../../../assets/images/bg-img-chatgroup.png");
+  background-size: contain;
+  display: flex;
+  align-items: center;
   .side-bar {
-    background-color: #29303bd7;
+    border-right: 1px solid #ffffff16;
     .logo {
       cursor: pointer;
       img {
@@ -25,10 +30,6 @@
     }
     .list-rooms {
       .room-detail {
-        padding: 0.5rem;
-        background-color: #29303b;
-        border-radius: 15px;
-        margin-bottom: 1.5rem;
         h2 {
           font-size: 1rem;
           font-weight: 400;
@@ -39,10 +40,11 @@
   .content {
     padding: 0;
     .header {
-      background-color: #29303b;
       opacity: 90%;
       padding: 1rem;
       width: 100%;
+      border-bottom: 1px solid #ffffff16;
+
       h2 {
         font-weight: 500;
         font-size: 1rem;
@@ -59,34 +61,27 @@
     }
     .main-content {
       margin: 0;
-      background-color: #faf1e4;
       .list-msg {
         position: relative;
         margin: 0;
         .msg {
-          padding-top: 1rem;
+          width: 100%;
+          padding-top: 1.5rem;
           height: 70vh;
           overflow-y: scroll;
           .msg-left {
-            .author {
-              color: #29303b88;
-              position: absolute;
-              top: -60%;
-              left: 0%;
-              margin-bottom: 1rem;
-            }
             .text {
               width: 10rem;
               position: relative;
               font-size: 0.8 rem;
               width: fit-content;
-              background-color: #ffffff;
-              border: 1px solid #ba9359;
               border-radius: 5px;
+              overflow-wrap: anywhere;
             }
           }
           .msg-right {
             width: 100%;
+            max-width: 100rem;
             .text {
               position: relative;
               font-size: 0.8 rem;
@@ -94,24 +89,44 @@
               background-color: #ffffff;
               border: 1px solid #ba9359;
               border-radius: 5px;
-            }
-          }
-          .group-input {
-            position: absolute;
-            bottom: 0;
-            input {
-              background-color: #9999998d;
-              padding: 1rem;
-              width: 51rem;
+              overflow-wrap: break-word;
             }
           }
         }
-        .ads {
-          background-color: #eaf2e1;
-          padding: 1rem;
-          border-radius: 10px;
+        .group-input {
+          border-top: 1px solid #ffffff16;
+          width: 100%;
+          bottom: 0;
+          z-index: 1;
+          position: relative;
+
+          input {
+            background-color: #101a33;
+            padding: 1rem;
+            width: 100%;
+          }
+          .pi-send {
+            position: absolute;
+            top: 50%; /* position the top  edge of the element at the middle of the parent */
+            right: 5%; /* position the left edge of the element at the middle of the parent */
+
+            transform: translate(-50%, -50%);
+          }
         }
       }
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1550px) {
+  .msg-right {
+    width: 100%;
+    max-width: 67rem !important;
+    .text {
+      position: relative;
+      font-size: 0.8 rem;
+      border-radius: 5px;
+      overflow-wrap: break-word;
     }
   }
 }

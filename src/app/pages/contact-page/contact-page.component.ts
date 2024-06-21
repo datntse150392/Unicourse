@@ -8,4 +8,8 @@ import { HeaderComponent } from '../../shared/components';
   templateUrl: './contact-page.component.html',
   styleUrl: './contact-page.component.scss',
 })
-export class ContactPageComponent {}
+export class ContactPageComponent {
+  openLink(link: string): void {
+    window.open(`${link}`, '_blank');
+  }
+}

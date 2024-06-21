@@ -513,4 +513,8 @@ export class DefaultComponent implements OnInit, OnDestroy {
     localStorage.removeItem('transaction_code');
     localStorage.removeItem('used_coin');
   }
+
+  openLink(link: string): void {
+    window.open(`${link}`, '_blank');
+  }
 }

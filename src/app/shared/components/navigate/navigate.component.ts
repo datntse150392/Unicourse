@@ -14,8 +14,9 @@ import {
 import { Router } from '@angular/router';
 import { environment } from '../../../../environments/environment.development';
 import { ChatRoomService } from '../../../cores/services/chatRoom.service';
-
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { of } from 'rxjs';
+import { switchMap, catchError } from 'rxjs/operators';
 
 interface DataSearch {
   course: [Course];
@@ -250,28 +251,33 @@ export class NavigateComponent implements OnInit, OnDestroy {
   // Lắng nghe sự kiện gia nhập phòng chat - Đây là sự kiện socket.io
   joinRoom(roomId: string) {
     if (roomId && this.user) {
-      const checkUserInChatRoomSub$ = this.chatRoomService
-        .checkUserInChatRoom(roomId)
-        .subscribe({
-          next: (res: any) => {
-            if (res && res.data === true) {
+      const checkUserInChatRoom$ =
+        this.chatRoomService.checkUserInChatRoom(roomId);
+
+      const subscription = checkUserInChatRoom$
+        .pipe(
+          switchMap((res: any) => {
+            if (res && res.status === 200 && res.data === false) {
+              return this.chatRoomService.joinChatRoom(roomId);
+            } else if (res && res.status === 200 && res.data === true) {
               this.router.navigate([`/chat-room/${roomId}`]);
+              return of(null); // Return an empty observable if no need to join room
             } else {
-              const joinChatRoomSub$ = this.chatRoomService
-                .joinChatRoom(roomId)
-                .subscribe({
-                  next: (res: any) => {
-                    if (res && res.status === 200) {
-                      this.router.navigate([`/chat-room/${roomId}`]);
-                    }
-                  },
-                });
-              this.subscriptions.push(joinChatRoomSub$);
+              return of(null); // Return an empty observable for any other cases
             }
-          },
+          }),
+          catchError((err: any) => {
+            console.log(err);
+            return of(null); // Handle error and return an empty observable
+          })
+        )
+        .subscribe((res: any) => {
+          if (res && res.status === 200) {
+            this.router.navigate([`/chat-room/${roomId}`]);
+          }
         });
-      this.subscriptions.push(checkUserInChatRoomSub$);
-      this.router.navigate([`/chat-room/${roomId}`]);
+
+      this.subscriptions.push(subscription);
     } else {
       this.sharedService.turnOnSignInDialog();
     }

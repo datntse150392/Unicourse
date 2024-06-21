@@ -149,10 +149,10 @@
           *ngFor="let enrollCourse of this.myCourses"
           class="course-card h-auto bg-gray-100 p-4 rounded-lg shadow-md min-w-[300px] max-w-[300px]"
         >
-          <div class="relative pb-16/9">
+          <div class="relative pb-16/9" *ngIf="enrollCourse.course">
             <img
               class="absolute inset-0 w-full h-full object-cover rounded-lg"
-              [src]="enrollCourse.course.thumbnail"
+              [src]="enrollCourse.course && enrollCourse.course.thumbnail"
               alt="Course image"
             />
             <button
@@ -175,10 +175,10 @@
               </svg>
             </button>
           </div>
-          <h2 class="mt-4 text-lg font-semibold">
+          <h2 class="mt-4 text-lg font-semibold" *ngIf="enrollCourse.course">
             {{ enrollCourse.course.title }}
           </h2>
-          <p class="text-gray-500">
+          <p class="text-gray-500" *ngIf="enrollCourse.course">
             {{ enrollCourse.course.lecture.fullName }}
           </p>
         </div>
@@ -413,7 +413,7 @@
   </div>
 
   <!-- Các khoá học đề xuất -->
-  <div
+  <!-- <div
     *ngIf="dataRecommenCourses && dataRecommenCourses.length > 0"
     class="my-learning-unit bg-white rounded-lg shadow-md"
   >
@@ -502,7 +502,8 @@
         </svg>
       </button>
     </div>
-  </div>
+  </div> -->
+
   <!-- Các khóa học có phí-->
   <ng-container *ngIf="this.listCourseFee && this.listCourseFee.length > 0">
     <div class="semester">

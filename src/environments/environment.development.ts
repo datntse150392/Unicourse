@@ -1,7 +1,7 @@
 export const environment = {
   // Chứ biến môi trường ở local
   production: true,
-  // baseUrl: 'http://localhost:4040',
+  // baseUrl: 'https://unicourse-server-test.up.railway.app',
   baseUrl: 'https://unicourse-api-production.up.railway.app',
 
   // Logo
@@ -10,7 +10,7 @@ export const environment = {
 
   // Socket.IO URL
   // 1. Local
-  // socketURL: 'http://localhost:4040',
+  // socketURL: 'https://unicourse-server-test.up.railway.app',
   // 2. Production
   socketURL: 'https://unicourse-api-production.up.railway.app',
 };
