@@ -1,6 +1,6 @@
 <div class="main" *ngIf="userInfo">
-  <p-blockUI [blocked]="blockedUI"
-    ><p-progressSpinner></p-progressSpinner>
+  <p-blockUI [blocked]="blockedUI">
+    <p-progressSpinner></p-progressSpinner>
   </p-blockUI>
   <div
     class="rounded-lg grid grid-cols-4 w-full opacity-100 drop-shadow-sm backdrop-opacity-10 backdrop-invert bg-[#142d55a9]"
@@ -11,7 +11,7 @@
           <div class="flex flex-row items-center gap-2">
             <img
               class="w-2 rounded-full"
-              src="{{ userInfo.profile_image }}"
+              [src]="userInfo.profile_image"
               alt="Rounded avatar"
             />
             <h2 class="text-sm m-0 p-0">{{ userInfo.fullName }}</h2>
@@ -51,7 +51,6 @@
                   >Cài đặt tài khoản</a
                 >
               </li>
-
               <li>
                 <a
                   href="#"
@@ -61,15 +60,6 @@
               </li>
             </ul>
           </div>
-          <!-- <img
-            (click)="LeaveRoom()"
-            width="40"
-            height="40"
-            src="https://img.icons8.com/ios/40/circled-left--v1.png"
-            alt="circled-left--v1"
-            pTooltip="Trở về trang chủ"
-            [ngStyle]="{ cursor: 'pointer' }"
-          /> -->
         </div>
         <span class="p-input-icon-left search mb-3 w-full p-3">
           <i class="pi pi-search text-white pl-4"></i>
@@ -101,7 +91,6 @@
       class="content col-span-3 flex flex-col w-full"
     >
       <div class="header flex flex-row items-center justify-between">
-        <!-- Title Room -->
         <div class="title-room flex flex-row items-center gap-2">
           <img
             width="40"
@@ -110,21 +99,16 @@
             alt="room"
           />
           <div class="flex flex-col pl-2">
-            <h2 class="text-sm font-bold p-0 m-0">
-              {{ chatRoomDetail.name }}
-            </h2>
+            <h2 class="text-sm font-bold p-0 m-0">{{ chatRoomDetail.name }}</h2>
             <span
               class="pt-1 text-sm text-gray-500 whitespace-pre-line dark:text-gray-400"
               >Hỏi đáp cùng SE</span
             >
           </div>
         </div>
-        <!-- Profile -->
         <div class="profile flex flex-row items-center gap-3">
-          <!-- <i class="pi pi-info-circle text-white" style="font-size: 1.5rem"></i> -->
-
           <i
-            (click)="LeaveRoom()"
+            (click)="leaveRoom()"
             class="pi pi-sign-out text-white cursor-pointer"
             style="font-size: 1.5rem"
           ></i>
@@ -136,20 +120,23 @@
             class="msg col-span-3 flex flex-col items-start gap-3"
             #chatContainer
           >
-            <ng-container *ngFor="let message of chatRoomDetail.messages">
+            <ng-container
+              *ngFor="
+                let message of chatRoomDetail.messages;
+                trackBy: trackByMessageId
+              "
+            >
               <div
                 *ngIf="message.user && message.user._id !== userInfo._id"
                 class="msg-left flex flex-row items-center justify-normal mb-4"
               >
                 <p-avatar
-                  image="{{ message.user.profile_image }}"
+                  [image]="message.user.profile_image"
                   styleClass="mr-2"
                   size="normal"
                   shape="circle"
                 ></p-avatar>
-
-                <!-- Hiển thị nội dung tin nhắn -->
-                <div class="">
+                <div>
                   <p class="text-white text-sm">{{ message.user.fullName }}</p>
                   <p
                     class="break-words min-w-[10rem] max-w-[40%] p-2 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700"
@@ -162,7 +149,6 @@
                 *ngIf="message.user && message.user._id === userInfo._id"
                 class="msg-right flex flex-row items-center justify-end pr-4 mb-2"
               >
-                <!-- Hiển thị nội dung tin nhắn -->
                 <p
                   class="break-words min-w-[10rem] max-w-[40%] p-2 border-gray-200 bg-gray-100 rounded-xl rounded-tr-none dark:bg-gray-700"
                 >
@@ -173,15 +159,15 @@
           </div>
           <div class="group-input p-4 m-0">
             <input
-              [(ngModel)]="this.message"
-              (keyup.enter)="sendMessage(this.message)"
+              [(ngModel)]="message"
+              (keyup.enter)="sendMessage(message)"
               class="pr-4 rounded-lg text-white"
               placeholder="Mời bạn nhập tin nhắn ..."
               type="text"
               pInputText
             />
             <i
-              (click)="sendMessage(this.message)"
+              (click)="sendMessage(message)"
               class="cursor-pointer pi pi-send text-white"
               style="font-size: 1.2rem"
               pTooltip="Gửi tin nhắn"
