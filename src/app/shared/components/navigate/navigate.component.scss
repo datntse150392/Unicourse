@@ -1,0 +1,152 @@
+:host ::ng-deep {
+  .p-megamenu-submenu-header {
+    display: flex;
+    color: #25a8ff;
+    font-weight: 900;
+  }
+  .p-megamenu-panel {
+    margin-left: 5rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+  }
+  .p-megamenu {
+    padding: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    font-weight: 700;
+  }
+  .p-menuitem-content .p-menuitem-text {
+    color: rgba(0, 0, 0, 0.7);
+    display: flex;
+  }
+  .p-menuitem-content {
+    a {
+      width: 8.5rem;
+    }
+  }
+}
+
+.nav-info {
+  border-bottom: 1px solid #3333;
+  margin-bottom: 2%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  z-index: 100;
+  .group-logo {
+    padding: 1% 5%;
+    padding-bottom: 0.5rem;
+    .group-contact {
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.8);
+        margin-right: 0.5rem;
+        padding-right: 0.5rem;
+        cursor: pointer;
+      }
+      p:nth-child(1),
+      p:nth-child(2) {
+        border-right: 1px solid #3333;
+      }
+    }
+  }
+  .nav-left {
+    width: 160vh !important;
+    padding: 0% 5%;
+    margin: 1% 0%;
+    gap: 10px;
+    .img-logo {
+      width: 3rem;
+      margin-right: 1rem;
+    }
+    .nav-items {
+      width: 120vh;
+      .nav-item {
+        border-radius: 5px;
+        position: relative; /* Cho phép absolute positioning bên trong .nav-item */
+        padding: 1.5%;
+        color: rgba(0, 0, 0, 0.7);
+        font-weight: 500;
+        cursor: pointer;
+        overflow: hidden; /* Giữ cho pseudo-element không vượt ra ngoài .nav-item */
+        &:hover {
+          color: #000;
+          border-radius: 5px;
+          font-weight: 700;
+          background-color: #e9ecef;
+          &::before {
+            width: 100%; /* Mở rộng pseudo-element ra toàn bộ chiều rộng khi hover */
+          }
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0%; /* Bắt đầu từ chiều rộng 0 */
+          height: 2px; /* Đặt chiều cao của border mong muốn */
+          background: #a080f884; /* Màu của border */
+          transition: width 0.8s ease-in-out; /* Hiệu ứng mượt mà chạy từ 0 đến 100% chiều rộng */
+        }
+      }
+    }
+
+    .search {
+      width: 30rem;
+
+      input {
+        width: 100%;
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        border: 1px solid #3333;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+  .nav-right {
+    padding: 0% 5%;
+    margin-bottom: 0.5%;
+    display: flex;
+    align-items: center;
+    padding: 0% 5%;
+    width: 100%;
+    justify-content: flex-end;
+    .btn-sign-in {
+      width: 9rem;
+      border-radius: 1rem;
+      p {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #000;
+      }
+    }
+  }
+}
+
+.card {
+  .container {
+    .nav-left {
+      .nav-items {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+        .nav-item {
+          width: 7rem;
+          color: rgba(0, 0, 0, 0.8);
+          font-weight: bold;
+          cursor: pointer;
+          &:hover {
+            color: #fff;
+            border-radius: 5px;
+            padding: 5% 0%;
+            background-color: #94a3b8;
+          }
+        }
+      }
+    }
+  }
+}
