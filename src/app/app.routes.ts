@@ -22,6 +22,7 @@ import { CoinBankingComponent } from './pages/coin-banking/coin-banking.componen
 import { FlashcardResultPageComponent } from './pages/flashcard-result-page/flashcard-result-page.component';
 import { TransactionHistoryPageComponent } from './pages/transaction-history-page/transaction-history-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { AboutUsPageComponent } from './pages/about-us-page/about-us-page.component';
 
 export const routes: Routes = [
   {
@@ -75,6 +76,10 @@ export const routes: Routes = [
       {
         path: 'contact-page',
         component: ContactPageComponent,
+      },
+      {
+        path: 'about-us',
+        component: AboutUsPageComponent,
       },
     ],
   },

@@ -164,12 +164,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       {
         name: 'description',
         content:
-          'Unicourse cung cấp các khóa học và lộ trình học tập dành riêng cho sinh viên Đại học FPT. Tìm hiểu ngay tại unicourse.vn!',
+          'Unicourse cung cấp các khóa học và lộ trình học tập dành riêng cho sinh viên Đại học FPT.',
       },
       {
         name: 'keywords',
         content:
-          'Unicourse, unicourse.vn, khóa học, sinh viên ĐH FPT, học tập, lộ trình, lộ trình, unicourse ĐH FPT',
+          'Unicourse, unicourse.vn, khóa học, sinh viên ĐH FPT, học tập, lộ trình, lộ trình, unicourse ĐH FPT, khoá học lập trình, lập trình, ĐH FPT, lộ trình ĐH FPT, unicourse lộ trình học tập, unicourse khóa học, unicourse sinh viên ĐH FPT, unicourse học tập trực tuyến, unicourse học tập online, unicourse học tập từ xa, unicourse học tập ở nhà, unicourse học tập tại nhà, unicourse học tập trực tuyến ĐH FPT, unicourse học tập online ĐH FPT, unicourse học tập từ xa ĐH FPT, unicourse học tập ở nhà ĐH FPT, unicourse học tập tại nhà ĐH FPT, unicourse học tập trực tuyến sinh viên ĐH FPT, unicourse học tập online sinh viên ĐH FPT, unicourse học tập từ xa sinh viên ĐH FPT, unicourse học tập ở nhà sinh viên ĐH FPT, unicourse học tập tại nhà sinh viên ĐH FPT, unicourse học tập trực tuyến lộ trình, unicourse học tập online lộ trình, unicourse học tập từ xa lộ trình, unicourse học tập ở nhà lộ trình, unicourse học tập tại nhà lộ trình, unicourse học tập trực tuyến lộ trình sinh viên ĐH FPT, unicourse học tập online lộ trình sinh viên ĐH FPT, unicourse học tập từ xa lộ trình sinh viên ĐH FPT, unicourse học tập ở nhà lộ trình sinh viên ĐH FPT, unicourse học tập tại nhà lộ trình sinh viên ĐH FPT, unicourse học tập trực tuyến khóa học, unicourse học tập online khóa học, unicourse học tập từ xa khóa học, unicourse học tập ở nhà khóa học, unicourse học tập tại nhà khóa học, unicourse học tập trực tuyến khóa học sinh viên ĐH FPT',
       },
       { name: 'author', content: 'Unicourse Team' },
       {
@@ -185,6 +185,40 @@ export class LandingPageComponent implements OnInit, OnDestroy {
         property: 'og:image',
         content:
           'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FTo%CC%82%CC%89ng%20ho%CC%9B%CC%A3p%20thie%CC%82%CC%81t%20ke%CC%82%CC%81%20banner.jpg?alt=media&token=c9d4ee1a-1ecf-4fa0-a397-0a6c041bf62chttps://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
+      },
+    ]);
+
+    // Các thẻ meta bổ sung để hiển thị thông tin cụ thể như trong ví dụ
+    this.meta.addTags([
+      {
+        name: 'og:rich_snippet',
+        content:
+          'Unicourse nhận học bổng khởi nghiệp từ Trường Đại Học FPT, với giá trị hơn 30 triệu đồng.',
+      },
+      {
+        name: 'og:startup_experience',
+        content:
+          'Unicourse là một dự án khởi nghiệp của sinh viên ĐH FPT, giải quyết các vấn đề học tập cho sinh viên.',
+      },
+      {
+        name: 'og:founder_story',
+        content:
+          'Ý tưởng Unicourse được hình thành từ trải nghiệm thực tế của nhóm sinh viên Infigen, hướng đến việc giải quyết khó khăn trong việc tìm kiếm tài liệu và lộ trình học tập.',
+      },
+      {
+        name: 'og:challenges',
+        content:
+          'Unicourse đối mặt với nhiều thách thức về công nghệ và kinh doanh, nhưng đã vượt qua nhờ sự hỗ trợ từ giảng viên và tinh thần không ngại khó.',
+      },
+      {
+        name: 'og:future_vision',
+        content:
+          'Unicourse đặt mục tiêu trở thành nền tảng học tập trực tuyến hàng đầu tại Việt Nam, với kế hoạch mở rộng đối tượng khách hàng và phát triển trên nhiều nền tảng khác nhau.',
+      },
+      {
+        name: 'og:mvp_release',
+        content:
+          'Bản MVP của Unicourse được công bố vào ngày 28/05/2024, mang lại sự hân hoan cho khách hàng.',
       },
     ]);
     // Scroll smooth lên đầu trang

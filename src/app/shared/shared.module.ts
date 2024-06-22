@@ -42,6 +42,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { KnobModule } from 'primeng/knob';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @NgModule({
   imports: [
@@ -89,6 +90,7 @@ import { KnobModule } from 'primeng/knob';
     RadioButtonModule,
     FontAwesomeModule,
     KnobModule,
+    AnimateOnScrollModule,
   ],
   declarations: [],
   exports: [
@@ -135,6 +137,7 @@ import { KnobModule } from 'primeng/knob';
     FontAwesomeModule,
     KnobModule,
     ImageModule,
+    AnimateOnScrollModule,
   ],
   providers: [GlobalDialogHandlerService],
 })
