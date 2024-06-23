@@ -50,6 +50,7 @@ export interface EnrollCourse {
   progress: number;
   enrolledDate: Date;
   trackProgress: TrackProcess[];
+  completed: boolean;
 }
 
 export interface EnrollCourseUser {
@@ -63,8 +64,8 @@ export interface EnrollCourseUser {
 export interface TrackProcess {
   _id: string;
   courseId: string;
-  position: number;
   chapterTitle: string;
+  track: Track;
   subTrackProgress: TrackStepProcess[];
   completed: boolean;
 
