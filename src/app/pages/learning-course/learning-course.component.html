@@ -1,0 +1,195 @@
+<div class="card">
+  <p-toast></p-toast>
+  <div class="w-full h-full">
+    <header>
+      <div class="nav-left">
+        <img [routerLink]="['/']" class="pi pi-angle-left" src="{{ LOGO }}" />
+        <div class="logo-title">
+          <p *ngIf="course">{{ course.title }}</p>
+        </div>
+      </div>
+      <!-- <div class="nav-right">
+        <div class="container">
+          <i
+            class="pi pi-file"
+            style="
+              font-size: 1rem;
+              color: #45494f;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>Ghi chú</p>
+        </div>
+        <div class="container">
+          <i
+            class="pi pi-info-circle"
+            style="
+              font-size: 1rem;
+              color: #45494f;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>Hỗ trợ</p>
+        </div>
+        <div class="container">
+          <i
+            class="pi pi-chart-pie"
+            style="
+              font-size: 1.2rem;
+              color: #45494f;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>0/{{ course && course.tracks.length }} chương</p>
+        </div>
+      </div> -->
+    </header>
+    <div class="learning-video grid grid-cols-12 gap-2">
+      <div class="video col-span-9">
+        <div class="container">
+          <div *ngIf="isLoadingStep; else videoContent" class="loading-spinner h-full content-center">
+            <!-- Your spinner HTML here -->
+            <div class="text-center">
+              <div role="status">
+                <svg aria-hidden="true" class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                  viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor" />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill" />
+                </svg>
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+          <ng-template #videoContent>
+            <video *ngIf="isDirectVideo()" width="100%" [ngStyle]="{ height: '85vh' }" controls #videoPlayer>
+              <source [src]="videoUrl" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <iframe
+              *ngIf="!isDirectVideo()"
+              width="100%"
+              [ngStyle]="{ height: '85vh' }"
+              [src]="videoUrl"
+              frameborder="0"
+              allowfullscreen
+              style="border: none"
+              id="youtubePlayer"
+            ></iframe>
+          </ng-template>
+        </div>        
+      </div>
+      <ng-container *ngIf="course && course.tracks !== undefined">
+        <div class="course-sidebar col-span-3">
+          <div class="sidebar-container" id="accordion-collapse" data-accordion="collapse">
+            <div *ngFor="let track of course.tracks">
+              <h2 id="accordion-color-heading-{{ track._id }}">
+                <button type="button"
+                  class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                  data-accordion-target="#accordion-collapse-body-1" aria-expanded="true"
+                  aria-controls="accordion-collapse-body-1" [attr.data-accordion-target]="
+                          '#accordion-color-body-' + track._id
+                        " aria-expanded="false" [attr.aria-controls]="'accordion-color-body-' + track._id"
+                  (click)="track.showBody = !track.showBody">
+                  <span class="text-black">{{ track.chapterTitle }}</span>
+                  <svg data-accordion-icon class="w-2 h-2 rotate-180 shrink-0 text-black" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 5 5 1 1 5" />
+                  </svg>
+                </button>
+              </h2>
+              <div *ngIf="track.showBody" id="accordion-color-body-{{ track._id }}">
+                <div class="border border border-gray-100 dark:border-gray-700 dark:bg-gray-900">
+                  <ng-container *ngFor="let step of track.track_steps">
+                    <div *ngIf="this.conntent_url == step.content_url"
+                      class="step-track w-full p-5 flex flex-column gap-2 bg-[#B3E0FF]">
+                      <p (click)="checkCanMoveVideo(step, track)" [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }" class="font-bold">
+                        {{ step.position }}. {{ step.title }}
+                      </p>
+                      <div class="duration flex flex-row items-center gap-2">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="compact-disc"
+                          class="h-5 rotate-180 shrink-0 text-green" role="img" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 512 512">
+                          <path [ngStyle]="{ color: 'rgba(240,81,35,.8)' }" fill="currentColor"
+                            d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM80.72 256H79.63c-9.078 0-16.4-8.011-15.56-17.34C72.36 146 146.5 72.06 239.3 64.06C248.3 63.28 256 70.75 256 80.09c0 8.35-6.215 15.28-14.27 15.99C164.7 102.9 103.1 164.3 96.15 241.4C95.4 249.6 88.77 256 80.72 256zM256 351.1c-53.02 0-96-43-96-95.1s42.98-96 96-96s96 43 96 96S309 351.1 256 351.1zM256 224C238.3 224 224 238.2 224 256s14.3 32 32 32c17.7 0 32-14.25 32-32S273.7 224 256 224z">
+                          </path>
+                        </svg>
+                        <span>{{ convertToHour(step.duration) }}</span>
+                      </div>
+                    </div>
+                    <div *ngIf="this.conntent_url != step.content_url"
+                      class="step-track w-full p-5 flex flex-column gap-2 bg-[#e7e7e7]">
+                      <p (click)="checkCanMoveVideo(step, track)" [ngStyle]="{ 'font-size': '1rem', cursor: 'pointer' }">
+                        {{ step.position }}. {{ step.title }}
+                      </p>
+                      <div class="duration flex flex-row items-center gap-2">
+                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="compact-disc"
+                          class="h-5 rotate-180 shrink-0" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                          <path fill="currentColor"
+                            d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM80.72 256H79.63c-9.078 0-16.4-8.011-15.56-17.34C72.36 146 146.5 72.06 239.3 64.06C248.3 63.28 256 70.75 256 80.09c0 8.35-6.215 15.28-14.27 15.99C164.7 102.9 103.1 164.3 96.15 241.4C95.4 249.6 88.77 256 80.72 256zM256 351.1c-53.02 0-96-43-96-95.1s42.98-96 96-96s96 43 96 96S309 351.1 256 351.1zM256 224C238.3 224 224 238.2 224 256s14.3 32 32 32c17.7 0 32-14.25 32-32S273.7 224 256 224z">
+                          </path>
+                        </svg>
+                        <span>{{ convertToHour(step.duration) }}</span>
+                      </div>
+                    </div>                    
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <footer>
+      <div class="group-btn flex flex-row gap-4">
+        <div
+          *ngIf="this.indexLesson > 0"
+          [routerLink]="[
+            '/learning-course/',
+            this.courseId,
+            this.previousLesson
+          ]"
+          class="btn-left"
+        >
+          <i
+            class="pi pi-angle-left"
+            style="
+              font-size: 1.5rem;
+              color: #0093fc;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+          <p>BÀI TRƯỚC</p>
+        </div>
+        <!-- Btn Next Lesson -->
+
+        <div
+          *ngIf="this.trackSteps.length - 1 > this.indexLesson"
+          [routerLink]="['/learning-course/', this.courseId, this.nextLesson]"
+          class="btn-right bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl"
+        >
+          <p>BÀI TIẾP THEO</p>
+          <i
+            class="pi pi-angle-right"
+            style="
+              font-size: 1.5rem;
+              color: #0093fc;
+              margin-right: 0.5rem;
+              cursor: pointer;
+            "
+          ></i>
+        </div>
+      </div>
+
+      <app-chat-bot class="absolute left-3 bottom-5"></app-chat-bot>
+    </footer>
+  </div>
+</div>
