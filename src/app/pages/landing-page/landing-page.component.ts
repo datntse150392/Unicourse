@@ -5,6 +5,7 @@ import { Subscription, of, forkJoin, catchError } from 'rxjs';
 import {
   CoinService,
   CourseService,
+  FeedbackService,
   ScheduleMeetingService,
   SharedService,
   UserService,
@@ -13,6 +14,7 @@ import {
   Banner,
   CheckingDailyEvent,
   Course,
+  FeedbackModel,
   ScheduleMeeting,
   User,
 } from '../../cores/models';
@@ -50,6 +52,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public selectedCount = 0;
   public selectedInterests: string[] = [];
   public dataRecommenCourses: Course[] = [];
+  public dataFeedbackFiveStar: FeedbackModel[] = [];
 
   public isToggleRegisterScheduleMeeting: boolean = false;
   public isToggleDepositPoint: boolean = false;
@@ -150,13 +153,14 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private readonly meta: Meta,
     private readonly titleService: Title,
     private readonly bannerService: BannerService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly feedbackService: FeedbackService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
     // Cập nhật tiêu đề trang
     this.titleService.setTitle(
-      'Unicourse - Khóa học dành riêng cho sinh viên ĐH FPT'
+      'Unicourse.vn - Khóa Học Trực Tuyến Dành Cho Sinh Viên ĐH FPT'
     );
 
     // Cập nhật các thẻ meta
@@ -164,12 +168,12 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       {
         name: 'description',
         content:
-          'Unicourse cung cấp các khóa học và lộ trình học tập dành riêng cho sinh viên Đại học FPT.',
+          'Unicourse.vn cung cấp các khóa học lập trình trực tuyến chất lượng cao dành cho sinh viên ĐH FPT. Khám phá lộ trình học tập từ xa hiệu quả và tiện lợi ngay tại nhà.',
       },
       {
         name: 'keywords',
         content:
-          'Unicourse, unicourse.vn, khóa học, sinh viên ĐH FPT, học tập, lộ trình, lộ trình, unicourse ĐH FPT, khoá học lập trình, lập trình, ĐH FPT, lộ trình ĐH FPT, unicourse lộ trình học tập, unicourse khóa học, unicourse sinh viên ĐH FPT, unicourse học tập trực tuyến, unicourse học tập online, unicourse học tập từ xa, unicourse học tập ở nhà, unicourse học tập tại nhà, unicourse học tập trực tuyến ĐH FPT, unicourse học tập online ĐH FPT, unicourse học tập từ xa ĐH FPT, unicourse học tập ở nhà ĐH FPT, unicourse học tập tại nhà ĐH FPT, unicourse học tập trực tuyến sinh viên ĐH FPT, unicourse học tập online sinh viên ĐH FPT, unicourse học tập từ xa sinh viên ĐH FPT, unicourse học tập ở nhà sinh viên ĐH FPT, unicourse học tập tại nhà sinh viên ĐH FPT, unicourse học tập trực tuyến lộ trình, unicourse học tập online lộ trình, unicourse học tập từ xa lộ trình, unicourse học tập ở nhà lộ trình, unicourse học tập tại nhà lộ trình, unicourse học tập trực tuyến lộ trình sinh viên ĐH FPT, unicourse học tập online lộ trình sinh viên ĐH FPT, unicourse học tập từ xa lộ trình sinh viên ĐH FPT, unicourse học tập ở nhà lộ trình sinh viên ĐH FPT, unicourse học tập tại nhà lộ trình sinh viên ĐH FPT, unicourse học tập trực tuyến khóa học, unicourse học tập online khóa học, unicourse học tập từ xa khóa học, unicourse học tập ở nhà khóa học, unicourse học tập tại nhà khóa học, unicourse học tập trực tuyến khóa học sinh viên ĐH FPT',
+          'Unicourse, unicourse.vn, khóa học, sinh viên ĐH FPT, học tập, lộ trình, lộ trình, unicourse ĐH FPT, khoá học lập trình, lập trình, ĐH FPT, lộ trình ĐH FPT, unicourse lộ trình học tập, unicourse khóa học, unicourse sinh viên ĐH FPT, unicourse học tập trực tuyến, unicourse học tập online, unicourse học tập từ xa, unicourse học tập ở nhà, unicourse học tập tại nhà, unicourse học tập trực tuyến ĐH FPT, unicourse học tập online ĐH FPT, unicourse học tập từ xa ĐH FPT, unicourse học tập ở nhà ĐH FPT, unicourse học tập tại nhà ĐH FPT, unicourse học tập trực tuyến sinh viên ĐH FPT, unicourse học tập online sinh viên ĐH FPT, unicourse học tập từ xa sinh viên ĐH FPT, unicourse học tập ở nhà sinh viên ĐH FPT, unicourse học tập tại nhà sinh viên ĐH FPT, unicourse học tập trực tuyến lộ trình, unicourse học tập online lộ trình, unicourse học tập từ xa lộ trình, unicourse học tập ở nhà lộ trình, unicourse học tập tại nhà lộ trình, unicourse học tập trực tuyến lộ trình sinh viên ĐH FPT, unicourse học tập online lộ trình sinh viên ĐH FPT, unicourse học tập từ xa lộ trình sinh viên ĐH FPT, unicourse học tập ở nhà lộ trình sinh viên ĐH FPT, unicourse học tập tại nhà lộ trình sinh viên ĐH FPT, unicourse học tập trực tuyến khóa học, unicourse học tập online khóa học, unicourse học tập từ xa khóa học, unicourse học tập ở nhà khóa học, unicourse học tập tại nhà khóa học, unicourse học tập trực tuyến khóa học sinh viên ĐH FPT, unicourse dh fpt, khoa hoc, dh fpt, sinh vien fpt, y tuong khoi nghiep, khoa hoc mien phi, khoa hoc co phi, khoa hoc online, khoa hoc truc tuyen, khoa hoc tu xa, khoa hoc o nha, khoa hoc tai nha, khoa hoc sinh vien fpt, khoa hoc dh fpt, khoa hoc lap trinh, khoa hoc lap trinh online, khoa hoc lap trinh sinh vien fpt, khoa hoc lap trinh dh fpt, khoa hoc lap trinh tu xa, khoa hoc lap trinh o nha, khoa hoc lap trinh tai nha, khoa hoc lap trinh online sinh vien fpt sinh vien fpt, khoa hoc lap trinh tu xa sinh vien fpt, khoa hoc lap trinh o nha sinh vien fpt, khoa hoc lap trinh tai nha sinh vien fpt, khoa hoc lap trinh online dh fpt dh fpt, khoa hoc lap trinh tu xa dh fpt, khoa hoc lap trinh o nha dh fpt, khoa hoc lap trinh tai nha dh fpt, khoa hoc lap trinh online sinh vien dh fpt sinh vien dh fpt, khoa hoc lap trinh tu xa sinh vien dh fpt, khoa hoc lap trinh tai nha sinh vien dh fpt sinh vien dh fpt, khoa hoc lap trinh tu xa sinh vien dh fpt, khoa hoc lap trinh tai nha sinh vien dh fpt, khoa hoc lap trinh truc tuyen sinh vien dh fpt, khoa hoc lap trinh tu xa sinh vien dh fpt, ',
       },
       { name: 'author', content: 'Unicourse Team' },
       {
@@ -367,12 +371,29 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       },
     });
 
+    // Lấy danh sách feedback 5 sao
+    const getFeedbackFiveStarSub$ = this.feedbackService
+      .getFeedbackFiveStar()
+      .subscribe({
+        next: (res: any) => {
+          this.dataFeedbackFiveStar = res.data;
+          // Và chỉ lấy 3 phần tử đầu tiên
+          this.dataFeedbackFiveStar = this.dataFeedbackFiveStar.slice(0, 3);
+
+          console.log('dataFeedbackFiveStar', this.dataFeedbackFiveStar);
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
     this.subscriptions.push(getAllScheduleMeetingsSub$);
     this.subscriptions.push(getAllBannerSub$);
     this.subscriptions.push(getListCourseFeeSub$);
     this.subscriptions.push(getListCourseFreeSub$);
+    this.subscriptions.push(getFeedbackFiveStarSub$);
     this.isBlockUI = false;
   }
 

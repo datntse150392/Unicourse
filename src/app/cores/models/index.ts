@@ -10,3 +10,4 @@ export * from './schedule-meeting.model';
 export * from './quiz.model';
 export * from './banner.model';
 export * from './transaction.model';
+export * from './feedback.model';

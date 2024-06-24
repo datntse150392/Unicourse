@@ -12,3 +12,4 @@ export * from './checking-daily-event.service';
 export * from './schedule-meeting.service';
 export * from './quiz.service';
 export * from './common.service';
+export * from './feedback.service';

@@ -843,67 +843,31 @@
     class="feedback bg-[#D8EFFF] flex flex-column justify-content-center align-items-center"
   >
     <h2>Cảm nhận của học viên về Unicourse?</h2>
-    <div class="user grid flex flex-row">
-      <div class="col-4 text-center">
-        <div class="fb-user p-4">
-          <p-avatar
-            image="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Ficons8-person-100.png?alt=media&token=b286a20f-ba68-4a8b-8b44-c210da1e2875"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-          <h4>Bùi Đức Trí</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-          <p>
-            Các khóa học của Unicourse rất bổ ích với mình. Nhờ các khóa học mà
-            minh đạt được thành tích tốt trong kỳ vừa rồi.
-          </p>
+    <div
+      *ngIf="dataFeedbackFiveStar.length > 0"
+      class="user grid flex flex-row"
+    >
+      <ng-container *ngFor="let feedback of dataFeedbackFiveStar">
+        <div class="col-4 text-center">
+          <div class="fb-user p-4">
+            <p-avatar
+              image="{{ feedback.user_id.profile_image }}"
+              styleClass="mr-2"
+              size="large"
+              shape="circle"
+            ></p-avatar>
+            <h4>{{ feedback.user_id.fullName }}</h4>
+            <p-rating
+              [(ngModel)]="feedback.rating"
+              [readonly]="true"
+              [cancel]="false"
+            ></p-rating>
+            <p>
+              {{ feedback.content }}
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="col-4 text-center">
-        <div class="fb-user-2 p-4">
-          <p-avatar
-            image="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Ficons8-person-100.png?alt=media&token=b286a20f-ba68-4a8b-8b44-c210da1e2875"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-          <h4>Đinh Gia Bảo</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-          <p>
-            Nhờ có khóa học React của Unicourse mà mình đã làm được project cá
-            nhân khá chỉnh chu. Cảm ơn Unicourse rất nhiều.
-          </p>
-        </div>
-      </div>
-      <div class="col-4 text-center">
-        <div class="fb-user p-4">
-          <p-avatar
-            image="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Ficons8-person-100.png?alt=media&token=b286a20f-ba68-4a8b-8b44-c210da1e2875"
-            styleClass="mr-2"
-            size="large"
-            shape="circle"
-          ></p-avatar>
-          <h4>Nguyễn Trung Kiên</h4>
-          <p-rating
-            [(ngModel)]="value"
-            [readonly]="true"
-            [cancel]="false"
-          ></p-rating>
-          <p>
-            Các giảng viên của Unicourse rất nhiệt huyết và giảng dạy rất có
-            tâm.
-          </p>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </div>
