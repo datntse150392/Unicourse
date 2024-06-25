@@ -52,7 +52,7 @@
     }
   }
   .nav-left {
-    width: 160vh !important;
+    width: 150vh !important;
     padding: 0% 5%;
     margin: 1% 0%;
     gap: 10px;
@@ -61,7 +61,7 @@
       margin-right: 1rem;
     }
     .nav-items {
-      width: 130vh;
+      width: 140vh;
       .nav-item {
         border-radius: 5px;
         position: relative; /* Cho phép absolute positioning bên trong .nav-item */
@@ -93,7 +93,7 @@
     }
 
     .search {
-      width: 30rem;
+      width: 20rem;
 
       input {
         width: 100%;
