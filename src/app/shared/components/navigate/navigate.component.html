@@ -6,16 +6,15 @@
   >
     <div class="nav-left w-full flex items-center justify-start">
       <div
+        (click)="navigateToHome()"
+        [ngStyle]="{ cursor: 'pointer' }"
+        class="flex flex-row items-center"
+      >
+        <img class="img-logo" src="{{ Logo }}" alt="Logo" />
+      </div>
+      <div
         class="nav-items flex flex-row justify-start align-items-center text-center"
       >
-        <div
-          (click)="navigateToHome()"
-          [ngStyle]="{ cursor: 'pointer' }"
-          class="flex flex-row items-center"
-        >
-          <img class="img-logo" src="{{ Logo }}" alt="Logo" />
-        </div>
-
         <p (click)="navigateToHome()" class="nav-item">Trang chủ</p>
 
         <p
