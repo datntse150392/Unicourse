@@ -24,6 +24,8 @@ export class NewPostComponent {
   title!: string;
   user!: User;
   items: MenuItem[] | undefined;
+  public suggestions: string[] = [];
+  public isRecommend: boolean = false;
 
   private subscriptions: Subscription[] = [];
   constructor(
@@ -150,5 +152,23 @@ export class NewPostComponent {
       },
     });
     this.subscriptions.push(createBlogSubs$);
+  }
+
+  getSuggestions() {
+    this.isRecommend = true;
+    this.blogService.generateBlogAI(this.title).subscribe({
+      next: (response) => {
+        this.editorContent = response.data;
+        this.isRecommend = false;
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: 'Không thể lấy gợi ý từ AI',
+        });
+        this.isRecommend = false;
+      },
+    });
   }
 }

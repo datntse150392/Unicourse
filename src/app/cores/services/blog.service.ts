@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class BlogService {
@@ -56,6 +56,12 @@ export class BlogService {
       .pipe(catchError(this.handleError));
   }
 
+  // Blog AI
+  generateBlogAI(title: string): Observable<any> {
+    return this.httpClient
+      .post<any>(`${environment.baseUrl}/api/blog/recommend-blog`, { title })
+      .pipe(catchError(this.handleError));
+  }
   private handleError(error: any) {
     // Handle the error appropriately here
     return throwError(() => new Error(error));

@@ -1,59 +1,87 @@
-<p-toast [life]="3000"></p-toast>
-<header>
-  <div routerLink="/" class="header-left">
-    <div class="back-home">
-      <i class="pi pi-angle-left" style="font-size: 1.2rem"></i>
-      <p>QUAY LẠI</p>
+<div class="container">
+  <p-toast [life]="3000"></p-toast>
+  <p-blockUI [blocked]="isRecommend">
+    <div class="flex flex-column align-items-center">
+      <p-progressSpinner ariaLabel="loading" />
+      <p class="text-white font-bold text-2xl">
+        Trợ lý AI đang tiến hành gợi ý bài viết ...
+      </p>
     </div>
-  </div>
-  <div class="header-right flex flex-nowrap items-center">
-    <button
-      *ngIf="editorContent && title; else isPublishable"
-      pButton
-      pRipple
-      label="Xuất bản"
-      class="btn-view-demo p-button-success"
-      (click)="handleCreateBlog()"
-    ></button>
-    <ng-template #isPublishable>
+    >
+  </p-blockUI>
+  <header>
+    <div routerLink="/" class="header-left">
+      <div class="back-home">
+        <i class="pi pi-angle-left" style="font-size: 1.2rem"></i>
+        <p>QUAY LẠI</p>
+      </div>
+    </div>
+    <div class="header-right flex flex-nowrap items-center">
       <button
+        *ngIf="editorContent && title; else isPublishable"
         pButton
         pRipple
         label="Xuất bản"
         class="btn-view-demo p-button-success"
         (click)="handleCreateBlog()"
-        [disabled]="true"
       ></button>
-    </ng-template>
-  </div>
-</header>
-
-<!-- Editor -->
-<div class="editor">
-  <!-- Editor Text -->
-  <div class="gird flex flex-row">
-    <div class="col-6">
-      <input
-        class="title w-full"
-        [(ngModel)]="title"
-        type="text"
-        placeholder="Tiêu đề"
-      />
-
-      <editor
-        [(ngModel)]="editorContent"
-        apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
-        [init]="{ plugins: 'lists link image table code help wordcount' }"
-      ></editor>
+      <ng-template #isPublishable>
+        <button
+          pButton
+          pRipple
+          label="Xuất bản"
+          class="btn-view-demo p-button-success"
+          (click)="handleCreateBlog()"
+          [disabled]="true"
+        ></button>
+      </ng-template>
     </div>
-    <div class="col-6">
-      <h1 class="mb-0" *ngIf="title">{{ title }}</h1>
-      <div
-        [ngStyle]="{ 'word-break': 'break-word' }"
-        class="w-full h-full"
-        *ngIf="editorContent"
-        [innerHTML]="sanitizeContent(editorContent)"
-      ></div>
+  </header>
+
+  <!-- Editor -->
+  <div class="editor">
+    <div class="grid flex flex-row">
+      <div class="col-6">
+        <input
+          class="title bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          [(ngModel)]="title"
+          type="text"
+          placeholder="Tiêu đề"
+        />
+        <p
+          *ngIf="title && title.length > 20"
+          (click)="getSuggestions()"
+          id="helper-text-explanation"
+          class="mt-1 mb-1 text-sm text-gray-500 dark:text-gray-400 cursor-pointer"
+        >
+          <a
+            class="font-medium text-blue-600 hover:underline dark:text-blue-500"
+            >Gợi ý bài viết từ AI, bạn có muốn sử dụng không?</a
+          >.
+        </p>
+
+        <editor
+          class="mt-3"
+          [(ngModel)]="editorContent"
+          apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+          [init]="{ plugins: 'lists link image table code help wordcount' }"
+        ></editor>
+      </div>
+      <div class="col-6">
+        <h1 class="mb-0" *ngIf="title">{{ title }}</h1>
+        <div
+          [ngStyle]="{ 'word-break': 'break-word' }"
+          class="w-full h-full"
+          *ngIf="editorContent"
+          [innerHTML]="sanitizeContent(editorContent)"
+        ></div>
+        <div *ngIf="suggestions.length > 0">
+          <h2>Gợi ý:</h2>
+          <ul>
+            <li *ngFor="let suggestion of suggestions">{{ suggestion }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>
