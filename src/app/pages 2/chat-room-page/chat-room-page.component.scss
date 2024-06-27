@@ -1,0 +1,154 @@
+.main {
+  padding: 4rem 8rem;
+  margin: 0;
+  height: 100vh;
+  background-image: url("../../../assets/images/bg-img-chatgroup.png");
+  background-size: contain;
+  display: flex;
+  align-items: center;
+  .side-bar {
+    border-right: 1px solid #ffffff16;
+    .logo {
+      cursor: pointer;
+      img {
+        width: 8rem;
+      }
+      h2 {
+        font-family: "system ui", sans-serif;
+        font-weight: bold;
+        color: #fff;
+      }
+      padding-right: 2rem;
+    }
+    h2 {
+      font-weight: 500;
+      font-size: 1.3rem;
+      color: #ffffff;
+      text-align: center;
+      margin: 1rem 0rem;
+      margin-bottom: 1.5rem;
+    }
+    .list-rooms {
+      .room-detail {
+        h2 {
+          font-size: 1rem;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .content {
+    padding: 0;
+    .header {
+      opacity: 90%;
+      padding: 1rem;
+      width: 100%;
+      border-bottom: 1px solid #ffffff16;
+      h2 {
+        font-weight: 500;
+        font-size: 1rem;
+        color: #ffffff;
+        text-align: center;
+        margin: 1rem 0rem;
+        margin-bottom: 1.5rem;
+      }
+      .profile {
+        h2 {
+          font-weight: 400;
+        }
+      }
+    }
+    .main-content {
+      width: 100%;
+      margin: 0;
+      .list-msg {
+        width: 100%;
+        position: relative;
+        margin: 0;
+        .msg {
+          width: 100%;
+          padding-top: 1.5rem;
+          height: 70vh;
+          overflow-y: scroll;
+          .msg-left {
+            width: 100%;
+            .text {
+              width: 10rem;
+              position: relative;
+              font-size: 0.8 rem;
+              width: fit-content;
+              border-radius: 5px;
+              overflow-wrap: anywhere;
+            }
+          }
+          .msg-right {
+            width: 100%;
+            max-width: 75rem;
+            .text {
+              position: relative;
+              font-size: 0.8 rem;
+              width: fit-content;
+              background-color: #ffffff;
+              border: 1px solid #ba9359;
+              border-radius: 5px;
+              overflow-wrap: break-word;
+            }
+          }
+        }
+        .group-input {
+          position: relative;
+          border-top: 1px solid #ffffff16;
+          width: 100%;
+          max-width: 75rem;
+          bottom: 0;
+          z-index: 1;
+          input {
+            background-color: #101a33;
+            padding: 1rem;
+            width: 100%;
+          }
+          .pi-send {
+            position: absolute;
+            top: 50%; /* position the top  edge of the element at the middle of the parent */
+            right: 3%; /* position the left edge of the element at the middle of the parent */
+            transform: translate(-50%, -50%);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1550px) {
+  .msg-right {
+    width: 100%;
+    max-width: 67rem !important;
+    .text {
+      position: relative;
+      font-size: 0.8 rem;
+      border-radius: 5px;
+      overflow-wrap: break-word;
+    }
+  }
+  .group-input {
+    width: 100%;
+    max-width: 67rem !important;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1400px) {
+  .msg-right {
+    width: 100%;
+    max-width: 57rem !important;
+    .text {
+      position: relative;
+      font-size: 0.8 rem;
+      border-radius: 5px;
+      overflow-wrap: break-word;
+    }
+  }
+  .group-input {
+    width: 100%;
+    max-width: 57rem !important;
+  }
+}

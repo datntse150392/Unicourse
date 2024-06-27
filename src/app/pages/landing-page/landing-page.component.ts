@@ -158,6 +158,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
+
     // Cập nhật tiêu đề trang
     this.titleService.setTitle(
       'Unicourse.vn - Khóa Học Trực Tuyến Dành Cho Sinh Viên ĐH FPT'
@@ -255,7 +256,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           this.userInfo.interests &&
           this.userInfo.interests.length <= 0
         ) {
-          // this.isToggleSetInterest = true;
+          this.isToggleSetInterest = true;
         } else {
           if (
             this.userInfo &&
@@ -269,7 +270,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
             } else {
               this.dataRecommenCourses = [];
             }
-            // this.getRecommendedCourses(this.userInfo.interests);
           }
         }
         this.getMyCourses();
@@ -379,8 +379,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           this.dataFeedbackFiveStar = res.data;
           // Và chỉ lấy 3 phần tử đầu tiên
           this.dataFeedbackFiveStar = this.dataFeedbackFiveStar.slice(0, 3);
-
-          console.log('dataFeedbackFiveStar', this.dataFeedbackFiveStar);
         },
         error: (err: any) => {
           console.log(err);
@@ -732,7 +730,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       });
     } else {
       this.isBlockUI = true;
-      // this.getRecommendedCourses(this.selectedInterests);
+      this.getRecommendedCourses(this.selectedInterests);
       this.isToggleSetInterest = false;
     }
   }
