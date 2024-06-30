@@ -2,6 +2,33 @@
   <app-header></app-header>
 
   <div class="contact-page-container">
+    <!-- Breachrum Group-->
+    <nav class="flex my-4 px-[5%]" aria-label="Breadcrumb">
+      <ol
+        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+      >
+        <li>
+          <div class="flex flex-row items-center">
+            <a
+              [routerLink]="['/']"
+              ariaCurrentWhenActive="page"
+              class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+              >Trang chủ</a
+            >
+          </div>
+        </li>
+        /
+        <li aria-current="page">
+          <div class="flex items-center">
+            <span
+              class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
+              >Liên hệ</span
+            >
+          </div>
+        </li>
+      </ol>
+    </nav>
+
     <div
       class="fitst-body bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] py-[3rem] flex flex-col items-center justify-center"
     >
@@ -25,12 +52,12 @@
           <div
             class="flex flex-col items-center bg-white max-w-full rounded-lg py-4"
           >
-            <img
-              width="96"
-              height="96"
-              src="https://img.icons8.com/color/96/facebook-messenger--v1.png"
-              alt="facebook-messenger--v1"
-            />
+            <lord-icon
+              src="https://cdn.lordicon.com/kdqzawvm.json"
+              trigger="hover"
+              style="width: 150px; height: 150px"
+            >
+            </lord-icon>
             <p class="text-lg font-semibold text-gray-800">Nhắn tin</p>
             <span class="pb-[1rem]">Chúng tôi sẽ trả lời bạn ngay lập tức</span>
             <button
@@ -48,12 +75,12 @@
           <div
             class="flex flex-col items-center bg-white max-w-full rounded-lg py-4"
           >
-            <img
-              width="96"
-              height="96"
-              src="https://img.icons8.com/fluency/96/gmail-new.png"
-              alt="gmail-new"
-            />
+            <lord-icon
+              src="https://cdn.lordicon.com/nqisoomz.json"
+              trigger="hover"
+              style="width: 150px; height: 150px"
+            >
+            </lord-icon>
             <p class="text-lg font-semibold text-gray-800">Gửi mail</p>
             <span class="pb-[1rem]"
               >Chúng tôi sẽ phản hồi lại nhanh nhất có thể</span
@@ -71,12 +98,12 @@
           <div
             class="flex flex-col items-center bg-white max-w-full rounded-lg py-4"
           >
-            <img
-              width="96"
-              height="96"
-              src="https://img.icons8.com/color/96/00FF0085/apple-phone.png"
-              alt="apple-phone"
-            />
+            <lord-icon
+              src="https://cdn.lordicon.com/lpgbnoeo.json"
+              trigger="hover"
+              style="width: 150px; height: 150px"
+            >
+            </lord-icon>
             <p class="text-lg font-semibold text-gray-800">Gọi điện</p>
             <span class="pb-[1rem]">Trường hợp bạn hỗ trợ nhanh</span>
             <p>+84 94 283 34 63</p>

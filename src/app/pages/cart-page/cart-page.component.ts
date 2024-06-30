@@ -1,4 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { SharedModule } from '../../shared';
 import { HeaderComponent } from '../../shared/components';
 import { CartItemComponent } from './cart-item/cart-item.component';
@@ -26,6 +31,8 @@ import {
   StatusOfPayment,
 } from '../../cores/models/transaction.model';
 import { PayOSService } from '../../cores/services/payOS.service';
+import lottie from 'lottie-web';
+import { defineElement } from '@lordicon/element';
 
 @Component({
   selector: 'app-cart-page',
@@ -39,6 +46,7 @@ import { PayOSService } from '../../cores/services/payOS.service';
   ],
   templateUrl: './cart-page.component.html',
   styleUrl: './cart-page.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CartPageComponent implements OnInit, OnDestroy {
   public user: User | undefined;
@@ -77,6 +85,9 @@ export class CartPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Định nghĩa custom element cho lord-icon
+    defineElement(lottie.loadAnimation);
+
     this.initForm();
   }
 
@@ -191,7 +202,6 @@ export class CartPageComponent implements OnInit, OnDestroy {
       totalAmountBeforeApplyVoucher,
       exchangeRate
     );
-    console.log('amountInEUR ===>', amountInEUR);
     this.payPalConfig = {
       currency: 'EUR',
       clientId: 'sb',
@@ -258,9 +268,6 @@ export class CartPageComponent implements OnInit, OnDestroy {
                 total_new_amount: this.totalAmountBeforeApplyVoucher,
                 voucher_id: this.voucherDetail ? this.voucherDetail._id : null,
               };
-
-              console.log('paymentObject ===>', paymentObject);
-              console.log('transactionCode ===>', transactionCode);
 
               // Xử lí việc call API thanh toán
               const payWithPaypalSub$ = this.transactionService

@@ -43,7 +43,6 @@ export class TransactionHistoryPageComponent implements OnInit, OnDestroy {
         next: (res: any) => {
           if (res && res.status === 200) {
             this.transactionData = res.data;
-            console.log(this.transactionData);
           }
         },
       });

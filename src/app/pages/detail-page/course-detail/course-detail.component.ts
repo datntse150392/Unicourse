@@ -1,4 +1,9 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
 import { SharedModule } from '../../../shared';
 import { Cart, CartItem, Course, User } from '../../../cores/models';
 import {
@@ -16,6 +21,7 @@ import { DialogBroadcastService } from '../../../cores/services/dialog-broadcast
   imports: [SharedModule],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class CourseDetailComponent implements OnDestroy {
   @Input() course!: Course;

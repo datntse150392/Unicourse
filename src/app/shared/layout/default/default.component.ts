@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterComponent, HeaderComponent } from '../../components';
 import { SharedModule } from '../../shared.module';
@@ -19,6 +24,8 @@ import { NewFeed } from '../../../cores/models/new-feed.model';
 import { StatusOfPayment } from '../../../cores/models/transaction.model';
 import { TransactionService } from '../../../cores/services/transaction.service';
 import { User } from '../../../cores/models';
+import lottie from 'lottie-web';
+import { defineElement } from '@lordicon/element';
 
 @Component({
   selector: 'app-default',
@@ -36,6 +43,7 @@ import { User } from '../../../cores/models';
   providers: [AuthService],
   templateUrl: './default.component.html',
   styleUrl: './default.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class DefaultComponent implements OnInit, OnDestroy {
   Logo: string = environment.LOGO;
@@ -59,6 +67,9 @@ export class DefaultComponent implements OnInit, OnDestroy {
     private readonly transactionService: TransactionService
   ) {}
   ngOnInit(): void {
+    // Định nghĩa custom element cho lord-icon
+    defineElement(lottie.loadAnimation);
+
     this.initForm();
 
     // Đăng ký nhận thông báo hiển thị dialog đăng ký

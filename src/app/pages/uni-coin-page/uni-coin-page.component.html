@@ -1,5 +1,32 @@
 <app-header></app-header>
 
+<!-- Breachrum Group-->
+<nav class="flex my-4 px-[5%]" aria-label="Breadcrumb">
+  <ol
+    class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+  >
+    <li>
+      <div class="flex flex-row items-center">
+        <a
+          [routerLink]="['/']"
+          ariaCurrentWhenActive="page"
+          class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+          >Trang chủ</a
+        >
+      </div>
+    </li>
+    /
+    <li aria-current="page">
+      <div class="flex items-center">
+        <span
+          class="w-25 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
+          >Lịch sử giao dịch xu</span
+        >
+      </div>
+    </li>
+  </ol>
+</nav>
+
 <div class="uni-coin-container">
   <!-- Thực hiện việc blockUI khi gọi các API  -->
   <p-blockUI [blocked]="isBlockUI"
@@ -22,29 +49,28 @@
           class="text-xl text-gray-500 italic font-semibold text-center"
         >
           <p>
-            "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm Point
-            bạn nhé!"
+            "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm xu bạn
+            nhé!"
           </p>
         </blockquote>
       </div>
     </section>
-    <!-- Hiển thị Point -->
+    <!-- Hiển thị xu -->
     <div class="body">
       <header>
         <div class="display-coins">
-          <img
-            class="coins-img"
-            width="50"
-            height="50"
-            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-            alt="coins"
-          />
+          <lord-icon
+            src="https://cdn.lordicon.com/jtiihjyw.json"
+            trigger="hover"
+            style="width: 100px; height: 100px"
+          >
+          </lord-icon>
           <p class="coins-text">
-            {{ totalCoin | number : "1.0-0" }} Point đang có
+            {{ totalCoin | number : "1.0-0" }} xu đang có
           </p>
         </div>
         <div class="get-coins" routerLink="/coin-banking">
-          <p class="coins-text">Nạp thêm Point</p>
+          <p class="coins-text">Nạp thêm xu</p>
         </div>
       </header>
 
@@ -63,13 +89,13 @@
               <ng-container *ngIf="item.status === 'active'; else notActive">
                 <div class="history">
                   <div class="his-left">
-                    <img
+                    <lord-icon
                       class="his-img"
-                      width="30"
-                      height="30"
-                      src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                      alt="coins"
-                    />
+                      src="https://cdn.lordicon.com/lxizbtuq.json"
+                      trigger="hover"
+                      style="width: 50px; height: 50px"
+                    >
+                    </lord-icon>
                     <div>
                       <p class="his-text">{{ item.title }}</p>
                       <p class="his-sub-text">{{ item.description }}</p>
@@ -84,13 +110,13 @@
               <ng-template #notActive>
                 <div class="history">
                   <div class="his-left">
-                    <img
+                    <lord-icon
                       class="his-img"
-                      width="30"
-                      height="30"
-                      src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar-coin.png?alt=media&token=ef325a8e-1ff0-4cf6-9391-b0ac30919725"
-                      alt="coins"
-                    />
+                      src="https://cdn.lordicon.com/lxizbtuq.json"
+                      trigger="hover"
+                      style="width: 50px; height: 50px"
+                    >
+                    </lord-icon>
                     <div>
                       <p class="his-text">{{ item.title }}</p>
                       <p class="his-sub-text">{{ item.description }}</p>
@@ -112,15 +138,18 @@
                 [ngClass]="{ 'active-tab': selectedTabIndex === 1 }"
                 class="flex align-items-center gap-2"
               >
-                Nhận Point
+                Nhận xu
               </p>
             </ng-template>
             <div *ngFor="let item of this.listCounsActived" class="history">
               <div class="his-left">
-                <img
+                <lord-icon
                   class="his-img"
-                  src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                />
+                  src="https://cdn.lordicon.com/lxizbtuq.json"
+                  trigger="hover"
+                  style="width: 50px; height: 50px"
+                >
+                </lord-icon>
                 <div>
                   <p class="his-text">{{ item.title }}</p>
                   <p class="his-sub-text">{{ item.description }}</p>
@@ -138,7 +167,7 @@
                 [ngClass]="{ 'active-tab': selectedTabIndex === 2 }"
                 class="flex align-items-center gap-2"
               >
-                Dùng Point
+                Dùng xu
               </p>
             </ng-template>
             <div *ngFor="let item of this.listCoinsUsed" class="history">
@@ -149,7 +178,7 @@
                 />
                 <div>
                   <p class="his-text">{{ item.title }}</p>
-                  <p class="his-sub-text">Sử dụng Point</p>
+                  <p class="his-sub-text">Sử dụng xu</p>
                   <p class="his-sub-text">
                     {{ item.date_used | date : "h:mm a d/M/yy " }}
                   </p>
@@ -174,12 +203,12 @@
         <h1
           class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl"
         >
-          Point của bạn hiện đang là 0
+          xu của bạn hiện đang là 0
         </h1>
         <blockquote
           class="text-xl text-gray-500 italic font-semibold text-center"
         >
-          <p>"Hãy tham gia các hoạt động để nhận thêm Point bạn nhé!"</p>
+          <p>"Hãy tham gia các hoạt động để nhận thêm xu bạn nhé!"</p>
         </blockquote>
       </div>
     </section>

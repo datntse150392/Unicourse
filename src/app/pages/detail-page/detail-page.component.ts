@@ -274,8 +274,6 @@ export class DetailPageComponent implements OnInit, OnDestroy {
 
   showDialogListFeedback(listFeedback: Feedback[]) {
     this.listFeedback = listFeedback;
-    console.log(this.listFeedback);
-
     this.visibleDialogListFeedback = true;
   }
 }

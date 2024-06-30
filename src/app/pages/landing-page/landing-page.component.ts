@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { SharedModule } from '../../shared';
 import { Subscription, of, forkJoin, catchError } from 'rxjs';
@@ -25,6 +30,8 @@ import { switchMap } from 'rxjs/operators';
 import { PayOSService } from '../../cores/services/payOS.service';
 import { Meta, Title } from '@angular/platform-browser';
 import { BannerService } from '../../cores/services/banner.service';
+import lottie from 'lottie-web';
+import { defineElement } from '@lordicon/element';
 
 @Component({
   selector: 'app-landing-page',
@@ -32,6 +39,7 @@ import { BannerService } from '../../cores/services/banner.service';
   imports: [HeaderComponent, FooterComponent, SharedModule],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
   public userInfo!: User;
@@ -237,6 +245,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Định nghĩa custom element cho lord-icon
+    defineElement(lottie.loadAnimation);
+
     this.initForm();
   }
 

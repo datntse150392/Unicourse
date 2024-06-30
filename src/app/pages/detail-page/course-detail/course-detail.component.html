@@ -93,14 +93,15 @@
               </button>
             </ng-container>
             <ng-template #notInWishList>
-              <button
-                (click)="addCourseInWishList()"
-                [ngStyle]="{ width: '20%' }"
-                type="button"
-                class="font-customFont border text-black font-bold text-md px-4 py-3"
-              >
-                <i class="pi pi-heart" style="font-size: 1.2rem"></i>
-              </button>
+              <div class="flex items-center justify-center border px-4 py-3">
+                <lord-icon
+                  (click)="addCourseInWishList()"
+                  src="https://cdn.lordicon.com/etgnxeer.json"
+                  trigger="hover"
+                  style="width: 2rem; height: 2rem"
+                >
+                </lord-icon>
+              </div>
             </ng-template>
           </div>
           <button
@@ -135,14 +136,15 @@
             </button>
           </ng-container>
           <ng-template #notInWishList>
-            <button
-              (click)="addCourseInWishList()"
-              [ngStyle]="{ width: '20%' }"
-              type="button"
-              class="font-customFont border text-black font-bold text-md px-4 py-3 me-2"
-            >
-              <i class="pi pi-heart" style="font-size: 1.2rem"></i>
-            </button>
+            <div class="flex items-center justify-center border px-4 py-3">
+              <lord-icon
+                (click)="addCourseInWishList()"
+                src="https://cdn.lordicon.com/etgnxeer.json"
+                trigger="hover"
+                style="width: 2rem; height: 2rem"
+              >
+              </lord-icon>
+            </div>
           </ng-template>
         </div>
       </ng-template>

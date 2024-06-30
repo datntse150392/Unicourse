@@ -30,7 +30,10 @@
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/saga-blue/theme.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/lottie-web/build/player/lottie.min.js",
+              "node_modules/@lordicon/element/build/lord-icon-element.min.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": false,
             "ssr": false

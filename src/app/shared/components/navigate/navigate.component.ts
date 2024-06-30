@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  CUSTOM_ELEMENTS_SCHEMA,
+} from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { SharedModule } from '../../shared.module';
 import { SharedService } from '../../../cores/services/shared.service';
@@ -17,6 +23,8 @@ import { ChatRoomService } from '../../../cores/services/chatRoom.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { of } from 'rxjs';
 import { switchMap, catchError } from 'rxjs/operators';
+import lottie from 'lottie-web';
+import { defineElement } from '@lordicon/element';
 
 interface DataSearch {
   course: [Course];
@@ -31,6 +39,7 @@ interface DataSearch {
   templateUrl: './navigate.component.html',
   styleUrl: './navigate.component.scss',
   providers: [MessageService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class NavigateComponent implements OnInit, OnDestroy {
   @ViewChild('searchForm') searchForm!: OverlayPanel;
@@ -62,6 +71,9 @@ export class NavigateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // Định nghĩa custom element cho lord-icon
+    defineElement(lottie.loadAnimation);
+
     this.settingUserInfo();
     this.configItemMenu();
     this.initForm();

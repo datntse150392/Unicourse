@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { HeaderComponent } from '../../shared/components';
 import { Coin } from '../../cores/models';
@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
   imports: [SharedModule, HeaderComponent],
   templateUrl: './uni-coin-page.component.html',
   styleUrl: './uni-coin-page.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UniCoinPageComponent {
   public coins: Coin[] = [];

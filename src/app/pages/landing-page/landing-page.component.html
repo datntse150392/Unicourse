@@ -232,15 +232,14 @@
       <div
         class="content left flex flex-column justify-content-center align-items-center"
       >
-        <h3 class="font-bold">Ưu đãi nhận Point</h3>
-        <div class="coin-already">
-          <img
-            width="50"
-            height="50"
-            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-            alt="coins"
-          />
-          <p class="coin-text">{{ getTotalCoin }}</p>
+        <div class="coin-already gap-0">
+          <lord-icon
+            src="https://cdn.lordicon.com/jtiihjyw.json"
+            trigger="hover"
+            style="width: 100px; height: 100px"
+          >
+          </lord-icon>
+          <p class="coin-text">Tổng xu {{ getTotalCoin }}</p>
         </div>
         <div class="day-container">
           <ng-container
@@ -252,12 +251,12 @@
               <div class="day-detail">
                 <div class="form-coin-active">
                   <span>+100</span>
-                  <img
-                    width="30"
-                    height="30"
-                    src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                    alt="coins"
-                  />
+                  <lord-icon
+                    src="https://cdn.lordicon.com/lxizbtuq.json"
+                    trigger="hover"
+                    style="width: 50px; height: 50px"
+                  >
+                  </lord-icon>
                 </div>
 
                 <p class="active-day">Hôm nay</p>
@@ -265,7 +264,7 @@
                   (click)="attendCheckingDailyEvent(event._id)"
                   class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                 >
-                  <p class="m-0">Nhận ngay 100 Point</p>
+                  <p class="m-0">Nhận ngay 100 Xu</p>
                 </div>
               </div>
             </ng-container>
@@ -273,12 +272,12 @@
               <div class="day-detail">
                 <div class="form-coin">
                   <span>+{{ event.coin }}</span>
-                  <img
-                    width="30"
-                    height="30"
-                    src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                    alt="coins"
-                  />
+                  <lord-icon
+                    src="https://cdn.lordicon.com/lxizbtuq.json"
+                    trigger="hover"
+                    style="width: 50px; height: 50px"
+                  >
+                  </lord-icon>
                 </div>
                 <p>Ngày {{ i + 1 }}</p>
               </div>
@@ -291,15 +290,14 @@
       <div
         class="content left flex flex-column justify-content-center align-items-center"
       >
-        <h3 class="font-bold">Ưu đãi nhận Point</h3>
-        <div class="coin-already">
-          <img
-            width="50"
-            height="50"
-            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-            alt="coins"
-          />
-          <p class="coin-text">{{ getTotalCoin | number : "1.0-0" }}</p>
+        <div class="coin-already gap-0">
+          <lord-icon
+            src="https://cdn.lordicon.com/jtiihjyw.json"
+            trigger="hover"
+            style="width: 100px; height: 100px"
+          >
+          </lord-icon>
+          <p class="coin-text">Tổng xu {{ getTotalCoin | number : "1.0-0" }}</p>
           <i
             routerLink="/uni-coins"
             class="pi pi-angle-right"
@@ -317,12 +315,12 @@
               <div class="day-detail">
                 <div class="form-coin-active">
                   <span>+100</span>
-                  <img
-                    width="30"
-                    height="30"
-                    src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                    alt="coins"
-                  />
+                  <lord-icon
+                    src="https://cdn.lordicon.com/lxizbtuq.json"
+                    trigger="hover"
+                    style="width: 100px; height: 100px"
+                  >
+                  </lord-icon>
                 </div>
 
                 <ng-container
@@ -351,7 +349,7 @@
                     (click)="attendCheckingDailyEvent(event._id)"
                     class="btn-take-coin bg-gradient-to-br from-[#5edff5] to-[#9f80f8] hover:bg-gradient-to-bl"
                   >
-                    <p class="m-0">Nhận ngay 100 Point</p>
+                    <p class="m-0">Nhận ngay 100 Xu</p>
                   </div>
                 </ng-template>
               </div>
@@ -363,12 +361,12 @@
                 <div class="day-detail">
                   <div class="form-coin">
                     <span>+{{ event.coin }}</span>
-                    <img
-                      width="30"
-                      height="30"
-                      src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                      alt="coins"
-                    />
+                    <lord-icon
+                      src="https://cdn.lordicon.com/lxizbtuq.json"
+                      trigger="hover"
+                      style="width: 50px; height: 50px"
+                    >
+                    </lord-icon>
                   </div>
                   <ng-container
                     *ngIf="
@@ -395,12 +393,12 @@
                 <div class="day-detail">
                   <div class="form-coin">
                     <span>+{{ event.coin }}</span>
-                    <img
-                      width="30"
-                      height="30"
-                      src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                      alt="coins"
-                    />
+                    <lord-icon
+                      src="https://cdn.lordicon.com/lxizbtuq.json"
+                      trigger="hover"
+                      style="width: 50px; height: 50px"
+                    >
+                    </lord-icon>
                   </div>
                   <p>Ngày {{ i + 1 }}</p>
                 </div>

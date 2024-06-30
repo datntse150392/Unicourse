@@ -4,34 +4,35 @@
   <p-blockUI [blocked]="blockedUI"
     ><p-progressSpinner></p-progressSpinner>
   </p-blockUI>
-  <div class="body-container">
-    <!-- Breachrum Group-->
-    <nav class="flex my-4" aria-label="Breadcrumb">
-      <ol
-        class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
-      >
-        <li>
-          <div class="flex flex-row items-center">
-            <a
-              [routerLink]="['/']"
-              ariaCurrentWhenActive="page"
-              class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
-              >Trang chủ</a
-            >
-          </div>
-        </li>
-        /
-        <li aria-current="page">
-          <div class="flex items-center">
-            <span
-              class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
-              >Giỏ hàng</span
-            >
-          </div>
-        </li>
-      </ol>
-    </nav>
 
+  <!-- Breachrum Group-->
+  <nav class="flex my-4 px-[5%]" aria-label="Breadcrumb">
+    <ol
+      class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
+    >
+      <li>
+        <div class="flex flex-row items-center">
+          <a
+            [routerLink]="['/']"
+            ariaCurrentWhenActive="page"
+            class="mr-1 ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white"
+            >Trang chủ</a
+          >
+        </div>
+      </li>
+      /
+      <li aria-current="page">
+        <div class="flex items-center">
+          <span
+            class="w-20 ms-1 text-sm font-medium text-gray-950 md:ms-2 font-bold"
+            >Giỏ hàng</span
+          >
+        </div>
+      </li>
+    </ol>
+  </nav>
+
+  <div class="body-container">
     <!-- Middle side: Chứa danh sách item giỏ hàng và thanh toán -->
     <div class="flex flex-row h-auto w-full place-content-center">
       <!-- Left side: Chứa danh sách item giỏ hàng -->
@@ -209,12 +210,12 @@
                     >Dùng {{ totalCoin | number : "1.0-0" }}</span
                   >
                   <div class="flex flex-row justify-between items-center gap-1">
-                    <img
-                      width="20"
-                      height="20"
-                      src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Temp%2Fdollar.png?alt=media&token=bfaf0acf-9c25-4c88-89f1-0e7ee63abed0"
-                      alt="coins"
-                    />
+                    <lord-icon
+                      src="https://cdn.lordicon.com/lxizbtuq.json"
+                      trigger="hover"
+                      style="width: 30px; height: 30px"
+                    >
+                    </lord-icon>
                   </div>
                 </div>
                 <span class="text-sm text-gray-500">{{
