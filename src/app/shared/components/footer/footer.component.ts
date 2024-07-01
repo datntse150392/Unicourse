@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { Meta, Title } from '@angular/platform-browser';
+import lottie from 'lottie-web';
+import { defineElement } from '@lordicon/element';
 
 @Component({
   selector: 'app-footer',
@@ -8,6 +10,7 @@ import { Meta, Title } from '@angular/platform-browser';
   imports: [],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class FooterComponent {
   public Logo = environment.LOGO_FOOTER;
@@ -38,5 +41,10 @@ export class FooterComponent {
           'https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2FTo%CC%82%CC%89ng%20ho%CC%9B%CC%A3p%20thie%CC%82%CC%81t%20ke%CC%82%CC%81%20banner.jpg?alt=media&token=c9d4ee1a-1ecf-4fa0-a397-0a6c041bf62chttps://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Baner%2F6.png?alt=media&token=1f9d38c2-782a-4578-8ccd-89386815bd0a',
       },
     ]);
+  }
+
+  ngOnInit() {
+    // Định nghĩa custom element cho lord-icon
+    defineElement(lottie.loadAnimation);
   }
 }

@@ -47,14 +47,19 @@
           class="text-xl text-gray-500 italic font-semibold text-center"
         >
           <p>
-            "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm Point
-            bạn nhé!"
+            "Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm xu bạn
+            nhé!"
           </p>
         </blockquote>
       </div>
     </section>
     <ng-container *ngFor="let data of transactionData">
-      <ng-container *ngIf="data.status === 'PAID'; else failPayment">
+      <ng-container
+        *ngIf="
+          data.status === 'PAID' && data.items_checkout.length > 0;
+          else failPayment
+        "
+      >
         <div class="main-body p-3 bg-gray-100 rounded-md mb-3">
           <div
             class="flex flex-row items-center justify-between pb-3 border-b-2"
@@ -165,7 +170,10 @@
         </div>
       </ng-container>
       <ng-template #failPayment>
-        <div class="main-body p-3 bg-gray-100 rounded-md mb-3">
+        <div
+          *ngIf="data.items_checkout.length > 0"
+          class="main-body p-3 bg-gray-100 rounded-md mb-3"
+        >
           <div
             class="flex flex-row items-center justify-between pb-3 border-b-2"
           >

@@ -406,11 +406,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
           error: (err: any) => {
             setTimeout(() => {
               this.blockedUI = false;
-              this.dialogBroadcastService.broadcastDialog({
-                header: 'Nạp Point',
+              this.dialogBroadcastService.broadcastConfirmationDialog({
+                header: 'Thông báo',
                 message: 'Nạp Point thất bại, mời thử lại sau',
-                type: 'info',
-                display: true,
+                type: 'error',
+                return: false,
+                numberBtn: 1,
               });
               window.history.replaceState(
                 {},
@@ -423,11 +424,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
     } else {
       setTimeout(() => {
         this.blockedUI = false;
-        this.dialogBroadcastService.broadcastDialog({
-          header: 'Nạp Point',
+        this.dialogBroadcastService.broadcastConfirmationDialog({
+          header: 'Thông báo',
           message: 'Nạp Point thất bại, mời thử lại sau',
-          type: 'info',
-          display: true,
+          type: 'error',
+          return: false,
+          numberBtn: 1,
         });
       }, 1000);
     }
@@ -456,11 +458,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
         next: (res: any) => {
           if (res && res.status === 200) {
             setTimeout(() => {
-              this.dialogBroadcastService.broadcastDialog({
-                header: 'Thanh toán',
+              this.dialogBroadcastService.broadcastConfirmationDialog({
+                header: 'Thông báo',
                 message: 'Thanh toán thành công',
-                type: 'info',
-                display: true,
+                type: 'success',
+                return: false,
+                numberBtn: 1,
               });
             }, 1000);
             window.history.replaceState(
@@ -476,11 +479,12 @@ export class DefaultComponent implements OnInit, OnDestroy {
         },
         error: (err: any) => {
           setTimeout(() => {
-            this.dialogBroadcastService.broadcastDialog({
-              header: 'Thanh toán',
+            this.dialogBroadcastService.broadcastConfirmationDialog({
+              header: 'Thông báo',
               message: 'Thanh toán thất bại',
               type: 'error',
-              display: true,
+              return: false,
+              numberBtn: 1,
             });
           }, 1000);
           window.history.replaceState(

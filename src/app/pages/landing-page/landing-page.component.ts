@@ -493,8 +493,6 @@ export class LandingPageComponent implements OnInit, OnDestroy {
                   .getAllDataCheckingDailyEvent()
                   .pipe(
                     catchError((error: any) => {
-                      // Xử lý lỗi nếu có
-
                       // Trả về một giá trị Observable rỗng nếu có lỗi
                       return of(null);
                     })
@@ -532,18 +530,15 @@ export class LandingPageComponent implements OnInit, OnDestroy {
               // Nếu attendCheckingDailyEvent không thành công, hiển thị thông báo lỗi
               this.dialogBroadcastService.broadcastDialog({
                 header: 'Thông báo',
-                message:
-                  'Bạn đã điểm danh sự kiện này rồi, quay lại vào ngày mai nhé!',
+                message: 'Bạn đã điểm danh, quay lại vào ngày mai nhé!',
                 type: 'error',
                 display: true,
               });
-
               this.isBlockUI = false;
             }
           },
           error: (err: any) => {
-            // Xử lý lỗi nếu có
-            // Hiển thị thông báo
+            // Xử lý lỗi nếu có và hiển thị thông báo lỗi
             this.dialogBroadcastService.broadcastConfirmationDialog({
               header: 'Thông báo',
               message: 'Hệ thống hiện tại có vấn đề, mời bạn thử lại',

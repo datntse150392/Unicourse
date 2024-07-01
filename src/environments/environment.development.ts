@@ -5,8 +5,8 @@ export const environment = {
   baseUrl: 'https://unicourse-api-production.up.railway.app',
 
   // Logo
-  LOGO: './assets/images/logo/logoHeader.png',
-  LOGO_FOOTER: './assets/images/logo/logoFooter.png',
+  LOGO: './assets/images/logo/unicourse-logo.webp',
+  LOGO_FOOTER: './assets/images/logo/unicourse-logo-footer.webp',
 
   // Socket.IO URL
   // 1. Local

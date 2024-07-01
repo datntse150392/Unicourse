@@ -20,7 +20,13 @@
           class="flex flex-row items-center gap-2"
         >
           <span class="search p-input-icon-left">
-            <i class="pi pi-search ml-2"></i>
+            <lord-icon
+              class="icon-search"
+              src="https://cdn.lordicon.com/jtkfemwz.json"
+              trigger="hover"
+              style="width: 32px; height: 32px"
+            >
+            </lord-icon>
             <input
               (input)="toggleOverlayForSearch($event)"
               placeholder="Tìm kiếm khóa học"
@@ -174,6 +180,15 @@
       </div>
 
       <ng-container *ngIf="user; else unLogin">
+        <!-- <i
+          (click)="redirectToCart()"
+          class="pi-shopping-cart mr-4 p-text-secondary"
+          pBadge
+          style="font-size: 2rem; cursor: pointer; color: #000"
+          value="{{ lengthOfCartItems }}"
+          severity="danger"
+        ></i> -->
+
         <lord-icon
           (click)="redirectToCart()"
           class="mr-2 p-text-secondary cursor-pointer"

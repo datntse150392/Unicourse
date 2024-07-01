@@ -63,6 +63,12 @@
     }
     .search {
       width: 30rem;
+      display: flex;
+      align-items: center;
+      .icon-search {
+        position: absolute;
+        margin-left: 0.5rem;
+      }
       input {
         width: 100%;
         padding: 0.5rem 2rem;

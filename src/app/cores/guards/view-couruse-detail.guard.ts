@@ -18,25 +18,36 @@ export const viewCouruseDetailGuard: CanActivateFn = (route, state) => {
       const userId = UserInfo._id;
       courseService.getMyCourses(userId).subscribe({
         next: (res: any) => {
-          var course = res.data.find((item: any) => item.course._id === id);
-          if (course) {
-            if (course.trackProgress.length > 0 && course.trackProgress[0]) {
-              router.navigate([
-                `/learning-course`,
-                id,
-                course.trackProgress[0].subTrackProgress[0].subTrackId
-                  .content_url,
-              ]);
-            } else {
-              router.navigate(['/']);
-              dialogBroadcastService.broadcastDialog({
-                header: 'Thông báo',
-                message:
-                  'Khóa học đang trong quá trình cập nhật, vui lòng quay lại sau!',
-                type: 'info',
-                display: true,
-              });
+          if (res && res.status === 200) {
+            const course = res.data.find((item: any) => item.course._id === id);
+            if (course) {
+              if (course.trackProgress.length > 0 && course.trackProgress[0]) {
+                router.navigate([
+                  `/learning-course`,
+                  id,
+                  course.trackProgress[0].subTrackProgress[0].subTrackId
+                    .content_url,
+                ]);
+              } else {
+                router.navigate(['/']);
+                dialogBroadcastService.broadcastDialog({
+                  header: 'Thông báo',
+                  message:
+                    'Khóa học đang trong quá trình cập nhật, vui lòng quay lại sau!',
+                  type: 'info',
+                  display: true,
+                });
+              }
             }
+          } else {
+            router.navigate(['/']);
+            dialogBroadcastService.broadcastDialog({
+              header: 'Thông báo',
+              message:
+                'Bạn chưa đăng ký khóa học này, vui lòng đăng ký để tiếp tục!',
+              type: 'info',
+              display: true,
+            });
           }
         },
         error: (err: any) => {
