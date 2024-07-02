@@ -1,0 +1,26 @@
+<div [routerLink]="['/blog/', blog._id]" class="blog-item rounded-lg pb-4">
+  <div class="blog-item__image">
+    <img
+      class="h-[16rem] w-full max-w-full rounded-t-lg"
+      src="{{ blog.thumbnail_url }}"
+      alt="Blog image"
+    />
+  </div>
+  <div class="blog-item__content">
+    <h2 class="blog-item__title">
+      {{ blog.title }}
+    </h2>
+    <div class="blog-item__author flex flex-row items-center justify-between">
+      <div class="blog-item__info flex flex-row items-center gap-2">
+        <img
+          class="blog-item__author-avatar w-[2rem] h-[2rem] rounded-full"
+          src="{{ blog.userId.profile_image }}"
+          alt="Author avatar"
+        />
+        <span class="blog-item__author-name">{{ blog.userId.fullName }}</span>
+      </div>
+
+      <span class="blog-item__read-time">{{ blog.min_read }} phút đọc</span>
+    </div>
+  </div>
+</div>

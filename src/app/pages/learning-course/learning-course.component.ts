@@ -76,13 +76,15 @@ export class LearningCourseComponent implements OnDestroy {
     this.routeActive.paramMap.subscribe((res: any) => {
       this.courseId = res.params.id;
       this.conntent_url = res.params.contennt_url;
-      this.track = this.course?.tracks.find((track: any) =>
+      this.course?.tracks.map((track: any) => {
+        track.showBody = false;
         track.track_steps.find((step: any) => {
           if (step.content_url === this.conntent_url) {
-            return track;
+            track.showBody = true;
+            this.track = track;
           }
-        })
-      );
+        });
+      });
       this.getNextLesson();
       this.getPrevLesson();
       this.mappingVideoUrlWithPlatform(this.trackSteps[this.indexLesson]);
@@ -210,6 +212,20 @@ export class LearningCourseComponent implements OnDestroy {
       this.previousLesson = this.trackSteps[index - 1].content_url;
     }
   }
+
+  handleMoveNextLesson(nextLesson: string) {
+    this.trackProcess.forEach((track: TrackProcess) => {
+        const step = track.subTrackProgress.find((subTrack: TrackStepProcess) => subTrack.subTrackId.content_url === nextLesson);
+        if (step) {
+            const stepItem: any = {
+                ...step.subTrackId,
+                isCompleted: step.completed,
+            };
+            this.checkCanMoveVideo(stepItem, track.track);
+        }
+    });
+}
+
 
   convertToHour = (duration: number): string => {
     const hours = Math.floor(duration / 60);
@@ -351,7 +367,7 @@ export class LearningCourseComponent implements OnDestroy {
 
   checkCanMoveVideo(step: TrackStep, track: Track): void {
     // If the current step is completed, allow navigation
-    if (step.isCompleted) {
+    if (step.isCompleted && this.track) {
       this.router.navigate(['/learning-course', this.courseId, step.content_url]);
       return;
     }

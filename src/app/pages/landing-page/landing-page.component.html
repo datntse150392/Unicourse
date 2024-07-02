@@ -585,7 +585,7 @@
               </div>
             </div>
           </p-overlayPanel>
-          <h3 class="m-0 text-xl text-black">
+          <h3 class="m-0 text-md text-black">
             {{ course.title }}
           </h3>
           <span>{{ course.lecture.fullName }}</span>
@@ -835,6 +835,22 @@
       </div>
     </div>
   </ng-container>
+
+  <!-- Danh sách các bài viết nổi bật -->
+  <div class="list-blog">
+    <h1
+      class="text-3xl mb-[0.5%]"
+      [ngStyle]="{ color: '#242424', 'font-weight': '900' }"
+    >
+      Bài viết nổi bật
+    </h1>
+    <div class="grid grid-cols-4 md:grid-cols-2 gap-4 p-4">
+      <app-blog-item
+        *ngFor="let blog of this.dataBlogs"
+        [blog]="blog"
+      ></app-blog-item>
+    </div>
+  </div>
 
   <!-- Feedback -->
   <div

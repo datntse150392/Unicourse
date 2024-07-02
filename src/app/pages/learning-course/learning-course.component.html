@@ -170,22 +170,11 @@
           <p>BÀI TRƯỚC</p>
         </div>
         <!-- Btn Next Lesson -->
-
-        <div
-          *ngIf="this.trackSteps.length - 1 > this.indexLesson"
-          [routerLink]="['/learning-course/', this.courseId, this.nextLesson]"
-          class="btn-right bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl"
-        >
+        <div *ngIf="trackSteps.length - 1 > indexLesson"
+          (click)="handleMoveNextLesson(nextLesson)"
+          class="btn-right bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl">
           <p>BÀI TIẾP THEO</p>
-          <i
-            class="pi pi-angle-right"
-            style="
-              font-size: 1.5rem;
-              color: #0093fc;
-              margin-right: 0.5rem;
-              cursor: pointer;
-            "
-          ></i>
+          <i class="pi pi-angle-right icon-right"></i>
         </div>
       </div>
 

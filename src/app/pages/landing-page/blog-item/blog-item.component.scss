@@ -1,0 +1,31 @@
+$background-color: #00000008;
+$hover-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+$font-weight-bold: 600;
+
+.blog-item {
+  background: #00000008;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: $background-color;
+    transform: translateY(-5px);
+    box-shadow: $hover-shadow;
+  }
+
+  &__content {
+    padding: 1rem;
+  }
+
+  &__title {
+    font-weight: $font-weight-bold;
+    margin-bottom: 0.5rem;
+  }
+
+  &__author {
+    &-name {
+      font-weight: $font-weight-bold;
+    }
+  }
+}

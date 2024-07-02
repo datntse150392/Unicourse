@@ -8,6 +8,7 @@ import { FooterComponent, HeaderComponent } from '../../shared/components';
 import { SharedModule } from '../../shared';
 import { Subscription, of, forkJoin, catchError } from 'rxjs';
 import {
+  BlogService,
   CoinService,
   CourseService,
   FeedbackService,
@@ -17,6 +18,7 @@ import {
 } from '../../cores/services';
 import {
   Banner,
+  Blog,
   CheckingDailyEvent,
   Course,
   FeedbackModel,
@@ -32,11 +34,12 @@ import { Meta, Title } from '@angular/platform-browser';
 import { BannerService } from '../../cores/services/banner.service';
 import lottie from 'lottie-web';
 import { defineElement } from '@lordicon/element';
+import { BlogItemComponent } from './blog-item/blog-item.component';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, SharedModule],
+  imports: [HeaderComponent, FooterComponent, SharedModule, BlogItemComponent],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -61,6 +64,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
   public selectedInterests: string[] = [];
   public dataRecommenCourses: Course[] = [];
   public dataFeedbackFiveStar: FeedbackModel[] = [];
+  public dataBlogs: Blog[] = [];
 
   public isToggleRegisterScheduleMeeting: boolean = false;
   public isToggleDepositPoint: boolean = false;
@@ -162,7 +166,8 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     private readonly titleService: Title,
     private readonly bannerService: BannerService,
     private readonly userService: UserService,
-    private readonly feedbackService: FeedbackService
+    private readonly feedbackService: FeedbackService,
+    private readonly blogService: BlogService
   ) {
     // Thiết lặp title cho trang
     window.document.title = 'Unicourse - Nền Tảng Học Tập Trực Tuyến';
@@ -388,6 +393,7 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res: any) => {
           this.dataFeedbackFiveStar = res.data;
+
           // Và chỉ lấy 3 phần tử đầu tiên
           this.dataFeedbackFiveStar = this.dataFeedbackFiveStar.slice(0, 3);
         },
@@ -395,6 +401,9 @@ export class LandingPageComponent implements OnInit, OnDestroy {
           console.log(err);
         },
       });
+
+    // Lấy danh sách các bài viết
+    this.getHighlightBlogs();
 
     this.subscriptions.push(checkingDailyEventSub$);
     this.subscriptions.push(getTotalCoinByUserIdSub$);
@@ -781,5 +790,20 @@ export class LandingPageComponent implements OnInit, OnDestroy {
       },
     });
     this.subscriptions.push(getUserSub$);
+  }
+
+  // Hàm thực hiện lấy danh sách blogs
+  getHighlightBlogs() {
+    const highlightBlogsSub$ = this.blogService.getHighLightBlog().subscribe({
+      next: (res: any) => {
+        if (res && res.status === 200) {
+          this.dataBlogs = res.data;
+        }
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+    this.subscriptions.push(highlightBlogsSub$);
   }
 }

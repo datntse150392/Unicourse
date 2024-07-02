@@ -5,10 +5,6 @@
   .p-carousel-indicators {
     display: none;
   }
-  img {
-    border-radius: 10px;
-    object-fit: fit;
-  }
 
   .p-carousel-prev {
     display: none;
@@ -142,7 +138,7 @@
   }
 
   .semester {
-    margin-top: 3%;
+    margin: 3% 0%;
     padding: 0% 5%;
     .title {
       align-items: center;
@@ -223,7 +219,6 @@
 
   .feedback {
     margin: 3% 5%;
-    padding-top: 3%;
     padding-bottom: 6%;
     border-radius: 10px;
     h2 {
@@ -423,6 +418,10 @@
         }
       }
     }
+  }
+
+  .list-blog {
+    padding: 0% 5%;
   }
 }
 
