@@ -227,7 +227,7 @@
   </div>
 
   <!-- Checking Daily -->
-  <div class="checking-daily">
+  <!-- <div class="checking-daily">
     <ng-container *ngIf="!userInfo; else userLogged">
       <div
         class="content left flex flex-column justify-content-center align-items-center"
@@ -408,7 +408,7 @@
         </div>
       </div>
     </ng-template>
-  </div>
+  </div> -->
 
   <!-- Các khoá học đề xuất -->
   <div
@@ -854,7 +854,7 @@
 
   <!-- Feedback -->
   <div
-    class="feedback bg-[#D8EFFF] flex flex-column justify-content-center align-items-center"
+    class="feedback bg-[#D8EFFF] flex flex-column justify-content-center align-items-center py-8"
   >
     <h2>Cảm nhận của học viên về Unicourse?</h2>
     <div
@@ -884,133 +884,188 @@
       </ng-container>
     </div>
   </div>
-</div>
 
-<!-- Modal xác nhận đăng ký lịch giảng -->
-<p-dialog
-  header="Header"
-  [(visible)]="isToggleRegisterScheduleMeeting"
-  [modal]="true"
-  [style]="{ width: '40rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-  *ngIf="scheduleData"
->
-  <ng-template pTemplate="header">
-    <div class="inline-flex align-items-center justify-content-center gap-2">
-      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
-        Xác nhận tham gia
-      </h2>
-    </div>
-  </ng-template>
-
-  <div class="modal-body">
-    <div
-      class="bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] p-4 border-gray-900"
-    >
-      <p class="text-2xl font-bold">{{ scheduleData.title }}</p>
-      <p>HOST: {{ scheduleData.lecture.fullName }}</p>
-      <div class="duration flex flex-row">
-        <p class="time-start mr-2">
-          {{ scheduleData.timeStart | date : "h:mm a" + " -" }}
+  <!-- Download Mobile Application -->
+  <div class="feedback bg-[#D8EFFF] flex flex-col items-center py-4">
+    <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+      <div class="flex flex-col items-center">
+        <h2>Trải nghiệm ngay phiên bản Mobile</h2>
+        <p class="font-semibold text-2xl text-center">
+          Tải, đăng ký và trải nghiệm những tính năng thú vị chỉ có trên ứng
+          dụng
         </p>
-        <p>{{ scheduleData.timeEnd | date : "h:mm a" }}</p>
-        <p class="ml-3">
-          {{ scheduleData.timeStart | date : "EEEE, MMMM d, y" }}
+        <p class="font-semibold text-2xl text-center mb-6">
+          Unicourse - Nền tảng học tập trực tuyến.
+        </p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 37 37"
+          shape-rendering="crispEdges"
+          class="w-96 h-96 mb-4"
+        >
+          <path fill="#ffffff" d="M0 0h37v37H0z" />
+          <path
+            stroke="#000000"
+            d="M4 4.5h7m10 0h3m2 0h7M4 5.5h1m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m1 0h3m2 0h1m5 0h1M4 6.5h1m1 0h3m1 0h1m2 0h2m4 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1M4 7.5h1m1 0h3m1 0h1m2 0h1m4 0h3m1 0h3m1 0h1m1 0h3m1 0h1M4 8.5h1m1 0h3m1 0h1m1 0h3m1 0h2m4 0h2m2 0h1m1 0h3m1 0h1M4 9.5h1m5 0h1m2 0h3m1 0h1m1 0h5m2 0h1m5 0h1M4 10.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M13 11.5h1m1 0h1m1 0h3m1 0h3M4 12.5h1m1 0h1m1 0h1m1 0h1m3 0h2m1 0h1m3 0h2m5 0h1m2 0h1M7 13.5h1m1 0h1m1 0h1m1 0h6m1 0h1m3 0h3m2 0h1m2 0h1M5 14.5h1m1 0h2m1 0h2m2 0h1m6 0h1m3 0h2m1 0h1m1 0h3M4 15.5h3m5 0h1m3 0h2m2 0h2m1 0h1m1 0h2m4 0h1M5 16.5h2m1 0h3m2 0h1m3 0h1m1 0h3m2 0h4m1 0h1m1 0h2M4 17.5h1m2 0h1m4 0h3m1 0h2m3 0h1m2 0h3m2 0h1m2 0h1M4 18.5h1m4 0h4m2 0h4m1 0h3m1 0h2m1 0h1m1 0h1m1 0h2M4 19.5h3m1 0h2m1 0h1m1 0h3m1 0h2m1 0h3m1 0h2m1 0h1m1 0h1m1 0h1M5 20.5h1m1 0h1m2 0h1m2 0h1m1 0h3m1 0h3m1 0h5m1 0h1m1 0h2M5 21.5h1m5 0h1m1 0h3m1 0h2m1 0h1m4 0h2m2 0h2m1 0h1M4 22.5h1m1 0h3m1 0h2m1 0h1m3 0h1m3 0h1m2 0h1m2 0h2m2 0h2M5 23.5h1m2 0h2m1 0h1m4 0h4m1 0h4m4 0h1m1 0h1M4 24.5h1m1 0h1m1 0h3m1 0h2m5 0h3m2 0h5M12 25.5h1m3 0h2m2 0h1m3 0h1m3 0h1m1 0h3M4 26.5h7m3 0h5m4 0h2m1 0h1m1 0h2m1 0h2M4 27.5h1m5 0h1m2 0h6m1 0h3m1 0h1m3 0h2m1 0h2M4 28.5h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h5m1 0h5M4 29.5h1m1 0h3m1 0h1m2 0h1m2 0h1m3 0h1m2 0h1m3 0h2m1 0h3M4 30.5h1m1 0h3m1 0h1m1 0h3m1 0h3m1 0h2m5 0h3m2 0h1M4 31.5h1m5 0h1m2 0h1m2 0h3m2 0h4m2 0h1m3 0h1M4 32.5h7m1 0h1m3 0h1m1 0h4m1 0h3m1 0h3m1 0h2"
+          />
+        </svg>
+
+        <p
+          class="mt-2 bg-gradient-to-br from-green-500 to-teal-600 hover:bg-gradient-to-bl text-white font-semibold py-2 px-6 rounded-lg shadow-md transition duration-300"
+        >
+          Quét mã QR để tải ứng dụng
         </p>
       </div>
-    </div>
 
-    <div>
-      <button
-        (click)="handleRegisterScheduleMeeting()"
-        type="submit"
-        class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      <div
+        class="relative border-gray-800 dark:border-gray-800 bg-gray-800 border-[14px] rounded-[2.5rem] h-[600px] w-[300px]"
       >
-        {{ scheduleData.price | number : "1.0-0" }} Point
-      </button>
+        <div
+          class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-white dark:bg-gray-800"
+        >
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/images%2Fhomescreen.webp?alt=media&token=de48676d-2799-424b-85ba-a63582fca442"
+            class="dark:hidden w-[272px] h-[572px]"
+            alt="Mobile Home Screen"
+          />
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/images%2Fhomescreen.webp?alt=media&token=de48676d-2799-424b-85ba-a63582fca442"
+            class="hidden dark:block w-[272px] h-[572px]"
+            alt="Mobile Home Screen Dark"
+          />
+        </div>
+      </div>
     </div>
   </div>
-</p-dialog>
 
-<!-- Modal nạp điểm -->
-<p-dialog
-  header="Header"
-  [(visible)]="isToggleDepositPoint"
-  [modal]="true"
-  [style]="{ width: '40rem' }"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
->
-  <ng-template pTemplate="header">
-    <div class="inline-flex align-items-center justify-content-center gap-2">
-      <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
-        Có rắc rối rồi!
-      </h2>
-    </div>
-  </ng-template>
+  <!-- Modal xác nhận đăng ký lịch giảng -->
+  <p-dialog
+    header="Header"
+    [(visible)]="isToggleRegisterScheduleMeeting"
+    [modal]="true"
+    [style]="{ width: '40rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    *ngIf="scheduleData"
+  >
+    <ng-template pTemplate="header">
+      <div class="inline-flex align-items-center justify-content-center gap-2">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+          Xác nhận tham gia
+        </h2>
+      </div>
+    </ng-template>
 
-  <div class="modal-body">
-    <p>
-      Rất tiếc, bạn cần thêm
-      {{ scheduleData && scheduleData.price - getTotalCoin | number : "1.0-0" }}
-      Point để thực hiện hành động này.
-    </p>
-
-    <div>
-      <button
-        (click)="handleCreatePaymentLink()"
-        type="submit"
-        class="w-full mt-2 text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    <div class="modal-body">
+      <div
+        class="bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] p-4 border-gray-900"
       >
-        Nạp Point ngay
-      </button>
-    </div>
-  </div>
-</p-dialog>
-
-<!-- Model set interest -->
-
-<div *ngIf="isToggleSetInterest">
-  <p-blockUI [blocked]="isToggleSetInterest">
-    <div class="flex justify-center items-center bg-custom-100">
-      <div class="bg-white px-8 py-6 rounded-lg shadow-lg w-full max-w-4xl">
-        <div class="text-center mb-6">
-          <h2 class="text-2xl font-semibold">Bạn quan tâm đến những gì?</h2>
-          <p class="text-gray-600">
-            Phần này sẽ tùy chỉnh và đề xuất những khoá học phù hợp với bạn
+        <p class="text-2xl font-bold">{{ scheduleData.title }}</p>
+        <p>HOST: {{ scheduleData.lecture.fullName }}</p>
+        <div class="duration flex flex-row">
+          <p class="time-start mr-2">
+            {{ scheduleData.timeStart | date : "h:mm a" + " -" }}
+          </p>
+          <p>{{ scheduleData.timeEnd | date : "h:mm a" }}</p>
+          <p class="ml-3">
+            {{ scheduleData.timeStart | date : "EEEE, MMMM d, y" }}
           </p>
         </div>
-        <div class="grid grid-cols-5 gap-4">
-          <div
-            class="relative interest-card cursor-pointer"
-            *ngFor="let interest of interests"
-            (click)="toggleSelection(interest)"
-            [class.selected]="interest.selected"
-          >
-            <img
-              width="96"
-              height="96"
-              [src]="interest.imgSrc"
-              alt="{{ interest.title }}"
-            />
-            <div class="overlay">{{ interest.title }}</div>
-          </div>
-        </div>
-        <div class="flex justify-center mt-6">
-          <button
-            class="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300"
-            *ngIf="getRemainingSelections() > 0"
-          >
-            Chọn thêm {{ getRemainingSelections() }}
-          </button>
-          <button
-            class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg"
-            (click)="selectMoreInterests()"
-            *ngIf="getRemainingSelections() == 0"
-          >
-            Hoàn thành
-          </button>
-        </div>
+      </div>
+
+      <div>
+        <button
+          (click)="handleRegisterScheduleMeeting()"
+          type="submit"
+          class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          {{ scheduleData.price | number : "1.0-0" }} Point
+        </button>
       </div>
     </div>
-  </p-blockUI>
+  </p-dialog>
+
+  <!-- Modal nạp điểm -->
+  <p-dialog
+    header="Header"
+    [(visible)]="isToggleDepositPoint"
+    [modal]="true"
+    [style]="{ width: '40rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  >
+    <ng-template pTemplate="header">
+      <div class="inline-flex align-items-center justify-content-center gap-2">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">
+          Có rắc rối rồi!
+        </h2>
+      </div>
+    </ng-template>
+
+    <div class="modal-body">
+      <p>
+        Rất tiếc, bạn cần thêm
+        {{
+          scheduleData && scheduleData.price - getTotalCoin | number : "1.0-0"
+        }}
+        Point để thực hiện hành động này.
+      </p>
+
+      <div>
+        <button
+          (click)="handleCreatePaymentLink()"
+          type="submit"
+          class="w-full mt-2 text-white bg-[#97D5FE] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Nạp Point ngay
+        </button>
+      </div>
+    </div>
+  </p-dialog>
+
+  <!-- Model set interest -->
+
+  <!-- <div *ngIf="isToggleSetInterest">
+    <p-blockUI [blocked]="isToggleSetInterest">
+      <div class="flex justify-center items-center bg-custom-100">
+        <div class="bg-white px-8 py-6 rounded-lg shadow-lg w-full max-w-4xl">
+          <div class="text-center mb-6">
+            <h2 class="text-2xl font-semibold">Bạn quan tâm đến những gì?</h2>
+            <p class="text-gray-600">
+              Phần này sẽ tùy chỉnh và đề xuất những khoá học phù hợp với bạn
+            </p>
+          </div>
+          <div class="grid grid-cols-5 gap-4">
+            <div
+              class="relative interest-card cursor-pointer"
+              *ngFor="let interest of interests"
+              (click)="toggleSelection(interest)"
+              [class.selected]="interest.selected"
+            >
+              <img
+                width="96"
+                height="96"
+                [src]="interest.imgSrc"
+                alt="{{ interest.title }}"
+              />
+              <div class="overlay">{{ interest.title }}</div>
+            </div>
+          </div>
+          <div class="flex justify-center mt-6">
+            <button
+              class="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300"
+              *ngIf="getRemainingSelections() > 0"
+            >
+              Chọn thêm {{ getRemainingSelections() }}
+            </button>
+            <button
+              class="bg-green-500 text-white font-bold py-2 px-4 rounded-lg"
+              (click)="selectMoreInterests()"
+              *ngIf="getRemainingSelections() == 0"
+            >
+              Hoàn thành
+            </button>
+          </div>
+        </div>
+      </div>
+    </p-blockUI>
+  </div> -->
 </div>

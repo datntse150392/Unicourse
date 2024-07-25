@@ -92,11 +92,6 @@ export class DefaultComponent implements OnInit, OnDestroy {
     this.subScriptions.push(turnOnSignUpSub);
     this.subScriptions.push(turnOnSignInSub);
 
-    // Kiểm tra local storage có tồn tại thông tin thanh toán cũ hay không? -> Nếu có thì remove
-    if (localStorage.getItem('cart_id')) {
-      this.clearLocalStorage();
-    }
-
     // Check if url has query params
     if (window.location.href.includes('?vnp_Amount')) {
       this.getResponseFromVnPay();
@@ -119,6 +114,11 @@ export class DefaultComponent implements OnInit, OnDestroy {
         }
       },
     });
+
+    // Kiểm tra local storage có tồn tại thông tin thanh toán cũ hay không? -> Nếu có thì remove
+    if (localStorage.getItem('cart_id')) {
+      this.clearLocalStorage();
+    }
 
     this.subScriptions.push(turnOnNewFeedSub$);
   }

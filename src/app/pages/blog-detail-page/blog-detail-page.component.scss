@@ -85,7 +85,7 @@
             right: 0;
             margin-left: 10px;
             align-items: center;
-            border-radius: 10px;
+            border-radius: 5px;
             box-shadow: 0 1px 3px 0 #00000033;
             padding: 2px 4px 2px 2px;
             p {
@@ -125,7 +125,7 @@
 
           /* Dropdown Content (Hidden by Default) */
           .dropdown-content {
-            border-radius: 10px;
+            border-radius: 5px;
             color: #1d2129;
             box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.2);
             padding: 8px 0px;
@@ -192,7 +192,7 @@
 .custome-dislog {
   width: 40rem !important;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 5px;
   max-width: 80vh;
   .header {
     h2 {
