@@ -23,87 +23,89 @@ import { FlashcardResultPageComponent } from './pages/flashcard-result-page/flas
 import { TransactionHistoryPageComponent } from './pages/transaction-history-page/transaction-history-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page.component';
+import { MaintenanceSystemComponent } from './pages/maintenance-system/maintenance-system.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    component: DefaultComponent,
-    children: [
-      { path: '', component: LandingPageComponent },
-      {
-        path: 'course/:id',
-        component: DetailPageComponent,
-        canActivate: [viewCouruseDetailGuard],
-      },
-      {
-        path: 'profile/:id',
-        component: ProfilePageComponent,
-        canActivate: [loginSystemGuard],
-      },
-      { path: 'blog', component: BlogPageComponent },
-      { path: 'blog/:id', component: BlogDetailPageComponent },
-      {
-        path: 'profile/:id/cart',
-        component: CartPageComponent,
-        canActivate: [loginSystemGuard],
-      },
-      {
-        path: 'uni-coins',
-        component: UniCoinPageComponent,
-      },
-      {
-        path: 'flashcard',
-        component: FlashcardPageComponent,
-      },
-      {
-        path: 'flashcard/:id',
-        component: FlashcardDetailPageComponent,
-      },
-      {
-        path: 'flashcard/:id/result',
-        component: FlashcardResultPageComponent,
-      },
-      {
-        path: 'coin-banking',
-        component: CoinBankingComponent,
-        canActivate: [loginSystemGuard],
-      },
-      {
-        path: 'transaction-history',
-        component: TransactionHistoryPageComponent,
-        canActivate: [loginSystemGuard],
-      },
-      {
-        path: 'contact-page',
-        component: ContactPageComponent,
-      },
-      {
-        path: 'about-us',
-        component: AboutUsPageComponent,
-      },
-    ],
-  },
-  {
-    path: 'learning-course/:id/:contennt_url',
-    component: LearningCourseComponent,
-    canActivate: [canLearningCourseGuard],
-  },
-  {
-    path: 'new-post',
-    component: NewPostComponent,
-    canActivate: [loginSystemGuard],
-  },
-  {
-    path: 'setting',
-    component: SettingComponent,
-    canActivate: [loginSystemGuard],
-    children: [{ path: 'personal', component: SettingPersonalComponent }],
-  },
-  {
-    path: 'chat-room/:id',
-    component: ChatRoomPageComponent,
-    canActivate: [loginSystemGuard],
-  },
+  // {
+  //   path: '',
+  //   component: DefaultComponent,
+  //   children: [
+  //     { path: '', component: LandingPageComponent },
+  //     {
+  //       path: 'course/:id',
+  //       component: DetailPageComponent,
+  //       canActivate: [viewCouruseDetailGuard],
+  //     },
+  //     {
+  //       path: 'profile/:id',
+  //       component: ProfilePageComponent,
+  //       canActivate: [loginSystemGuard],
+  //     },
+  //     { path: 'blog', component: BlogPageComponent },
+  //     { path: 'blog/:id', component: BlogDetailPageComponent },
+  //     {
+  //       path: 'profile/:id/cart',
+  //       component: CartPageComponent,
+  //       canActivate: [loginSystemGuard],
+  //     },
+  //     {
+  //       path: 'uni-coins',
+  //       component: UniCoinPageComponent,
+  //     },
+  //     {
+  //       path: 'flashcard',
+  //       component: FlashcardPageComponent,
+  //     },
+  //     {
+  //       path: 'flashcard/:id',
+  //       component: FlashcardDetailPageComponent,
+  //     },
+  //     {
+  //       path: 'flashcard/:id/result',
+  //       component: FlashcardResultPageComponent,
+  //     },
+  //     {
+  //       path: 'coin-banking',
+  //       component: CoinBankingComponent,
+  //       canActivate: [loginSystemGuard],
+  //     },
+  //     {
+  //       path: 'transaction-history',
+  //       component: TransactionHistoryPageComponent,
+  //       canActivate: [loginSystemGuard],
+  //     },
+  //     {
+  //       path: 'contact-page',
+  //       component: ContactPageComponent,
+  //     },
+  //     {
+  //       path: 'about-us',
+  //       component: AboutUsPageComponent,
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: 'learning-course/:id/:contennt_url',
+  //   component: LearningCourseComponent,
+  //   canActivate: [canLearningCourseGuard],
+  // },
+  // {
+  //   path: 'new-post',
+  //   component: NewPostComponent,
+  //   canActivate: [loginSystemGuard],
+  // },
+  // {
+  //   path: 'setting',
+  //   component: SettingComponent,
+  //   canActivate: [loginSystemGuard],
+  //   children: [{ path: 'personal', component: SettingPersonalComponent }],
+  // },
+  // {
+  //   path: 'chat-room/:id',
+  //   component: ChatRoomPageComponent,
+  //   canActivate: [loginSystemGuard],
+  // },
 
-  { path: '**', component: PageNotFoundComponent },
+  // { path: '**', component: PageNotFoundComponent },
+  { path: '**', component: MaintenanceSystemComponent },
 ];

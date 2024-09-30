@@ -1,0 +1,19 @@
+.logo-container {
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 100%;
+    }
+
+    .title {
+        font-size: 32px;
+        line-height: 45px;
+        margin-bottom: 0;
+    }
+}
