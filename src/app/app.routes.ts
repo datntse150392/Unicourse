@@ -24,6 +24,7 @@ import { TransactionHistoryPageComponent } from './pages/transaction-history-pag
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page.component';
 import { MaintenanceSystemComponent } from './pages/maintenance-system/maintenance-system.component';
+import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
 
 export const routes: Routes = [
   // {
@@ -106,6 +107,6 @@ export const routes: Routes = [
   //   canActivate: [loginSystemGuard],
   // },
 
-  // { path: '**', component: PageNotFoundComponent },
+  { path: 'policy', component: PolicyPageComponent },
   { path: '**', component: MaintenanceSystemComponent },
 ];

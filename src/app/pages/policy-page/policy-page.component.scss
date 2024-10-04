@@ -1,0 +1,39 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+
+.policy-container {
+    width: 90%;
+    margin: auto;
+    padding: 3rem 0 0 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    color: $text-black;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+    /* Override inline display styles */
+    span,
+    div {
+        line-height: $line-height-xl;
+        /* Force block display even if inline is applied */
+        white-space: normal;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    img,
+    table,
+    iframe {
+        max-width: 100%;
+        /* Ensure these elements do not overflow the container */
+        height: auto;
+        /* Maintain aspect ratio */
+    }
+}
+
+@media (max-width: 599px) {
+    .policy-container {
+        padding: 1rem 0 0 0;
+    }
+}
