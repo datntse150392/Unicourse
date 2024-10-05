@@ -1,0 +1,50 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.danger-zone {
+    &__title {
+        font-size: $font-size-4xl;
+        font-weight: $font-weight-bold;
+        color: $text-black;
+        margin: 10px 0;
+    }
+
+    &__description {
+        font-size: $font-size-md;
+        color: $text-gray-900;
+        margin-bottom: 30px;
+    }
+
+    &__content {
+        font-size: $font-size-lg;
+        color: $text-black;
+        text-align: justify;
+        line-height: $line-height-xl;
+        margin-bottom: 30px;
+
+        strong {
+            font-weight: $font-weight-bold;
+            color: red;
+        }
+    }
+
+    &__btn {
+        align-items: center;
+        padding: 1rem;
+        background-color: $text-black;
+        border-radius: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+
+        &-icon {
+            font-size: $font-size-2xl;
+            color: white;
+        }
+
+        &-text {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            color: white;
+        }
+    }
+}

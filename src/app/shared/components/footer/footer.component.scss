@@ -1,22 +1,155 @@
-footer {
-  padding: 3% 10% !important;
-  margin: 0 !important;
+$color: #d9d9d9;
+
+.footer {
   background-color: black;
-  color: #a9b3bb !important;
-  h2 {
-    color: white !important;
-    margin-bottom: 0.7rem !important;
+  display: flex;
+  flex-direction: column;
+  padding: 5% 5%;
+
+  &__group_one {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
   }
-  .logo {
-    width: 10rem;
-    margin-bottom: 0.5rem;
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+
+    &-logo {
+      width: 10rem;
+      margin-bottom: 10px;
+    }
+
+    &-phone,
+    &-email,
+    &-address {
+      margin: 5px 0;
+      color: $color;
+    }
   }
-  .info-payment-down-app {
-    border-top: 1px solid #a9b3bb;
-    padding-top: 1rem;
+
+  &__section {
+    &-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    &-item {
+      font-size: 1rem;
+      margin: 5px 0;
+      color: $color;
+    }
   }
-  .info-social {
-    border-top: 1px solid #a9b3bb;
-    padding-top: 1rem;
+
+  &__payment {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+
+    &-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    &-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    &-logo {
+      height: 3rem;
+    }
+  }
+
+  &__headquarters {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+
+    &-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    &-address {
+      font-size: 1rem;
+      color: $color;
+    }
+  }
+
+  &__legal {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &-text {
+      font-size: 1rem;
+      color: $color;
+    }
+
+    &-link {
+      color: #1c80cf;
+      text-decoration: underline;
+
+      &:hover {
+        color: darkblue;
+      }
+    }
+  }
+
+  &__social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    a {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+@media (max-width: 599px) {
+  .footer {
+    padding: 5% 5% 15% 5%;
+    &__group_one {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__payment {
+      &-logo {
+        height: 2rem;
+      }
+    }
+
+    &__legal {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: self-start;
+    }
   }
 }

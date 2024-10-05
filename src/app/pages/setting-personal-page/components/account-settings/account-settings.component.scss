@@ -1,0 +1,60 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.account-settings {
+    &__header {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    &__logo {
+        font-size: 2rem;
+        background-color: $primary-main;
+        border-radius: 50%;
+        padding: 10px;
+        color: #fff;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        font-size: $font-size-4xl;
+        font-weight: $font-weight-bold;
+        color: $text-black;
+        margin: 10px 0;
+    }
+
+    &__description {
+        font-size: $font-size-md;
+        color: $text-gray-900;
+        margin-bottom: 20px;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__menu-item {
+        text-align: left;
+        padding: 10px;
+        border: none;
+        background-color: transparent;
+        font-size: $font-size-md;
+        color: $text-btn-gray-900;
+        cursor: pointer;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+
+        i {
+            margin-right: 2%;
+        }
+
+        &.active,
+        &:hover {
+            background-color: $text-btn-gray-900;
+            color: $text-white;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+<div class="setting-page">
+    <p-toast key="tst"></p-toast>
+    <div class="setting-page__sidebar">
+        <app-account-settings (changeTab)="handleChangeTab($event)"></app-account-settings>
+    </div>
+    <div class="setting-page__content">
+        <!-- DANGER ZONE ZONE -->
+        <ng-container *ngIf="settingTab === 'danger-zone'">
+            <app-danger-zone></app-danger-zone>
+        </ng-container>
+    </div>
+</div>
+<app-footer></app-footer>

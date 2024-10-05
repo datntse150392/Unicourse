@@ -1,0 +1,14 @@
+<div class="account-settings">
+    <div class="account-settings__header">
+        <h2 class="account-settings__title">Cài đặt tài khoản</h2>
+        <p class="account-settings__description">Quản lý cài đặt tài khoản của bạn như thông tin cá nhân, cài đặt bảo mật, quản lý thông báo, v.v.</p>
+    </div>
+    <div class="account-settings__menu">
+        <button (click)="handleChangeTab('danger-zone')" 
+                [ngClass]="{'active': isActive('danger-zone')}" 
+                class="account-settings__menu-item">
+            <i class="pi pi-exclamation-triangle"></i>
+            Đóng tài khoản
+        </button>
+    </div>
+</div>

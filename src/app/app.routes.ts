@@ -25,6 +25,7 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 import { AboutUsPageComponent } from './pages/about-us-page/about-us-page.component';
 import { MaintenanceSystemComponent } from './pages/maintenance-system/maintenance-system.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
+import { SettingPersonalPageComponent } from './pages/setting-personal-page/setting-personal-page.component';
 
 export const routes: Routes = [
   // {
@@ -108,5 +109,6 @@ export const routes: Routes = [
   // },
 
   { path: 'policy', component: PolicyPageComponent },
+  { path: 'user/close-account', component: SettingPersonalPageComponent },
   { path: '**', component: MaintenanceSystemComponent },
 ];
