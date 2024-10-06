@@ -109,6 +109,6 @@ export const routes: Routes = [
   // },
 
   { path: 'policy', component: PolicyPageComponent },
-  { path: 'user/close-account', component: SettingPersonalPageComponent },
+  { path: 'setting/personal', component: SettingPersonalPageComponent },
   { path: '**', component: MaintenanceSystemComponent },
 ];
